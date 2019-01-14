@@ -9,9 +9,9 @@ class MakeRepository extends BaseRepository
     public function getMakenames()
     {
         $makes = Make::all();
-        $makenames = [];
+        $makenames = ['' => 'Make'];
         foreach($makes as $make) {
-            $makenames[] = $make->getName();
+            $makenames[$make->getName()] = $make->getName();
         }
         return $makenames;
     }

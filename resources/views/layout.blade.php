@@ -129,7 +129,7 @@ $isLoggedIn = Auth::user(); ?>
                 @else
                     <li class="nav-item navText"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
                 @endif
-                <li class="nav-item">{!! Form::select('make', ['' => 'Make'], null, ['class' => 'form-control', 'id' => 'nav_form_make']) !!}</li>
+                <li class="nav-item">{!! Form::select('make', $makenames, null, ['class' => 'form-control', 'id' => 'nav_form_make']) !!}</li>
                 <li class="nav-item">{!! Form::select('model', ['' => 'Model'], null, ['class' => 'form-control', 'id' => 'nav_form_model']) !!}</li>
                 <li class="nav-item">{!! Form::text('search', null, ['class' => 'form-control', 'id' => 'nav_form_search', 'placeholder' => 'Search car...']) !!}</li>
                 <li class="nav-item">{!! Form::submit('Go', ['class' => 'btn btn-primary', 'id' => 'nav_form_submit']) !!}</li>
@@ -166,9 +166,7 @@ $isLoggedIn = Auth::user(); ?>
 @endif
 <!--All pages need to know the carbrands, carmodels and whether the page is in development mode.-->
     <script>
-        var isDevEnv = {{ $isDevEnv }};
-        var makenames = {!! json_encode($makenames) !!};
-        var controller = {!! json_encode($controller) !!};
+        var controller = "{{ $controller }}";
     </script>
 
     <!-- Global Site Tag (gtag.js) - Google Analytics -->

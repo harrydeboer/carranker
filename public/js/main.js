@@ -3,11 +3,6 @@ $(document).ready(function ()
     var menuMake = $('#nav_form_make');
     var menuModel = $('#nav_form_model');
 
-    /** Fill the makeselect in the navigation with all the makenames. */
-    for (var index = 0; index <makenames.length; index++) {
-        menuMake.append('<option value="' + makenames[index] + '">' + makenames[index] + '</option>')
-    }
-
     function reCaptchaNavigate()
     {
         if (!$('#reCaptchaScript').length) {
