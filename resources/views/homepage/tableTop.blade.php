@@ -1,0 +1,11 @@
+@if (count($topTrims) !== 0)
+<table id="tableTop" class="table table-striped table-hover">
+    @foreach ($topTrims as $index => $car)
+    <tr class="topRow row"><td class="col-md-2"><span class="numLinkTop">{{ ($index + 1) }}. </span></td>
+        <td class="col-md-8"><div class="linkStyle"><a href="{{ $car->getUrl() }}" class="linkTop">{{ $car->getFullName() }}</a></div></td>
+        <td class="col-md-2"><span class="ratingLinkTop">{{ number_format($car->getRating(), 1) }} <span class="fa fa-star"></span></span></td></tr>
+    @endforeach
+</table>
+@else
+<div class="text-center"><br><br><h3>No cars meet your criteria.</h3><br><br></div>
+@endif

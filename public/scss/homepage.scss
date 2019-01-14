@@ -1,0 +1,199 @@
+@import 'main';
+
+#rankingTheCars {
+  color: #333333;
+  padding-bottom: 25px;
+  font-size: 55pt;
+  font-weight: lighter;
+  text-shadow: 0 1px 0 darkgrey,
+  0 2px 0 darkgrey,
+  0 3px 0 darkgrey,
+  0 4px 0 darkgrey,
+  0 5px 0 darkgrey,
+  0 6px 1px rgba(0,0,0,.1),
+  0 0 5px rgba(0,0,0,.1),
+  0 1px 3px rgba(0,0,0,.3),
+  0 3px 5px rgba(0,0,0,.2),
+  0 5px 10px rgba(0,0,0,.25),
+  0 10px 10px rgba(0,0,0,.2),
+  0 20px 20px rgba(0,0,0,.15);
+  border-bottom: 1px dotted rgba(0,0,0,.1);
+}
+
+/** Slider styling */
+#slideshow {
+  margin-top: 50px;
+}
+
+.carousel-item.active, .carousel-item-left, .carousel-item-next, .carousel-item-prev, .carousel-item-right {
+  display: block;
+}
+
+.carousel-indicators {
+  bottom: 50px;
+}
+
+.carousel-caption {
+  position: static;
+  bottom: 30px;
+  color: black;
+  margin-top: -20px;
+}
+
+@media (min-width: 992px) {
+  .carCarouselImg {
+    width: auto;
+    min-height: 170px !important;
+    max-height: 170px !important;
+  }
+}
+
+/** Top table styling*/
+#topContainer {
+  background-color: rgba(70, 130, 180, 0.6);
+  border-top: 1px dotted #cccccc;
+}
+
+#topCars {
+  z-index: 1;
+  background: white;
+  box-shadow: 12px 0 15px -4px rgba($housecolor-blue-r, $housecolor-blue-g, $housecolor-blue-b, 0.3), -12px 0 8px -4px rgba($housecolor-blue-r, $housecolor-blue-g, $housecolor-blue-b, 0.3);
+}
+
+.linkStyle, .numLinkTop, .ratingLinkTop {
+  font-size: 125%;
+}
+
+.topRow {
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+}
+
+/** Choose preferences styling */
+#choosePreferences {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.button-inline {
+  display: inline;
+}
+
+.button-block {
+  display: block;
+}
+
+.button-inline.collapse, .button-block.collapse {
+  display: none;
+}
+
+.aspectFilter {
+ height: 55px;
+}
+
+.specsChoice {
+  width: 220px;
+  margin-top: 4px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.specsRange {
+  width: 80px;
+}
+
+.collapseChoice, .collapseAspects, .collapseRange {
+  display: none;
+}
+
+#specsRangeTable>tbody>tr>td {
+  border: none;
+}
+
+#aspectsTable {
+  margin-top: 30px;
+}
+
+#specsRangeTable td, #aspectsTable td {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#specsRangeTable .form-group {
+  margin-bottom: 0.5rem;
+}
+
+input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+  margin-top: 5px;
+}
+
+.dropdown-menu label {
+  padding-left: 10px;
+}
+
+.specsRange:focus {
+  background-color: $housecolor-blue;
+  color: white;
+}
+
+.dropdown-menu, .specsRange {
+  background-color: $housecolor-blue;
+  color: white;
+  font-size: 18px;
+}
+
+#buttonsShowFilterReset {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#choices {
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+#specsRangeTable {
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+#filterTopFormReset, #filterTopFormShowAll, #filterTopFormSubmit {
+  width: 150px;
+  padding: 0.5rem 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .specsChoice {
+    width: 160px !important;
+  }
+
+  .specsRange {
+    width: 130px;
+  }
+}
+
+#showMore, #showLess {
+  padding: 0;
+  width: 110px;
+}
+
+/** Recent reviews styling */
+.reviewItem {
+  margin-bottom: 40px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.reviewBody {
+  text-align: left;
+}
+
+.reviewContent {
+  margin-left: 20px;
+}
+
+.reviewImage {
+  padding-right: 20px;
+}

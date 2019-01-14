@@ -1,0 +1,8 @@
+/*
+!.gitignore
+!/plugins
+/plugins/*
+!/plugins/carranker-admin-pages
+!/themes
+/themes/*
+!/themes/carranker-theme

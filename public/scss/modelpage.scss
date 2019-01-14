@@ -1,0 +1,144 @@
+@import 'main';
+
+.spaceUnder {
+  height: 20px;
+}
+
+.fa-star-shadow {
+  text-shadow: 0 0 5px black;
+}
+
+/** Aside styling */
+.generations {
+  margin-bottom: 20px;
+}
+
+#titleTypes {
+  margin-bottom: 13px;
+}
+
+#showModelDialog, #showReviewDialog {
+  width: 175px;
+  font-weight: bold;
+}
+
+.rowRating {
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+}
+
+#loginLink {
+  font-weight: bold;
+}
+
+#ratingTable {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.linkType {
+  text-decoration: underline;
+}
+
+#generationSelect {
+  border-radius: 4px;
+}
+
+#generationSelect:hover {
+  cursor: pointer;
+}
+
+/** View trim  */
+.ratingTrimTable, .specsTrim {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.collapseSpecs {
+  display: none;
+}
+
+.specsTrim {
+  margin-top: 30px;
+}
+
+.toRateTrim {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+@media (min-width: 360px) {
+  .typeInfoContent {
+    width: 360px;
+  }
+}
+
+/** Rating form styling */
+#bodyModalRateForm {
+  padding: 0;
+}
+
+#rating_form_generation, #rating_form_serie, #rating_form_trim {
+  width: 220px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+}
+
+#close-rating-modal {
+  margin-top: 30px;
+  width: 60px;
+  padding: 5px;
+}
+
+#rateForm, .typeInfoContent {
+  margin: 0 auto;
+}
+
+@media (min-width: 990px) {
+  #ratingHeading {
+    margin-right: 10%;
+  }
+}
+
+@media (min-width: 390px) {
+  #rateForm {
+    width: 390px;
+  }
+}
+
+@media (min-width: 400px) {
+  #bodyModalRateForm {
+    padding: 15px;
+  }
+}
+
+/** Thank you styling */
+#thankyouDialog {
+  width: 300px;
+}
+
+#thankyouHeader {
+  background-color: limegreen;
+}
+
+/** Review styling */
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.disabled a {
+  pointer-events: none;
+}
+
+#reviewHeading {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.reviewArticle {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
