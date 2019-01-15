@@ -7,6 +7,8 @@ namespace App\Console\Commands;
 use App\Repositories\MenuRepository;
 use App\Repositories\PageRepository;
 use Illuminate\Console\Command;
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Mail;
 
 class GetCMSData extends Command
 {
@@ -18,7 +20,7 @@ class GetCMSData extends Command
      *
      * @var string
      */
-    protected $signature = 'GetCMSData:getData';
+    protected $signature = 'getcmsdata';
 
     /**
      * The console command description.
@@ -39,11 +41,6 @@ class GetCMSData extends Command
         $this->menuRepository = new MenuRepository();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
         $ch = curl_init();
@@ -96,17 +93,26 @@ class GetCMSData extends Command
 
         curl_close($ch);
 
+        $errors = "";
         if ($httpCode != 200) {
-            throw new \Exception("Error: The Wordpress API is not available");
+            $errors .= "Error: The Wordpress API is not available.";
         }
 
-        $this->pageRepository->syncPagesWithCMS($pagesCMS);
+        $errors .= $this->pageRepository->syncPagesWithCMS($pagesCMS);
 
         if (!isset($menus->navigationHeader) || empty($menus->navigationHeader) ||
             !isset($menus->navigationFooter) || empty($menus->navigationFooter)) {
-            throw new \Exception("Not all the necessary menus not present or empty");
+            $errors .= "Error: Necessary menu(s)/menuitem(s) deleted.";
         }
 
         $this->menuRepository->syncMenusWithCMS($menus);
+
+        if ($errors !== "") {
+            Mail::send('contact.message', ['userMessage' => $errors], function (Message $message) {
+                $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
+                $message->subject('Wordpress api error');
+                $message->to(env('MAIL_USERNAME'));
+            });
+        }
     }
 }

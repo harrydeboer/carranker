@@ -7,17 +7,19 @@ namespace App\Forms;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\ValidationException;
 
 abstract class BaseForm extends Model
 {
-    use ValidatesRequests {
-        validate as validateTrait;
-    }
+    use ValidatesRequests;
 
-    public function validate(?string $token, Request $request)
+    public function validateFull(?string $token, Request $request): bool
     {
-        $this->validateTrait($request, $this->rules(), [], []);
+        try {
+            $this->validate($request, $this->rules(), [], []);
+        } catch (ValidationException $exception) {
+            return false;
+        }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
@@ -30,4 +32,6 @@ abstract class BaseForm extends Model
 
         return $result->success;
     }
+
+    abstract public function rules(): array;
 }

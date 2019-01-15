@@ -37,7 +37,7 @@ class FilterTopForm extends BaseForm
         parent::__construct($attributes);
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'minVotes' => 'required|integer',

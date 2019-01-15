@@ -9,9 +9,7 @@ use App\Repositories\MakeRepository;
 use App\Repositories\MenuRepository;
 use App\Repositories\ModelRepository;
 use App\Repositories\PageRepository;
-use App\Repositories\ProfanityRepository;
 use App\Repositories\TrimRepository;
-use App\Repositories\UserRepository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -26,21 +24,17 @@ class Controller extends BaseController
 
     protected $menuRepository;
     protected $pageRepository;
-    protected $profanityRepository;
     protected $makeRepository;
     protected $modelRepository;
     protected $trimRepository;
-    protected $userRepository;
 
     public function __construct()
     {
         $this->menuRepository = new MenuRepository();
         $this->pageRepository = new PageRepository();
-        $this->profanityRepository = new ProfanityRepository();
         $this->makeRepository = new MakeRepository();
         $this->modelRepository = new ModelRepository();
         $this->trimRepository = new TrimRepository();
-        $this->userRepository = new UserRepository();
         View::share('makenames', $this->makeRepository->getMakenames());
         View::share('metaKeyWords', 'car, cars, ranker, rate, rank, ranking, rating, top, top 20');
         View::share('metaDescription', 'Check out the top 20 of all cars and rate cars yourself.');
@@ -55,7 +49,7 @@ class Controller extends BaseController
     {
         $form = new NavForm($request->all());
 
-        if ($form->validate($form->reCaptchaTokenNavbar, $request)) {
+        if ($form->validateFull($form->reCaptchaTokenNavbar, $request)) {
 
             if ($form->make === null && $form->model === null && $form->search === null) {
                 return redirect('/');

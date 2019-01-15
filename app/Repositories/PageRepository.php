@@ -17,7 +17,7 @@ class PageRepository extends BaseRepository
         return $result;
     }
 
-    public function syncPagesWithCMS($pagesCMS)
+    public function syncPagesWithCMS(array $pagesCMS): string
     {
         $pagesDB = $this->all();
 
@@ -34,7 +34,7 @@ class PageRepository extends BaseRepository
         if (!in_array('login', $namesCMS) || !in_array('register', $namesCMS) ||
             !in_array('contact', $namesCMS) || !in_array('home', $namesCMS) ||
             !in_array('phpinfo', $namesCMS) || !in_array('opcachereset', $namesCMS)) {
-            throw new \Exception("Error: Necessary page(s) deleted");
+            return "Error: Necessary page(s) deleted.";
         }
 
         $creates = array_diff($namesCMS, $namesDB);
@@ -58,5 +58,7 @@ class PageRepository extends BaseRepository
             $page = $this->getByName($deleteName);
             $this->delete($page->getId());
         }
+
+        return "";
     }
 }

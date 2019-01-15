@@ -10,7 +10,6 @@ class MakeController extends Controller
 {
     public function view($makename)
     {
-        $makename = str_replace('_', ' ', $makename);
         $make = $this->makeRepository->getByName($makename);
         $models = $make->getModels();
         $data = [

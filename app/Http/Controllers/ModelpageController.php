@@ -8,7 +8,9 @@ use App\CarSpecs;
 use App\Forms\RatingForm;
 use App\Models\Aspect;
 use App\Repositories\FXRateRepository;
+use App\Repositories\ProfanityRepository;
 use App\Repositories\RatingRepository;
+use App\Repositories\UserRepository;
 use App\Services\TrimService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -20,13 +22,17 @@ class ModelpageController extends Controller
     private $ratingRepository;
     private $fXRateRepository;
     private $trimService;
+    private $profanityRepository;
+    private $userRepository;
 
     public function __construct()
     {
         parent::__construct();
+        $this->profanityRepository = new ProfanityRepository();
         $this->ratingRepository = new RatingRepository();
         $this->fXRateRepository = new FXRateRepository();
         $this->trimService = new TrimService();
+        $this->userRepository = new UserRepository();
     }
 
     public function view($makename, $modelname, Request $request, $trimId='', $page=1)
@@ -45,7 +51,7 @@ class ModelpageController extends Controller
 
         $form = new RatingForm($request->all());
 
-        if ($form->validate($form->reCaptchaToken, $request)) {
+        if ($form->validateFull($form->reCaptchaToken, $request)) {
             $isThankYou = 1;
             $this->rate($form, $model);
         }

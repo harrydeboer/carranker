@@ -12,8 +12,10 @@ class CmsController extends Controller
     {
         $page = $this->pageRepository->getByName($url);
 
-        $data = ['controller' => 'cms', 'title' => $page->title, 'page' => $page];
-
-        return View::make('cms.index')->with($data);
+        return View::make('cms.index')->with([
+            'controller' => 'cms',
+            'title' => $page->title,
+            'page' => $page,
+            ]);
     }
 }

@@ -4,17 +4,26 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Models\Elastic\Make;
+use App\Repositories\Elastic\BaseRepository;
+use App\Repositories\Elastic\MakeRepository;
+use App\Repositories\Elastic\ModelRepository;
+use App\Repositories\Elastic\TrimRepository;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Illuminate\Console\Command;
 
 class IndexCars extends Command
 {
+    private $baseRepository;
+    private $makeRepository;
+    private $modelRepository;
+    private $trimRepository;
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'IndexCars';
+    protected $signature = 'indexcars';
 
     /**
      * The console command description.
@@ -31,19 +40,36 @@ class IndexCars extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->baseRepository = new BaseRepository();
+        $this->makeRepository = new MakeRepository();
+        $this->modelRepository = new ModelRepository();
+        $this->trimRepository = new TrimRepository();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
-        Make::createIndex(null, null);
+        try {
+            $this->makeRepository->deleteIndex();
+            $this->makeRepository->createIndex(null, null);
+            $this->makeRepository->addAllToIndex();
+        } catch (Missing404Exception $e) {
+            $this->makeRepository->reindex();
+        }
 
-        Make::putMapping(true);
+        try {
+            $this->modelRepository->deleteIndex();
+            $this->modelRepository->createIndex(null, null);
+            $this->modelRepository->addAllToIndex();
+        } catch (Missing404Exception $e) {
+            $this->modelRepository->reindex();
+        }
 
-        Make::addAllToIndex();
+        try {
+            $this->trimRepository->deleteIndex();
+            $this->trimRepository->createIndex(null, null);
+            $this->trimRepository->addAllToIndex();
+        } catch (Missing404Exception $e) {
+            $this->trimRepository->reindex();
+        }
     }
 }

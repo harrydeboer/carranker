@@ -51,11 +51,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($this->isHttpException($exception)) {
-            // Grab the HTTP status code from the Exception
-            $status = $exception->getStatusCode();
-        }
-
         View::share('message', $exception->getMessage());
         View::share('controller', 'error');
         View::share('title', 'Error');

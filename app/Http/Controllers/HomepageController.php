@@ -8,6 +8,7 @@ use App\CarSpecs;
 use App\Forms\FilterTopForm;
 use App\Models\Aspect;
 use App\Repositories\RatingRepository;
+use App\Repositories\TrimRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
@@ -19,7 +20,6 @@ class HomepageController extends Controller
     private const numShowMoreLess = 10;
     private const homepageNumReviews = 3;
     private const lengthTopTable = 10;
-
     private $ratingRepository;
 
     public function __construct()
@@ -65,7 +65,7 @@ class HomepageController extends Controller
 
         $form = new FilterTopForm($request->all());
 
-        if ($form->validate($form->reCaptchaToken, $request)) {
+        if ($form->validateFull($form->reCaptchaToken, $request)) {
 
             $specsChoice = CarSpecs::specsChoice();
             $specsRange = CarSpecs::specsRange();

@@ -8,7 +8,7 @@ class RatingForm extends BaseForm
 {
     public $fillable = ['star', 'generation', 'serie', 'trim', 'content', 'reCaptchaToken'];
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'star.*' => 'integer',
@@ -16,7 +16,7 @@ class RatingForm extends BaseForm
             'serie' => 'string',
             'trim' => 'integer',
             'content' => 'string|nullable',
-            'reCaptchaToken' => 'string',
+            'reCaptchaToken' => 'string|required',
         ];
     }
 }

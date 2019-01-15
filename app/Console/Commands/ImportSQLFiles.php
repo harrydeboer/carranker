@@ -33,11 +33,6 @@ class ImportSQLFiles extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
         $sqlFilesDir = dirname(__DIR__, 3) . '/database/sql-files/';

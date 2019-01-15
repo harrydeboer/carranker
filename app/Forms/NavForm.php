@@ -8,13 +8,13 @@ class NavForm extends BaseForm
 {
     public $fillable = ['make', 'model', 'search', 'reCaptchaTokenNavbar'];
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'make' => 'string|nullable',
             'model' => 'string|nullable',
             'search' => 'string|nullable',
-            'reCaptchaTokenNavbar' => 'string',
+            'reCaptchaTokenNavbar' => 'string|required',
         ];
     }
 }

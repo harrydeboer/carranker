@@ -36,7 +36,7 @@
         <div id="preferencesDialog" class="col-md-8 collapse">
             {!! Form::model($filterform, ['route' => ['filterTop'], 'id' => 'filterTopForm']) !!}
             {!! Form::label('minVotes', 'Minimum number of votes:', ['class' => 'collapseChoice control-label']) !!}
-            {!! Form::text('minVotes', old('minVotes'), ['class'=>'collapseChoice form-control', 'id' => 'minVotes', 'required']) !!}
+            {!! Form::number('minVotes', old('minVotes'), ['class'=>'collapseChoice form-control', 'step' => 1, 'id' => 'minVotes', 'required']) !!}
             <div class="row justify-content-center col-md-12">
                 <div id="choices" class="btn-group">
                     @foreach ($specsChoice as $specname => $spec)

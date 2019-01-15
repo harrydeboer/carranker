@@ -6,6 +6,8 @@ namespace App\Console\Commands;
 
 use App\Repositories\FXRateRepository;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Message;
 
 class GetFXRateEuroDollar extends Command
 {
@@ -16,7 +18,7 @@ class GetFXRateEuroDollar extends Command
      *
      * @var string
      */
-    protected $signature = 'GetFXRate:get';
+    protected $signature = 'getfxrate';
 
     /**
      * The console command description.
@@ -31,11 +33,6 @@ class GetFXRateEuroDollar extends Command
         $this->fXRateRepository = new FXRateRepository();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
         $ch = curl_init("https://free.currencyconverterapi.com/api/v5/convert?q=EUR_USD&compact=y");
@@ -51,6 +48,14 @@ class GetFXRateEuroDollar extends Command
             $fxrate = $this->fXRateRepository->getByName('euro/dollar');
             $fxrate->setValue((float) $jsonObj->EUR_USD->val);
             $this->fXRateRepository->update($fxrate);
+        } else {
+
+            Mail::send('contact.message', ['userMessage' => 'The EUR/USD fxrate api is not available.'], function (Message $message)
+            {
+                $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
+                $message->subject('FXRate broke');
+                $message->to(env('MAIL_USERNAME'));
+            });
         }
     }
 }

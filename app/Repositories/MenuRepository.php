@@ -11,7 +11,7 @@ class MenuRepository extends BaseRepository
         return Menu::where('name', $name)->first();
     }
 
-    public function syncMenusWithCMS($menusCMS)
+    public function syncMenusWithCMS(object $menusCMS)
     {
         $pageRepository = new PageRepository();
         $menusDB = $this->all();

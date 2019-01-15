@@ -8,14 +8,14 @@ class ContactForm extends BaseForm
 {
     public $fillable = ['email', 'subject', 'name', 'message', 'reCaptchaToken'];
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'email' => 'required|email',
-            'subject' => 'required',
-            'name' => 'required',
-            'message' => 'required',
-            'reCaptchaToken' => 'string',
+            'subject' => 'string|required',
+            'name' => 'string|required',
+            'message' => 'string|required',
+            'reCaptchaToken' => 'string|required',
         ];
     }
 }

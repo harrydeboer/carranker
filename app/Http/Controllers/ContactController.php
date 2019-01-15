@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Forms\ContactForm;
+use App\Repositories\ProfanityRepository;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
@@ -12,6 +13,14 @@ use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
+    private $profanityRepository;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->profanityRepository = new ProfanityRepository();
+    }
+
     public function view()
     {
         $data = [
@@ -30,11 +39,12 @@ class ContactController extends Controller
     {
         $form = new ContactForm($request->all());
 
-        if ($form->validate($form->reCaptchaToken, $request)) {
+        if ($form->validateFull($form->reCaptchaToken, $request)) {
 
             try {
-                Mail::send('contact.message', ['userMessage' => $form->message], function (Message $message) use ($form) {
-                    $message->from('postmaster@carranker.com', $form->name);
+                Mail::send('contact.message', ['userMessage' => $form->message], function (Message $message) use ($form)
+                {
+                    $message->from(env('MAIL_POSTMASTER_USERNAME'), $form->name);
                     $message->replyTo($form->email, $form->name);
                     $message->subject($form->subject);
                     $message->to(env('MAIL_USERNAME'));
@@ -45,10 +55,6 @@ class ContactController extends Controller
             }
         }
 
-        $data = [
-            'success' => true,
-        ];
-
-        return View::make('contact.mailSend')->with($data);
+        return View::make('contact.mailSend')->with(['success' => true]);
     }
 }
