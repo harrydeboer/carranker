@@ -11,9 +11,9 @@ class BuildupTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->artisan('GetCMSData:getData')->execute();
-        $this->artisan('ImportSQLFiles')->execute();
-        $this->artisan('GetFXRate:get')->execute();
+        $this->artisan('getcmsdata')->execute();
+        $this->artisan('importsqlfiles')->execute();
+        $this->artisan('getfxrate')->execute();
     }
 
     public function testDummy()
