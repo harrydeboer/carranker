@@ -17,6 +17,9 @@ class Make extends Model
     }
 
     protected $mappingProperties = [
+        'id' => [
+            'type' => 'integer',
+        ],
         'name' => [
             'type' => 'text',
             'analyzer' => 'standard'

@@ -49,13 +49,7 @@ class GetFXRateEuroDollar extends Command
             $fxrate->setValue((float) $jsonObj->EUR_USD->val);
             $this->fXRateRepository->update($fxrate);
         } else {
-
-            Mail::send('contact.message', ['userMessage' => 'The EUR/USD fxrate api is not available.'], function (Message $message)
-            {
-                $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
-                $message->subject('FXRate broke');
-                $message->to(env('MAIL_USERNAME'));
-            });
+            throw new \Exception("Api for fxrates not available.");
         }
     }
 }

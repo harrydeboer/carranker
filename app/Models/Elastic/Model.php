@@ -12,6 +12,9 @@ class Model extends Base
     }
 
     protected $mappingProperties = [
+        'id' => [
+            'type' => 'integer',
+        ],
         'make_id' => [
             'type' => 'integer',
         ],
