@@ -6,5 +6,4 @@ namespace App\Repositories\Elastic;
 
 class MakeRepository extends BaseRepository
 {
-
 }

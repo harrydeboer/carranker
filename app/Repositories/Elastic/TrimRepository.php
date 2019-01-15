@@ -6,5 +6,4 @@ namespace App\Repositories\Elastic;
 
 class TrimRepository extends BaseRepository
 {
-
 }

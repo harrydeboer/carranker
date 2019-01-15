@@ -4,8 +4,15 @@ declare(strict_types=1);
 
 namespace App\Models\Elastic;
 
-class Model extends Base
+use App\Models\Aspect;
+use Elasticquent\ElasticquentTrait;
+use Illuminate\Database\Eloquent\Model as BaseModel;
+
+class Model extends BaseModel
 {
+    use ElasticquentTrait;
+    use Aspect;
+
     public function getIndexName()
     {
         return 'models';
