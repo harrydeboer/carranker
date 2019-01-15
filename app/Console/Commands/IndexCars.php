@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\Elastic\BaseRepository;
 use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\ModelRepository;
 use App\Repositories\Elastic\TrimRepository;
@@ -13,7 +12,6 @@ use Illuminate\Console\Command;
 
 class IndexCars extends Command
 {
-    private $baseRepository;
     private $makeRepository;
     private $modelRepository;
     private $trimRepository;
@@ -40,7 +38,6 @@ class IndexCars extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->baseRepository = new BaseRepository();
         $this->makeRepository = new MakeRepository();
         $this->modelRepository = new ModelRepository();
         $this->trimRepository = new TrimRepository();
@@ -48,28 +45,20 @@ class IndexCars extends Command
 
     public function handle()
     {
+        $this->indexOrReindex($this->makeRepository);
+        $this->indexOrReindex($this->modelRepository);
+        $this->indexOrReindex($this->trimRepository);
+    }
+
+    private function indexOrReindex($repository)
+    {
         try {
-            $this->makeRepository->deleteIndex();
-            $this->makeRepository->createIndex(null, null);
-            $this->makeRepository->addAllToIndex();
+            $repository->deleteIndex();
         } catch (Missing404Exception $e) {
-            $this->makeRepository->reindex();
+
         }
 
-        try {
-            $this->modelRepository->deleteIndex();
-            $this->modelRepository->createIndex(null, null);
-            $this->modelRepository->addAllToIndex();
-        } catch (Missing404Exception $e) {
-            $this->modelRepository->reindex();
-        }
-
-        try {
-            $this->trimRepository->deleteIndex();
-            $this->trimRepository->createIndex(null, null);
-            $this->trimRepository->addAllToIndex();
-        } catch (Missing404Exception $e) {
-            $this->trimRepository->reindex();
-        }
+        $repository->createIndex(null, null);
+        $repository->addAllToIndex();
     }
 }

@@ -53,4 +53,9 @@ class BaseRepository
     {
         $this->modelClassName::addAllToIndex();
     }
+
+    public function getByName(array $query)
+    {
+        return $this->modelClassName::searchByQuery($query)->first();
+    }
 }
