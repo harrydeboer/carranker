@@ -10,4 +10,4 @@
   php artisan view:clear
   curl https://carranker.com/opcache_reset.php
   php artisan migrate --force --no-interaction
-  php artisan GetCMSData:getData
+  php artisan getcmsdata

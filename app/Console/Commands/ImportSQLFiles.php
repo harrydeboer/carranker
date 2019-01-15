@@ -14,7 +14,7 @@ class ImportSQLFiles extends Command
      *
      * @var string
      */
-    protected $signature = 'ImportSQLFiles';
+    protected $signature = 'importsqlfiles';
 
     /**
      * The console command description.
