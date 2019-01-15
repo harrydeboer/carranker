@@ -16,6 +16,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
 class Controller extends BaseController
@@ -43,6 +44,13 @@ class Controller extends BaseController
         View::share('menuHeader', $this->menuRepository->getByName('navigationHeader')->getPages()->get());
         View::share('menuFooter', $this->menuRepository->getByName('navigationFooter')->getPages()->get());
         View::share('reCaptchaKey', env('reCaptchaKey'));
+
+        $this->middleware(function ($request, $next)
+        {
+            View::share('isLoggedIn', Auth::user());
+
+            return $next($request);
+        });
     }
 
     public function navigate(Request $request)

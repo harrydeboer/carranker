@@ -1,5 +1,3 @@
-<?php use Illuminate\Support\Facades\Auth;
-$isLoggedIn = Auth::user(); ?>
 <!doctype html>
 <html lang="en">
 <head>
