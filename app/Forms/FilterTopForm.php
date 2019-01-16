@@ -9,7 +9,7 @@ use App\CarSpecs;
 
 class FilterTopForm extends BaseForm
 {
-    public $fillable = ['minVotes', 'aspects', 'specsChoice', 'specsRange', 'reCaptchaToken', 'numberOfRows'];
+    public $fillable = ['minVotes', 'aspects', 'specsChoice', 'specsRange', 'numberOfRows'];
 
     public function __construct(array $attributes = [])
     {
@@ -41,7 +41,6 @@ class FilterTopForm extends BaseForm
     {
         return [
             'minVotes' => 'required|integer',
-            'reCaptchaToken' => 'required|string',
             'aspects.*' => 'required|integer',
             'specsChoice.*' => 'integer|nullable',
             'specsRange.*' => 'numeric|nullable',

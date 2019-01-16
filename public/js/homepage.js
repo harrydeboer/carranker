@@ -7,7 +7,6 @@ $(document).ready(function ()
     /** Activate the slider */
     if ($('#sliderTop').length) {
         $('#sliderTop').carousel();
-        $('#carouselExampleIndicators').carousel();
     }
 
     /** Via the checkall checkbox all choices checks of this spec are toggled. */
@@ -93,33 +92,18 @@ $(document).ready(function ()
         }
 
         if (sessionStorage.numberOfRows > $('.topRow').length) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
 
             /** Show the loader img */
             $('#hideAll').show();
 
-            if (!$('#reCaptchaScript').length) {
-                var head_ID = document.getElementsByTagName("head")[0];
-                var script_element = document.createElement('script');
-                script_element.type = 'text/javascript';
-                script_element.id = "reCaptchaScript";
-                script_element.src = "https://www.google.com/recaptcha/api.js?render=" + reCaptchaKey;
-                head_ID.appendChild(script_element);
-
-                $('#reCaptchaScript').on('load', function() {
-                    grecaptcha.ready(function()
-                    {
-                        recaptchaExecuteShowMoreTopTable();
-                    });
-                });
-            } else {
-                recaptchaExecuteShowMoreTopTable();
-            }
-
+            $.get('showMoreTopTable/' + sessionStorage.numberOfRows + '/' + $('.topRow').length, "", function (data) {
+                $('#tableTop').append(data);
+                $('#hideAll').hide();
+                sessionStorage.numberOfRows = $('#tableTop tr').length;
+                showPartTopTable();
+                var heightNew = $(document).height();
+                $(window).scrollTop(y + heightNew - height);
+            });
         } else {
             showPartTopTable();
             var heightNew = $(document).height();
@@ -148,84 +132,36 @@ $(document).ready(function ()
         /** Show the loader img */
         $('#hideAll').show();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+        $.get('filterTop', $(this).serialize() + "&numberOfRows=" + sessionStorage.numberOfRows, function (data) {
+            /** Three pieces of html, the slideshow, the top table and the least number of votes, are filled with the data.
+             * The data has a splitpoint to split at the right point for the three pieces of html.
+             * The number of rows that has to be shown is set with showParTopTable, the loader is hidden and
+             * the slider is activated. Then the window scrolls to the top of the table. */
+            var array = data.split(/splitPoint/);
+            $('#fillableTable').html(array[0]);
+            $('#slideshow').html(array[1]);
+            $("#atLeastVotes").html('<em>with at least ' + array[2] + ' votes</em>');
+
+            /** Hide the loader img */
+            $("#hideAll").hide();
+
+            sessionStorage.numberOfRows = $('#tableTop tr').length;
+
+            showPartTopTable();
+
+            /** Activate the slider */
+            $('#carousel').carousel();
+
+            $("#preferencesDialog").css('margin-top', '0');
+            $('html, body').animate({
+                scrollTop: $("#topCars").offset().top
+            }, 1000);
+            lazyloadImages = document.querySelectorAll("img.lazy");
+            setTimeout(lazyload, 3000);
         });
-
-        serializedForm = $(this).serialize();
-        if (!$('#reCaptchaScript').length) {
-            var head_ID = document.getElementsByTagName("head")[0];
-            var script_element = document.createElement('script');
-            script_element.type = 'text/javascript';
-            script_element.id = "reCaptchaScript";
-            script_element.src = "https://www.google.com/recaptcha/api.js?render=" + reCaptchaKey;
-            head_ID.appendChild(script_element);
-
-            $('#reCaptchaScript').on('load', function() {
-                grecaptcha.ready(function()
-                {
-                    recaptchaExecuteFilterTop();
-                });
-            });
-        } else {
-            recaptchaExecuteFilterTop();
-        }
 
         event.preventDefault();
     });
-
-    function recaptchaExecuteShowMoreTopTable()
-    {
-        var height = $(document).height();
-        var y = $(window).scrollTop();
-        grecaptcha.execute(reCaptchaKey, {action: 'showMoreTopTable'}).then(function (reCaptchaToken) {
-            $.post('showMoreTopTable/' + sessionStorage.numberOfRows + '/' + $('.topRow').length, "", function (data) {
-                $('#tableTop').append(data);
-                $('#hideAll').hide();
-                sessionStorage.numberOfRows = $('#tableTop tr').length;
-                showPartTopTable();
-                var heightNew = $(document).height();
-                $(window).scrollTop(y + heightNew - height);
-            });
-        });
-    }
-
-    function recaptchaExecuteFilterTop()
-    {
-        grecaptcha.execute(reCaptchaKey, {action: 'filterTop'}).then(function (reCaptchaToken) {
-            serializedForm += "&reCaptchaToken=" + reCaptchaToken + "&numberOfRows=" + sessionStorage.numberOfRows;
-
-            $.post('filterTop', serializedForm, function (data) {
-                /** Three pieces of html, the slideshow, the top table and the least number of votes, are filled with the data.
-                 * The data has a splitpoint to split at the right point for the three pieces of html.
-                 * The number of rows that has to be shown is set with showParTopTable, the loader is hidden and
-                 * the slider is activated. Then the window scrolls to the top of the table. */
-                var array = data.split(/splitPoint/);
-                $('#fillableTable').html(array[0]);
-                $('#slideshow').html(array[1]);
-                $("#atLeastVotes").html('<em>with at least ' + array[2] + ' votes</em>');
-
-                /** Hide the loader img */
-                $("#hideAll").hide();
-
-                sessionStorage.numberOfRows = $('#tableTop tr').length;
-
-                showPartTopTable();
-
-                /** Activate the slider */
-                $('#carousel').carousel();
-
-                $("#preferencesDialog").css('margin-top', '0');
-                $('html, body').animate({
-                    scrollTop: $("#topCars").offset().top
-                }, 1000);
-                lazyloadImages = document.querySelectorAll("img.lazy");
-                setTimeout(lazyload, 3000);
-            });
-        });
-    }
 
     /** Only a part of the total table is shown. The minimum number of votes is added on top of the table. */
     function showPartTopTable()

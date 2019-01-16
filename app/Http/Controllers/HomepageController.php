@@ -64,7 +64,7 @@ class HomepageController extends Controller
 
         $form = new FilterTopForm($request->all());
 
-        if ($form->validateFull($form->reCaptchaToken, $request)) {
+        if ($form->validateFull($request)) {
 
             $specsChoice = CarSpecs::specsChoice();
             $specsRange = CarSpecs::specsRange();
@@ -110,9 +110,8 @@ class HomepageController extends Controller
         }
 
         $data = [
-            'topLength' => 0,
-            'topLengthSlider' => 0,
             'topTrims' => [],
+            'topLengthSlider' => 0,
             'minVotes' => 0,
         ];
 

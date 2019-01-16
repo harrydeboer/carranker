@@ -31,7 +31,7 @@ class ModelRepository extends BaseRepository
         return $queryObj->get();
     }
 
-    public function getByMakeModelName(string $makename, string $modelname)
+    public function getByMakeModelName(string $makename, string $modelname): Model
     {
         $result = Model::where(['make' => $makename, 'name' => $modelname])->first();
 

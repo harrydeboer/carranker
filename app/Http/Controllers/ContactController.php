@@ -39,7 +39,7 @@ class ContactController extends Controller
     {
         $form = new ContactForm($request->all());
 
-        if ($form->validateFull($form->reCaptchaToken, $request)) {
+        if ($form->validateFull($request, $form->reCaptchaToken)) {
 
             try {
                 Mail::send('contact.message', ['userMessage' => $form->message], function (Message $message) use ($form)

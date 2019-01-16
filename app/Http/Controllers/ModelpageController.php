@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\CarSpecs;
 use App\Forms\RatingForm;
 use App\Models\Aspect;
+use App\Models\Model;
 use App\Repositories\FXRateRepository;
 use App\Repositories\ProfanityRepository;
 use App\Repositories\RatingRepository;
@@ -51,7 +52,7 @@ class ModelpageController extends Controller
 
         $form = new RatingForm($request->all());
 
-        if ($form->validateFull($form->reCaptchaToken, $request)) {
+        if ($form->validateFull($request, $form->reCaptchaToken)) {
             $isThankYou = 1;
             $this->rate($form, $model);
         }
@@ -101,7 +102,7 @@ class ModelpageController extends Controller
         return View::make('modelpage.index')->with($data);
     }
 
-    public function rate($form, $model)
+    public function rate($form, Model $model)
     {
         $trimId = (int)$form->trim;
         $trim = $this->trimRepository->get($trimId);

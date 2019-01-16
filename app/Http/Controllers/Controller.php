@@ -18,7 +18,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
-use Illuminate\Validation\ValidationException;
 
 class Controller extends BaseController
 {
@@ -58,25 +57,21 @@ class Controller extends BaseController
     {
         $form = new NavForm($request->all());
 
-        try {
-            if ($form->validate($request, $form->rules())) {
+        if ($form->validateFull($request)) {
 
-                if ($form->query === null) {
-                    return redirect('/');
-                }
-
-                $data = [
-                    'title' => 'Search results',
-                    'controller' => 'base',
-                    'makes' => $this->makeRepository->findMakesForSearch($form->query),
-                    'models' => $this->modelRepository->findModelsForSearch($form->query),
-                    'trims' => $this->trimRepository->findTrimsForSearch($form->query),
-                ];
-
-                return View::make('base.search')->with($data);
+            if ($form->query === null) {
+                return redirect('/');
             }
-        } catch (ValidationException $exception) {
-            return false;
+
+            $data = [
+                'title' => 'Search results',
+                'controller' => 'base',
+                'makes' => $this->makeRepository->findMakesForSearch($form->query),
+                'models' => $this->modelRepository->findModelsForSearch($form->query),
+                'trims' => $this->trimRepository->findTrimsForSearch($form->query),
+            ];
+
+            return View::make('base.search')->with($data);
         }
 
         return redirect('/');
