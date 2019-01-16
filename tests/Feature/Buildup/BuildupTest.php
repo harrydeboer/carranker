@@ -11,8 +11,10 @@ class BuildupTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+        factory('App\Models\Profanity')->create();
+        factory('App\Models\Trim')->create();
         $this->artisan('getcmsdata')->execute();
-        $this->artisan('importsqlfiles')->execute();
+        $this->artisan('getfxrate')->execute();
     }
 
     public function testDummy()

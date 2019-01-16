@@ -19,7 +19,6 @@ class APITest extends TestCase
         $this->user = $userRepository->get(1);
         $this->make = $makeRepository->get(1);
         $this->artisan('passport:install')->execute();
-        $this->artisan('getfxrate')->execute();
         DB::table('oauth_clients')->where(['id' => 2])->update(['user_id' => $this->user->getId()]);
         DB::table('oauth_clients')->select('*')->where(['id' => 2])->first();
     }
