@@ -180,45 +180,28 @@ class CarSpecs
         ];
 
         foreach ($specsRange as $key => $spec) {
-            $specsRange[$key]['minRange'] = self::getMiniRange($key, $spec);
-            $specsRange[$key]['maxRange'] = self::getMaxiRange($key, $spec);
+            $specsRange[$key]['minRange'] = self::getRange($key, $spec, 'Min');
+            $specsRange[$key]['maxRange'] = self::getRange($key, $spec, 'Max');
         }
 
         return $specsRange;
     }
 
-    private static function getMiniRange($specname, $spec)
+    private static function getRange(string $specname, array $spec, string $minOrMax)
     {
         $range = [];
         if ($specname === 'generation') {
-            $range[''] = 'Min';
+            $range[''] = $minOrMax;
             for ($i = $spec['max']; $i >= (int)$spec['min']; $i = $i - $spec['step']) {
                 $range["{$i}"] = $i;
             }
         } else {
-            $range[''] = 'Min';
+            $range[''] = $minOrMax;
             for ($i = $spec['min']; $i <= (int)$spec['max']; $i = $i + $spec['step']) {
                 $range["{$i}"] = $i;
             }
         }
-        return $range;
-    }
 
-    private static function getMaxiRange($specname, $spec)
-    {
-        $range = [];
-        if ($specname === 'generation') {
-            $range[''] = 'Max';
-            for ($i = $spec['max']; $i >= (int)$spec['min']; $i = $i - $spec['step']) {
-                $range["{$i}"] = $i;
-            }
-        } else {
-            $range['maxiRange'][''] = 'Max';
-            for ($i = $spec['min']; $i <= (int)$spec['max']; $i = $i + $spec['step']) {
-                $range["{$i}"] = $i;
-            }
-            $range['Maximum'] = '> ' . $spec['max'];
-        }
         return $range;
     }
 }

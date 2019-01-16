@@ -119,10 +119,7 @@ class TrimRepository extends BaseRepository
                 $name = 'year_end';
             }
 
-            /** When option value Maximum (with the < symbol) is chosen then no filtering. */
-            if ($sessionMax !== 'Maximum') {
-                $queryObj->where($name, '<=', $sessionMax);
-            }
+            $queryObj->where($name, '<=', $sessionMax);
         }
 
         return $queryObj;
