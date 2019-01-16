@@ -35,7 +35,7 @@ class BaseRepository
     public function update($model)
     {
         if (get_class($model) === $this->modelClassName) {
-            $model->update();
+            $model->save();
         } else {
             throw new \Exception("Invalid model passed to repository.");
         }

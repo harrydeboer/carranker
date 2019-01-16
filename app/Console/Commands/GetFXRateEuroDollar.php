@@ -6,8 +6,6 @@ namespace App\Console\Commands;
 
 use App\Repositories\FXRateRepository;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Mail\Message;
 
 class GetFXRateEuroDollar extends Command
 {
@@ -35,7 +33,7 @@ class GetFXRateEuroDollar extends Command
 
     public function handle()
     {
-        $ch = curl_init("https://free.currencyconverterapi.com/api/v5/convert?q=EUR_USD&compact=y");
+        $ch = curl_init("http://data.fixer.io/api/latest?access_key=" . env("FIXER_API_KEY"));
 
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -46,8 +44,13 @@ class GetFXRateEuroDollar extends Command
         if ($info === 200) {
             $jsonObj = json_decode((string) $data);
             $fxrate = $this->fXRateRepository->getByName('euro/dollar');
-            $fxrate->setValue((float) $jsonObj->EUR_USD->val);
-            $this->fXRateRepository->update($fxrate);
+            if (is_null($fxrate)) {
+                $this->fXRateRepository->create(['name' => 'euro/dollar', 'value' => (float) $jsonObj->rates->USD]);
+            } else {
+                $fxrate->setValue((float) $jsonObj->rates->USD);
+                $this->fXRateRepository->update($fxrate);
+            }
+
         } else {
             throw new \Exception("Api for fxrates not available.");
         }

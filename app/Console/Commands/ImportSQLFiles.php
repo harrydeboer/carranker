@@ -40,6 +40,5 @@ class ImportSQLFiles extends Command
         DB::unprepared(file_get_contents($sqlFilesDir . 'models.sql'));
         DB::unprepared(file_get_contents($sqlFilesDir . 'trims.sql'));
         DB::unprepared(file_get_contents($sqlFilesDir . 'profanities.sql'));
-        DB::unprepared(file_get_contents($sqlFilesDir . 'fxrates.sql'));
     }
 }

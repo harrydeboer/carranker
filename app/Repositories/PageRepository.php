@@ -49,7 +49,7 @@ class PageRepository extends BaseRepository
                 $page = $this->getByName($pageCMS->slug);
                 $page->setContent($pageCMS->content->rendered);
                 $page->setTitle($pageCMS->title->rendered);
-                $page->update();
+                $page->save();
             }
         }
 

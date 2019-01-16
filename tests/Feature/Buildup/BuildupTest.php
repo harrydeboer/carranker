@@ -13,7 +13,6 @@ class BuildupTest extends TestCase
         parent::setUp();
         $this->artisan('getcmsdata')->execute();
         $this->artisan('importsqlfiles')->execute();
-        $this->artisan('getfxrate')->execute();
     }
 
     public function testDummy()
