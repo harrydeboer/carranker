@@ -2,4 +2,4 @@
 splitPoint
 @include('homepage.slideshow')
 splitPoint
-{{ $minVotes }}
+{{ $minNumVotes }}

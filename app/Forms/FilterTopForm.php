@@ -9,7 +9,7 @@ use App\CarSpecs;
 
 class FilterTopForm extends BaseForm
 {
-    public $fillable = ['minVotes', 'aspects', 'specsChoice', 'specsRange', 'numberOfRows'];
+    public $fillable = ['minNumVotes', 'aspects', 'specsChoice', 'specsRange', 'numberOfRows'];
 
     public function __construct(array $attributes = [])
     {
@@ -32,7 +32,7 @@ class FilterTopForm extends BaseForm
             $array[$specname . 'max'] = null;
         }
         $this->specsRange = $array;
-        $this->minVotes = 30;
+        $this->minNumVotes = 30;
         $this->numberOfRows = 10;
         parent::__construct($attributes);
     }
@@ -40,7 +40,7 @@ class FilterTopForm extends BaseForm
     public function rules(): array
     {
         return [
-            'minVotes' => 'required|integer',
+            'minNumVotes' => 'required|integer',
             'aspects.*' => 'required|integer',
             'specsChoice.*' => 'integer|nullable',
             'specsRange.*' => 'numeric|nullable',

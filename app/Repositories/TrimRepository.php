@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\CarSpecs;
 use App\Models\Aspect;
 use App\Models\Trim;
 use Illuminate\Support\Facades\DB;
@@ -22,22 +23,22 @@ class TrimRepository extends BaseRepository
         return $queryObj->get();
     }
 
-    public function findTrimsOfTop($session, $minVotes, $lengthTopTable, $specsChoice, $specsRange, $offset=null)
+    public function findTrimsOfTop($session, int $minNumVotes, int $lengthTopTable, int $offset=null)
     {
         $queryObj = $this->queryAspects($session);
 
         $sessionAspects = $session->get('aspects');
         if (isset($sessionAspects)) {
-            foreach ($specsChoice as $key => $spec) {
+            foreach (CarSpecs::specsChoice() as $key => $spec) {
                 $queryObj = $this->queryChoice($spec['choices'], $key, $queryObj, $session);
             }
 
-            foreach ($specsRange as $key => $spec) {
+            foreach (CarSpecs::specsRange() as $key => $spec) {
                 $queryObj = $this->queryRange($spec, $key, $queryObj, $session);
             }
         }
 
-        $queryObj->where('votes', '>', $minVotes)->take($lengthTopTable)->orderBy('rating', 'desc');
+        $queryObj->where('votes', '>', $minNumVotes)->take($lengthTopTable)->orderBy('rating', 'desc');
         if (!is_null($offset)) {
             $queryObj->offset($offset)->limit($lengthTopTable - $offset);
         }
@@ -77,7 +78,7 @@ class TrimRepository extends BaseRepository
         $sessionSpec = $session->get('specsChoice');
         foreach ($choices as $keyItem => $choice) {
             $sessionVar = $sessionSpec[$name . $keyItem] ?? false;
-            if (isset($sessionVar) && $sessionVar === true) {
+            if (isset($sessionVar) && $sessionVar === "1") {
                 $queryArr[] = $choice;
 
                 /** The gearbox type can be both manual and automatic per trim. */
@@ -105,7 +106,7 @@ class TrimRepository extends BaseRepository
         $sessionMax = $sessionSpecs[$name . 'max'];
 
         /** The database only has year_begin and year_end not generation. Generation is the display name. */
-        if ($sessionMin !== '' && $sessionMin !== null) {
+        if (isset($sessionMin)) {
             if ($name === 'generation') {
                 $name = 'year_begin';
             }
@@ -113,7 +114,7 @@ class TrimRepository extends BaseRepository
             $queryObj->where($name, '>=', $sessionMin);
         }
 
-        if ($sessionMax !== '' && $sessionMax !== null && $spec['max'] != $sessionMax) {
+        if (isset($sessionMax) && $spec['max'] != $sessionMax) {
             if ($name === 'generation') {
                 $name = 'year_end';
             }

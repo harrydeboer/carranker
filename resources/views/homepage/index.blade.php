@@ -17,7 +17,7 @@
                         {{ $topLength }}
                     </span>
                 </h1>
-                <h2 id="atLeastVotes" class="text-center"><em>with at least {{ $minVotes }} votes</em></h2>
+                <h2 id="atLeastVotes" class="text-center"><em>with at least {{ $minNumVotes }} votes</em></h2>
                 <div id="fillableTable">
                     @include('homepage.tableTop')
                 </div>
@@ -35,8 +35,8 @@
     <div class="row justify-content-center">
         <div id="preferencesDialog" class="col-md-8 collapse">
             {!! Form::model($filterform, ['route' => ['filterTop'], 'id' => 'filterTopForm']) !!}
-            {!! Form::label('minVotes', 'Minimum number of votes:', ['class' => 'collapseChoice control-label']) !!}
-            {!! Form::number('minVotes', old('minVotes'), ['class'=>'collapseChoice form-control', 'step' => 1, 'id' => 'minVotes', 'required']) !!}
+            {!! Form::label('minNumVotes', 'Minimum number of votes:', ['class' => 'collapseChoice control-label']) !!}
+            {!! Form::number('minNumVotes', old('minNumVotes'), ['class'=>'collapseChoice form-control', 'step' => 1, 'id' => 'minNumVotes', 'required']) !!}
             <div class="row justify-content-center col-md-12">
                 <div id="choices" class="btn-group">
                     @foreach ($specsChoice as $specname => $spec)
@@ -130,6 +130,6 @@
         var specsChoice = {!! json_encode($specsChoice) !!};
         var topNumber = {!! $topLength !!};
         var numShowMoreLess = {!! $numShowMoreLess !!};
-        var minNumVotes = {!! $minVotes !!};
+        var minNumVotes = {!! $minNumVotes !!};
     </script>
 @endsection

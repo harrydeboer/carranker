@@ -48,7 +48,7 @@ $(document).ready(function ()
                 $(this).prop('checked', true);
             });
         }
-        $('#minVotes').val(minNumVotes);
+        $('#minNumVotes').val(minNumVotes);
         $('.aspectElement').each(function () {
             $(this).val(1);
         });
