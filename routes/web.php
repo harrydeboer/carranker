@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 Route::get('', ['as' => 'Home', 'uses' => 'HomepageController@view']);
 Route::post('getModelNames', ['as' => 'base.getModelNames', 'uses' => 'Controller@getModelNames']);
-Route::post('navigate', ['as' => 'base.navigate', 'uses' => 'Controller@navigate']);
+Route::get('search', ['as' => 'base.search', 'uses' => 'Controller@search']);
 Route::get('sitemap', 'SitemapController@makeSitemap');
 Route::post('filterTop', ['as' => 'filterTop', 'uses' => 'HomepageController@filterTop']);
 Route::post('showMoreTopTable/{numberOfRows}/{offset}', ['as' => 'showMoreTopTable', 'uses' => 'HomepageController@showMoreTopTable']);

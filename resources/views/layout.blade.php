@@ -116,7 +116,12 @@
             <img src="{{ fileUrl('/img/CarRanker.png') }}" alt="Car Ranker" id="carrankerLogo" class="img-thumbnail">
         </div>
         <div class="navbar-collapse collapse" id="navbarCollapse">
-            {!! Form::model($navform, ['route' => ['base.navigate'], 'class' => 'nav navbar-nav ml-auto navbar-right', 'id' => 'nav-form']) !!}
+            {!! Form::model($navform, [
+            'route' => ['base.search'],
+            'method' => 'get',
+            'class' => 'nav navbar-nav ml-auto navbar-right',
+            'id' => 'search-form'
+            ]) !!}
             <ul id="navmenuHeader" class="nav navbar-nav">
                 @foreach ($menuHeader as $page)
                     <li class="nav-item navText"><a href="/{{ $page->getName() === 'home' ? '' :
@@ -127,12 +132,15 @@
                 @else
                     <li class="nav-item navText"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
                 @endif
-                <li class="nav-item">{!! Form::select('make', $makenames, null, ['class' => 'form-control', 'id' => 'nav_form_make']) !!}</li>
-                <li class="nav-item">{!! Form::select('model', ['' => 'Model'], null, ['class' => 'form-control', 'id' => 'nav_form_model']) !!}</li>
-                <li class="nav-item">{!! Form::text('search', null, ['class' => 'form-control', 'id' => 'nav_form_search', 'placeholder' => 'Search car...']) !!}</li>
-                <li class="nav-item">{!! Form::submit('Go', ['class' => 'btn btn-primary', 'id' => 'nav_form_submit']) !!}</li>
+                    <li class="nav-item"><select id="nav_select_make" class="form-control">
+                            @foreach ($makenames as $makename)
+                                <option value="{{ $makename }}">{{ $makename }}</option>
+                            @endforeach
+                        </select></li>
+                    <li class="nav-item"><select class="form-control" id="nav_select_model"><option value="">Model</option></select></li>
+                <li class="nav-item">{!! Form::text('query', null, ['class' => 'form-control', 'id' => 'search_form_text', 'placeholder' => 'Search car...']) !!}</li>
+                <li class="nav-item">{!! Form::submit('Go', ['class' => 'btn btn-primary', 'id' => 'search_form_submit']) !!}</li>
             </ul>
-            <input type="hidden" name="reCaptchaTokenNavbar" id="reCaptchaTokenNavbar">
             {!! Form::close() !!}
         </div>
     </div>

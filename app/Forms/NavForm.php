@@ -6,15 +6,12 @@ namespace App\Forms;
 
 class NavForm extends BaseForm
 {
-    public $fillable = ['make', 'model', 'search', 'reCaptchaTokenNavbar'];
+    public $fillable = ['query'];
 
     public function rules(): array
     {
         return [
-            'make' => 'string|nullable',
-            'model' => 'string|nullable',
-            'search' => 'string|nullable',
-            'reCaptchaTokenNavbar' => 'string|required',
+            'query' => 'string|nullable',
         ];
     }
 }

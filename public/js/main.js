@@ -1,33 +1,7 @@
 $(document).ready(function ()
 {
-    var menuMake = $('#nav_form_make');
-    var menuModel = $('#nav_form_model');
-
-    function reCaptchaNavigate()
-    {
-        if (!$('#reCaptchaScript').length) {
-            var head_ID = document.getElementsByTagName("head")[0];
-            var script_element = document.createElement('script');
-            script_element.type = 'text/javascript';
-            script_element.id = "reCaptchaScript";
-            script_element.src = "https://www.google.com/recaptcha/api.js?render=" + reCaptchaKey;
-            head_ID.appendChild(script_element);
-
-            $('#reCaptchaScript').on('load', function() {
-                grecaptcha.ready(function() {
-                    grecaptcha.execute(reCaptchaKey, {action: 'navigate'}).then(function (reCaptchaToken) {
-                        $('#reCaptchaTokenNavbar').val(reCaptchaToken);
-                        $('#nav-form').submit();
-                    });
-                });
-            });
-        } else {
-            grecaptcha.execute(reCaptchaKey, {action: 'navigate'}).then(function (reCaptchaToken) {
-                $('#reCaptchaTokenNavbar').val(reCaptchaToken);
-                $('#nav-form').submit();
-            });
-        }
-    }
+    var menuMake = $('#nav_select_make');
+    var menuModel = $('#nav_select_model');
 
     /* The selected options are set to the session on change of the selected make or model. */
     menuMake.on('change', function ()
@@ -37,15 +11,19 @@ $(document).ready(function ()
     });
     menuModel.on('change', function ()
     {
-        $("#hideAll").show();
         sessionStorage.selectedModel = menuModel.val();
-        reCaptchaNavigate();
+        navigate();
     });
-    $('#nav_form_submit').on('click', function(event)
+
+    $('#search_form_submit').on('click', function(event)
     {
-        $("#hideAll").show();
-        event.preventDefault();
-        reCaptchaNavigate();
+        if ($('#search_form_text').val() === "") {
+            event.preventDefault();
+            if (menuMake.val() === "") {
+            } else {
+                navigate();
+            }
+        }
     });
 
     /** Initialize the make and model selects and set the selected option when there is one in the session. */
@@ -65,7 +43,7 @@ $(document).ready(function ()
     /* Determines the car models related to the chosen make and fills the modelselect accordingly. */
     function fillModelMenu(model)
     {
-        var selectedMake = $('#nav_form_make').val();
+        var selectedMake = $('#nav_select_make').val();
         menuModel.empty();
         menuModel.append('<option value="">Model</option>');
 
@@ -73,28 +51,26 @@ $(document).ready(function ()
             return;
         }
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: "get", url: "/api/getModelNames/" + selectedMake,
-            success: function (modelnames, text)
-            {
-                for (var index = 0; index < modelnames.length; index++) {
-                    var modelnamesArray = modelnames[index].split(';');
-                    if (modelnamesArray[0] === selectedMake) {
-                        menuModel.append('<option value="' + modelnames[index] + '">' + modelnamesArray[1] + '</option>');
-                    }
+        $.get("/api/getModelNames/" + selectedMake, null, function (modelnames)
+        {
+            for (var index = 0; index < modelnames.length; index++) {
+                var modelnamesArray = modelnames[index].split(';');
+                if (modelnamesArray[0] === selectedMake) {
+                    menuModel.append('<option value="' + modelnames[index] + '">' + modelnamesArray[1] + '</option>');
                 }
-                menuModel.val(model);
-                sessionStorage.selectedModel = model;
-            },
-            error: function (request, status, error)
-            {
             }
+            menuModel.val(model);
+            sessionStorage.selectedModel = model;
         });
+    }
+
+    function navigate()
+    {
+        var menuArray = menuModel.val().split(';');
+        if (menuModel.val() === "") {
+            window.location.href = "/make/" + menuMake.val();
+        } else {
+            window.location.href = "/model/" + menuArray[0] + "/" + menuArray[1];
+        }
     }
 });

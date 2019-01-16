@@ -18,6 +18,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Illuminate\Validation\ValidationException;
 
 class Controller extends BaseController
 {
@@ -53,32 +54,29 @@ class Controller extends BaseController
         });
     }
 
-    public function navigate(Request $request)
+    public function search(Request $request)
     {
         $form = new NavForm($request->all());
 
-        if ($form->validateFull($form->reCaptchaTokenNavbar, $request)) {
+        try {
+            if ($form->validate($request, $form->rules())) {
 
-            if ($form->make === null && $form->model === null && $form->search === null) {
-                return redirect('/');
+                if ($form->query === null) {
+                    return redirect('/');
+                }
+
+                $data = [
+                    'title' => 'Search results',
+                    'controller' => 'base',
+                    'makes' => $this->makeRepository->findMakesForSearch($form->query),
+                    'models' => $this->modelRepository->findModelsForSearch($form->query),
+                    'trims' => $this->trimRepository->findTrimsForSearch($form->query),
+                ];
+
+                return View::make('base.search')->with($data);
             }
-
-            if ($form->make && $form->model !== null && $form->search === null) {
-                $modelArray = explode(';', $form->model);
-                return redirect('model/' . $modelArray[0] . '/' . $modelArray[1]);
-            } else if ($form->make !== null && $form->search === null) {
-                return redirect('make/' . $form->make);
-            }
-
-            $data = [
-                'title' => 'Search results',
-                'controller' => 'base',
-                'makes' => $this->makeRepository->findMakesForSearch($form->search),
-                'models' => $this->modelRepository->findModelsForSearch($form->search),
-                'trims' => $this->trimRepository->findTrimsForSearch($form->search),
-            ];
-
-            return View::make('base.search')->with($data);
+        } catch (ValidationException $exception) {
+            return false;
         }
 
         return redirect('/');

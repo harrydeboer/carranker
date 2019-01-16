@@ -43,7 +43,7 @@ body {
   background-color: $housecolor-blue;
 }
 
-#nav_form_make, #nav_form_model {
+#nav_select_make, #nav_select_model {
   width: 141px !important;
   font-size: 20px;
   margin-left: 10px;
@@ -51,7 +51,7 @@ body {
   padding: 0;
 }
 
-#nav_form_search {
+#search_form_text {
   width: 147px !important;
   font-size: 20px;
   margin-left: 10px;
@@ -61,7 +61,7 @@ body {
   color: $housecolor-blue;
 }
 
-#nav_form_submit {
+#search_form_submit {
   width: 52px;
   height: 34px;
   font-size: 20px;
@@ -97,13 +97,13 @@ footer {
   font-size: 20px;
 }
 
-#nav_form_make, #nav_form_model, #nav_form_submit {
+#nav_select_make, #nav_select_model, #search_form_submit {
   background-color: $housecolor-blue;
   color: white;
   border: 1px solid white;
 }
 
-#nav_form_make:hover, #nav_form_model:hover, #nav_form_submit:hover {
+#nav_select_make:hover, #nav_select_model:hover, #search_form_submit:hover {
   cursor: pointer;
 }
 
