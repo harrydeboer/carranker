@@ -5,12 +5,18 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\View;
+use Illuminate\Http\Request;
 
 class MakeController extends Controller
 {
-    public function view($makename)
+    public function view($makename, Request $request)
     {
         $make = $this->makeRepository->getByName($makename);
+        $session = $request->session();
+        $session->put('makename', $make->getName());
+        $session->put('modelname', null);
+        $this->shareSessionCars($session);
+
         $models = $make->getModels();
         $data = [
             'controller' => 'make',

@@ -86,9 +86,7 @@ class Trim extends BaseModel
 
     public function getUrl(): string
     {
-        return '/model/' . str_replace(' ', '_', $this->make) .
-            '/' . str_replace(' ', '_', $this->model) .
-            '/' . $this->getId();
+        return '/model/' . $this->make . '/' . $this->model . '/' . $this->getId();
     }
 
     public function getImage(): string

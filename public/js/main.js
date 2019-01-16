@@ -6,12 +6,11 @@ $(document).ready(function ()
     /* The selected options are set to the session on change of the selected make or model. */
     menuMake.on('change', function ()
     {
-        sessionStorage.selectedMake = menuMake.val();
-        fillModelMenu("");
+        fillModelMenu();
     });
+
     menuModel.on('change', function ()
     {
-        sessionStorage.selectedModel = menuModel.val();
         navigate();
     });
 
@@ -19,58 +18,37 @@ $(document).ready(function ()
     {
         if ($('#search_form_text').val() === "") {
             event.preventDefault();
-            if (menuMake.val() === "") {
-            } else {
+            if (menuMake.val() !== "") {
                 navigate();
             }
         }
     });
 
-    /** Initialize the make and model selects and set the selected option when there is one in the session. */
-    if (typeof sessionStorage.selectedMake !== 'undefined') {
-        menuMake.val(sessionStorage.selectedMake);
-    }
-
-    /** The current model is selected in the navigation model select and stored in the session. */
-    if (controller === 'modelpage') {
-        menuMake.val(makename);
-        sessionStorage.selectedMake = menuMake.val();
-        fillModelMenu(makename + ";" + modelname);
-    } else if (typeof sessionStorage.selectedModel !== 'undefined') {
-        fillModelMenu(sessionStorage.selectedModel);
-    }
-
     /* Determines the car models related to the chosen make and fills the modelselect accordingly. */
-    function fillModelMenu(model)
+    function fillModelMenu()
     {
         var selectedMake = $('#nav_select_make').val();
         menuModel.empty();
-        menuModel.append('<option value="">Model</option>');
+        menuModel.append('<option>Model</option>');
 
-        if (selectedMake === '') {
+        if (selectedMake === 'Make') {
             return;
         }
 
         $.get("/api/getModelNames/" + selectedMake, null, function (modelnames)
         {
-            for (var index = 0; index < modelnames.length; index++) {
-                var modelnamesArray = modelnames[index].split(';');
-                if (modelnamesArray[0] === selectedMake) {
-                    menuModel.append('<option value="' + modelnames[index] + '">' + modelnamesArray[1] + '</option>');
-                }
+            for (var key in modelnames) {
+                menuModel.append('<option value="' + modelnames[key] + '">' + modelnames[key] + '</option>');
             }
-            menuModel.val(model);
-            sessionStorage.selectedModel = model;
         });
     }
 
     function navigate()
     {
-        var menuArray = menuModel.val().split(';');
         if (menuModel.val() === "") {
             window.location.href = "/make/" + menuMake.val();
         } else {
-            window.location.href = "/model/" + menuArray[0] + "/" + menuArray[1];
+            window.location.href = "/model/" + menuMake.val() + "/" + menuModel.val();
         }
     }
 });

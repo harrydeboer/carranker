@@ -40,4 +40,15 @@ class MakeRepository extends BaseRepository
 
         return $result;
     }
+
+    public function getModelnames(string $makename): array
+    {
+        $models = $this->getByName($makename)->getModels();
+        $modelnames = [];
+        foreach($models as $model) {
+            $modelnames[] = $model->getName();
+        }
+
+        return $modelnames;
+    }
 }

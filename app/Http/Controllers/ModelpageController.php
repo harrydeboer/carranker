@@ -38,8 +38,11 @@ class ModelpageController extends Controller
 
     public function view($makename, $modelname, Request $request, $trimId='', $page=1)
     {
-        $makename = str_replace('_', ' ', $makename);
-        $modelname = str_replace('_', ' ', $modelname);
+        $session = $request->session();
+        $session->put('makename', $makename);
+        $session->put('modelname', $modelname);
+        $this->shareSessionCars($session);
+
         $isThankYou = 0;
         $query = $request->query();
         if ($query) {

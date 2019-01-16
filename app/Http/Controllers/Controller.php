@@ -45,12 +45,23 @@ class Controller extends BaseController
         View::share('menuFooter', $this->menuRepository->getByName('navigationFooter')->getPages()->get());
         View::share('reCaptchaKey', env('reCaptchaKey'));
 
-        $this->middleware(function ($request, $next)
+        $this->middleware(function (Request $request, $next)
         {
             View::share('isLoggedIn', Auth::user());
+            $this->shareSessionCars($request->session());
 
             return $next($request);
         });
+    }
+
+    protected function shareSessionCars($session)
+    {
+        View::share('makenameSession', $session->get('makename'));
+        $makename = $session->get('makename');
+        if (isset($makename)) {
+            View::share('modelnames', $this->makeRepository->getModelnames($makename));
+        }
+        View::share('modelnameSession', $session->get('modelname'));
     }
 
     public function search(Request $request)

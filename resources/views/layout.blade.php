@@ -132,12 +132,27 @@
                 @else
                     <li class="nav-item navText"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
                 @endif
-                    <li class="nav-item"><select id="nav_select_make" class="form-control">
-                            @foreach ($makenames as $makename)
+                <li class="nav-item"><select id="nav_select_make" class="form-control">
+                        @foreach ($makenames as $makename)
+                            @if ($makename === $makenameSession)
+                                <option value="{{ $makename }}" selected>{{ $makename }}</option>
+                            @else
                                 <option value="{{ $makename }}">{{ $makename }}</option>
+                            @endif
+                        @endforeach
+                    </select></li>
+                <li class="nav-item"><select class="form-control" id="nav_select_model">
+                        <option value="">Model</option>
+                        @if (isset($modelnames))
+                            @foreach ($modelnames as $modelname)
+                                @if ($modelname === $modelnameSession)
+                                    <option value="{{ $modelname }}" selected>{{ $modelname }}</option>
+                                @else
+                                    <option value="{{ $modelname }}">{{ $modelname }}</option>
+                                @endif
                             @endforeach
-                        </select></li>
-                    <li class="nav-item"><select class="form-control" id="nav_select_model"><option value="">Model</option></select></li>
+                        @endif
+                    </select></li>
                 <li class="nav-item">{!! Form::text('query', null, ['class' => 'form-control', 'id' => 'search_form_text', 'placeholder' => 'Search car...']) !!}</li>
                 <li class="nav-item">{!! Form::submit('Go', ['class' => 'btn btn-primary', 'id' => 'search_form_submit']) !!}</li>
             </ul>
@@ -169,13 +184,11 @@
     <script src="{{ fileUrl('/js/main.min.js') }}"></script>
     @if ($controller !== 'cms')
         <script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
-@endif
-<!--All pages need to know the carbrands, carmodels and whether the page is in development mode.-->
+    @endif
+    <!--All pages need to know the carbrands, carmodels and whether the page is in development mode.-->
     <script>
         var controller = "{{ $controller }}";
     </script>
-
-    <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92295454-1"></script>
 </footer>
 </body>
