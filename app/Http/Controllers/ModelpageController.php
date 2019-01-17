@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\View;
 
 class ModelpageController extends Controller
 {
-    private const modelpageReviewsPerPage = 5;
+    private const modelpageReviewsPerPage = 2;
     private $ratingRepository;
     private $fXRateRepository;
     private $trimService;
@@ -60,6 +60,7 @@ class ModelpageController extends Controller
         $hasTrimTypes = $this->trimService->hasTrimTypes($trims);
         $generationsSeriesTrims = $this->trimService->getGenerationsSeriesTrims($trims);
         $reviews = $this->modelRepository->getReviews($model, self::modelpageReviewsPerPage, $page);
+        $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center', $reviews->onEachSide(1)->links());
         $maxNumberOfReview = $this->modelRepository->getNumOfReviews($model);
         $selectedGeneration = $this->trimRepository->findSelectedGeneration((int) $trimId);
 
@@ -79,6 +80,7 @@ class ModelpageController extends Controller
             'generationsSeriesTrims' => $generationsSeriesTrims,
             'selectedGeneration' => $selectedGeneration,
             'reviews' => $reviews,
+            'links' => $links,
             'hasTrimTypes' => $hasTrimTypes,
             'FXRate' => $fxrate,
             'ratings' => $ratings,

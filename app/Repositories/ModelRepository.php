@@ -47,8 +47,7 @@ class ModelRepository extends BaseRepository
         return $model->hasMany('\App\Models\Rating', 'model_id', 'id')
             ->whereNotNull('content')
             ->orderBy('time', 'desc')
-            ->limit($modelpageReviewsPerPage)
-            ->offset(($page - 1) * $modelpageReviewsPerPage)->get();
+            ->paginate($modelpageReviewsPerPage);
     }
 
     public function getNumOfReviews(Model $model): int
