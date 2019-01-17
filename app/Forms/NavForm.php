@@ -11,7 +11,7 @@ class NavForm extends BaseForm
     public function rules(): array
     {
         return [
-            'query' => 'string|nullable',
+            'query' => 'string|required',
         ];
     }
 }

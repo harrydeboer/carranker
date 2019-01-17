@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\View;
 
 class ModelpageController extends Controller
 {
-    private const modelpageReviewsPerPage = 3;
+    private const modelpageReviewsPerPage = 5;
     private $ratingRepository;
     private $fXRateRepository;
     private $trimService;
@@ -36,20 +36,14 @@ class ModelpageController extends Controller
         $this->userRepository = new UserRepository();
     }
 
-    public function view(string $makename, string $modelname, Request $request, string $trimId='')
+    public function view(string $makename, string $modelname, Request $request, string $trimId='0')
     {
         $session = $request->session();
         $session->put('makename', $makename);
         $session->put('modelname', $modelname);
         $this->shareSessionCars($session);
 
-        $query = $request->query();
-        if ($query !== []) {
-            $page = (int) $query['page'];
-        } else {
-            $page = 1;
-        }
-
+        $page = $this->modelRepository->getPageNumber($request->query());
         $fxrate = $this->fXRateRepository->getByName('euro/dollar')->getValue();
         $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
         $form = new RatingForm($request->all());
@@ -67,13 +61,7 @@ class ModelpageController extends Controller
         $generationsSeriesTrims = $this->trimService->getGenerationsSeriesTrims($trims);
         $reviews = $this->modelRepository->getReviews($model, self::modelpageReviewsPerPage, $page);
         $maxNumberOfReview = $this->modelRepository->getNumOfReviews($model);
-
-        if ($trimId) {
-            $trimFromUrl = $this->trimRepository->get((int) $trimId);
-            $selectedGeneration = $trimFromUrl->getYearBegin() . '-' . $trimFromUrl->getYearEnd();
-        } else {
-            $selectedGeneration = null;
-        }
+        $selectedGeneration = $this->trimRepository->findSelectedGeneration((int) $trimId);
 
         $data = [
             'controller' => 'modelpage',

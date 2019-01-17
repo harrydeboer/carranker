@@ -57,10 +57,7 @@ class Controller extends BaseController
     protected function shareSessionCars($session)
     {
         View::share('makenameSession', $session->get('makename'));
-        $makename = $session->get('makename');
-        if (isset($makename)) {
-            View::share('modelnames', $this->makeRepository->getModelnames($makename));
-        }
+        View::share('modelnames', $this->makeRepository->getModelnames($session->get('makename')));
         View::share('modelnameSession', $session->get('modelname'));
     }
 
@@ -69,11 +66,6 @@ class Controller extends BaseController
         $form = new NavForm($request->all());
 
         if ($form->validateFull($request)) {
-
-            if ($form->query === null) {
-                return redirect('/');
-            }
-
             $data = [
                 'title' => 'Search results',
                 'controller' => 'base',

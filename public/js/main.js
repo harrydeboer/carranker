@@ -31,7 +31,7 @@ $(document).ready(function ()
         menuModel.empty();
         menuModel.append('<option>Model</option>');
 
-        if (selectedMake === 'Make') {
+        if (selectedMake === '') {
             return;
         }
 
@@ -45,7 +45,7 @@ $(document).ready(function ()
 
     function navigate()
     {
-        if (menuModel.val() === "") {
+        if (menuModel.val() === "Model") {
             window.location.href = "/make/" + menuMake.val();
         } else {
             window.location.href = "/model/" + menuMake.val() + "/" + menuModel.val();

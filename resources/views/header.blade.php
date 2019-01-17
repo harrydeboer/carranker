@@ -27,6 +27,7 @@
                 <li class="nav-item navText"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
             @endif
             <li class="nav-item"><select id="nav_select_make" class="form-control">
+                    <option value="">Make</option>
                     @foreach ($makenames as $makename)
                         @if ($makename === $makenameSession)
                             <option value="{{ $makename }}" selected>{{ $makename }}</option>

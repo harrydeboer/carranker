@@ -9,7 +9,7 @@ class MakeRepository extends BaseRepository
     public function getMakenames()
     {
         $makes = Make::all();
-        $makenames = ['' => 'Make'];
+        $makenames = [];
         foreach($makes as $make) {
             $makenames[$make->getName()] = $make->getName();
         }
@@ -41,8 +41,12 @@ class MakeRepository extends BaseRepository
         return $result;
     }
 
-    public function getModelnames(string $makename): array
+    public function getModelnames(?string $makename): ?array
     {
+        if (is_null($makename)) {
+            return null;
+        }
+
         $models = $this->getByName($makename)->getModels();
         $modelnames = [];
         foreach($models as $model) {

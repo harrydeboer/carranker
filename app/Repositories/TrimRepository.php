@@ -23,6 +23,17 @@ class TrimRepository extends BaseRepository
         return $queryObj->get();
     }
 
+    public function findSelectedGeneration(int $trimId): ?string
+    {
+        if ($trimId === 0) {
+            return null;
+        }
+
+        $trim = $this->get($trimId);
+
+        return $trim->getYearBegin() . '-' . $trim->getYearEnd();
+    }
+
     public function findTrimsOfTop($session, int $minNumVotes, int $lengthTopTable, int $offset=null)
     {
         $queryObj = $this->queryAspects($session);
