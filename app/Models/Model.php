@@ -42,15 +42,6 @@ class Model extends BaseModel
         return $this->hasOne('\App\Models\Make', 'id', 'make_id')->first();
     }
 
-    public function getRatings($modelpageReviewsPerPage, $page = null)
-    {
-        if ($page === null) {
-            return count($this->hasMany('\App\Models\Rating', 'model_id', 'id')->whereNotNull('content')->get());
-        }
-
-        return $this->hasMany('\App\Models\Rating', 'model_id', 'id')->whereNotNull('content')->limit($modelpageReviewsPerPage)->offset(($page - 1) * $modelpageReviewsPerPage)->get();
-    }
-
     public function getTrims()
     {
         return $this->hasMany('\App\Models\Trim','model_id', 'id')->get();

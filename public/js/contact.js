@@ -10,19 +10,19 @@ $(document).ready(function ()
 
         for (var index = 0; index < profanities.length; index++) {
             for (word = 0; word < subjectWords.length; word++) {
-                if ((profanities[index]) === subjectWords[word]) {
+                if ((profanities[index]) === subjectWords[word].toLowerCase()) {
                     testProfanities = false;
                     break;
                 }
             }
             for (word = 0; word < mailWords.length; word++) {
-                if ((profanities[index]) === mailWords[word]) {
+                if ((profanities[index]) === mailWords[word].toLowerCase()) {
                     testProfanities = false;
                     break;
                 }
             }
             for (word = 0; word < nameWords.length; word++) {
-                if ((profanities[index]) === nameWords[word]) {
+                if ((profanities[index]) === nameWords[word].toLowerCase()) {
                     testProfanities = false;
                     break;
                 }

@@ -11,7 +11,7 @@ trait CarTrait
 {
     /** When a user rates a trim the model and trim rating are updated.
      * The update depends on whether a user has rated the car earlier or not. */
-    public function updateCarRating($car, array $rating, $earlierRating = null)
+    public function updateCarRating($car, array $rating, $earlierRating)
     {
         $votes = $car->getVotes();
         if (!$earlierRating) {
@@ -20,13 +20,13 @@ trait CarTrait
         }
 
         foreach (Aspect::getAspects() as $aspect) {
-            $ratingModel = $car->$aspect;
-            if ($earlierRating === null) {
+            $ratingModel = $car->getAspect($aspect);
+            if (is_null($earlierRating)) {
                 $ratingModel = (($votes - 1) * $ratingModel + $rating[$aspect]) / $votes;
             } else {
-                $ratingModel = ($votes * $ratingModel + $rating[$aspect] - $earlierRating->$aspect) / $votes;
+                $ratingModel = ($votes * $ratingModel + $rating[$aspect] - $earlierRating->getAspect($aspect)) / $votes;
             }
-            $car->$aspect = $ratingModel;
+            $car->setAspect($aspect, $ratingModel);
         }
 
         $this->update($car);

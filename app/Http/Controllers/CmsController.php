@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\View;
 
 class CmsController extends Controller
 {
-    public function view($url)
+    public function view(string $url)
     {
         $page = $this->pageRepository->getByName($url);
 

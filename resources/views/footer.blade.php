@@ -19,7 +19,6 @@
 @if ($controller !== 'cms')
 <script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
 @endif
-<!--All pages need to know the carbrands, carmodels and whether the page is in development mode.-->
 <script>
     var controller = "{{ $controller }}";
 </script>

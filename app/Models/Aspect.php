@@ -23,6 +23,11 @@ trait Aspect
         return $this->$aspect;
     }
 
+    public function setAspect(string $aspectName, float $aspect)
+    {
+        $this->$aspectName = $aspect;
+    }
+
     public static function getAspects(): array
     {
         return self::$aspects;

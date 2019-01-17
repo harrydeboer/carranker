@@ -22,7 +22,7 @@ class APIController extends BaseController
         $this->trimRepository = new TrimRepository();
     }
 
-    public function viewMake($makeId)
+    public function viewMake(string $makeId)
     {
         $make = $this->makeRepository->get((int) $makeId);
         $make->setContent($make->getContent());
@@ -30,7 +30,7 @@ class APIController extends BaseController
         return response()->json($make);
     }
 
-    public function viewModel($modelId)
+    public function viewModel(string $modelId)
     {
         $model = $this->modelRepository->get((int) $modelId);
         $model->setContent($model->getContent());
@@ -38,7 +38,7 @@ class APIController extends BaseController
         return response()->json($model);
     }
 
-    public function viewTrim($trimId)
+    public function viewTrim(string $trimId)
     {
         $trim = $this->trimRepository->get((int) $trimId);
 

@@ -16,82 +16,56 @@ class User extends Authenticatable
 
     use Notifiable, HasApiTokens;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'user_login', 'user_email', 'user_pass', 'user_nicename', 'user_url', 'user_activation_key', 'user_status', 'display_name', 'user_registered',
+        'user_login', 'user_email', 'user_pass', 'user_nicename', 'user_url',
+        'user_activation_key', 'user_status', 'display_name', 'user_registered',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'user_pass', 'remember_token',
     ];
 
-    public function getId()
+    public function getId(): int
     {
         return $this->ID;
     }
 
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->user_login;
     }
 
-    public function getRatings($modelOrTrim, $id)
-    {
-        if ($modelOrTrim === 'trim') {
-            return $this->hasMany('\App\Models\Rating')->where('trim_id', $id)->first();
-        }
-        $ratings = [];
-        foreach ($this->hasMany('\App\Models\Rating')->where('model_id', $id)->get() as $rating) {
-            $ratings[$rating->getTrim()->getId()] = $rating;
-        }
-        return $ratings;
-    }
-
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->user_email;
     }
 
-    /**
-     * Get the password for the user.
-     *
-     * @return string
-     */
-    public function getAuthPassword()
+    public function getAuthPassword(): string
     {
         return $this->user_pass;
     }
 
-    public function getUserUrl()
+    public function getUserUrl(): string
     {
         return $this->user_url;
     }
 
-    public function getUserActivationKey()
+    public function getUserActivationKey(): string
     {
         return $this->user_activation_key;
     }
 
-    public function getUserStatus()
+    public function getUserStatus(): int
     {
         return $this->user_status;
     }
 
-    public function getUserRegistered()
+    public function getUserRegistered(): string
     {
         return $this->user_registered;
     }
 
-    public function getRememberToken()
+    public function getRememberToken(): string
     {
         return $this->remember_token;
     }

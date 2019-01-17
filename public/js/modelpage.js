@@ -100,45 +100,51 @@ $(document).ready(function ()
 
     /** A rating can be send to the server when there is no swearing for a review.
      * Or when the submit is not a review the required attributes in the html validate the form. */
-    $('#rating_form_submit').on('click', function(event)
+    $('#rating-form').on('submit', function(event)
     {
+        var testProfanities = true;
+
         if ($('#rating_form_content:visible').length) {
             var content = $('#rating_form_content').val();
             isReview = true;
 
             var contentWords = content.split(' ');
-            var testProfanities = true;
 
             for (index = 0; index < profanities.length; index++) {
                 for (word = 0; word < contentWords.length; word++) {
-                    if ((profanities[index]) === contentWords[word]) {
+                    if ((profanities[index]) === contentWords[word].toLowerCase()) {
                         testProfanities = false;
                         break;
                     }
                 }
             }
-            if (!testProfanities) {
-                $('#reviewWarning').html('No swearing please.<BR>');
-                event.preventDefault();
-            }
         }
 
-        event.preventDefault();
+        if (!testProfanities) {
+            $('#reviewWarning').html('No swearing please.<BR>');
+            event.preventDefault();
+        } else if (!$('#reCaptchaScript').length) {
+            /** Show the loader img */
+            $('#hideAll').show();
 
-        var head_ID = document.getElementsByTagName("head")[0];
-        var script_element = document.createElement('script');
-        script_element.type = 'text/javascript';
-        script_element.id = "reCaptchaScript";
-        script_element.src = "https://www.google.com/recaptcha/api.js?render=" + reCaptchaKey;
-        head_ID.appendChild(script_element);
-        $('#reCaptchaScript').on('load', function() {
-            grecaptcha.ready(function () {
-                grecaptcha.execute(reCaptchaKey, {action: 'rate'}).then(function (reCaptchaToken) {
-                    $('#reCaptchaToken').val(reCaptchaToken);
-                    $('#rating-form').submit();
+            var head_ID = document.getElementsByTagName("head")[0];
+            var script_element = document.createElement('script');
+            script_element.type = 'text/javascript';
+            script_element.id = "reCaptchaScript";
+            script_element.src = "https://www.google.com/recaptcha/api.js?render=" + reCaptchaKey;
+            head_ID.appendChild(script_element);
+
+            $('#reCaptchaScript').on('load', function () {
+                grecaptcha.ready(function () {
+                    grecaptcha.execute(reCaptchaKey, {action: 'rate'}).then(function (reCaptchaToken)
+                    {
+                        $('#reCaptchaToken').val(reCaptchaToken);
+                        $('#rating-form').submit();
+                    });
                 });
             });
-        });
+            event.preventDefault();
+        }
     });
 
     /** The dialog with the rating form can have three forms. When a trim has been viewed and the user wants to rate

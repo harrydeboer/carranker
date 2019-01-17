@@ -15,8 +15,21 @@ class UserRepository extends BaseRepository
         $this->modelClassName = '\App\\' . str_replace('Repository', '', end($classNameArray));
     }
 
-    public function getRatings($user, string $modelOrTrim, int $id)
+    public function getRatingsTrim($user, int $id)
     {
-        return $user->getRatings($modelOrTrim, $id);
+        if (is_null($user)) {
+            return null;
+        }
+
+        return $user->hasMany('\App\Models\Rating')->where('trim_id', $id)->first();
+    }
+
+    public function getRatingsModel($user, $id)
+    {
+        if (is_null($user)) {
+            return null;
+        }
+
+        return $user->hasMany('\App\Models\Rating')->where('model_id', $id)->get()->keyBy('trim_id');
     }
 }

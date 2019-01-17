@@ -8,28 +8,28 @@
     </h3>
 </div>
 <div class="modal-body">
-    <table class="ratingTrimTable" id="ratingCarModel{{ $id }}">
+    <table class="ratingTrimTable">
         <tr>
             <td></td>
-            <td colspan="2" id="votes{{ $id }}">Peoples({{ $trim->getVotes() }})&nbsp;</td>
+            <td colspan="2">Peoples({{ $trim->getVotes() }})&nbsp;</td>
             <td colspan="2">Yours</td>
         </tr>
         <tr>
-            <td class="aspectTD{{ $numAspects }}">{{ 'Rating' }}:</td>
-            <td class="aspectTD{{ $numAspects }}" id="rating{{ $id . $numAspects }}">{{ number_format($trim->getRating(), 1) }}</td>
-            <td class="aspectTD{{ $numAspects }}"><span class="fa fa-star fa-star-shadow"></span></td>
-            <td class="aspectTD{{ $numAspects }}" id="earlierRating{{ $id . $numAspects }}">{{ $rating ? $rating->getRating() : '-' }}</td>
-            <td class="aspectTD{{ $numAspects }}"><span class="fa fa-star fa-star-shadow"></span></td>
+            <td>{{ 'Rating' }}:</td>
+            <td>{{ number_format($trim->getRating(), 1) }}</td>
+            <td><span class="fa fa-star fa-star-shadow"></span></td>
+            <td>{{ $rating ? $rating->getRating() : '-' }}</td>
+            <td><span class="fa fa-star fa-star-shadow"></span></td>
         </tr>
         <tr>
             <td colspan="5" class="spaceUnder"></td>
         </tr>
         @foreach ($aspects as $keyAspect => $aspect)
-        <tr><td class="aspectTD{{ $keyAspect }}">{{ ucfirst($aspect) }}:</td>
-            <td class="aspectTD{{ $keyAspect }}" id="rating{{ $id . $keyAspect }}">{{ number_format($trim->getAspect($aspect), 1) }}</td>
-            <td class="aspectTD{{ $keyAspect }}"><span class="fa fa-star fa-star-shadow"></span></td>
-            <td class="aspectTD{{ $keyAspect }}" id="earlierRating{{ $id . $keyAspect }}">{{ $rating ? $rating->getAspect($aspect) : '-' }}</td>
-            <td class="aspectTD{{ $keyAspect }}"><span class="fa fa-star fa-star-shadow"></span></td>
+        <tr><td>{{ ucfirst($aspect) }}:</td>
+            <td>{{ number_format($trim->getAspect($aspect), 1) }}</td>
+            <td><span class="fa fa-star fa-star-shadow"></span></td>
+            <td>{{ $rating ? $rating->getAspect($aspect) : '-' }}</td>
+            <td><span class="fa fa-star fa-star-shadow"></span></td>
         </tr>
         @endforeach
         <tr>
@@ -39,8 +39,9 @@
     </table>
     @if ($isLoggedIn)
         <div class="text-center">
-            <a href="#dialog" class="toRateTrim btn btn-primary" data-toggle="modal" data-generation="{{ $trim->getYearBegin() . '-'
-            . $trim->getYearEnd() }}" data-serie="{{ $trim->getFramework() }}" data-idtrim="{{ $id }}">Rate this car!</a>
+            <a href="#dialog" class="toRateTrim btn btn-primary" data-toggle="modal"
+               data-generation="{{ $trim->getYearBegin() . '-' . $trim->getYearEnd() }}"
+               data-serie="{{ $trim->getFramework() }}" data-idtrim="{{ $id }}">Rate this car!</a>
         </div>
     @endif
     <table class="specsTrim">

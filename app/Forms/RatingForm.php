@@ -6,7 +6,7 @@ namespace App\Forms;
 
 class RatingForm extends BaseForm
 {
-    public $fillable = ['star', 'generation', 'serie', 'trim', 'content', 'reCaptchaToken'];
+    public $fillable = ['star', 'generation', 'serie', 'trimId', 'content', 'reCaptchaToken'];
 
     public function rules(): array
     {
@@ -14,7 +14,7 @@ class RatingForm extends BaseForm
             'star.*' => 'integer',
             'generation' => 'string',
             'serie' => 'string',
-            'trim' => 'integer',
+            'trimId' => 'integer',
             'content' => 'string|nullable',
             'reCaptchaToken' => 'string|required',
         ];
