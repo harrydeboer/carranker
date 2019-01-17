@@ -69,4 +69,9 @@ class User extends Authenticatable
     {
         return $this->remember_token;
     }
+
+    public function findForPassport(string $username): User
+    {
+        return User::where('user_email', $username)->first();
+    }
 }

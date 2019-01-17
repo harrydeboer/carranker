@@ -37,6 +37,11 @@ class WPHasher extends HashManager implements HasherContract
         $this->wphasher = new \PasswordHash(8, true);
     }
 
+    public function driver($driver = null)
+    {
+        return $this;
+    }
+
     public function make($value, array $options = [])
     {
         $hash = $this->wphasher->HashPassword($value);

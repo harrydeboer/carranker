@@ -8,6 +8,7 @@ use Laravel\Passport\PassportServiceProvider as PassportServiceProvider;
 use League\OAuth2\Server\Grant\PasswordGrant;
 use Laravel\Passport\Passport;
 use Laravel\Passport\Bridge\RefreshTokenRepository;
+use Laravel\Passport\Bridge\UserRepository;
 
 class CustomPassportServiceProvider extends PassportServiceProvider
 {
@@ -19,7 +20,7 @@ class CustomPassportServiceProvider extends PassportServiceProvider
     protected function makePasswordGrant()
     {
         $grant = new PasswordGrant(
-            new PassportUserRepository(new WPHasher($this->app)),
+            new UserRepository(new WPHasher($this->app)),
             $this->app->make(RefreshTokenRepository::class)
         );
 
