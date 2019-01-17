@@ -65,8 +65,11 @@
             <td class="col-md-6">&nbsp;<strong>Fuel: </strong></td>
         </tr>
         <tr class="row">
-            <td class="col-md-6"><img src="{{ fileUrl($trim->getFuelImage()) }}" alt="fuel"></td>
-            <td class="col-md-6">&nbsp;{{ $trim->getSpec('fuel') }}</td>
+            <td class="col-md-6">
+                @if (fileUrl($trim->getFuelImage()) !== "")
+                    <img src="{{ fileUrl($trim->getFuelImage()) }}" alt="fuel">
+                @endif</td>
+            <td class="col-md-6">&nbsp;{{ $trim->getSpec('fuel') !== "" ? $trim->getSpec('fuel') : 'N/A' }}</td>
         </tr>
         <tr class="row">
             <td colspan="2">&nbsp;</td>

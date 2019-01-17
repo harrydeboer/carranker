@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\View;
 
 class ModelpageController extends Controller
 {
-    private const modelpageReviewsPerPage = 2;
+    private const modelpageReviewsPerPage = 3;
     private $ratingRepository;
     private $fXRateRepository;
     private $trimService;
@@ -44,7 +44,6 @@ class ModelpageController extends Controller
         $this->shareSessionCars($session);
 
         $page = $this->modelRepository->getPageNumber($request->query());
-        $fxrate = $this->fXRateRepository->getByName('euro/dollar')->getValue();
         $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
         $form = new RatingForm($request->all());
 
@@ -55,14 +54,10 @@ class ModelpageController extends Controller
             $isThankYou = 0;
         }
 
-        $ratings = $this->userRepository->getRatingsModel(Auth::user(), $model->getId());
         $trims = $model->getTrims();
-        $hasTrimTypes = $this->trimService->hasTrimTypes($trims);
-        $generationsSeriesTrims = $this->trimService->getGenerationsSeriesTrims($trims);
         $reviews = $this->modelRepository->getReviews($model, self::modelpageReviewsPerPage, $page);
-        $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center', $reviews->onEachSide(1)->links());
-        $maxNumberOfReview = $this->modelRepository->getNumOfReviews($model);
-        $selectedGeneration = $this->trimRepository->findSelectedGeneration((int) $trimId);
+        $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
+            $reviews->onEachSide(1)->links());
 
         $data = [
             'controller' => 'modelpage',
@@ -74,16 +69,14 @@ class ModelpageController extends Controller
             'ratingform' => $form,
             'trims' => $trims,
             'isThankYou' => $isThankYou,
-            'thisPage' => $page,
-            'maxPages' =>  ceil($maxNumberOfReview / self::modelpageReviewsPerPage),
             'profanities' => $this->profanityRepository->getProfanityNames(),
-            'generationsSeriesTrims' => $generationsSeriesTrims,
-            'selectedGeneration' => $selectedGeneration,
+            'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
+            'selectedGeneration' => $this->trimRepository->findSelectedGeneration((int) $trimId),
             'reviews' => $reviews,
             'links' => $links,
-            'hasTrimTypes' => $hasTrimTypes,
-            'FXRate' => $fxrate,
-            'ratings' => $ratings,
+            'hasTrimTypes' => $this->trimService->hasTrimTypes($trims),
+            'FXRate' => $this->fXRateRepository->getByName('euro/dollar')->getValue(),
+            'ratings' => $this->trimRepository->findSelectedGeneration((int) $trimId),
         ];
 
         return View::make('modelpage.index')->with($data);
