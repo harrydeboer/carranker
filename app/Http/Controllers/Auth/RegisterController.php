@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Providers\WPHasher;
 use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -28,10 +29,12 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    private $userRepository;
 
     public function __construct()
     {
         parent::__construct();
+        $this->userRepository = new UserRepository();
         $this->middleware('guest');
     }
 
