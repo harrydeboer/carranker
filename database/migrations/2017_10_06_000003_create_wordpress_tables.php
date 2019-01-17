@@ -38,7 +38,7 @@ class CreateWordpressTables extends Migration
                 }
                 require_once base_path() . '/wordpress/wp/wp-admin/includes/schema.php';
                 $queryMysql = wp_get_db_schema('');
-                
+
                 $queryArray = explode(';' . "\n", trim($queryMysql));
                 foreach ($queryArray as $query) {
                     $query_parser = new SqliteCreateQuery();
