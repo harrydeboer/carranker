@@ -28,8 +28,17 @@ class CreateWordpressTables extends Migration
             } elseif (env('DB_CONNECTION') === 'sqlite_testing') {
                 global $wpdb;
                 $wpdb = new wpdb(env('WP_DB_PREFIX'));
+
+                /** Dummy function used only for being able to retrieve the wordpress schema. */
+                if (!function_exists('is_multisite')) {
+                    function is_multisite(): bool
+                    {
+                        return false;
+                    }
+                }
                 require_once base_path() . '/wordpress/wp/wp-admin/includes/schema.php';
                 $queryMysql = wp_get_db_schema('');
+                
                 $queryArray = explode(';' . "\n", trim($queryMysql));
                 foreach ($queryArray as $query) {
                     $query_parser = new SqliteCreateQuery();

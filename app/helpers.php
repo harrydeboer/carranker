@@ -12,11 +12,3 @@ function fileUrl(string $url): string
 
     return "";
 }
-
-/** Dummy function used for sqlite testing. */
-if (!defined('is_multisite')) {
-    function is_multisite(): bool
-    {
-        return false;
-    }
-}
