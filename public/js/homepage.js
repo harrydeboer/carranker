@@ -90,6 +90,7 @@ $(document).ready(function ()
             {
                 $('#tableTop').append(data);
                 sessionStorage.numberOfRows = $('#tableTop tr').length;
+                showPartTopTable(sessionStorage.numberOfRows);
                 var heightNew = $(document).height();
                 $(window).scrollTop(y + heightNew - height);
                 $('#hideAll').hide();
@@ -123,7 +124,7 @@ $(document).ready(function ()
         /** Show the loader img */
         $('#hideAll').show();
 
-        $.get('filterTop', $(this).serialize() + "&numberOfRows=" + sessionStorage.numberOfRows, function (data) {
+        $.get('filterTop', $(this).serialize() + "&numberOfRows=" + $('.topRow:visible').length, function (data) {
             /** Three pieces of html, the slideshow, the top table and the least number of votes, are filled with the data.
              * The data has a splitpoint to split at the right point for the three pieces of html.
              * The number of rows that has to be shown is set with showParTopTable, the loader is hidden and
