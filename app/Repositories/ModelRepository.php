@@ -42,12 +42,12 @@ class ModelRepository extends BaseRepository
         return $result;
     }
 
-    public function getReviews(Model $model, $modelpageReviewsPerPage, int $page = null)
+    public function getReviews(Model $model, $numReviewsPerModelpage, int $page = null)
     {
         return $model->hasMany('\App\Models\Rating', 'model_id', 'id')
             ->whereNotNull('content')
             ->orderBy('time', 'desc')
-            ->paginate($modelpageReviewsPerPage);
+            ->paginate($numReviewsPerModelpage);
     }
 
     public function getNumOfReviews(Model $model): int

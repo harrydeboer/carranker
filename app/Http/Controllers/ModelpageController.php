@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\View;
 
 class ModelpageController extends Controller
 {
-    private const modelpageReviewsPerPage = 3;
+    private const numReviewsPerModelpage = 3;
     private $ratingRepository;
     private $fXRateRepository;
     private $trimService;
@@ -47,15 +47,14 @@ class ModelpageController extends Controller
         $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
         $form = new RatingForm($request->all());
 
+        $isThankYou = 0;
         if ($form->validateFull($request, $form->reCaptchaToken)) {
             $isThankYou = 1;
             $this->rate($form, $model);
-        } else {
-            $isThankYou = 0;
         }
 
         $trims = $model->getTrims();
-        $reviews = $this->modelRepository->getReviews($model, self::modelpageReviewsPerPage, $page);
+        $reviews = $this->modelRepository->getReviews($model, self::numReviewsPerModelpage, $page);
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
             $reviews->onEachSide(1)->links());
 
@@ -76,7 +75,7 @@ class ModelpageController extends Controller
             'links' => $links,
             'hasTrimTypes' => $this->trimService->hasTrimTypes($trims),
             'FXRate' => $this->fXRateRepository->getByName('euro/dollar')->getValue(),
-            'ratings' => $this->trimRepository->findSelectedGeneration((int) $trimId),
+            'ratings' => $this->userRepository->getRatingsModel(Auth::user(), $model->getId()),
         ];
 
         return View::make('modelpage.index')->with($data);
@@ -87,8 +86,7 @@ class ModelpageController extends Controller
         $trimId = (int) $form->trimId;
         $trim = $this->trimRepository->get($trimId);
         $user = Auth::user();
-        $rating = $this->userRepository->getRatingsTrim(Auth::user(), $trimId);
-
+        $rating = $this->userRepository->getRatingsTrim($user, $trimId);
         $this->modelRepository->updateCarRating($model, $form->star, $rating);
         $this->trimRepository->updateCarRating($trim, $form->star, $rating);
         if (is_null($rating)) {

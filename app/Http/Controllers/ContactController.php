@@ -27,7 +27,6 @@ class ContactController extends Controller
             'controller' => 'contact',
             'title' => 'Contact',
             'profanities' => $this->profanityRepository->getProfanityNames(),
-            'success' => false,
             'form' => new ContactForm(),
             'page' => $this->pageRepository->getByName('contact'),
         ];
@@ -51,10 +50,10 @@ class ContactController extends Controller
                 });
 
             } catch (\Exception $e) {
-                return View::make('contact.mailSend')->with(['success' => false]);
+                return View::make('contact.mailSend')->with(['success' => "0"]);
             }
         }
 
-        return View::make('contact.mailSend')->with(['success' => true]);
+        return View::make('contact.mailSend')->with(['success' => "1"]);
     }
 }

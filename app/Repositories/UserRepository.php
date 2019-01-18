@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use Illuminate\Contracts\Auth\Authenticatable;
+
 class UserRepository extends BaseRepository
 {
     protected $modelClassName;
@@ -15,7 +17,7 @@ class UserRepository extends BaseRepository
         $this->modelClassName = '\App\\' . str_replace('Repository', '', end($classNameArray));
     }
 
-    public function getRatingsTrim($user, int $id)
+    public function getRatingsTrim(Authenticatable $user, int $id)
     {
         if (is_null($user)) {
             return null;
@@ -24,7 +26,7 @@ class UserRepository extends BaseRepository
         return $user->hasMany('\App\Models\Rating')->where('trim_id', $id)->first();
     }
 
-    public function getRatingsModel($user, $id)
+    public function getRatingsModel(Authenticatable $user, int $id)
     {
         if (is_null($user)) {
             return null;

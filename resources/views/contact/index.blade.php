@@ -4,8 +4,8 @@
     <div class="row justify-content-center" id="contactsArticle">
         <div class="col-md-8">
             {!! $page->getContent() ?? '' !!}
-            <span id="success">{{ $success }}</span>
-            <span id="error">{{ $success }}</span>
+            <span id="success"></span>
+            <span id="error"></span>
             {!! Form::model($form, ['route' => ['contact.sendMail'], 'id' => 'contact-form']) !!}
                 <div class="form-group">{!! Form::email('email', old('email'), ['class'=>'form-control',
                 'placeholder'=>'Enter your email', 'id' => 'contactform-email', 'required']) !!}</div>

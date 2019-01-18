@@ -65,7 +65,7 @@ $(document).ready(function ()
     /** The number of rows of the top table are placed in the session when the user want to show more
      * trims or less trims of the top. Default is the parameter top_number. */
     if (typeof sessionStorage.numberOfRows === 'undefined') {
-        sessionStorage.numberOfRows = topNumber;
+        sessionStorage.numberOfRows = topLength;
     }
 
     /** When the user wants to filter the top the preferences are shown and scrolled to. */

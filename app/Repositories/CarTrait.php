@@ -13,6 +13,10 @@ trait CarTrait
      * The update depends on whether a user has rated the car earlier or not. */
     public function updateCarRating($car, array $rating, $earlierRating)
     {
+        if ($this->modelClassName !== get_class($car)) {
+            throw new \Exception("Wrong class of car inserted.");
+        }
+
         $votes = $car->getVotes();
         if (!$earlierRating) {
             $car->setVotes($votes + 1);

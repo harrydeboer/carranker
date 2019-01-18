@@ -33,38 +33,49 @@ $(document).ready(function ()
             $('#error').html('No swearing please.<BR>');
         } else {
             $('#hideAll').show();
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
             serializedForm = $(this).serialize();
-            var head_ID = document.getElementsByTagName("head")[0];
-            var script_element = document.createElement('script');
-            script_element.type = 'text/javascript';
-            script_element.id = "reCaptchaScript";
-            script_element.src = "https://www.google.com/recaptcha/api.js?render=" + reCaptchaKey;
-            head_ID.appendChild(script_element);
+            if (!$('#reCaptchaScript').length) {
+                var head_ID = document.getElementsByTagName("head")[0];
+                var script_element = document.createElement('script');
+                script_element.type = 'text/javascript';
+                script_element.id = "reCaptchaScript";
+                script_element.src = "https://www.google.com/recaptcha/api.js?render=" + reCaptchaKey;
+                head_ID.appendChild(script_element);
+            } else {
+                sendMail();
+            }
 
             $('#reCaptchaScript').on('load', function() {
                 grecaptcha.ready(function () {
-                    grecaptcha.execute(reCaptchaKey, {action: 'sendMail'}).then(function (reCaptchaToken) {
-                        serializedForm += "&reCaptchaToken=" + reCaptchaToken;
-                        $.post('sendMail', serializedForm, function (data) {
-                            $('#hideAll').hide();
-                            if (data) {
-                                $('#success').html(data);
-                            } else {
-                                $('#error').html(data);
-                            }
-                            $('html, body').animate({
-                                scrollTop: $("#contactsArticle").offset().top
-                            }, 1000);
-                        });
-                    });
+                    sendMail();
                 });
             });
         }
         event.preventDefault();
     });
+
+    function sendMail()
+    {
+        grecaptcha.execute(reCaptchaKey, {action: 'sendMail'}).then(function (reCaptchaToken) {
+            serializedForm += "&reCaptchaToken=" + reCaptchaToken;
+            $.post('sendMail', serializedForm, function (data) {
+                $('#hideAll').hide();
+                if (data === "1") {
+                    $('#success').html("Thank you for your mail!");
+                } else {
+                    $('#error').html("Could not deliver mail. Try again later.");
+                }
+                $('html, body').animate({
+                    scrollTop: $("#contactsArticle").offset().top
+                }, 1000);
+            });
+        });
+    }
 });
