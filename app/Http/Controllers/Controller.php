@@ -63,7 +63,7 @@ class Controller extends BaseController
         View::share('modelnameSession', $session->get('modelname'));
     }
 
-    public function search(Request $request)
+    public function search(Request $request): \Illuminate\View\View
     {
         $form = new NavForm($request->all());
 
@@ -79,6 +79,14 @@ class Controller extends BaseController
             return View::make('base.search')->with($data);
         }
 
-        return redirect('/');
+        $data = [
+            'title' => 'Search results',
+            'controller' => 'base',
+            'makes' => [],
+            'models' => [],
+            'trims' => [],
+        ];
+
+        return View::make('base.search')->with($data);
     }
 }
