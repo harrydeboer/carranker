@@ -1,22 +1,18 @@
 $(document).ready(function ()
 {
-    $(document).on('click', '.choice-menu', function (event) {
-        event.stopPropagation();
-    });
-
     /** Activate the slider */
-    if ($('#sliderTop').length) {
-        $('#sliderTop').carousel();
-    }
+    $('#sliderTop').carousel();
 
     /** Via the checkall checkbox all choices checks of this spec are toggled. */
     $(".checkAll").on('click', function () {
         $("." + $(this).data('specname')).prop('checked', $(this).prop('checked'));
     });
 
-    /** All spec filtering options are toggled and the window scrolls to the filtered top. */
+    /** All spec filtering options are toggled. */
     $('#filterTopFormShowAll').on('click', function(event)
     {
+        /** When all specs are shown the button group must be aligned vertically
+         * so that the aspect ranges fit next to the buttons. */
         if ($('#choices.btn-group-vertical').length) {
             $('#choices').removeClass('btn-group-vertical');
             $('#choices').addClass('col-md-12').removeClass('col-md-4 col-xs-12');
@@ -56,17 +52,11 @@ $(document).ready(function ()
             $(this).prop('checked', true);
         });
         $('.specsRange').each(function () {
-            $(this).prop('selectedIndex', 0);
+            $(this).val("");
         });
 
         event.preventDefault();
     });
-
-    /** The number of rows of the top table are placed in the session when the user want to show more
-     * trims or less trims of the top. Default is the parameter top_number. */
-    if (typeof sessionStorage.numberOfRows === 'undefined') {
-        sessionStorage.numberOfRows = topLength;
-    }
 
     /** When the user wants to filter the top the preferences are shown and scrolled to. */
     $('#choosePreferences').on('click', function ()
@@ -77,35 +67,36 @@ $(document).ready(function ()
         }, 1000);
     });
 
-    sessionStorage.numberOfRows = $('#tableTop tr').length;
-    showPartTopTable();
+    showPartTopTable(sessionStorage.numberOfRows);
 
     /** When more or less cars are shown in the top table the scrolling makes that the button remains in the same place of the window. */
     $('#showMore').on('click', function ()
     {
         var height = $(document).height();
         var y = $(window).scrollTop();
-        if ($('#tableTop tr').length % 10 === 0) {
-            sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) + parseInt(numShowMoreLess);
-        } else {
-            sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) + parseInt(numShowMoreLess) - $('#tableTop tr').length % 10;
-        }
 
-        if (sessionStorage.numberOfRows > $('.topRow').length) {
+        if ($('.topRow:visible').length + numShowMoreLess > $('.topRow').length) {
 
             /** Show the loader img */
             $('#hideAll').show();
 
-            $.get('showMoreTopTable/' + sessionStorage.numberOfRows + '/' + $('.topRow').length, "", function (data) {
+            if ($('.topRow:visible').length % 10 === 0) {
+                sessionStorage.numberOfRows = $('.topRow:visible').length + numShowMoreLess;
+            } else {
+                sessionStorage.numberOfRows = $('.topRow:visible').length + numShowMoreLess - $('.topRow:visible').length % 10;
+            }
+
+            $.get('showMoreTopTable/' + sessionStorage.numberOfRows + '/' + $('.topRow').length, "", function (data)
+            {
                 $('#tableTop').append(data);
-                $('#hideAll').hide();
                 sessionStorage.numberOfRows = $('#tableTop tr').length;
-                showPartTopTable();
                 var heightNew = $(document).height();
                 $(window).scrollTop(y + heightNew - height);
+                $('#hideAll').hide();
             });
         } else {
-            showPartTopTable();
+            sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) + numShowMoreLess;
+            showPartTopTable(sessionStorage.numberOfRows);
             var heightNew = $(document).height();
             $(window).scrollTop(y + heightNew - height);
         }
@@ -113,7 +104,7 @@ $(document).ready(function ()
 
     $('#showLess').on('click', function ()
     {
-        if (sessionStorage.numberOfRows > 10) {
+        if (sessionStorage.numberOfRows > numShowMoreLess) {
             var height = $(document).height();
             var y = $(window).scrollTop();
             if ($('#tableTop tr').length % 10 === 0) {
@@ -121,7 +112,7 @@ $(document).ready(function ()
             } else {
                 sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) - parseInt(sessionStorage.numberOfRows) % 10;
             }
-            showPartTopTable();
+            showPartTopTable(sessionStorage.numberOfRows);
             var heightNew = $(document).height();
             $(window).scrollTop(y + heightNew - height);
         }
@@ -145,13 +136,10 @@ $(document).ready(function ()
             /** Hide the loader img */
             $("#hideAll").hide();
 
-            sessionStorage.numberOfRows = $('#tableTop tr').length;
-
-            showPartTopTable();
-
             /** Activate the slider */
             $('#carousel').carousel();
 
+            sessionStorage.numberOfRows = $('#tableTop tr').length;
             $("#preferencesDialog").css('margin-top', '0');
             $('html, body').animate({
                 scrollTop: $("#topCars").offset().top
@@ -164,10 +152,12 @@ $(document).ready(function ()
     });
 
     /** Only a part of the total table is shown. The minimum number of votes is added on top of the table. */
-    function showPartTopTable()
+    function showPartTopTable(numberOfRows)
     {
-        $('#tableTop tr').hide();
-        $('.topRow').slice(0, sessionStorage.numberOfRows).show().css('display', 'flex');
-        $('#topOrLessNumber').html(Math.min(sessionStorage.numberOfRows, $('.topRow').length));
+        if (typeof numberOfRows !== 'undefined') {
+            $('#tableTop tr').hide();
+            $('.topRow').slice(0, numberOfRows).show().css('display', 'flex');
+            $('#topOrLessNumber').html(numberOfRows);
+        }
     }
 });

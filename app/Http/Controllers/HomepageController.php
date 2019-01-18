@@ -35,7 +35,6 @@ class HomepageController extends Controller
             $session->get('numberOfRows') ?? self::topLength);
 
         $data = [
-            'topLength' => count($topTrims),
             'topLengthSlider' => min(count($topTrims), self::topSliderNumber),
             'numShowMoreLess' => self::numShowMoreLess,
             'controller' => 'homepage',
@@ -72,7 +71,6 @@ class HomepageController extends Controller
             $session->put('specsRange', $form->specsRange);
 
             $topTrims = $this->trimRepository->findTrimsOfTop($session, (int) $form->minNumVotes, (int) $form->numberOfRows);
-
             $session->put('numberOfRows', count($topTrims));
 
             $data = [
@@ -97,10 +95,9 @@ class HomepageController extends Controller
     public function showMoreTopTable(string $numberOfRows, string $offset, Request $request)
     {
         $session = $request->session();
-        $session->put('numberOfRows', (int) $numberOfRows);
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
-
         $trims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes, (int) $numberOfRows, (int) $offset);
+        $session->put('numberOfRows', count($trims) + (int) $offset);
 
         return View::make('homepage.showMoreTopTable')->with(['trims' => $trims, 'offset' => (int) $offset]);
     }

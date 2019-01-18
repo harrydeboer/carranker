@@ -9,7 +9,7 @@
         @for ($index = 0; $index < $topLengthSlider; $index++)
             <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                 <a href="{{ $topTrims[$index]->getUrl() }}">
-                    <img src="{{ $index === 0 ? fileUrl($topTrims[$index]->getImage()) : 'lazy' }}"
+                    <img src="{{ $index === 0 ? fileUrl($topTrims[$index]->getImage()) : fileUrl('/img/favicon-16x16.png') }}"
                          data-src="{{ fileUrl($topTrims[$index]->getImage()) }}"
                          class="{{ $index === 0 ?: 'lazy ' }}carCarouselImg d-block img-fluid"
                          onerror="this.style.display='none';"

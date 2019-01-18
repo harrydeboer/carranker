@@ -14,7 +14,7 @@
             <div id="topCars" class="col-md-8">
                 <h1 id="topWithPref" class="text-center">Top
                     <span id="topOrLessNumber">
-                        {{ $topLength }}
+                        {{ count($topTrims) }}
                     </span>
                 </h1>
                 <h2 id="atLeastVotes" class="text-center"><em>with at least {{ $minNumVotes }} votes</em></h2>
@@ -127,8 +127,8 @@
                     </h3>
                     <BR>
                     <div class="reviewBody">
-                        <img src="{{ fileUrl($review->getTrim()->getImage()) }}"
-                             class="reviewImage pull-left" alt="review{{ ($key + 1) }}">
+                        <img src="{{ fileUrl('/img/favicon-16x16.png') }}" data-src="{{ fileUrl($review->getTrim()->getImage()) }}"
+                             class="lazy reviewImage pull-left" alt="review{{ ($key + 1) }}">
                         <div class="reviewContent">{!! $review->getContent() !!}</div>
                     </div>
                 </div>
@@ -137,7 +137,6 @@
     </div>
     <script>
         var specsChoice = {!! json_encode($specsChoice) !!};
-        var topLength = {!! $topLength !!};
         var numShowMoreLess = {!! $numShowMoreLess !!};
         var minNumVotes = {!! $minNumVotes !!};
     </script>
