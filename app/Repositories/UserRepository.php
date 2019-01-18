@@ -26,7 +26,7 @@ class UserRepository extends BaseRepository
         return $user->hasMany('\App\Models\Rating')->where('trim_id', $id)->first();
     }
 
-    public function getRatingsModel(Authenticatable $user, int $id)
+    public function getRatingsModel(?Authenticatable $user, int $id)
     {
         if (is_null($user)) {
             return null;

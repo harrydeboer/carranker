@@ -9,7 +9,10 @@
         @for ($index = 0; $index < $topLengthSlider; $index++)
             <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                 <a href="{{ $topTrims[$index]->getUrl() }}">
-                    <img src="{{ $index === 0 ? fileUrl($topTrims[$index]->getImage()) : '' }}" data-src="{{ fileUrl($topTrims[$index]->getImage()) }}" class="{{ $index === 0 ?: 'lazy ' }}carCarouselImg d-block img-fluid" onerror="this.style.display='none';"
+                    <img src="{{ $index === 0 ? fileUrl($topTrims[$index]->getImage()) : 'lazy' }}"
+                         data-src="{{ fileUrl($topTrims[$index]->getImage()) }}"
+                         class="{{ $index === 0 ?: 'lazy ' }}carCarouselImg d-block img-fluid"
+                         onerror="this.style.display='none';"
                          alt="{{ $topTrims[$index]->getMakename() . ' ' . $topTrims[$index]->getModelname() }}"></a>
                 <div class="carousel-caption {{ $index == 0 ? 'active' : '' }}">
                     {{ ($index + 1) . '. ' . $topTrims[$index]->getMakename() . ' ' . $topTrims[$index]->getModelname() . ' ' .

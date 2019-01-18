@@ -38,6 +38,8 @@ class ModelpageController extends Controller
 
     public function view(string $makename, string $modelname, Request $request, string $trimId='0')
     {
+        $makename = urldecode($makename);
+        $modelname = urldecode($modelname);
         $session = $request->session();
         $session->put('makename', $makename);
         $session->put('modelname', $modelname);
