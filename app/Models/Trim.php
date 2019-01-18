@@ -72,9 +72,9 @@ class Trim extends BaseModel
             . '-' . $this->year_end . ' ' . $this->framework . ' ' . $this->getName();
     }
 
-    public function getPrice($FXRate)
+    public function getPrice(float $FXRate): ?float
     {
-        return $this->price ? $this->price * $FXRate : 'N/A';
+        return $this->price * $FXRate;
     }
 
     public function setRating(float $rating)
@@ -199,17 +199,12 @@ class Trim extends BaseModel
         return $this->fuel_consumption;
     }
 
-    public function getSpec($specname)
-    {
-        return $this->$specname;
-    }
-
-    public function getFrameworkImage()
+    public function getFrameworkImage(): string
     {
         return '/img/' . $this->framework . '.png';
     }
 
-    public function getFuelImage()
+    public function getFuelImage(): string
     {
         $fuel = $this->fuel;
         if ($fuel === 'Gasoline,  Electric' || $fuel === 'Gasoline,  CNG') {

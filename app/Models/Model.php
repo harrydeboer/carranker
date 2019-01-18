@@ -52,9 +52,9 @@ class Model extends BaseModel
         return $this->make;
     }
 
-    public function getPrice($FXRate)
+    public function getPrice(float $FXRate): ?float
     {
-        return $this->price ? $this->price * $FXRate : 'N/A';
+        return $this->price * $FXRate;
     }
 
     public function getVotes(): int

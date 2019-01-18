@@ -41,7 +41,7 @@
                         @endforeach
                         <tr class="row rowRating">
                             <td class="col-md-7">Price: </td>
-                            <td class="col-md-5">{{ round($model->getPrice($FXRate), -3) }} $</td>
+                            <td class="col-md-5">{{ $model->getPrice($FXRate) ? round($model->getPrice($FXRate), -3) . ' $' : 'N/A'}}</td>
                         </tr>
                     </table>
                     <BR>
