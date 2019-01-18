@@ -3,20 +3,22 @@
 namespace App\Repositories;
 
 use App\Models\Make;
+use Illuminate\Database\Eloquent\Collection;
 
 class MakeRepository extends BaseRepository
 {
-    public function getMakenames()
+    public function getMakenames(): array
     {
         $makes = Make::all();
         $makenames = [];
         foreach($makes as $make) {
             $makenames[$make->getName()] = $make->getName();
         }
+
         return $makenames;
     }
 
-    public function findMakesForSearch(string $searchString)
+    public function findMakesForSearch(string $searchString): Collection
     {
         $words = explode(' ', $searchString);
 
@@ -25,9 +27,7 @@ class MakeRepository extends BaseRepository
             $queryObj->orWhere('name', 'like', "%$word%");
         }
 
-        $test = $queryObj->get();
-
-        return $test;
+        return $queryObj->get();
     }
 
     public function getByName(string $name): Make

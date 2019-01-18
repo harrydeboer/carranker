@@ -56,7 +56,7 @@ class ModelpageController extends Controller
         }
 
         $trims = $model->getTrims();
-        $reviews = $this->modelRepository->getReviews($model, self::numReviewsPerModelpage, $page);
+        $reviews = $this->modelRepository->getReviews($model, self::numReviewsPerModelpage);
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
             $reviews->onEachSide(1)->links());
 

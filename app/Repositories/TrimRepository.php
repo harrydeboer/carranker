@@ -5,13 +5,16 @@ namespace App\Repositories;
 use App\CarSpecs;
 use App\Models\Aspect;
 use App\Models\Trim;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Session\Store;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 
 class TrimRepository extends BaseRepository
 {
     use CarTrait;
 
-    public function findTrimsForSearch(string $searchString)
+    public function findTrimsForSearch(string $searchString): Collection
     {
         $words = explode(' ', $searchString);
 
@@ -34,7 +37,7 @@ class TrimRepository extends BaseRepository
         return $trim->getYearBegin() . '-' . $trim->getYearEnd();
     }
 
-    public function findTrimsOfTop($session, int $minNumVotes, int $lengthTopTable, int $offset=null)
+    public function findTrimsOfTop(Store $session, int $minNumVotes, int $lengthTopTable, int $offset=null): Collection
     {
         $queryObj = $this->queryAspects($session);
 
@@ -62,7 +65,7 @@ class TrimRepository extends BaseRepository
     }
 
     /** Filter the trims for the user settings in the aspect ranges of the filter top form. */
-    private function queryAspects($session)
+    private function queryAspects(Store $session)
     {
         $selectAspects = "(";
         $total = 0;
@@ -83,7 +86,7 @@ class TrimRepository extends BaseRepository
     }
 
     /** Filter the trims for the user settings in the dropdowns of the filter top form. */
-    private function queryChoice($choices, string $name, $queryObj, $session)
+    private function queryChoice(array $choices, string $name, Builder $queryObj, Store $session): Builder
     {
         $queryArr = [];
         $sessionSpec = $session->get('specsChoice');
@@ -102,7 +105,7 @@ class TrimRepository extends BaseRepository
             }
         }
 
-        if (empty($queryArr) || count($queryArr) === count($choices)) {
+        if ($queryArr === [] || count($queryArr) === count($choices)) {
             return $queryObj;
         }
 
@@ -110,7 +113,7 @@ class TrimRepository extends BaseRepository
     }
 
     /** Filter the trims for the user settings in the min/max selects of the filter top form. */
-    private function queryRange($spec, string $name, $queryObj, $session)
+    private function queryRange(array $spec, string $name, Builder $queryObj, Store $session): Builder
     {
         $sessionSpecs = $session->get('specsRange');
         $sessionMin = $sessionSpecs[$name . 'min'];
@@ -125,7 +128,7 @@ class TrimRepository extends BaseRepository
             $queryObj->where($name, '>=', $sessionMin);
         }
 
-        if (isset($sessionMax) && $spec['max'] != $sessionMax) {
+        if (isset($sessionMax) && $spec['max'] !== (float) $sessionMax) {
             if ($name === 'generation') {
                 $name = 'year_end';
             }

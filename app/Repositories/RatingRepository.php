@@ -2,16 +2,21 @@
 
 namespace App\Repositories;
 
+use App\Forms\RatingForm;
+use App\Models\Model;
 use App\Models\Rating;
+use App\Models\Trim;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Collection;
 
 class RatingRepository extends BaseRepository
 {
-    public function findRecentReviews($limit)
+    public function findRecentReviews($limit): Collection
     {
         return Rating::whereNotNull('content')->take($limit)->orderBy('time', 'desc')->get();
     }
 
-    public function createRating($user, $model, $trim, $form)
+    public function createRating(Authenticatable $user, Model $model, Trim $trim, RatingForm $form)
     {
         $createArray = [
             'user_id' => $user->getId(),
@@ -31,7 +36,7 @@ class RatingRepository extends BaseRepository
         $this->create($createArray);
     }
 
-    public function updateRating($rating, $form)
+    public function updateRating(Rating $rating, RatingForm $form)
     {
         foreach ($form->star as $key => $aspect) {
             $rating->setAspect($key, (int) $aspect);

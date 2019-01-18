@@ -6,7 +6,7 @@ use App\Models\Menu;
 
 class MenuRepository extends BaseRepository
 {
-    public function getByName(string $name)
+    public function getByName(string $name): Menu
     {
         return Menu::where('name', $name)->first();
     }

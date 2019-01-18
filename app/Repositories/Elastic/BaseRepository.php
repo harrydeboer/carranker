@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elastic;
 
+use Illuminate\Database\Eloquent\Model;
+
 abstract class BaseRepository
 {
     protected $modelClassName;
@@ -19,7 +21,7 @@ abstract class BaseRepository
         $this->modelClassName::reindex();
     }
 
-    public function createIndex($shards = null, $replicas = null)
+    public function createIndex(int $shards = null, int $replicas = null)
     {
         $this->modelClassName::createIndex($shards, $replicas);
     }
@@ -29,7 +31,7 @@ abstract class BaseRepository
         $this->modelClassName::deleteIndex();
     }
 
-    public function putMappingTrait($ignoreConflicts)
+    public function putMappingTrait(bool $ignoreConflicts)
     {
         $this->modelClassName::putMapping($ignoreConflicts);
     }
@@ -54,7 +56,7 @@ abstract class BaseRepository
         $this->modelClassName::addAllToIndex();
     }
 
-    public function getByName(array $query)
+    public function getByName(array $query): Model
     {
         return $this->modelClassName::searchByQuery($query)->first();
     }

@@ -3,12 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\Model;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ModelRepository extends BaseRepository
 {
     use CarTrait;
 
-    public function getModelnames()
+    public function getModelnames(): array
     {
         $models = Model::all();
         $modelnames = [];
@@ -19,7 +21,7 @@ class ModelRepository extends BaseRepository
         return $modelnames;
     }
 
-    public function findModelsForSearch(string $searchString)
+    public function findModelsForSearch(string $searchString): Collection
     {
         $words = explode(' ', $searchString);
 
@@ -42,7 +44,7 @@ class ModelRepository extends BaseRepository
         return $result;
     }
 
-    public function getReviews(Model $model, $numReviewsPerModelpage, int $page = null)
+    public function getReviews(Model $model, int $numReviewsPerModelpage): LengthAwarePaginator
     {
         return $model->hasMany('\App\Models\Rating', 'model_id', 'id')
             ->whereNotNull('content')

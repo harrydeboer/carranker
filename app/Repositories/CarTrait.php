@@ -5,20 +5,22 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Aspect;
+use App\Models\BaseModel;
+use App\Models\Rating;
 
 /** Both Model and Trim can update their rating. Their repositories use this trait. */
 trait CarTrait
 {
     /** When a user rates a trim the model and trim rating are updated.
      * The update depends on whether a user has rated the car earlier or not. */
-    public function updateCarRating($car, array $rating, $earlierRating)
+    public function updateCarRating(BaseModel $car, array $rating, ?Rating $earlierRating)
     {
         if ($this->modelClassName !== get_class($car)) {
             throw new \Exception("Wrong class of car inserted.");
         }
 
         $votes = $car->getVotes();
-        if (!$earlierRating) {
+        if (is_null($earlierRating)) {
             $car->setVotes($votes + 1);
             $votes = $car->getVotes();
         }
