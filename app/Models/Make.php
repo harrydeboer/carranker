@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
+
 class Make extends BaseModel
 {
     protected $table = 'makes';
@@ -16,26 +18,24 @@ class Make extends BaseModel
      */
     protected $fillable = ['name', 'content', 'wiki_car_make'];
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getWikiCarMake()
+    public function getWikiCarMake(): string
     {
         return $this->wiki_car_make ?? str_replace(' ', '_', $this->name);
     }
 
-    public function getModels()
+    public function getModels(): Collection
     {
         return $this->hasMany('\App\Models\Model', 'make_id', 'id')->get();
     }
 
-    public function setContent(string $content): Make
+    public function setContent(string $content)
     {
         $this->content = $content;
-
-        return $this;
     }
 
     public function getContent(): string

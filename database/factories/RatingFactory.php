@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\Rating::class, function (Faker $faker) {
+$factory->define(App\Models\Rating::class, function (Faker $faker): array {
 
     return [
         'user_id' => 1,

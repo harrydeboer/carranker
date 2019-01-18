@@ -6,7 +6,6 @@ use App\Providers\WPHasher;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
 use App\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
@@ -46,7 +45,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function create(array $data): Model
+    protected function create(array $data): User
     {
         $hasher = new WPHasher(app());
 

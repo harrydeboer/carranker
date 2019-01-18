@@ -16,7 +16,7 @@ class TrimService
 
             /** If the trim has a name it means the trim has a specific trim version.
              * Their names are stored as a key in the generationsSeriesTrims array. */
-            if ($trim->getName() !== "") {
+            if (!is_null($trim->getName())) {
                 $generationsSeriesTrims[$trim->getYearBegin() . '-' . $trim->getYearEnd()][$trim->getFramework()][$trim->getName()] = $trim->getId();
             } else {
                 $generationsSeriesTrims[$trim->getYearBegin() . '-' . $trim->getYearEnd()][$trim->getFramework()][] = $trim->getId();
@@ -31,7 +31,7 @@ class TrimService
     {
         foreach ($trims as $trim) {
             $hasTrimVersions = 0;
-            if ($trim->getName() !== "") {
+            if (!is_null($trim->getName())) {
                 $hasTrimVersions = 1;
                 break;
             }

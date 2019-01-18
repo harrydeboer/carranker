@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 class Menu extends BaseModel
 {
     protected $table = 'menus';
@@ -16,12 +18,12 @@ class Menu extends BaseModel
      */
     protected $fillable = ['name'];
 
-    public function getPages()
+    public function getPages(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Page', 'menus_pages');
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }

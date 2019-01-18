@@ -21,7 +21,7 @@
                 <li class="nav-item navText"><a href="/{{ $page->getName() === 'home' ? '' :
                     strtolower($page->getName()) }}" class="nav-link">{{ $page->getTitle() }}</a></li>
             @endforeach
-            @if ( $isLoggedIn )
+            @if ( $isLoggedIn === true )
                 <li class="nav-item navText"><a href="{{ route('logout') }}" class="nav-link">Logout</a></li>
             @else
                 <li class="nav-item navText"><a href="{{ route('login') }}" class="nav-link">Login</a></li>

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
+
 class Model extends BaseModel
 {
     use Aspect;
@@ -32,17 +34,17 @@ class Model extends BaseModel
         }
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getMake()
+    public function getMake(): Make
     {
         return $this->hasOne('\App\Models\Make', 'id', 'make_id')->first();
     }
 
-    public function getTrims()
+    public function getTrims(): Collection
     {
         return $this->hasMany('\App\Models\Trim','model_id', 'id')->get();
     }
@@ -78,11 +80,9 @@ class Model extends BaseModel
         return $image;
     }
 
-    public function setContent(string $content): Model
+    public function setContent(string $content)
     {
         $this->content = $content;
-
-        return $this;
     }
 
     /** All content is translated to ISO-8859-1 en if a character gets an � it is removed. */
@@ -106,7 +106,5 @@ class Model extends BaseModel
     public function setVotes(int $votes)
     {
         $this->votes = $votes;
-
-        return $this;
     }
 }

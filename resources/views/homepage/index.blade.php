@@ -113,7 +113,7 @@
     </div>
     <BR>
     <div class="row justify-content-center text-center">
-        @if (!$reviews)
+        @if (count($reviews) === 0)
             <h2 id="recentReviews" class="col-md-7">No reviews at the moment: </h2>
         @else
             <h2 id="recentReviews" class="col-md-7">Recent Reviews:</h2>

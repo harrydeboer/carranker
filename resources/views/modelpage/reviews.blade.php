@@ -1,4 +1,4 @@
-@if (count($reviews))
+@if (count($reviews) > 0)
     {!! $links !!}
     <section>
         <h3 class="col-md-12 row justify-content-center" id="reviewHeading">

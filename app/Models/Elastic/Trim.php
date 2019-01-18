@@ -11,7 +11,7 @@ class Trim extends Model
 {
     use ElasticquentTrait;
 
-    public function getIndexName()
+    public function getIndexName(): string
     {
         return 'trims';
     }

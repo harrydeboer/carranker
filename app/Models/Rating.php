@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\User;
+
 class Rating extends BaseModel
 {
     use Aspect;
@@ -23,22 +25,22 @@ class Rating extends BaseModel
         parent::__construct($attributes);
     }
 
-    public function getModel()
+    public function getModel(): Model
     {
         return $this->hasOne('\App\Models\Model', 'id', 'model_id')->first();
     }
 
-    public function getTrim()
+    public function getTrim(): Trim
     {
         return $this->hasOne('\App\Models\Trim', 'id', 'trim_id')->first();
     }
 
-    public function getUser()
+    public function getUser(): User
     {
         return $this->hasOne('\App\User', 'ID', 'user_id')->first();
     }
 
-    public function getTime()
+    public function getTime(): int
     {
         return $this->time;
     }
@@ -53,10 +55,8 @@ class Rating extends BaseModel
         return date('d-m-Y', $this->time);
     }
 
-    public function setContent(string $content=null): Rating
+    public function setContent(string $content=null)
     {
         $this->content = $content;
-
-        return $this;
     }
 }

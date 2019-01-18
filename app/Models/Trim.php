@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\CarSpecs;
+use Illuminate\Database\Eloquent\Collection;
 
 class Trim extends BaseModel
 {
@@ -56,17 +57,17 @@ class Trim extends BaseModel
         return $this->name;
     }
 
-    public function getRatings()
+    public function getRatings(): Collection
     {
         return $this->hasMany('\App\Models\Rating','trim_id', 'id')->get();
     }
 
-    public function getModel()
+    public function getModel(): Model
     {
         return $this->hasOne('\App\Models\Model', 'id', 'model_id')->first();
     }
 
-    public function getFullName()
+    public function getFullName(): string
     {
         return $this->make . ' ' . $this->model . ' ' . $this->year_begin
             . '-' . $this->year_end . ' ' . $this->framework . ' ' . $this->getName();
@@ -80,8 +81,6 @@ class Trim extends BaseModel
     public function setRating(float $rating)
     {
         $this->rating = $rating;
-
-        return $this;
     }
 
     public function getUrl(): string
@@ -129,72 +128,72 @@ class Trim extends BaseModel
         return $this->votes;
     }
 
-    public function getFramework(): string
+    public function getFramework(): ?string
     {
         return $this->framework;
     }
 
-    public function getFuel(): string
+    public function getFuel(): ?string
     {
         return $this->fuel;
     }
 
-    public function getTransmission(): string
+    public function getTransmission(): ?string
     {
         return $this->gearbox_type;
     }
 
-    public function getNumberOfDoors(): int
+    public function getNumberOfDoors(): ?int
     {
         return $this->number_of_doors;
     }
 
-    public function getNumberOfSeats(): int
+    public function getNumberOfSeats(): ?int
     {
         return $this->number_of_seats;
     }
 
-    public function getNumberOfGears(): int
+    public function getNumberOfGears(): ?int
     {
         return $this->number_of_gears;
     }
 
-    public function getMaxTrunkCapacity(): int
+    public function getMaxTrunkCapacity(): ?int
     {
         return $this->max_trunk_capacity;
     }
 
-    public function getEngineCapacity(): float
+    public function getEngineCapacity(): ?float
     {
         return $this->engine_capacity;
     }
 
-    public function getFueltankCapacity(): int
+    public function getFueltankCapacity(): ?int
     {
         return $this->fueltank_capacity;
     }
 
-    public function getMaxSpeed(): int
+    public function getMaxSpeed(): ?int
     {
         return $this->max_speed;
     }
 
-    public function getFullWeight(): int
+    public function getFullWeight(): ?int
     {
         return $this->full_weight;
     }
 
-    public function getEnginePower(): int
+    public function getEnginePower(): ?int
     {
         return $this->engine_power;
     }
 
-    public function getAcceleration(): float
+    public function getAcceleration(): ?float
     {
         return $this->acceleration;
     }
 
-    public function getFuelConsumption(): float
+    public function getFuelConsumption(): ?float
     {
         return $this->fuel_consumption;
     }
@@ -216,7 +215,5 @@ class Trim extends BaseModel
     public function setVotes(int $votes)
     {
         $this->votes = $votes;
-
-        return $this;
     }
 }

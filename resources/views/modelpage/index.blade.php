@@ -12,7 +12,7 @@
                      id="carModelImg"
                      alt="{{ $model->getMakename() . ' ' . $model->getName() }}"
                      class="pull-right img-thumbnail">
-                @if ($model->getContent())
+                @if (!is_null($model->getContent()))
                     {!! $model->getContent() !!}
                     <div id="reference">
                         <a href="https://en.wikipedia.org/wiki/{{ $model->getWikiCarModel() }}">Source Wikipedia</a>
@@ -20,7 +20,7 @@
                 @endif
             </div>
         </section>
-        @if ($trims)
+        @if (count($trims) > 0)
             <div class="col-md-4 panel panel-default">
                 <div class="panel-heading text-center">
                     <div id="ratingHeading">
@@ -41,12 +41,12 @@
                         @endforeach
                         <tr class="row rowRating">
                             <td class="col-md-7">Price: </td>
-                            <td class="col-md-5">{{ $model->getPrice($FXRate) ? round($model->getPrice($FXRate), -3) . ' $' : 'N/A'}}</td>
+                            <td class="col-md-5">{{ is_null($model->getPrice($FXRate)) ? 'N/A' : round($model->getPrice($FXRate), -3) . ' $'}}</td>
                         </tr>
                     </table>
                     <BR>
                 </div>
-                @if ($isLoggedIn)
+                @if ($isLoggedIn === true)
                     <div class="text-center">
                         <a href="#dialog" data-toggle="modal" id="showModelDialog" class="btn btn-primary">Rate car!</a>
                         <BR>

@@ -46,6 +46,7 @@ class ModelpageController extends Controller
         $this->shareSessionCars($session);
 
         $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
+        $model->getMake();
         $form = new RatingForm($request->all());
 
         $isThankYou = 0;

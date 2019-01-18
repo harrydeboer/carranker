@@ -13,7 +13,7 @@ class Model extends BaseModel
     use ElasticquentTrait;
     use Aspect;
 
-    public function getIndexName()
+    public function getIndexName(): string
     {
         return 'models';
     }

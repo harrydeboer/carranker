@@ -8,17 +8,20 @@ trait Aspect
 {
     protected static $aspects = ['design', 'comfort', 'reliability', 'costs', 'performance'];
 
-    public function getRating(): float
+    public function getRating(): ?float
     {
         $rating = 0;
         foreach (self::$aspects as $aspect) {
+            if (is_null($this->$aspect)) {
+                return null;
+            }
             $rating += $this->$aspect;
         }
 
         return $rating/count(self::$aspects);
     }
 
-    public function getAspect(string $aspect): float
+    public function getAspect(string $aspect): ?float
     {
         return $this->$aspect;
     }

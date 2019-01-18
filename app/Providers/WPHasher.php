@@ -7,6 +7,7 @@ namespace App\Providers;
 use Illuminate\Hashing\HashManager;
 use RuntimeException;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
+use Illuminate\Foundation\Application;
 
 class WPHasher extends HashManager implements HasherContract
 {
@@ -28,7 +29,7 @@ class WPHasher extends HashManager implements HasherContract
      * @throws \RuntimeException
      */
 
-    public function __construct($app)
+    public function __construct(Application $app)
     {
         parent::__construct($app);
 

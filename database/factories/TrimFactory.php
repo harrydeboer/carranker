@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\Trim::class, function (Faker $faker) {
+$factory->define(App\Models\Trim::class, function (Faker $faker): array {
 
     $model = factory('App\Models\Model')->create();
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 class Page extends BaseModel
 {
     protected $table = 'pages';
@@ -41,7 +43,7 @@ class Page extends BaseModel
         $this->content = $content;
     }
 
-    public function getMenus()
+    public function getMenus(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Menu', 'menus_pages');
     }

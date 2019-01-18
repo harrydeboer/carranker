@@ -12,12 +12,7 @@ use Laravel\Passport\Bridge\UserRepository;
 
 class CustomPassportServiceProvider extends PassportServiceProvider
 {
-    /**
-     * Create and configure a Password grant instance.
-     *
-     * @return \League\OAuth2\Server\Grant\PasswordGrant
-     */
-    protected function makePasswordGrant()
+    protected function makePasswordGrant(): PasswordGrant
     {
         $grant = new PasswordGrant(
             new UserRepository(new WPHasher($this->app)),

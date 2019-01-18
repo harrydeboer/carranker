@@ -14,7 +14,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\User::class, function (Faker $faker): array {
     static $password;
     $hasher = new WPHasher(app());
     $userName = $faker->name;
