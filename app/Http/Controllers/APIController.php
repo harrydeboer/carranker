@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Repositories\MakeRepository;
 use App\Repositories\ModelRepository;
 use App\Repositories\TrimRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 
 class APIController extends BaseController
@@ -22,7 +23,7 @@ class APIController extends BaseController
         $this->trimRepository = new TrimRepository();
     }
 
-    public function viewMake(string $makeId)
+    public function viewMake(string $makeId): JsonResponse
     {
         $make = $this->makeRepository->get((int) $makeId);
         $make->setContent($make->getContent());
@@ -30,7 +31,7 @@ class APIController extends BaseController
         return response()->json($make);
     }
 
-    public function viewModel(string $modelId)
+    public function viewModel(string $modelId): JsonResponse
     {
         $model = $this->modelRepository->get((int) $modelId);
         $model->setContent($model->getContent());
@@ -38,14 +39,14 @@ class APIController extends BaseController
         return response()->json($model);
     }
 
-    public function viewTrim(string $trimId)
+    public function viewTrim(string $trimId): JsonResponse
     {
         $trim = $this->trimRepository->get((int) $trimId);
 
         return response()->json($trim);
     }
 
-    public function getModelNames(string $makename)
+    public function getModelNames(string $makename): array
     {
         return $this->makeRepository->getModelnames($makename);
     }

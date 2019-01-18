@@ -187,7 +187,7 @@ class CarSpecs
         return $specsRange;
     }
 
-    private static function getRange(string $specname, array $spec, string $minOrMax)
+    private static function getRange(string $specname, array $spec, string $minOrMax): array
     {
         $range = [];
         if ($specname === 'generation') {

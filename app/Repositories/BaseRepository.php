@@ -29,8 +29,8 @@ class BaseRepository
 
     public function create(array $createArray): Model
     {
-        $model = new $this->modelClassName();
-        $model->create($createArray);
+        $model = new $this->modelClassName($createArray);
+        $model->save();
 
         return $model;
     }

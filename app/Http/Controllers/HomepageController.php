@@ -27,7 +27,7 @@ class HomepageController extends Controller
         $this->ratingRepository = new RatingRepository();
     }
 
-    public function view(Request $request)
+    public function view(Request $request): \Illuminate\View\View
     {
         $session = $request->session();
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
@@ -52,7 +52,7 @@ class HomepageController extends Controller
         return View::make('homepage.index')->with($data);
     }
 
-    public function filterTop(Request $request)
+    public function filterTop(Request $request): \Illuminate\View\View
     {
         $session = $request->session();
 
@@ -92,7 +92,7 @@ class HomepageController extends Controller
         return View::make('homepage.filterTop')->with($data);
     }
 
-    public function showMoreTopTable(string $numberOfRows, string $offset, Request $request)
+    public function showMoreTopTable(string $numberOfRows, string $offset, Request $request): \Illuminate\View\View
     {
         $session = $request->session();
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;

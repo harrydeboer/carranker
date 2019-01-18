@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Services\SitemapService;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\View;
 
 class SitemapController extends Controller
 {
-    public function makeSitemap()
+    public function makeSitemap(): Response
     {
         $sitemap = new SitemapService();
         $sitemap = $sitemap->makeSitemap($this->makeRepository->getMakenames(), $this->modelRepository->getModelnames());

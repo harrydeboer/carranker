@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class MakeController extends Controller
 {
-    public function view(string $makename, Request $request)
+    public function view(string $makename, Request $request): \Illuminate\View\View
     {
         $make = $this->makeRepository->getByName(urldecode($makename));
         $session = $request->session();

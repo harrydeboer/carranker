@@ -21,7 +21,7 @@ class ContactController extends Controller
         $this->profanityRepository = new ProfanityRepository();
     }
 
-    public function view()
+    public function view(): \Illuminate\View\View
     {
         $data = [
             'controller' => 'contact',
@@ -34,7 +34,7 @@ class ContactController extends Controller
         return View::make('contact.index')->with($data);
     }
 
-    public function sendMail(Request $request)
+    public function sendMail(Request $request): \Illuminate\View\View
     {
         $form = new ContactForm($request->all());
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Forms\NavForm;
 use App\Repositories\MakeRepository;
 use App\Repositories\MenuRepository;
@@ -11,10 +12,11 @@ use App\Repositories\ModelRepository;
 use App\Repositories\PageRepository;
 use App\Repositories\TrimRepository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Session\Store;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -45,7 +47,7 @@ class Controller extends BaseController
         View::share('menuFooter', $this->menuRepository->getByName('navigationFooter')->getPages()->get());
         View::share('reCaptchaKey', env('reCaptchaKey'));
 
-        $this->middleware(function (Request $request, $next)
+        $this->middleware(function (Request $request, \Closure $next): Response
         {
             View::share('isLoggedIn', Auth::user());
             $this->shareSessionCars($request->session());
@@ -54,7 +56,7 @@ class Controller extends BaseController
         });
     }
 
-    protected function shareSessionCars($session)
+    protected function shareSessionCars(Store $session)
     {
         View::share('makenameSession', $session->get('makename'));
         View::share('modelnames', $this->makeRepository->getModelnames($session->get('makename')));

@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Providers\WPHasher;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
+use App\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Contracts\Validation\Validator as ValidatorContract;
+use Illuminate\View\View;
 
 class RegisterController extends Controller
 {
@@ -23,11 +27,6 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
     protected $redirectTo = '/';
     private $userRepository;
 
@@ -38,13 +37,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    protected function validator(array $data): ValidatorContract
     {
         return Validator::make($data, [
             'user_login' => 'required|string|max:255',
@@ -53,13 +46,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
+    protected function create(array $data): Model
     {
         $hasher = new WPHasher(app());
 
@@ -73,7 +60,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function showRegistrationForm()
+    public function showRegistrationForm(): View
     {
         $data = [
             'title' => 'Register',

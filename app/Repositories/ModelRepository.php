@@ -57,13 +57,4 @@ class ModelRepository extends BaseRepository
         return count($model->hasMany('\App\Models\Rating', 'model_id', 'id')
             ->whereNotNull('content')->get());
     }
-
-    public function getPageNumber(array $query): int
-    {
-        if ($query === []) {
-            return 1;
-        }
-
-        return (int) $query['page'];
-    }
 }

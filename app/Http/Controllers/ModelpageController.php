@@ -36,7 +36,7 @@ class ModelpageController extends Controller
         $this->userRepository = new UserRepository();
     }
 
-    public function view(string $makename, string $modelname, Request $request, string $trimId='0')
+    public function view(string $makename, string $modelname, Request $request, string $trimId='0'): \Illuminate\View\View
     {
         $makename = urldecode($makename);
         $modelname = urldecode($modelname);
@@ -45,7 +45,6 @@ class ModelpageController extends Controller
         $session->put('modelname', $modelname);
         $this->shareSessionCars($session);
 
-        $page = $this->modelRepository->getPageNumber($request->query());
         $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
         $form = new RatingForm($request->all());
 
