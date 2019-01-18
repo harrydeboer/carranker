@@ -10,7 +10,6 @@ $(document).ready(function ()
      * selected generation must be shown again. */
     $('.showAllSpecs').on('click', function()
     {
-
         if ($('.collapseSpecs:visible').length) {
             $('.collapseSpecs').hide();
             $('.showAllSpecs').html('Hide all specs');
@@ -18,62 +17,10 @@ $(document).ready(function ()
             $('.collapseSpecs').show().css('display', 'flex');
             $('.showAllSpecs').html('Show all specs');
         }
-        showSelectedGeneration();
     });
 
-    if (isThankYou) {
+    if (isThankYou === 1) {
         $('#thankyou').modal('show');
-    }
-
-    /** The generations have series and when a generation is selected the right options for the series must be filled in.
-     * The series have trims and when a serie is selected the right options for the trims must be filled in. */
-    var menuGenerations = $('#rating_form_generation');
-    var menuSeries = $('#rating_form_serie');
-    var menuTrims = $('#rating_form_trim');
-    for (var gen in generationsSeriesTrims) {
-        menuGenerations.append('<option value="' + gen + '">' + gen + '</option>');
-    }
-    showSeriesSelect();
-    showTrimsSelect();
-    menuGenerations.on('change', function()
-    {
-        showSeriesSelect();
-    });
-    menuSeries.on('change', function()
-    {
-        showTrimsSelect();
-    });
-    function showSeriesSelect()
-    {
-        var selectedGen = $('#rating_form_generation').val();
-
-        menuSeries.empty();
-        menuSeries.append('<option value="">Series</option>');
-        if ($('#rating_form_generation option:selected').text() === 'Generation') {
-            return;
-        }
-        for (var serie in generationsSeriesTrims[selectedGen]) {
-            menuSeries.append('<option value="' + selectedGen + ' ' + serie + '">' + serie + '</option>');
-        }
-    }
-    function showTrimsSelect()
-    {
-        var selectedGen = menuGenerations.val();
-        var selectedSerie = $('#rating_form_serie option:selected').text();
-
-        menuTrims.empty();
-
-        menuTrims.append('<option value="">Trims</option>');
-        if ($('#rating_form_serie option:selected').text() === 'Series') {
-            return;
-        }
-        for (var trim in generationsSeriesTrims[selectedGen][selectedSerie]) {
-            var trimId = generationsSeriesTrims[selectedGen][selectedSerie][trim];
-            menuTrims.append('<option value="' + trimId + '">' + trim + '</option>');
-            if (hasTrimTypes === 0) {
-                $('#rating_form_trim').val(trimId);
-            }
-        }
     }
 
     $(".toRateTrim").on('click', function()
@@ -89,17 +36,19 @@ $(document).ready(function ()
         showTrimsSelect();
         $('#rating_form_trim').val(IDTrim);
     });
+
     $("#showModelDialog").on('click', function()
     {
         showDialog('model');
     });
+
     $("#showReviewDialog").on('click', function()
     {
         showDialog('review');
     });
 
-    /** A rating can be send to the server when there is no swearing for a review.
-     * Or when the submit is not a review the required attributes in the html validate the form. */
+    /** A rating can be send to the server when there is no swearing for a review
+     * or when the submit is not a review the required attributes in the html validate the form. */
     $('#rating-form').on('submit', function(event)
     {
         var testProfanities = true;
@@ -124,6 +73,7 @@ $(document).ready(function ()
             $('#reviewWarning').html('No swearing please.<BR>');
             event.preventDefault();
         } else if (!$('#reCaptchaScript').length) {
+
             /** Show the loader img */
             $('#hideAll').show();
 
@@ -147,7 +97,60 @@ $(document).ready(function ()
         }
     });
 
-    /** The dialog with the rating form can have three forms. When a trim has been viewed and the user wants to rate
+    /** The generations have series and when a generation is selected the right options for the series must be filled in.
+     * The series have trims and when a serie is selected the right options for the trims must be filled in. */
+    var menuGenerations = $('#rating_form_generation');
+    var menuSeries = $('#rating_form_serie');
+    var menuTrims = $('#rating_form_trim');
+    for (var gen in generationsSeriesTrims) {
+        menuGenerations.append('<option value="' + gen + '">' + gen + '</option>');
+    }
+    showSeriesSelect();
+    showTrimsSelect();
+    menuGenerations.on('change', function()
+    {
+        showSeriesSelect();
+    });
+    menuSeries.on('change', function()
+    {
+        showTrimsSelect();
+    });
+
+    function showSeriesSelect()
+    {
+        var selectedGen = $('#rating_form_generation').val();
+
+        menuSeries.empty();
+        menuSeries.append('<option value="">Series</option>');
+        if ($('#rating_form_generation option:selected').text() === 'Generation') {
+            return;
+        }
+        for (var serie in generationsSeriesTrims[selectedGen]) {
+            menuSeries.append('<option value="' + selectedGen + ' ' + serie + '">' + serie + '</option>');
+        }
+    }
+
+    function showTrimsSelect()
+    {
+        var selectedGen = menuGenerations.val();
+        var selectedSerie = $('#rating_form_serie option:selected').text();
+
+        menuTrims.empty();
+
+        menuTrims.append('<option value="">Trims</option>');
+        if ($('#rating_form_serie option:selected').text() === 'Series') {
+            return;
+        }
+        for (var trim in generationsSeriesTrims[selectedGen][selectedSerie]) {
+            var trimId = generationsSeriesTrims[selectedGen][selectedSerie][trim];
+            menuTrims.append('<option value="' + trimId + '">' + trim + '</option>');
+            if (hasTrimTypes === 0) {
+                $('#rating_form_trim').val(trimId);
+            }
+        }
+    }
+
+    /** The dialog with the rating form can have three forms. When a trim is viewed and the user wants to rate
      * this trim then the user does not need to specify the right generation, serie or trim. When from the modelpage the
      * rate form is shown the user needs to specify the generation, serie and/or trim and these are then required.
      * Finally when the user wants to write a review the textarea is displayed in the form and made required. */
@@ -155,24 +158,23 @@ $(document).ready(function ()
     {
         var winW = $(window).width();
         var winH = $(window).height();
+        $('#rating_form_generation').show();
+        $('#rating_form_serie').show();
+        $('#rating_form_trim').show();
+        $("#divArea").show();
+        if (hasTrimTypes === 0) {
+            $('#rating_form_trim').hide();
+        }
         if (typeShow === 'review') {
-            $("#divArea").show();
             $("#rating_form_content").prop('required',true);
         } else {
             $("#divArea").hide();
             $("#rating_form_content").prop('required',false);
-        }
-        if (typeShow === 'trim') {
-            $("#rating_form_generation").hide().prop('required',false).val('');
-            $("#rating_form_serie").hide().prop('required',false).val('');
-            $("#rating_form_trim").hide().prop('required',false).val('');
-        } else {
-            $("#rating_form_generation").show().prop('required',true);
-            $("#rating_form_serie").show().prop('required',true);
-            if (hasTrimTypes === 1) {
-                $("#rating_form_trim").show().prop('required',true);
-            } else {
-                $("#rating_form_trim").hide().prop('required',false);
+
+            if (typeShow === 'trim') {
+                $('#rating_form_generation').hide();
+                $('#rating_form_serie').hide();
+                $('#rating_form_trim').hide();
             }
         }
     }
@@ -180,7 +182,6 @@ $(document).ready(function ()
     function showSelectedGeneration()
     {
         $('.generations').hide();
-        id = $("#generationSelect option:selected").val();
-        $('#generation' + id).show();
+        $('#generation' + $("#generationSelect option:selected").val()).show();
     }
 });
