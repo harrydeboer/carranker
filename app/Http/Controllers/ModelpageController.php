@@ -49,9 +49,9 @@ class ModelpageController extends Controller
         $model->getMake();
         $form = new RatingForm($request->all());
 
-        $isThankYou = 0;
+        $isThankYou = false;
         if ($form->validateFull($request, $form->reCaptchaToken)) {
-            $isThankYou = 1;
+            $isThankYou = true;
             $this->rate($form, $model);
         }
 

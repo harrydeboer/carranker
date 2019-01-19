@@ -10,7 +10,7 @@ class CarSpecs
     {
         return [
             'framework' => [
-                'show' => 1,
+                'show' => true,
                 'display' => 'Body Type',
                 'choices' => [
                     'Sedan',
@@ -32,7 +32,7 @@ class CarSpecs
                 ],
             ],
             'fuel' => [
-                'show' => 1,
+                'show' => true,
                 'display' => 'Fuel',
                 'choices' => [
                     'Gasoline',
@@ -43,7 +43,7 @@ class CarSpecs
                 ],
             ],
             'number_of_doors' => [
-                'show' => 1,
+                'show' => true,
                 'display' => 'Number of doors',
                 'choices' => [
                     2,
@@ -55,7 +55,7 @@ class CarSpecs
                 ],
             ],
             'number_of_seats' => [
-                'show' => 0,
+                'show' => false,
                 'display' => 'Number of seats',
                 'choices' => [
                     2,
@@ -66,7 +66,7 @@ class CarSpecs
                 ],
             ],
             'number_of_gears' => [
-                'show' => 0,
+                'show' => false,
                 'display' => 'Number of gears',
                 'choices' => [
                     0,
@@ -82,7 +82,7 @@ class CarSpecs
                 ],
             ],
             'gearbox_type' => [
-                'show' => 1,
+                'show' => true,
                 'display' => 'Transmission',
                 'choices' => [
                     'Manual',
@@ -102,7 +102,7 @@ class CarSpecs
                 'max' => 3000.0,
                 'step' => 100.0,
                 'display' => 'Trunk capacity',
-                'show' => 0,
+                'show' => false,
                 'unit' => 'liters',
             ],
             'engine_capacity' => [
@@ -110,7 +110,7 @@ class CarSpecs
                 'max' => 7.0,
                 'step' => 0.2,
                 'display' => 'Engine capacity',
-                'show' => 0,
+                'show' => false,
                 'unit' => 'liters',
             ],
             'fueltank_capacity' => [
@@ -118,7 +118,7 @@ class CarSpecs
                 'max' => 120.0,
                 'step' => 5.0,
                 'display' => 'Fueltank capacity',
-                'show' => 0,
+                'show' => false,
                 'unit' => 'liters',
             ],
             'max_speed' => [
@@ -126,7 +126,7 @@ class CarSpecs
                 'max' => 250.0,
                 'step' => 10.0,
                 'display' => 'Maximum speed',
-                'show' => 0,
+                'show' => false,
                 'unit' => 'km/h',
             ],
             'full_weight' => [
@@ -134,7 +134,7 @@ class CarSpecs
                 'max' => 4000.0,
                 'step' => 200.0,
                 'display' => 'Weight',
-                'show' => 1,
+                'show' => true,
                 'unit' => 'kg',
             ],
             'engine_power' => [
@@ -142,7 +142,7 @@ class CarSpecs
                 'max' => 400.0,
                 'step' => 20.0,
                 'display' => 'Horsepower',
-                'show' => 1,
+                'show' => true,
                 'unit' => 'hp',
             ],
             'acceleration' => [
@@ -150,7 +150,7 @@ class CarSpecs
                 'max' => 20.0,
                 'step' => 1.0,
                 'display' => 'Acceleration (0-100km/h)',
-                'show' => 0,
+                'show' => false,
                 'unit' => 'seconds',
             ],
             'fuel_consumption' => [
@@ -158,7 +158,7 @@ class CarSpecs
                 'max' => 22.0,
                 'step' => 2.0,
                 'display' => 'Fuel consumption',
-                'show' => 0,
+                'show' => false,
                 'unit' => 'liters/100km',
             ],
             'price' => [
@@ -166,7 +166,7 @@ class CarSpecs
                 'max' => 50000.0,
                 'step' => 1000.0,
                 'display' => 'Price',
-                'show' => 1,
+                'show' => true,
                 'unit' => '$',
             ],
             'generation' => [
@@ -174,7 +174,7 @@ class CarSpecs
                 'max' => 2019.0,
                 'step' => 1.0,
                 'display' => 'Year of build',
-                'show' => 1,
+                'show' => true,
                 'unit' => null,
             ],
         ];

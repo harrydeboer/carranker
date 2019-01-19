@@ -38,8 +38,11 @@ class Make extends BaseModel
         $this->content = $content;
     }
 
-    public function getContent(): string
+    public function getContent(): ?string
     {
+        if (is_null($this->content)) {
+            return null;
+        }
         /** All content is translated to ISO-8859-1 en if a character gets an � it is removed. */
         $content = mb_convert_encoding($this->content, 'ISO-8859-1', 'HTML-ENTITIES');
         $content = iconv("UTF-8", "UTF-8//IGNORE", $content);

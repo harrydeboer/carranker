@@ -46,7 +46,7 @@
         <div class="row justify-content-center col-md-12">
             <div id="choices" class="btn-group">
                 @foreach ($specsChoice as $specname => $spec)
-                    <div class="dropdown button-inline {{ $spec['show'] ? '' : 'collapseChoice' }}">
+                    <div class="dropdown button-inline {{ $spec['show'] === true ? '' : 'collapseChoice' }}">
                         <button class="btn btn-primary specsChoice"
                                 data-toggle="dropdown" id="filterTopForm{{ $specname }}">{{ $spec['display'] }}</button>
                         <table class="dropdown-menu">
@@ -90,7 +90,7 @@
         </div>
         <table class="table" id="specsRangeTable">
             @foreach ($specsRange as $specname => $spec)
-                <tr class="row {{ $spec['show'] ? '' : 'collapseRange' }}">
+                <tr class="row {{ $spec['show'] === true ? '' : 'collapseRange' }}">
                     <td class="col-md-4 col-xs-2">{{ $spec['display'] }}</td>
                     <td class="col-md-3 col-xs-4">
                         {!! Form::select('specsRange[' . $specname . 'min' . ']', $spec['minRange'],

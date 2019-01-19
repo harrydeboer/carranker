@@ -5,7 +5,9 @@
         <section id="makeText" class="col-md-9">
             <h3 id="titleMake">{{ $make->getName() }}</h3>
             <img src="{{ fileUrl($make->getImage()) }}" id="makeImg" alt="{{ $make->getName() }}" class="img-thumbnail pull-right">
-            {!! $make->getContent() !!}
+            @if (!is_null($make->getContent()))
+                {!! $make->getContent() !!}
+            @endif
             <div id="reference">
                 <a href="https://en.wikipedia.org/wiki/{{ $make->getWikiCarMake() }}">Source Wikipedia</a>
             </div>

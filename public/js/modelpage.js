@@ -19,7 +19,7 @@ $(document).ready(function ()
         }
     });
 
-    if (isThankYou === 1) {
+    if (isThankYou === true) {
         $('#thankyou').modal('show');
     }
 
@@ -144,7 +144,7 @@ $(document).ready(function ()
         for (var trim in generationsSeriesTrims[selectedGen][selectedSerie]) {
             var trimId = generationsSeriesTrims[selectedGen][selectedSerie][trim];
             menuTrims.append('<option value="' + trimId + '">' + trim + '</option>');
-            if (hasTrimTypes === 0) {
+            if (hasTrimTypes === false) {
                 $('#rating_form_trim').val(trimId);
             }
         }
@@ -162,7 +162,7 @@ $(document).ready(function ()
         $('#rating_form_serie').show();
         $('#rating_form_trim').show();
         $("#divArea").show();
-        if (hasTrimTypes === 0) {
+        if (hasTrimTypes === false) {
             $('#rating_form_trim').hide();
         }
         if (typeShow === 'review') {

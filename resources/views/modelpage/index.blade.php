@@ -95,8 +95,8 @@
     @include('modelpage.reviews')
     <script>
         var profanities = {!! json_encode($profanities) !!};
-        var hasTrimTypes = {{ $hasTrimTypes }};
-        var isThankYou = {{ $isThankYou }};
+        var hasTrimTypes = {{ $hasTrimTypes === true ? 'true' : 'false' }};
+        var isThankYou = {{ $isThankYou === true ? 'true' : 'false' }};
         var generationsSeriesTrims = {!! json_encode($generationsSeriesTrims) !!};
     </script>
 @endsection

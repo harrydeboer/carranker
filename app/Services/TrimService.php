@@ -27,16 +27,16 @@ class TrimService
         return $generationsSeriesTrims;
     }
 
-    public function hasTrimTypes(Collection $trims): int
+    public function hasTrimTypes(Collection $trims): bool
     {
+        $hasTrimTypes = false;
         foreach ($trims as $trim) {
-            $hasTrimVersions = 0;
             if (!is_null($trim->getName())) {
-                $hasTrimVersions = 1;
+                $hasTrimTypes = true;
                 break;
             }
         }
 
-        return $hasTrimVersions;
+        return $hasTrimTypes;
     }
 }

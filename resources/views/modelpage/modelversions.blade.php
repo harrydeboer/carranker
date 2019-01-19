@@ -10,7 +10,7 @@
 @foreach ($generationsSeriesTrims as $keyGen => $generation)
     <div id="generation{{ $keyGen }}" class="generations text-center {{ $selectedGeneration === $keyGen ? '' : 'collapse' }}">
         @foreach ($generation as $keySer => $serie)
-            @if ($hasTrimTypes === 1)
+            @if ($hasTrimTypes === true)
                 <div>{{ $keySer }}</div>
                 @foreach ($serie as $nameTrim => $valueTrim)
                     <div><a href="#typeInfo{{ $valueTrim }}"

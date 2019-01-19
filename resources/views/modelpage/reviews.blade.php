@@ -19,7 +19,7 @@
             </article>
         @endforeach
     </div>
-@else
+@elseif (count($trims) > 0)
     <section class="col-md-12 row justify-content-center text-center">
         <h3 class="col-md-6" id="reviewHeading">Be the first to write a review!</h3>
     </section>
