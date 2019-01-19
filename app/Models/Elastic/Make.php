@@ -15,22 +15,4 @@ class Make extends Model
     {
         return 'makes';
     }
-
-    protected $mappingProperties = [
-        'id' => [
-            'type' => 'integer',
-        ],
-        'name' => [
-            'type' => 'text',
-            'analyzer' => 'standard'
-        ],
-        'content' => [
-            'type' => 'text',
-            'analyzer' => 'standard'
-        ],
-        'wiki_car_make' => [
-            'type' => 'text',
-            'analyzer' => 'standard'
-        ],
-    ];
 }

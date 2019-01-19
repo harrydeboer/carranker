@@ -56,8 +56,8 @@ abstract class BaseRepository
         $this->modelClassName::addAllToIndex();
     }
 
-    public function getByName(array $query): Model
+    public function getByName(string $name): Model
     {
-        return $this->modelClassName::searchByQuery($query)->first();
+        return $this->modelClassName::searchByQuery(['match' =>['name' => $name]])->first();
     }
 }

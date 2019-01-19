@@ -29,7 +29,7 @@ $(document).ready(function ()
     {
         var selectedMake = $('#nav_select_make').val();
         menuModel.empty();
-        menuModel.append('<option>Model</option>');
+        menuModel.append('<option value="">Model</option>');
 
         if (selectedMake === '') {
             return;
