@@ -67,6 +67,10 @@ $(document).ready(function ()
         }, 1000);
     });
 
+    if (typeof sessionStorage.numberOfRows === 'undefined') {
+        sessionStorage.numberOfRows = $('#tableTop tr').length;
+    }
+
     showPartTopTable(sessionStorage.numberOfRows);
 
     /** When more or less cars are shown in the top table the scrolling makes that the button remains in the same place of the window. */
