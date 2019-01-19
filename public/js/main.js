@@ -45,7 +45,7 @@ $(document).ready(function ()
 
     function navigate()
     {
-        if (menuModel.val() === "Model") {
+        if (menuModel.val() === "") {
             window.location.href = "/make/" + menuMake.val();
         } else {
             window.location.href = "/model/" + menuMake.val() + "/" + menuModel.val();
