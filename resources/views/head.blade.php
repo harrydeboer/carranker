@@ -121,18 +121,12 @@
     document.addEventListener("DOMContentLoaded", function () {
         lazyloadImages = document.querySelectorAll("img.lazy");
         if ( controller === 'homepage') {
-            if (typeof sessionStorage.numberOfRows === 'undefined') {
+            if ({{ $lazyLoad === true ? 'true' : 'false'}}) {
                 setTimeout(lazyload, 3000);
                 document.addEventListener("scroll", lazyload);
                 window.addEventListener("resize", lazyload);
                 window.addEventListener("orientationChange", lazyload);
                 document.addEventListener("visibilitychange", lazyload);
-            } else {
-                lazyloadImages.forEach(function(img)
-                {
-                    img.src = img.dataset.src;
-                    img.classList.remove('lazy');
-                });
             }
         } else {
             lazyload();

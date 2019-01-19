@@ -30,6 +30,11 @@ class HomepageController extends Controller
     public function view(Request $request): \Illuminate\View\View
     {
         $session = $request->session();
+        if (is_null($session->get('lazyLoad'))) {
+            $session->put('lazyLoad', true);
+        } else {
+            $session->put('lazyLoad', false);
+        }
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
         $topTrims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes,
             $session->get('numberOfRows') ?? self::topLength);
@@ -44,6 +49,7 @@ class HomepageController extends Controller
             'aspects' => Aspect::getAspects(),
             'reviews' => $this->ratingRepository->findRecentReviews(self::homepageNumReviews),
             'topTrims' => $topTrims,
+            'lazyLoad' => $session->get('lazyLoad'),
             'minNumVotes' => $minNumVotes,
             'filterform' => new FilterTopForm($session->all()),
             'content' => $this->pageRepository->getByName('home')->getContent(),

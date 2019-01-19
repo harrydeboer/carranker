@@ -159,10 +159,8 @@ $(document).ready(function ()
     /** Only a part of the total table is shown. The minimum number of votes is added on top of the table. */
     function showPartTopTable(numberOfRows)
     {
-        if (typeof numberOfRows !== 'undefined') {
-            $('#tableTop tr').hide();
-            $('.topRow').slice(0, numberOfRows).show().css('display', 'flex');
-            $('#topOrLessNumber').html(numberOfRows);
-        }
+        $('#tableTop tr').hide();
+        $('.topRow').slice(0, numberOfRows).show().css('display', 'flex');
+        $('#topOrLessNumber').html(numberOfRows);
     }
 });
