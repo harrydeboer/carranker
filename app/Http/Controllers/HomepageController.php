@@ -49,7 +49,6 @@ class HomepageController extends Controller
             'aspects' => Aspect::getAspects(),
             'reviews' => $this->ratingRepository->findRecentReviews(self::homepageNumReviews),
             'topTrims' => $topTrims,
-            'lazyLoad' => $session->get('lazyLoad'),
             'minNumVotes' => $minNumVotes,
             'filterform' => new FilterTopForm($session->all()),
             'content' => $this->pageRepository->getByName('home')->getContent(),

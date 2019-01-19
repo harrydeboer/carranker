@@ -50,7 +50,9 @@ class Controller extends BaseController
         $this->middleware(function (Request $request, \Closure $next): Response
         {
             View::share('isLoggedIn', is_null(Auth::user()) ? false : true);
-            $this->shareSessionCars($request->session());
+            $session = $request->session();
+            View::share('lazyLoad', $session->get('lazyLoad') ?? false);
+            $this->shareSessionCars($session);
 
             return $next($request);
         });
