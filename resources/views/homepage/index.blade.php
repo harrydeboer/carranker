@@ -43,8 +43,8 @@
         {!! Form::label('minNumVotes', 'Minimum number of votes:', ['class' => 'collapseChoice control-label']) !!}
         {!! Form::number('minNumVotes', old('minNumVotes'), ['class'=>'collapseChoice form-control',
         'step' => 1, 'id' => 'minNumVotes', 'required']) !!}
-        <div class="row justify-content-center col-md-12">
-            <div id="choices" class="btn-group">
+        <div class="row mx-auto col-md-12">
+            <div id="choices" class="btn-group text-center">
                 @foreach ($specsChoice as $specName => $spec)
                     <div class="dropdown button-inline {{ $spec['show'] === true ? '' : 'collapseChoice' }}">
                         <button class="btn btn-primary specsChoice"
@@ -90,23 +90,23 @@
         </div>
         <table class="table" id="specsRangeTable">
             @foreach ($specsRange as $specName => $spec)
-                <tr class="row {{ $spec['show'] === true ? '' : 'collapseRange' }}">
-                    <td class="col-md-4 col-xs-2">{{ $spec['display'] }}</td>
-                    <td class="col-md-3 col-xs-4">
+                <tr class="row rangeRow {{ $spec['show'] === true ? '' : 'collapseRange' }}">
+                    <td class="col-md-4 col-sm-8">{{ $spec['display'] }}</td>
+                    <td class="col-md-3 col-sm-2">
                         {!! Form::select('specsRange[' . $specName . 'min' . ']', $spec['minRange'],
                         null, ['class' => 'specsRange form-control']) !!}
                     </td>
-                    <td class="col-md-3 col-xs-4">
+                    <td class="col-md-3 col-sm-2">
                         {!! Form::select('specsRange[' . $specName . 'max' . ']', $spec['maxRange'],
                         null, ['class' => 'specsRange form-control']) !!}
                     </td>
-                    <td class="col-md-2 col-xs-2">{{ $spec['unit'] }}</td>
+                    <td class="col-md-2 hidden-md-down">{{ $spec['unit'] }}</td>
                 </tr>
             @endforeach
         </table>
         <div class="row justify-content-center" id="buttonsShowFilterReset">
-            <button class="btn btn-primary" id="filterTopFormShowAll">Show all options</button>&nbsp;&nbsp;
-            <button class="btn btn-success" id="filterTopFormSubmit">Filter the top!</button>&nbsp;&nbsp;
+            <button class="btn btn-primary" id="filterTopFormShowAll">Show all options</button>
+            <button class="btn btn-success" id="filterTopFormSubmit">Filter the top!</button>
             <button class="btn btn-danger" id="filterTopFormReset">Reset to default</button>
         </div>
         {!! Form::close() !!}

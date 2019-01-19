@@ -61,7 +61,7 @@
 }
 
 .linkStyle, .numLinkTop, .ratingLinkTop {
-  font-size: 125%;
+  font-size: 15px;
 }
 
 .topRow {
@@ -99,7 +99,8 @@
 }
 
 .specsRange {
-  width: 80px;
+  width: 60px;
+  padding: 0.2rem 0.1rem;
 }
 
 .collapseChoice, .collapseAspects, .collapseRange {
@@ -152,6 +153,7 @@ input[type=checkbox] {
 #choices {
   margin-bottom: 30px;
   margin-top: 20px;
+  display: inline;
 }
 
 #specsRangeTable {
@@ -162,21 +164,42 @@ input[type=checkbox] {
 #filterTopFormReset, #filterTopFormShowAll, #filterTopFormSubmit {
   width: 150px;
   padding: 0.5rem 0.5rem;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
-@media (min-width: 768px) {
-  .specsChoice {
-    width: 160px !important;
-  }
-
-  .specsRange {
-    width: 130px;
-  }
+.rangeRow {
+  display: block;
+  font-size : 15px;
 }
 
 #showMore, #showLess {
   padding: 0;
   width: 110px;
+}
+
+@media (min-width: 1200px) {
+  #choices {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 576px) {
+  .rangeRow {
+    font-size : 18px;
+    display: flex;
+  }
+
+  .linkStyle {
+    font-size: 125%;
+  }
+
+  .specsRange {
+    width: 80px;
+    font-size : 18px;
+    padding: 0.5rem 0.7rem;
+  }
 }
 
 /** Recent reviews styling */
