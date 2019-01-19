@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elastic;
 
-use Illuminate\Database\Eloquent\Model;
-
 abstract class BaseRepository
 {
     protected $modelClassName;
@@ -54,10 +52,5 @@ abstract class BaseRepository
     public function addAllToIndex()
     {
         $this->modelClassName::addAllToIndex();
-    }
-
-    public function getByName(string $name): Model
-    {
-        return $this->modelClassName::searchByQuery(['match' =>['name' => $name]])->first();
     }
 }

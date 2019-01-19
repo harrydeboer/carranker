@@ -69,8 +69,10 @@ class Trim extends BaseModel
 
     public function getFullName(): string
     {
-        return $this->make . ' ' . $this->model . ' ' . $this->year_begin
-            . '-' . $this->year_end . ' ' . $this->framework . ' ' . $this->getName();
+        $name = $this->make . ' ' . $this->model . ' ' . $this->year_begin
+            . '-' . $this->year_end . ' ' . $this->framework;
+
+        return is_null($this->getName()) ? $name : $name . ' ' . $this->getName();
     }
 
     public function getPrice(float $FXRate): ?float
