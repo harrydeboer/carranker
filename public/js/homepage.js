@@ -5,7 +5,7 @@ $(document).ready(function ()
 
     /** Via the checkall checkbox all choices checks of this spec are toggled. */
     $(".checkAll").on('click', function () {
-        $("." + $(this).data('specname')).prop('checked', $(this).prop('checked'));
+        $("." + $(this).data('specName')).prop('checked', $(this).prop('checked'));
     });
 
     /** All spec filtering options are toggled. */

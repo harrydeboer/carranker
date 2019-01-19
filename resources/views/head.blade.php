@@ -121,7 +121,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         lazyloadImages = document.querySelectorAll("img.lazy");
         if ( controller === 'homepage') {
-            setTimeout(lazyload, 3000);
+            setTimeout(lazyload, 1000);
 
             document.addEventListener("scroll", lazyload);
             window.addEventListener("resize", lazyload);

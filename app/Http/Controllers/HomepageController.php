@@ -59,10 +59,10 @@ class HomepageController extends Controller
         $form = new FilterTopForm($request->all());
 
         if ($form->validateFull($request)) {
-            foreach (CarSpecs::specsChoice() as $key => $spec) {
-                $session->remove('checkAll' . $key);
+            foreach (CarSpecs::specsChoice() as $specName => $spec) {
+                $session->remove('checkAll' . $specName);
                 foreach ($spec['choices'] as $keyChoice => $item) {
-                    $session->forget($key . $keyChoice);
+                    $session->forget($specName . $keyChoice);
                 }
             }
             $session->put('minNumVotes', (int) $form->minNumVotes);

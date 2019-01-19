@@ -19,17 +19,17 @@ class FilterTopForm extends BaseForm
         }
         $this->aspects = $array;
         $array = [];
-        foreach (CarSpecs::specsChoice() as $specname => $spec) {
-            $array['checkAll' . $specname] = 1;
+        foreach (CarSpecs::specsChoice() as $specName => $spec) {
+            $array['checkAll' . $specName] = 1;
             foreach ($spec['choices'] as $key => $choice) {
-                $array[$specname . $key] = 1;
+                $array[$specName . $key] = 1;
             }
         }
         $this->specsChoice = $array;
         $array = [];
-        foreach (CarSpecs::specsRange() as $specname => $spec) {
-            $array[$specname . 'min'] = null;
-            $array[$specname . 'max'] = null;
+        foreach (CarSpecs::specsRange() as $specName => $spec) {
+            $array[$specName . 'min'] = null;
+            $array[$specName . 'max'] = null;
         }
         $this->specsRange = $array;
         $this->minNumVotes = 30;

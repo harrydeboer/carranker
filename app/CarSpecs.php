@@ -98,9 +98,9 @@ class CarSpecs
     {
         $specsRange = [
             'max_trunk_capacity' => [
-                'min' => 0.0,
-                'max' => 3000.0,
-                'step' => 100.0,
+                'min' => 0,
+                'max' => 3000,
+                'step' => 100,
                 'display' => 'Trunk capacity',
                 'show' => false,
                 'unit' => 'liters',
@@ -114,65 +114,65 @@ class CarSpecs
                 'unit' => 'liters',
             ],
             'fueltank_capacity' => [
-                'min' => 10.0,
-                'max' => 120.0,
-                'step' => 5.0,
+                'min' => 10,
+                'max' => 120,
+                'step' => 5,
                 'display' => 'Fueltank capacity',
                 'show' => false,
                 'unit' => 'liters',
             ],
             'max_speed' => [
-                'min' => 60.0,
-                'max' => 250.0,
-                'step' => 10.0,
+                'min' => 60,
+                'max' => 250,
+                'step' => 10,
                 'display' => 'Maximum speed',
                 'show' => false,
                 'unit' => 'km/h',
             ],
             'full_weight' => [
-                'min' => 600.0,
-                'max' => 4000.0,
-                'step' => 200.0,
+                'min' => 600,
+                'max' => 4000,
+                'step' => 200,
                 'display' => 'Weight',
                 'show' => true,
                 'unit' => 'kg',
             ],
             'engine_power' => [
-                'min' => 0.0,
-                'max' => 400.0,
-                'step' => 20.0,
+                'min' => 0,
+                'max' => 400,
+                'step' => 20,
                 'display' => 'Horsepower',
                 'show' => true,
                 'unit' => 'hp',
             ],
             'acceleration' => [
-                'min' => 0.0,
-                'max' => 20.0,
-                'step' => 1.0,
+                'min' => 0,
+                'max' => 20,
+                'step' => 1,
                 'display' => 'Acceleration (0-100km/h)',
                 'show' => false,
                 'unit' => 'seconds',
             ],
             'fuel_consumption' => [
-                'min' => 0.0,
-                'max' => 22.0,
-                'step' => 2.0,
+                'min' => 0,
+                'max' => 22,
+                'step' => 2,
                 'display' => 'Fuel consumption',
                 'show' => false,
                 'unit' => 'liters/100km',
             ],
             'price' => [
-                'min' => 0.0,
-                'max' => 50000.0,
-                'step' => 1000.0,
+                'min' => 0,
+                'max' => 50000,
+                'step' => 1000,
                 'display' => 'Price',
                 'show' => true,
                 'unit' => '$',
             ],
             'generation' => [
-                'min' => 1970.0,
-                'max' => 2019.0,
-                'step' => 1.0,
+                'min' => 1970,
+                'max' => 2019,
+                'step' => 1,
                 'display' => 'Year of build',
                 'show' => true,
                 'unit' => null,
@@ -187,18 +187,21 @@ class CarSpecs
         return $specsRange;
     }
 
-    private static function getRange(string $specname, array $spec, string $minOrMax): array
+    private static function getRange(string $specName, array $spec, string $minOrMax): array
     {
         $range = [];
-        if ($specname === 'generation') {
+        if ($specName === 'generation') {
             $range[''] = $minOrMax;
-            for ($i = $spec['max']; $i >= (int)$spec['min']; $i = $i - $spec['step']) {
+            for ($i = $spec['max']; $i >= $spec['min']; $i = $i - $spec['step']) {
                 $range["{$i}"] = $i;
             }
         } else {
             $range[''] = $minOrMax;
-            for ($i = $spec['min']; $i <= (int)$spec['max']; $i = $i + $spec['step']) {
+            for ($i = $spec['min']; $i <= $spec['max']; $i = $i + $spec['step']) {
                 $range["{$i}"] = $i;
+            }
+            if ($specName === 'engine_capacity' && !isset($range["7"])) {
+                $range["7"] = 7.0;
             }
         }
 

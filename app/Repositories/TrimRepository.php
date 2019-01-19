@@ -128,7 +128,13 @@ class TrimRepository extends BaseRepository
             $queryObj->where($name, '>=', $sessionMin);
         }
 
-        if (isset($sessionMax) && $spec['max'] !== (float) $sessionMax) {
+        if ($name === 'engine_capacity' && !is_null($sessionMax)) {
+            $sessionMax = (float) $sessionMax;
+        } else if (!is_null($sessionMax)) {
+            $sessionMax = (int) $sessionMax;
+        }
+
+        if (isset($sessionMax) && $spec['max'] !== $sessionMax) {
             if ($name === 'generation') {
                 $name = 'year_end';
             }

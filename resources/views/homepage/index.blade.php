@@ -45,23 +45,23 @@
         'step' => 1, 'id' => 'minNumVotes', 'required']) !!}
         <div class="row justify-content-center col-md-12">
             <div id="choices" class="btn-group">
-                @foreach ($specsChoice as $specname => $spec)
+                @foreach ($specsChoice as $specName => $spec)
                     <div class="dropdown button-inline {{ $spec['show'] === true ? '' : 'collapseChoice' }}">
                         <button class="btn btn-primary specsChoice"
-                                data-toggle="dropdown" id="filterTopForm{{ $specname }}">{{ $spec['display'] }}</button>
+                                data-toggle="dropdown" id="filterTopForm{{ $specName }}">{{ $spec['display'] }}</button>
                         <table class="dropdown-menu">
                             <tr class="row">
                                 <td class="col-md-8 col-md-offset-1">{!! Form::label(
-                                'specsChoice[checkAll' . $specname . ']', 'Select all/none') !!}</td>
-                                <td class="col-md-2">{!! Form::checkbox('specsChoice[checkAll' . $specname . ']', 1,
-                                null, ['class' => $specname . ' checkAll', 'data-specname' => $specname ]) !!}</td>
+                                'specsChoice[checkAll' . $specName . ']', 'Select all/none') !!}</td>
+                                <td class="col-md-2">{!! Form::checkbox('specsChoice[checkAll' . $specName . ']', 1,
+                                null, ['class' => $specName . ' checkAll', 'data-specName' => $specName ]) !!}</td>
                             </tr>
                             @foreach ($spec['choices'] as $index => $choice)
                                 <tr class="row">
                                     <td class="col-md-8 col-md-offset-1">{!!
-                                    Form::label('specsChoice[' . $specname . $index . ']', $choice) !!}</td>
-                                    <td class="col-md-2">{!! Form::checkbox('specsChoice[' . $specname . $index . ']',
-                                    1, null, ['class' => $specname]) !!}</td>
+                                    Form::label('specsChoice[' . $specName . $index . ']', $choice) !!}</td>
+                                    <td class="col-md-2">{!! Form::checkbox('specsChoice[' . $specName . $index . ']',
+                                    1, null, ['class' => $specName]) !!}</td>
                                 </tr>
                             @endforeach
                         </table>
@@ -89,15 +89,15 @@
             </table>
         </div>
         <table class="table" id="specsRangeTable">
-            @foreach ($specsRange as $specname => $spec)
+            @foreach ($specsRange as $specName => $spec)
                 <tr class="row {{ $spec['show'] === true ? '' : 'collapseRange' }}">
                     <td class="col-md-4 col-xs-2">{{ $spec['display'] }}</td>
                     <td class="col-md-3 col-xs-4">
-                        {!! Form::select('specsRange[' . $specname . 'min' . ']', $spec['minRange'],
+                        {!! Form::select('specsRange[' . $specName . 'min' . ']', $spec['minRange'],
                         null, ['class' => 'specsRange form-control']) !!}
                     </td>
                     <td class="col-md-3 col-xs-4">
-                        {!! Form::select('specsRange[' . $specname . 'max' . ']', $spec['maxRange'],
+                        {!! Form::select('specsRange[' . $specName . 'max' . ']', $spec['maxRange'],
                         null, ['class' => 'specsRange form-control']) !!}
                     </td>
                     <td class="col-md-2 col-xs-2">{{ $spec['unit'] }}</td>
