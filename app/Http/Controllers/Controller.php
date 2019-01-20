@@ -25,6 +25,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected const topLength = 10;
     protected $menuRepository;
     protected $pageRepository;
     protected $makeRepository;
@@ -39,8 +40,8 @@ class Controller extends BaseController
         $this->modelRepository = new ModelRepository();
         $this->trimRepository = new TrimRepository();
         View::share('makenames', $this->makeRepository->getMakenames());
-        View::share('metaKeyWords', 'car, cars, ranker, rate, rank, ranking, rating, top, top 20');
-        View::share('metaDescription', 'Check out the top 20 of all cars and rate cars yourself.');
+        View::share('metaKeyWords', 'car, cars, ranker, rate, rank, ranking, rating, top, top ' . self::topLength);
+        View::share('metaDescription', 'Check out the top ' . self::topLength . ' of all cars and rate your favorite cars!');
         View::share('isDevEnv', App::environment() === 'local' ? 1 : 0);
         View::share('navform', new NavForm());
         View::share('menuHeader', $this->menuRepository->getByName('navigationHeader')->getPages()->get());

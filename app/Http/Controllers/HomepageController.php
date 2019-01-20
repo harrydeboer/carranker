@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\View;
 
 class HomepageController extends Controller
 {
-    private const topLength = 10;
     private const minNumVotes = 30;
     private const topSliderNumber = 10;
     private const numShowMoreLess = 10;
