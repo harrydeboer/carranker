@@ -54,7 +54,7 @@
                                 <td class="col-md-8 col-md-offset-1">{!! Form::label(
                                 'specsChoice[checkAll' . $specName . ']', 'Select all/none') !!}</td>
                                 <td class="col-md-2">{!! Form::checkbox('specsChoice[checkAll' . $specName . ']', 1,
-                                null, ['class' => $specName . ' checkAll', 'data-specName' => $specName ]) !!}</td>
+                                null, ['class' => $specName . ' checkAll', 'data-specname' => $specName ]) !!}</td>
                             </tr>
                             @foreach ($spec['choices'] as $index => $choice)
                                 <tr class="row">
