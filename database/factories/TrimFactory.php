@@ -1,38 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 use Faker\Generator as Faker;
+use App\Models\Aspect;
 
 $factory->define(App\Models\Trim::class, function (Faker $faker): array {
 
     $model = factory('App\Models\Model')->create();
 
-    return [
+    $year_begin = $faker->randomNumber(4);
+
+    $array = [
         'name' => $model->getName(),
         'model_id' => $model->getId(),
         'make' => $model->getMakename(),
         'model' => $model->getName(),
-        'design' => 8,
-        'comfort' => 8,
-        'reliability' => 8,
-        'performance' => 8,
-        'framework' => 'Sedan',
-        'fuel' => 'Gasoline',
-        'number_of_doors' => 4,
-        'number_of_seats' => 4,
-        'number_of_gears' => 5,
-        'gearbox_type' => 'Manual',
-        'costs' => 8,
-        'price' => 1000,
-        'votes' => 31,
-        'year_begin' => 2010,
-        'year_end' => 2012,
-        'max_trunk_capacity' => 100,
-        'engine_capacity' => 10,
-        'fueltank_capacity' => 50,
-        'max_speed' => 200,
-        'full_weight' => 1000,
-        'engine_power' => 60,
-        'acceleration' => 10,
-        'fuel_consumption' => 5,
+        'framework' => $faker->randomElement(\App\CarSpecs::specsChoice()['framework']['choices']),
+        'fuel' => $faker->randomElement(\App\CarSpecs::specsChoice()['fuel']['choices']),
+        'number_of_doors' => $faker->randomElement(\App\CarSpecs::specsChoice()['number_of_doors']['choices']),
+        'number_of_seats' => $faker->randomElement(\App\CarSpecs::specsChoice()['number_of_seats']['choices']),
+        'number_of_gears' => $faker->randomElement(\App\CarSpecs::specsChoice()['number_of_gears']['choices']),
+        'gearbox_type' => $faker->randomElement(\App\CarSpecs::specsChoice()['gearbox_type']['choices']),
+        'price' => $faker->randomNumber(4),
+        'votes' => $faker->randomNumber(2),
+        'year_begin' => $year_begin,
+        'year_end' => $year_begin + $faker->randomNumber(1),
+        'max_trunk_capacity' => $faker->randomNumber(2),
+        'engine_capacity' => $faker->randomFloat(2,0,10),
+        'fueltank_capacity' => $faker->randomNumber(2),
+        'max_speed' => $faker->randomNumber(3),
+        'full_weight' => $faker->randomNumber(4),
+        'engine_power' => $faker->randomNumber(2),
+        'acceleration' => $faker->randomFloat(2,0, 100),
+        'fuel_consumption' => $faker->randomFloat(2, 0, 100),
     ];
+
+    foreach (Aspect::getAspects() as $aspect) {
+        $array[$aspect] = $faker->randomNumber(1) + 1;
+    }
+
+    return $array;
 });
