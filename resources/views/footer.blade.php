@@ -11,7 +11,8 @@
 </div>
 <BR>
 <img data-src="{{ fileUrl('/img/No123.jpg') }}" src="{{ $lazyLoad === false ? fileUrl('/img/No123.jpg') :
-    fileUrl('/img/favicon-16x16.png') }}" alt="Cars No 1, 2 and 3" id="numbercar" class="lazy img-thumbnail col-md-12">
+    fileUrl('/img/favicon-16x16.png') }}" alt="Cars No 1, 2 and 3" id="numbercar"
+     class="{{ $lazyLoad === true ? 'lazy' : '' }} img-thumbnail col-md-12">
 <BR>
 <script src="{{ fileUrl('/js/jquery-3.2.1.min.js') }}"></script>
 <script src="{{ fileUrl('/js/popper.min.js') }}"></script>

@@ -129,7 +129,7 @@
                     <div class="reviewBody">
                         <img src="{{ $lazyLoad === true ? fileUrl('/img/favicon-16x16.png') :
                         fileUrl($review->getTrim()->getImage()) }}" data-src="{{ fileUrl($review->getTrim()->getImage()) }}"
-                             class="lazy reviewImage pull-left" alt="review{{ ($key + 1) }}">
+                             class="{{ $lazyLoad === true ? 'lazy' : '' }} reviewImage pull-left" alt="review{{ ($key + 1) }}">
                         <div class="reviewContent">{!! $review->getContent() !!}</div>
                     </div>
                 </div>
