@@ -30,11 +30,7 @@ class HomepageController extends Controller
     public function view(Request $request): \Illuminate\View\View
     {
         $session = $request->session();
-        if (is_null($session->get('lazyLoad'))) {
-            $session->put('lazyLoad', true);
-        } else {
-            $session->put('lazyLoad', false);
-        }
+        $session->put('lazyLoad', false);
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
         $topTrims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes,
             $session->get('numberOfRows') ?? self::topLength);

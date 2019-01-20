@@ -51,7 +51,12 @@ class Controller extends BaseController
         {
             View::share('isLoggedIn', is_null(Auth::user()) ? false : true);
             $session = $request->session();
-            View::share('lazyLoad', $session->get('lazyLoad') ?? false);
+            $controller = explode('\\', get_class($this));
+            if (end($controller) === 'HomepageController') {
+                View::share('lazyLoad', $session->get('lazyLoad') ?? true);
+            } else {
+                View::share('lazyLoad', false);
+            }
             $this->shareSessionCars($session);
 
             return $next($request);
