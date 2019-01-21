@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 Route::get('', ['as' => 'Home', 'uses' => 'HomepageController@view']);
-Route::post('getModelNames', ['as' => 'base.getModelNames', 'uses' => 'Controller@getModelNames']);
 Route::get('search', ['as' => 'base.search', 'uses' => 'Controller@search']);
 Route::get('sitemap', 'SitemapController@makeSitemap');
 Route::get('filterTop', ['as' => 'filterTop', 'uses' => 'HomepageController@filterTop']);

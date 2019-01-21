@@ -49,10 +49,10 @@ class ModelpageController extends Controller
         $model->getMake();
         $form = new RatingForm($request->all());
 
+        $test = $request->all();
         $isThankYou = false;
         if ($form->validateFull($request, $form->reCaptchaToken)) {
-            $isThankYou = true;
-            $this->rate($form, $model);
+            $isThankYou = $this->rate($form, $model);
         }
 
         $trims = $model->getTrims();
@@ -83,11 +83,14 @@ class ModelpageController extends Controller
         return View::make('modelpage.index')->with($data);
     }
 
-    public function rate(RatingForm $form, Model $model)
+    public function rate(RatingForm $form, Model $model): bool
     {
         $trimId = (int) $form->trimId;
         $trim = $this->trimRepository->get($trimId);
         $user = Auth::user();
+        if (is_null($user)) {
+            return false;
+        }
         $rating = $this->userRepository->getRatingsTrim($user, $trimId);
         $this->modelRepository->updateCarRating($model, $form->star, $rating);
         $this->trimRepository->updateCarRating($trim, $form->star, $rating);
@@ -96,5 +99,7 @@ class ModelpageController extends Controller
         } else {
             $this->ratingRepository->updateRating($rating, $form);
         }
+
+        return true;
     }
 }

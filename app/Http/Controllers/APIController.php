@@ -46,8 +46,8 @@ class APIController extends BaseController
         return response()->json($trim);
     }
 
-    public function getModelNames(string $makename): array
+    public function getModelNames(string $makename): JsonResponse
     {
-        return $this->makeRepository->getModelnames($makename);
+        return response()->json($this->makeRepository->getModelnames($makename));
     }
 }

@@ -14,4 +14,18 @@ class HomepageTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function testFilterTop()
+    {
+        $response = $this->get('/filterTop');
+
+        $response->assertStatus(200);
+    }
+
+    public function testShowMoreTopTable()
+    {
+        $response = $this->get('/showMoreTopTable/20/10');
+
+        $response->assertStatus(200);
+    }
 }

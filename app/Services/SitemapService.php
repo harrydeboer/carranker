@@ -20,6 +20,9 @@ class SitemapService
             case 'local':
                 $baseUrl = "http://carranker";
                 break;
+            case 'testing':
+                $baseUrl = "http://carranker";
+                break;
             case 'production':
                 $baseUrl = "https://carranker.com";
                 break;

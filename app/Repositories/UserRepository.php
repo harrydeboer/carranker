@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Rating;
+use App\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -17,6 +18,16 @@ class UserRepository extends BaseRepository
         parent::__construct();
         $classNameArray = explode('\\', static::class);
         $this->modelClassName = '\App\\' . str_replace('Repository', '', end($classNameArray));
+    }
+
+    public function getByName(string $username): ?User
+    {
+        return User::where('user_login', $username)->first();
+    }
+
+    public function getByEmail(string $useremail): ?User
+    {
+        return User::where('user_email', $useremail)->first();
     }
 
     public function getRatingsTrim(Authenticatable $user, int $id): ?Rating

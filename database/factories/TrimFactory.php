@@ -12,7 +12,7 @@ $factory->define(App\Models\Trim::class, function (Faker $faker): array {
     $year_begin = $faker->randomNumber(4);
 
     $array = [
-        'name' => $model->getName(),
+        'name' => $faker->name,
         'model_id' => $model->getId(),
         'make' => $model->getMakename(),
         'model' => $model->getName(),

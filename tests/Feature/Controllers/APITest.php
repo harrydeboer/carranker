@@ -3,6 +3,7 @@
 namespace Tests\Feature\Controllers;
 
 use App\Repositories\MakeRepository;
+use App\Repositories\TrimRepository;
 use App\Repositories\UserRepository;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
@@ -10,14 +11,12 @@ use Illuminate\Support\Facades\DB;
 class APITest extends TestCase
 {
     private $user;
-    private $make;
+    private $trim;
 
     public function setUp() {
         parent::setUp();
         $userRepository = new UserRepository();
-        $makeRepository = new MakeRepository();
         $this->user = $userRepository->get(1);
-        $this->make = $makeRepository->get(1);
         $this->artisan('passport:install')->execute();
         DB::table('oauth_clients')->where(['id' => 2])->update(['user_id' => $this->user->getId()]);
         DB::table('oauth_clients')->select('*')->where(['id' => 2])->first();
@@ -47,7 +46,13 @@ class APITest extends TestCase
             'grant_type' => 'password',
             'scope' => '*'
         ];
-        $response = $this->json('GET','/api/make/' . $this->make->getId(),
+
+        $trimRepository = new TrimRepository();
+        $trim = $trimRepository->get(1);
+        $model = $trim->getModel();
+        $make = $model->getMake();
+
+        $response = $this->json('GET','/api/make/' . $make->getId(),
             $body, [
                 'Accept' => 'application/json',
                 'Authorization' => 'Bearer ' . $auth->access_token,
@@ -55,9 +60,50 @@ class APITest extends TestCase
 
         $response->assertStatus(200);
         $jsonArray = json_decode($response->getContent());
-        $this->assertEquals($this->make->getId(), $jsonArray->id);
-        $this->assertEquals($this->make->getName(), $jsonArray->name);
-        $this->assertEquals($this->make->getContent(), $jsonArray->content);
-        $this->assertEquals($this->make->getWikiCarMake(), $jsonArray->wiki_car_make);
+        $this->assertEquals($make->getId(), $jsonArray->id);
+        $this->assertEquals($make->getName(), $jsonArray->name);
+        $this->assertEquals($make->getContent(), $jsonArray->content);
+
+        $response = $this->json('GET','/api/model/' . $model->getId(),
+            $body, [
+                'Accept' => 'application/json',
+                'Authorization' => 'Bearer ' . $auth->access_token,
+            ]);
+
+        $response->assertStatus(200);
+        $jsonArray = json_decode($response->getContent());
+
+        $this->assertEquals($model->getId(), $jsonArray->id);
+        $this->assertEquals($model->getName(), $jsonArray->name);
+        $this->assertEquals($model->getContent(), $jsonArray->content);
+
+        $response = $this->json('GET','/api/trim/' . $trim->getId(),
+            $body, [
+                'Accept' => 'application/json',
+                'Authorization' => 'Bearer ' . $auth->access_token,
+            ]);
+
+        $response->assertStatus(200);
+        $jsonArray = json_decode($response->getContent());
+
+        $this->assertEquals($trim->getId(), $jsonArray->id);
+        $this->assertEquals($trim->getName(), $jsonArray->name);
+    }
+
+    public function testGetModelnames()
+    {
+        $repo = new MakeRepository();
+        $make = $repo->get(1);
+        $models = $make->getModels();
+
+        $response = $this->get('/api/getModelNames/' . $make->getName());
+        $response->assertStatus(200);
+
+        $array = [];
+        foreach ($models as $model) {
+            $array[] = $model->getName();
+        }
+
+        $this->assertEquals($response->getContent(), json_encode($array));
     }
 }

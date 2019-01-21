@@ -14,4 +14,17 @@ class ContactpageTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function testSendMail()
+    {
+        $response = $this->post('/sendMail', [
+            'email' => 'test@test.com',
+            'name' => 'Test',
+            'subject' => 'Test',
+            'Message' => 'Test',
+            'reCaptchaToken' => 'notused',
+        ]);
+
+        $response->assertStatus(200);
+    }
 }

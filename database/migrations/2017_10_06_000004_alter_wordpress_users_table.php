@@ -17,6 +17,8 @@ class AlterWordpressUsersTable extends Migration
             $table->string('remember_token', 100)->nullable();
             $table->dateTime('user_registered')->nullable()->default(Null)->change();
             $table->increments('ID')->change();
+            $table->string('user_login')->unique()->change();
+            $table->string('user_email')->unique()->change();
         });
     }
 

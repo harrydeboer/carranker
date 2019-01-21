@@ -21,7 +21,7 @@ abstract class BaseForm extends Model
             return false;
         }
 
-        if (!is_null($token)) {
+        if (!is_null($token) && env('APP_ENV') !== 'testing') {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
