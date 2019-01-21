@@ -28,6 +28,7 @@ class LoginTest extends TestCase
 
         try {
             $this->assertAuthenticatedAs($user);
+            $this->assertTrue(false, 'User is authenticated after logout.');
         } catch (ExpectationFailedException $exception) {
             $this->assertTrue(true);
         }
