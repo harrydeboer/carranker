@@ -19,6 +19,10 @@ class ModelpageTest extends TestCase
         $response = $this->get('/model/' . $trim->getModel()->getMakename() . '/' . $trim->getModel()->getName());
 
         $response->assertStatus(200);
+
+        $response = $this->get('/model/' . $trim->getModel()->getMakename() . '/' . $trim->getModel()->getName() . '/' . $trim->getId());
+        $response->assertViewHas('selectedGeneration', $trim->getYearBegin() . '-' . $trim->getYearEnd());
+        $response->assertStatus(200);
     }
 
     public function testRate()
