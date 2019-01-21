@@ -8,7 +8,7 @@ use App\User;
 use PHPUnit\Framework\ExpectationFailedException;
 use Tests\TestCase;
 
-class LoginTest extends TestCase
+class LoginLogoutTest extends TestCase
 {
     public function testLoginLogout()
     {
@@ -24,7 +24,8 @@ class LoginTest extends TestCase
         $response->assertRedirect('/');
         $this->assertAuthenticatedAs($user);
 
-        $this->get('/logout');
+        $response = $this->get('/logout');
+        $response->assertRedirect('/');
 
         try {
             $this->assertAuthenticatedAs($user);
