@@ -58,6 +58,7 @@ class ModelpageController extends Controller
         $reviews = $this->modelRepository->getReviews($model, self::numReviewsPerModelpage);
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
             $reviews->onEachSide(1)->links());
+        $trim = $this->trimRepository->find((int) $trimId);
 
         $data = [
             'controller' => 'modelpage',
@@ -71,7 +72,7 @@ class ModelpageController extends Controller
             'isThankYou' => $isThankYou,
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
-            'selectedGeneration' => $this->trimRepository->findSelectedGeneration((int) $trimId),
+            'selectedGeneration' => $this->trimRepository->findSelectedGeneration($trim),
             'reviews' => $reviews,
             'links' => $links,
             'hasTrimTypes' => $this->trimService->hasTrimTypes($trims),

@@ -19,10 +19,10 @@ class ModelRepositoryTest extends TestCase
         $this->modelRepository = new ModelRepository();
     }
 
-    public function testGetByName()
+    public function testGetByMakeModelName()
     {
         $model = factory(Model::class)->create();
-        $modelFromDb = $this->modelRepository->getByName($model->getName());
+        $modelFromDb = $this->modelRepository->getByMakeModelName($model->getMakename(), $model->getName());
 
         $this->assertEquals($model->getId(), $modelFromDb->getId());
     }

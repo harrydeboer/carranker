@@ -26,13 +26,11 @@ class TrimRepository extends BaseRepository
         return $queryObj->get();
     }
 
-    public function findSelectedGeneration(int $trimId): ?string
+    public function findSelectedGeneration(?Trim $trim): ?string
     {
-        if ($trimId === 0) {
+        if (is_null($trim)) {
             return null;
         }
-
-        $trim = $this->get($trimId);
 
         return $trim->getYearBegin() . '-' . $trim->getYearEnd();
     }

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Models\Trim;
 use App\Repositories\TrimRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -16,5 +17,13 @@ class TrimRepositoryTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         $this->trimRepository = new TrimRepository();
+    }
+
+    public function testFindSelectedGeneration()
+    {
+        $trim = factory(Trim::class)->create();
+        $generation = $this->trimRepository->findSelectedGeneration($trim);
+
+        $this->assertEquals($generation, $trim->getYearBegin() . '-' . $trim->getYearEnd());
     }
 }

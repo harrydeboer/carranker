@@ -19,6 +19,10 @@ class CarSpecsTest extends TestCase
         $names = [];
         foreach (CarSpecs::specsChoice() as $specname => $spec) {
             $names[] = $specname;
+            $this->assertArrayHasKey('show', $spec);
+            $this->assertArrayHasKey('display', $spec);
+            $this->assertArrayHasKey('choices', $spec);
+            $this->assertTrue(is_array($spec['choices']));
         }
 
         $this->assertEquals($names, self::$specsChoice);
@@ -28,6 +32,12 @@ class CarSpecsTest extends TestCase
     {
         $names = [];
         foreach (CarSpecs::specsRange() as $specname => $spec) {
+            $this->assertArrayHasKey('min', $spec);
+            $this->assertArrayHasKey('max', $spec);
+            $this->assertArrayHasKey('step', $spec);
+            $this->assertArrayHasKey('display', $spec);
+            $this->assertArrayHasKey('show', $spec);
+            $this->assertArrayHasKey('unit', $spec);
             if ($specname !== 'price' && $specname !== 'generation') {
                 $names[] = $specname;
             }

@@ -22,6 +22,11 @@ class BaseRepository
         return $this->modelClassName::all();
     }
 
+    public function find(int $id): ?Model
+    {
+        return $this->modelClassName::find($id);
+    }
+
     public function get(int $id): Model
     {
         return $this->modelClassName::findOrFail($id);
