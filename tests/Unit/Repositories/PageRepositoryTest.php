@@ -2,29 +2,28 @@
 
 declare(strict_types=1);
 
-use App\Models\Model;
-use App\Repositories\ModelRepository;
+use App\Models\Page;
+use App\Repositories\PageRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class ModelRepositoryTest extends TestCase
+class PageRepositoryTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private $modelRepository;
+    private $pageRepository;
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->modelRepository = new ModelRepository();
-
+        $this->pageRepository = new PageRepository();
     }
 
     public function testGetByName()
     {
-        $model = factory(Model::class)->create();
-        $modelFromDb = $this->modelRepository->getByName($model->getName());
+        $page = factory(Page::class)->create();
+        $pageFromDb = $this->pageRepository->getByName($page->getName());
 
-        $this->assertEquals($model->getId(), $modelFromDb->getId());
+        $this->assertEquals($page->getId(), $pageFromDb->getId());
     }
 }

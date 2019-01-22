@@ -2,29 +2,28 @@
 
 declare(strict_types=1);
 
-use App\Models\Make;
-use App\Repositories\MakeRepository;
+use App\Models\Model;
+use App\Repositories\ModelRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class MakeRepositoryTest extends TestCase
+class ModelRepositoryTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private $makeRepository;
+    private $modelRepository;
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->makeRepository = new MakeRepository();
-
+        $this->modelRepository = new ModelRepository();
     }
 
     public function testGetByName()
     {
-        $make = factory(Make::class)->create();
-        $makeFromDb = $this->makeRepository->getByName($make->getName());
+        $model = factory(Model::class)->create();
+        $modelFromDb = $this->modelRepository->getByName($model->getName());
 
-        $this->assertEquals($make->getId(), $makeFromDb->getId());
+        $this->assertEquals($model->getId(), $modelFromDb->getId());
     }
 }

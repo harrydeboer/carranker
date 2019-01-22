@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-use App\Repositories\TrimRepository;
+use App\Repositories\RatingRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class TrimRepositoryTest extends TestCase
+class RatingRepositoryTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private $trimRepository;
+    private $ratingRepository;
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->trimRepository = new TrimRepository();
+        $this->ratingRepository = new RatingRepository();
     }
 }

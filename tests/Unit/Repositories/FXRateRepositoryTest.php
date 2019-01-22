@@ -2,29 +2,28 @@
 
 declare(strict_types=1);
 
-use App\Models\Menu;
-use App\Repositories\MenuRepository;
+use App\Models\FXRate;
+use App\Repositories\FXRateRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class MenuRepositoryTest extends TestCase
+class FXRateRepositoryTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private $menuRepository;
+    private $fxrateRepository;
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->menuRepository = new MenuRepository();
-
+        $this->fxrateRepository = new FXRateRepository();
     }
 
     public function testGetByName()
     {
-        $menu = factory(Menu::class)->create();
-        $menuFromDb = $this->menuRepository->getByName($menu->getName());
+        $fxrate = factory(FXRate::class)->create();
+        $fxrateFromDb = $this->fxrateRepository->getByName($fxrate->getName());
 
-        $this->assertEquals($menu->getId(), $menuFromDb->getId());
+        $this->assertEquals($fxrate->getId(), $fxrateFromDb->getId());
     }
 }

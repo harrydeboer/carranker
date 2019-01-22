@@ -2,29 +2,28 @@
 
 declare(strict_types=1);
 
-use App\Models\Page;
-use App\Repositories\PageRepository;
+use App\Models\Menu;
+use App\Repositories\MenuRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class PageRepositoryTest extends TestCase
+class MenuRepositoryTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private $pageRepository;
+    private $menuRepository;
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->pageRepository = new PageRepository();
-
+        $this->menuRepository = new MenuRepository();
     }
 
     public function testGetByName()
     {
-        $page = factory(Page::class)->create();
-        $pageFromDb = $this->pageRepository->getByName($page->getName());
+        $menu = factory(Menu::class)->create();
+        $menuFromDb = $this->menuRepository->getByName($menu->getName());
 
-        $this->assertEquals($page->getId(), $pageFromDb->getId());
+        $this->assertEquals($menu->getId(), $menuFromDb->getId());
     }
 }

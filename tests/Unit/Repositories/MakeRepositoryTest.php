@@ -17,7 +17,6 @@ class MakeRepositoryTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         $this->makeRepository = new MakeRepository();
-
     }
 
     public function testGetByName()

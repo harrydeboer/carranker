@@ -2,29 +2,19 @@
 
 declare(strict_types=1);
 
-use App\Models\Model;
-use App\Repositories\ModelRepository;
+use App\Repositories\TrimRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class ModelRepositoryTest extends TestCase
+class TrimRepositoryTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private $modelRepository;
+    private $trimRepository;
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->modelRepository = new ModelRepository();
-
-    }
-
-    public function testGetByName()
-    {
-        $model = factory(Model::class)->create();
-        $modelFromDb = $this->modelRepository->getByName($model->getName());
-
-        $this->assertEquals($model->getId(), $modelFromDb->getId());
+        $this->trimRepository = new TrimRepository();
     }
 }

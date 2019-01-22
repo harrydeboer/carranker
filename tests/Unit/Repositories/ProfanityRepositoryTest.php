@@ -2,20 +2,27 @@
 
 declare(strict_types=1);
 
-use App\Repositories\TrimRepository;
+use App\Models\Profanity;
+use App\Repositories\ProfanityRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class TrimRepositoryTest extends TestCase
+class ProfanityRepositoryTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private $trimRepository;
+    private $profanityRepository;
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->trimRepository = new TrimRepository();
+        $this->profanityRepository = new ProfanityRepository();
+    }
 
+    public function testGetProfanityNames()
+    {
+        $profanity = factory(Profanity::class)->create();
+
+        $this->assertEquals($this->profanityRepository->getProfanityNames(), [$profanity->getName()]);
     }
 }
