@@ -6,9 +6,12 @@ namespace Tests\Unit\Forms;
 
 use App\Forms\ContactForm;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ContactFormTest extends TestCase
 {
+    use DatabaseMigrations;
+
     public function testContactForm()
     {
         $form = new ContactForm();
@@ -20,7 +23,7 @@ class ContactFormTest extends TestCase
             'subject' => 'Test',
             'name' => 'Test',
             'message' => 'Test',
-            'reCaptchaToken' => 'notvalid',
+            'reCaptchaToken' => 'notusedintests',
         ]);
 
         $this->assertTrue($form->validateFull($request, 'notvalid'));

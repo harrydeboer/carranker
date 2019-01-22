@@ -12,6 +12,8 @@
     ],
     "require": {
         "php": ">=7.2.10",
+        "ext-xmlreader": "*",
+        "ext-libxml": "*",
         "ext-curl": "*",
         "ext-iconv": "*",
         "ext-pdo": "*",

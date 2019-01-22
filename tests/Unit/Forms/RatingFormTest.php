@@ -7,9 +7,12 @@ namespace Tests\Unit\Forms;
 use App\Forms\RatingForm;
 use App\Models\Aspect;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class RatingFormTest extends TestCase
 {
+    use DatabaseMigrations;
+
     public function testRatingForm()
     {
         $form = new RatingForm();
@@ -22,7 +25,7 @@ class RatingFormTest extends TestCase
             'serie' => 'Sedan',
             'trimId' => '1',
             'content' => null,
-            'reCaptchaToken' => 'notvalid',
+            'reCaptchaToken' => 'notusedintests',
         ];
         foreach (Aspect::getAspects() as $aspect) {
             $requestParams['star'][$aspect] = '8';

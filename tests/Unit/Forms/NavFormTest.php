@@ -6,9 +6,12 @@ namespace Tests\Unit\Forms;
 
 use App\Forms\NavForm;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class NavFormTest extends TestCase
 {
+    use DatabaseMigrations;
+
     public function testNavForm()
     {
         $form = new NavForm();

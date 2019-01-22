@@ -37,7 +37,7 @@ class ModelpageTest extends TestCase
             'serie' => $trim->getFramework(),
             'trimId' => $trim->getId(),
             'content' => 'Review',
-            'reCaptchaToken' => 'notused',
+            'reCaptchaToken' => 'notusedintests',
         ];
         foreach (Aspect::getAspects() as $aspect) {
             $postArrayFirst['star'][$aspect] = '10';

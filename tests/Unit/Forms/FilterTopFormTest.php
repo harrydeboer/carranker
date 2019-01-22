@@ -7,9 +7,12 @@ namespace Tests\Unit\Forms;
 use App\Forms\FilterTopForm;
 use App\Models\Aspect;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class FilterTopFormTest extends TestCase
 {
+    use DatabaseMigrations;
+
     public function testFilterTopForm()
     {
         $form = new FilterTopForm();
