@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
+use App\Providers\WPHasher;
 use App\User;
-use PHPUnit\Framework\ExpectationFailedException;
 use Tests\TestCase;
 
 class LoginLogoutTest extends TestCase
 {
     public function testLoginLogout()
     {
+        $hasher = new WPHasher(app());
+
+        $password = 'secret';
         $user = factory(User::class)->create([
-            'user_pass' => bcrypt($password = 'testtest'),
+            'user_pass' => $hasher->make($password),
         ]);
 
         $response = $this->post('/login', [
@@ -22,16 +25,11 @@ class LoginLogoutTest extends TestCase
         ]);
 
         $response->assertRedirect('/');
-        $this->assertAuthenticatedAs($user);
+        $this->assertAuthenticated();
 
         $response = $this->get('/logout');
         $response->assertRedirect('/');
 
-        try {
-            $this->assertAuthenticatedAs($user);
-            $this->assertTrue(false, 'User is authenticated after logout.');
-        } catch (ExpectationFailedException $exception) {
-            $this->assertTrue(true);
-        }
+        $this->assertGuest();
     }
 }
