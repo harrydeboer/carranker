@@ -10,7 +10,7 @@ class ModelRepository extends BaseRepository
 {
     use CarTrait;
 
-    public function getModelnames(): array
+    public function getModelNames(): array
     {
         $models = Model::all();
         $modelnames = [];

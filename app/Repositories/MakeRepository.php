@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class MakeRepository extends BaseRepository
 {
-    public function getMakenames(): array
+    public function getMakeNames(): array
     {
         $makes = Make::all();
         $makenames = [];
@@ -41,7 +41,7 @@ class MakeRepository extends BaseRepository
         return $result;
     }
 
-    public function getModelnames(?string $makename): ?array
+    public function getModelNames(?string $makename): ?array
     {
         if (is_null($makename)) {
             return null;

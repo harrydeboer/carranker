@@ -39,7 +39,7 @@ class Controller extends BaseController
         $this->makeRepository = new MakeRepository();
         $this->modelRepository = new ModelRepository();
         $this->trimRepository = new TrimRepository();
-        View::share('makenames', $this->makeRepository->getMakenames());
+        View::share('makenames', $this->makeRepository->getMakeNames());
         View::share('metaKeyWords', 'car, cars, ranker, rate, rank, ranking, rating, top, top ' . self::topLength);
         View::share('metaDescription', 'Check out the top ' . self::topLength . ' of all cars and rate your favorite cars!');
         View::share('isDevEnv', App::environment() === 'local' ? 1 : 0);
@@ -67,7 +67,7 @@ class Controller extends BaseController
     protected function shareSessionCars(Store $session)
     {
         View::share('makenameSession', $session->get('makename'));
-        View::share('modelnames', $this->makeRepository->getModelnames($session->get('makename')));
+        View::share('modelnames', $this->makeRepository->getModelNames($session->get('makename')));
         View::share('modelnameSession', $session->get('modelname'));
     }
 

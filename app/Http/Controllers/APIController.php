@@ -48,6 +48,6 @@ class APIController extends BaseController
 
     public function getModelNames(string $makename): JsonResponse
     {
-        return response()->json($this->makeRepository->getModelnames($makename));
+        return response()->json($this->makeRepository->getModelNames($makename));
     }
 }

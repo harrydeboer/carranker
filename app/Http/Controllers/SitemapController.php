@@ -13,7 +13,7 @@ class SitemapController extends Controller
     public function makeSitemap(): Response
     {
         $sitemap = new SitemapService();
-        $sitemap = $sitemap->makeSitemap($this->makeRepository->getMakenames(), $this->modelRepository->getModelnames());
+        $sitemap = $sitemap->makeSitemap($this->makeRepository->getMakeNames(), $this->modelRepository->getModelNames());
 
         View::share('sitemap', $sitemap);
 
