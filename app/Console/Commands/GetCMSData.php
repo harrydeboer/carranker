@@ -94,7 +94,7 @@ class GetCMSData extends Command
         curl_close($ch);
 
         $errors = "";
-        if ($httpCode != 200) {
+        if ($httpCode !== 200) {
             $errors .= "Error: The Wordpress API is not available.";
         }
 
