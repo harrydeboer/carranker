@@ -100,11 +100,6 @@ class GetCMSData extends Command
 
         $errors .= $this->pageRepository->syncPagesWithCMS($pagesCMS);
 
-        if (!isset($menus->navigationHeader) || empty($menus->navigationHeader) ||
-            !isset($menus->navigationFooter) || empty($menus->navigationFooter)) {
-            $errors .= "Error: Necessary menu(s)/menuitem(s) deleted.";
-        }
-
         $this->menuRepository->syncMenusWithCMS($menus);
 
         if ($errors !== "") {

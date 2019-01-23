@@ -11,8 +11,13 @@ class MenuRepository extends BaseRepository
         return Menu::where('name', $name)->first();
     }
 
-    public function syncMenusWithCMS(object $menusCMS)
+    public function syncMenusWithCMS(object $menusCMS): string
     {
+        if (!isset($menusCMS->navigationHeader) || empty($menusCMS->navigationHeader) ||
+            !isset($menusCMS->navigationFooter) || empty($menusCMS->navigationFooter)) {
+            return "Error: Necessary menu(s)/menuitem(s) deleted.";
+        }
+
         $pageRepository = new PageRepository();
         $menusDB = $this->all();
 
@@ -42,5 +47,7 @@ class MenuRepository extends BaseRepository
             $menu = $this->getByName($deleteName);
             $this->delete($menu->getId());
         }
+
+        return "";
     }
 }

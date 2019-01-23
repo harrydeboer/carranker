@@ -42,11 +42,16 @@ class MenuRepositoryTest extends TestCase
         $itemHome = new stdClass();
         $itemHome->title = $pageHome->getName();
         $menusCMS->navigationHeader = [$itemHome];
+
+        $result = $this->menuRepository->syncMenusWithCMS($menusCMS);
+        $this->assertFalse($result === "");
+
         $itemContact = new stdClass();
         $itemContact->title = $pageContact->getName();
         $menusCMS->navigationFooter = [$itemContact];
 
-        $this->menuRepository->syncMenusWithCMS($menusCMS);
+        $result = $this->menuRepository->syncMenusWithCMS($menusCMS);
+        $this->assertEquals($result, "");
 
         $this->assertNull($this->menuRepository->find($menu->getId()));
 
