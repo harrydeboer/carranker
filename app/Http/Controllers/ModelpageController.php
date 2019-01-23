@@ -40,7 +40,7 @@ class ModelpageController extends Controller
     {
         $makename = urldecode($makename);
         $modelname = urldecode($modelname);
-        $session = $request->session();
+        $session = session();
         $session->put('makename', $makename);
         $session->put('modelname', $modelname);
         $this->shareSessionCars($session);

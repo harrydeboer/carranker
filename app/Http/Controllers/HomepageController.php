@@ -8,7 +8,6 @@ use App\CarSpecs;
 use App\Forms\FilterTopForm;
 use App\Models\Aspect;
 use App\Repositories\RatingRepository;
-use App\Repositories\TrimRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 

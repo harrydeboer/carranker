@@ -12,11 +12,11 @@ use App\Repositories\ModelRepository;
 use App\Repositories\PageRepository;
 use App\Repositories\TrimRepository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Session\SessionManager;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Session\Store;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -51,7 +51,7 @@ class Controller extends BaseController
         $this->middleware(function (Request $request, \Closure $next): Response
         {
             View::share('isLoggedIn', is_null(Auth::user()) ? false : true);
-            $session = $request->session();
+            $session = session();
             $controller = explode('\\', get_class($this));
             if (end($controller) === 'HomepageController') {
                 View::share('lazyLoad', $session->get('lazyLoad') ?? true);
@@ -64,7 +64,7 @@ class Controller extends BaseController
         });
     }
 
-    protected function shareSessionCars(Store $session)
+    protected function shareSessionCars(SessionManager $session)
     {
         View::share('makenameSession', $session->get('makename'));
         View::share('modelnames', $this->makeRepository->getModelNames($session->get('makename')));
