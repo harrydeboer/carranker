@@ -100,7 +100,7 @@ class GetCMSData extends Command
 
         $errors .= $this->pageRepository->syncPagesWithCMS($pagesCMS);
 
-        $this->menuRepository->syncMenusWithCMS($menus);
+        $errors .= $this->menuRepository->syncMenusWithCMS($menus);
 
         if ($errors !== "") {
             Mail::send('contact.message', ['userMessage' => $errors], function (Message $message) {
