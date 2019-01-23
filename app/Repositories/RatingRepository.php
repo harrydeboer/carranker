@@ -16,7 +16,7 @@ class RatingRepository extends BaseRepository
         return Rating::whereNotNull('content')->take($limit)->orderBy('time', 'desc')->get();
     }
 
-    public function createRating(Authenticatable $user, Model $model, Trim $trim, RatingForm $form)
+    public function createRating(Authenticatable $user, Model $model, Trim $trim, RatingForm $form): Rating
     {
         $createArray = [
             'user_id' => $user->getId(),
@@ -33,10 +33,10 @@ class RatingRepository extends BaseRepository
             $createArray[$key] = (int) $aspect;
         }
 
-        $this->create($createArray);
+        return $this->create($createArray);
     }
 
-    public function updateRating(Rating $rating, RatingForm $form)
+    public function updateRating(Rating $rating, RatingForm $form): Rating
     {
         foreach ($form->star as $key => $aspect) {
             $rating->setAspect($key, (int) $aspect);
@@ -47,5 +47,7 @@ class RatingRepository extends BaseRepository
             $rating->setContent($form->content);
         }
         $this->update($rating);
+
+        return $rating;
     }
 }

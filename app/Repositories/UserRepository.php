@@ -30,21 +30,21 @@ class UserRepository extends BaseRepository
         return User::where('user_email', $useremail)->first();
     }
 
-    public function getRatingsTrim(Authenticatable $user, int $id): ?Rating
+    public function getRatingsTrim(?Authenticatable $user, int $trimId): ?Rating
     {
         if (is_null($user)) {
             return null;
         }
 
-        return $user->hasMany('\App\Models\Rating')->where('trim_id', $id)->first();
+        return $user->hasMany('\App\Models\Rating')->where('trim_id', $trimId)->first();
     }
 
-    public function getRatingsModel(?Authenticatable $user, int $id): ?Collection
+    public function getRatingsModel(?Authenticatable $user, int $modelId): ?Collection
     {
         if (is_null($user)) {
             return null;
         }
 
-        return $user->hasMany('\App\Models\Rating')->where('model_id', $id)->get()->keyBy('trim_id');
+        return $user->hasMany('\App\Models\Rating')->where('model_id', $modelId)->get()->keyBy('trim_id');
     }
 }

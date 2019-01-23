@@ -26,9 +26,9 @@ class HomepageController extends Controller
         $this->ratingRepository = new RatingRepository();
     }
 
-    public function view(Request $request): \Illuminate\View\View
+    public function view(): \Illuminate\View\View
     {
-        $session = $request->session();
+        $session = session();
         $session->put('lazyLoad', false);
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
         $topTrims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes,
@@ -54,7 +54,7 @@ class HomepageController extends Controller
 
     public function filterTop(Request $request): \Illuminate\View\View
     {
-        $session = $request->session();
+        $session = session();
 
         $form = new FilterTopForm($request->all());
 
@@ -92,9 +92,9 @@ class HomepageController extends Controller
         return View::make('homepage.filterTop')->with($data);
     }
 
-    public function showMoreTopTable(string $numberOfRows, string $offset, Request $request): \Illuminate\View\View
+    public function showMoreTopTable(string $numberOfRows, string $offset): \Illuminate\View\View
     {
-        $session = $request->session();
+        $session = session();
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
         $trims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes, (int) $numberOfRows, (int) $offset);
         $session->put('numberOfRows', count($trims) + (int) $offset);
