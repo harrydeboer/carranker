@@ -43,9 +43,10 @@ class TrimRepositoryTest extends TestCase
     {
         $index = '0';
         $framework = \App\CarSpecs::specsChoice()['framework']['choices'][(int) $index];
-        factory(Trim::class)->create(['votes' => 31, 'framework' => $framework]);
-        factory(Trim::class)->create(['votes' => 31, 'framework' => $framework]);
-        factory(Trim::class)->create(['votes' => 31]);
+        factory(Trim::class)->create(['votes' => 31, 'framework' => $framework, 'price' => 6000]);
+        factory(Trim::class)->create(['votes' => 31, 'framework' => $framework, 'price' => 7000]);
+        factory(Trim::class)->create(['votes' => 31, 'framework' => $framework, 'price' => 11000]);
+        factory(Trim::class)->create(['votes' => 31, 'framework' => 'Van']);
         factory(Trim::class)->create(['votes' => 25]);
 
         $session = session();
@@ -57,8 +58,17 @@ class TrimRepositoryTest extends TestCase
         $session->put('aspects', $aspects);
 
         $session->put('specsChoice', ['framework' . $index => '1']);
+
+        $specsRange = [];
+        foreach (\App\CarSpecs::specsRange() as $specName => $spec) {
+            $specsRange[$specName . 'min'] = null;
+            $specsRange[$specName . 'max'] = null;
+        }
+        $specsRange['pricemin'] = '5000';
+        $specsRange['pricemax'] = '10000';
+        $session->put('specsRange', $specsRange);
         $minNumVotes = 30;
-        $lengthTopTable = 2;
+        $lengthTopTable = 4;
 
         $trims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes, $lengthTopTable);
 
@@ -67,6 +77,6 @@ class TrimRepositoryTest extends TestCase
             $this->assertTrue($trim->getFramework() === $framework);
         }
 
-        $this->assertEquals(count($trims), $lengthTopTable);
+        $this->assertEquals(count($trims), 2);
     }
 }

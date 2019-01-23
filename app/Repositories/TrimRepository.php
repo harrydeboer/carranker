@@ -10,10 +10,8 @@ use Illuminate\Session\SessionManager;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 
-class TrimRepository extends BaseRepository
+class TrimRepository extends CarRepository
 {
-    use CarTrait;
-
     public function findTrimsForSearch(string $searchString): Collection
     {
         $words = explode(' ', $searchString);

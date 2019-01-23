@@ -6,10 +6,8 @@ use App\Models\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class ModelRepository extends BaseRepository
+class ModelRepository extends CarRepository
 {
-    use CarTrait;
-
     public function getModelNames(): array
     {
         $models = Model::all();
