@@ -19,8 +19,8 @@
                 </div>
                 <div class="panel-body text-center">
                     @foreach ($models as $model)
-                        <div><a href = "{{ '/model/' . strtolower(str_replace(' ', '_', $make->getName())) . '/' .
-                            strtolower(str_replace(' ', '_', $model->getName())) }}" class="asideLink" >{{ $model->getName() }}</a>
+                        <div><a href = "{{ '/model/' . urlencode($make->getName()) . '/' .
+                            urlencode($model->getName()) }}" class="asideLink" >{{ $model->getName() }}</a>
                         </div>
                     @endforeach
                 </div>
