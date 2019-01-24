@@ -54,7 +54,6 @@ class HomepageController extends Controller
     public function filterTop(Request $request): \Illuminate\View\View
     {
         $session = session();
-
         $form = new FilterTopForm($request->all());
 
         if ($form->validateFull($request)) {

@@ -7,6 +7,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\View;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -53,7 +54,16 @@ class Handler extends ExceptionHandler
     {
         View::share('message', $exception->getMessage());
         View::share('controller', 'error');
-        View::share('title', 'Error');
+
+        try {
+            if ($exception->getStatusCode() === 404) {
+                View::share('title', 'Not Found');
+            }  else {
+                View::share('title', 'Error');
+            }
+        } catch (Throwable $e) {
+            View::share('title', 'Error');
+        }
 
         return parent::render($request, $exception);
     }

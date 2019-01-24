@@ -14,6 +14,6 @@ class NotFoundTest extends TestCase
 
         $response->assertStatus(404);
 
-        $response->assertSee('<title>Error</title>');
+        $response->assertSee('<title>Not Found</title>');
     }
 }
