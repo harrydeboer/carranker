@@ -24,7 +24,7 @@
             <div class="col-md-4 panel panel-default">
                 <div class="panel-heading text-center">
                     <div id="ratingHeading">
-                        {{ number_format($model->getRating(), 1) }}
+                        {{ is_null($model->getRating()) ? '-' : number_format($model->getRating(), 1) }}
                         <span class="fa fa-star fa-star-shadow"></span>
                         {{ ' with ' . $model->getVotes() . ' votes' }}
                     </div>
@@ -35,7 +35,7 @@
                         @foreach ($aspects as $key => $aspect)
                             <tr class="row rowRating">
                                 <td class="col-md-7">{{ ucfirst($aspect) }}:</td>
-                                <td class="col-md-5">{{ number_format($model->getAspect($aspect), 1) }} <span
+                                <td class="col-md-5">{{ is_null($model->getAspect($aspect)) ? '-': number_format($model->getAspect($aspect), 1) }} <span
                                             class="fa fa-star fa-star-shadow"></span></td>
                             </tr>
                         @endforeach

@@ -16,7 +16,7 @@
         </tr>
         <tr>
             <td>{{ 'Rating' }}:</td>
-            <td>{{ number_format($trim->getRating(), 1) }}</td>
+            <td>{{ is_null($trim->getRating()) ? '-' : number_format($trim->getRating(), 1) }}</td>
             <td><span class="fa fa-star fa-star-shadow"></span></td>
             <td>{{ is_null($rating) ?  '-' : $rating->getRating() }}</td>
             <td><span class="fa fa-star fa-star-shadow"></span></td>
@@ -26,7 +26,7 @@
         </tr>
         @foreach ($aspects as $keyAspect => $aspect)
         <tr><td>{{ ucfirst($aspect) }}:</td>
-            <td>{{ number_format($trim->getAspect($aspect), 1) }}</td>
+            <td>{{ is_null($trim->getAspect($aspect)) ? '-' : number_format($trim->getAspect($aspect), 1) }}</td>
             <td><span class="fa fa-star fa-star-shadow"></span></td>
             <td>{{ is_null($rating) ? '-' : $rating->getAspect($aspect)}}</td>
             <td><span class="fa fa-star fa-star-shadow"></span></td>
