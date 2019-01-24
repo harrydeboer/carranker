@@ -54,6 +54,7 @@ class Handler extends ExceptionHandler
         View::share('message', $exception->getMessage());
         View::share('controller', 'error');
         View::share('title', 'Error');
+
         return parent::render($request, $exception);
     }
 }

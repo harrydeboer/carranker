@@ -19,5 +19,6 @@ Route::get('model/{make}/{model}/{trimId?}', 'ModelpageController@view');
 Route::post('model/{make}/{model}/{trimId?}', ['as' => 'make.model', 'uses' => 'ModelpageController@view']);
 
 /** Catch all remaining routes for the cms pages. */
-Route::get('{url}', 'CmsController@view');
+Route::get('{url?}', 'CmsController@view')->where('url', '.*');
+
 
