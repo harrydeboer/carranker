@@ -11,9 +11,12 @@ class MakeRepository extends BaseRepository
     {
         $makes = Make::all();
         $makenames = [];
+        $makesASCII = array();
         foreach($makes as $make) {
             $makenames[$make->getName()] = $make->getName();
+            $makesASCII[] = strtolower(iconv("UTF-8", "ASCII//TRANSLIT", $make->getName()));
         }
+        array_multisort($makesASCII, $makenames);
 
         return $makenames;
     }
@@ -49,9 +52,12 @@ class MakeRepository extends BaseRepository
 
         $models = $this->getByName($makename)->getModels();
         $modelnames = [];
+        $modelsASCII = [];
         foreach($models as $model) {
             $modelnames[] = $model->getName();
+            $modelsASCII[] = strtolower(iconv("UTF-8", "ASCII//TRANSLIT", $model->getName()));
         }
+        array_multisort($modelsASCII, $modelnames);
 
         return $modelnames;
     }
