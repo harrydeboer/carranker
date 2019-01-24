@@ -38,8 +38,8 @@ class ModelpageController extends Controller
 
     public function view(string $makename, string $modelname, Request $request, string $trimId='0'): \Illuminate\View\View
     {
-        $makename = urldecode($makename);
-        $modelname = urldecode($modelname);
+        $makename = rawurldecode($makename);
+        $modelname = rawurldecode($modelname);
         $session = session();
         $session->put('makename', $makename);
         $session->put('modelname', $modelname);

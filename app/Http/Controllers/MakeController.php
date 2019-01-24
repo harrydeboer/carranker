@@ -10,7 +10,7 @@ class MakeController extends Controller
 {
     public function view(string $makename): \Illuminate\View\View
     {
-        $make = $this->makeRepository->getByName(urldecode($makename));
+        $make = $this->makeRepository->getByName(rawurldecode($makename));
         $session = session();
         $session->put('makename', $make->getName());
         $session->put('modelname', null);

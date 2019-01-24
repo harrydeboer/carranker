@@ -46,9 +46,9 @@ $(document).ready(function ()
     function navigate()
     {
         if (menuModel.val() === "") {
-            window.location.href = "/make/" + menuMake.val();
+            window.location.href = "/make/" + encodeURIComponent(menuMake.val());
         } else {
-            window.location.href = "/model/" + menuMake.val() + "/" + menuModel.val();
+            window.location.href = "/model/" + encodeURIComponent(menuMake.val()) + "/" + encodeURIComponent(menuModel.val());
         }
     }
 });

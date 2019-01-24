@@ -45,7 +45,7 @@ class SitemapService
 
         foreach ($makenames as $make) {
             $url = $sitemap->addChild('url');
-            $url->addChild('loc', $baseUrl . '/make/' . urlencode($make));
+            $url->addChild('loc', $baseUrl . '/make/' . rawurlencode($make));
             $url->addChild('priority', '1.0');
             $url->addChild('lastmod', $update);
             $url->addChild('changefreq', 'monthly');
@@ -54,7 +54,7 @@ class SitemapService
         foreach ($modelnames as $modelname) {
             $modelArray = explode(';', $modelname);
             $url = $sitemap->addChild('url');
-            $subUrl = urlencode($modelArray[0]) . '/' . urlencode($modelArray[1]);
+            $subUrl = rawurlencode($modelArray[0]) . '/' . rawurlencode($modelArray[1]);
             $url->addChild('loc', $baseUrl . '/model/' . $subUrl);
             $url->addChild('priority', '1.0');
             $url->addChild('lastmod', $update);
