@@ -128,7 +128,14 @@ $(document).ready(function ()
         /** Show the loader img */
         $('#hideAll').show();
 
-        $.get('filterTop', $(this).serialize() + "&numberOfRows=" + $('.topRow:visible').length, function (data) {
+        var rows;
+        if ($('.topRow:visible').length < numShowMoreLess) {
+            rows = numShowMoreLess;
+        } else {
+            rows = $('.topRow:visible').length;
+        }
+
+        $.get('filterTop', $(this).serialize() + "&numberOfRows=" + rows, function (data) {
             /** Three pieces of html, the slideshow, the top table and the least number of votes, are filled with the data.
              * The data has a splitpoint to split at the right point for the three pieces of html.
              * The number of rows that has to be shown is set with showParTopTable, the loader is hidden and
@@ -143,6 +150,8 @@ $(document).ready(function ()
 
             /** Activate the slider */
             $('#carousel').carousel();
+
+            showPartTopTable($('#tableTop tr').length);
 
             sessionStorage.numberOfRows = $('#tableTop tr').length;
             $("#preferencesDialog").css('margin-top', '0');

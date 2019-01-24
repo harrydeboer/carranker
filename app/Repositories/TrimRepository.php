@@ -36,7 +36,6 @@ class TrimRepository extends CarRepository
     public function findTrimsOfTop(SessionManager $session, int $minNumVotes, int $lengthTopTable, int $offset=null): Collection
     {
         $queryObj = $this->queryAspects($session);
-
         $sessionAspects = $session->get('aspects');
         if (isset($sessionAspects)) {
             foreach (CarSpecs::specsChoice() as $key => $spec) {
@@ -52,6 +51,7 @@ class TrimRepository extends CarRepository
         if (!is_null($offset)) {
             $queryObj->offset($offset)->limit($lengthTopTable - $offset);
         }
+        $test = str_replace_array('?', $queryObj->getQuery()->getBindings(), $queryObj->getQuery()->toSql());
         $trims = $queryObj->get();
         foreach ($trims as $key => $trim) {
             $trims[$key]->setRating($trim->rating);
@@ -97,6 +97,12 @@ class TrimRepository extends CarRepository
                 }
                 if ($name === 'gearbox_type' && $choice === 'Automatic') {
                     $queryArr[] = 'Manual/Automatic';
+                }
+                if ($name === 'fuel' && ($choice === 'Electric' || $choice === 'Gasoline')) {
+                    $queryArr[] = 'Gasoline,  Electric';
+                }
+                if ($name === 'fuel' && ($choice === 'CNG' || $choice === 'Gasoline')) {
+                    $queryArr[] = 'Gasoline,  CNG';
                 }
             }
         }
