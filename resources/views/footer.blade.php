@@ -1,7 +1,7 @@
 <div class="navbar navbar-default text-center">
     <ul id="navmenuFooter" class="nav navbar-nav">
         @foreach ($menuFooter as $page)
-        <li class="nav-item navText"><a href="/{{ strtolower($page->getName()) }}" class="nav-link">{{ $page->getTitle() }}&nbsp;&nbsp;</a></li>
+            <li class="nav-item navText"><a href="/{{ strtolower($page->getName()) }}" class="nav-link">{{ $page->getTitle() }}&nbsp;&nbsp;</a></li>
         @endforeach
     </ul>
 </div>
@@ -19,7 +19,7 @@
 <script src="{{ fileUrl('/js/bootstrap.min.js') }}"></script>
 <script src="{{ fileUrl('/js/main.min.js') }}"></script>
 @if ($controller !== 'cms')
-<script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
+    <script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
 @endif
 <script>
     var controller = "{{ $controller }}";
