@@ -11,6 +11,10 @@ class MenuRepository extends BaseRepository
         return Menu::where('name', $name)->first();
     }
 
+    /** The menus from the cms have to be synced with the database. First the menus are created when not present in the
+     * database. Then the menu pages have to be synced with the many to many table menus_pages.
+     * Lastly the menus that are not in the cms are deleted.
+     */
     public function syncMenusWithCMS(object $menusCMS): string
     {
         if (!isset($menusCMS->navigationHeader) || empty($menusCMS->navigationHeader) ||

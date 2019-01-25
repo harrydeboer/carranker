@@ -17,6 +17,8 @@ class PageRepository extends BaseRepository
         return $result;
     }
 
+    /** The pages from the cms have to be synced with the database. First the pages are created when not present in the
+     * database or updated. Then the pages that are not in the cms are deleted. */
     public function syncPagesWithCMS(array $pagesCMS): string
     {
         $pagesDB = $this->all();

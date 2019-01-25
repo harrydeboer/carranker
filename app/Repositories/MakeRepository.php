@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Collection;
 
 class MakeRepository extends BaseRepository
 {
+    /** The make names are retrieved and sorted on ascii value.
+     * This is needed for makes with special characters in their name to be sorted properly.
+     */
     public function getMakeNames(): array
     {
         $makes = Make::all();
@@ -44,6 +47,9 @@ class MakeRepository extends BaseRepository
         return $result;
     }
 
+    /** The model names are retrieved and sorted on ascii value.
+     * This is needed for models with special characters in their name to be sorted properly.
+     */
     public function getModelNames(?string $makename): ?array
     {
         if (is_null($makename)) {

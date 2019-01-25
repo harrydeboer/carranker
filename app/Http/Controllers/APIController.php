@@ -10,6 +10,7 @@ use App\Repositories\TrimRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 
+/** When Oauth authenticated a user can get any make, model or trim as json. */
 class APIController extends BaseController
 {
     private $makeRepository;
@@ -46,6 +47,7 @@ class APIController extends BaseController
         return response()->json($trim);
     }
 
+    /** When a user selects a make then the modelnames belonging to this make are retrieved. */
     public function getModelNames(string $makename): JsonResponse
     {
         return response()->json($this->makeRepository->getModelNames($makename));

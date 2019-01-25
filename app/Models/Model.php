@@ -21,6 +21,9 @@ class Model extends BaseModel
     protected $fillable = ['make_id', 'name', 'make', 'content',
         'price', 'votes', 'wiki_car_model'];
 
+    /**
+     * The aspects are merged with the fillable property.
+     * When a new model is made there is a check that the name of the make matches the make_id. */
     public function __construct(array $attributes = [])
     {
         $this->fillable = array_merge(self::$aspects, $this->fillable);
@@ -69,8 +72,10 @@ class Model extends BaseModel
     public function getImage(): string
     {
         $image = '/img/models/';
-        $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities($this->make))) . '_';
-        $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities($this->getName()))) . '.jpg';
+        $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
+                "$1", htmlentities($this->make))) . '_';
+        $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
+                "$1", htmlentities($this->getName()))) . '.jpg';
 
         $root = dirname(__DIR__, 2);
         if (!file_exists($root . '/public/' . $image)) {

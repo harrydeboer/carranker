@@ -19,6 +19,7 @@ class Rating extends BaseModel
      */
     protected $fillable = ['user_id', 'model_id', 'trim_id', 'time', 'content'];
 
+    /** The aspects are merged with the fillable property. */
     public function __construct(array $attributes = [])
     {
         $this->fillable = array_merge(self::$aspects, $this->fillable);

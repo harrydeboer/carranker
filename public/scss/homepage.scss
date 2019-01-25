@@ -69,6 +69,18 @@
   -webkit-flex-wrap: nowrap;
 }
 
+#showMore, #showLess {
+  padding: 0;
+  width: 110px;
+}
+
+@media (min-width: 576px) {
+
+  .linkStyle, .numLinkTop, .ratingLinkTop {
+    font-size: 125%;
+  }
+}
+
 /** Choose preferences styling */
 #choosePreferences {
   margin-top: 30px;
@@ -174,11 +186,6 @@ input[type=checkbox] {
   font-size : 15px;
 }
 
-#showMore, #showLess {
-  padding: 0;
-  width: 110px;
-}
-
 @media (min-width: 1200px) {
   #choices {
     display: inline;
@@ -189,10 +196,6 @@ input[type=checkbox] {
   .rangeRow {
     font-size : 18px;
     display: flex;
-  }
-
-  .linkStyle, .numLinkTop, .ratingLinkTop {
-    font-size: 125%;
   }
 
   .specsRange {

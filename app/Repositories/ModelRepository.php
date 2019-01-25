@@ -42,6 +42,7 @@ class ModelRepository extends CarRepository
         return $result;
     }
 
+    /** The most recent reviews for the modelpage are retrieved and paginated. */
     public function getReviews(Model $model, int $numReviewsPerModelpage): LengthAwarePaginator
     {
         return $model->hasMany('\App\Models\Rating', 'model_id', 'id')

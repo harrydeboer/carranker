@@ -13,13 +13,19 @@
             @if ($hasTrimTypes === true)
                 <div>{{ $keySer }}</div>
                 @foreach ($serie as $nameTrim => $valueTrim)
-                    <div><a href="#typeInfo{{ $valueTrim }}"
+                    <div>
+                        <a href="#typeInfo{{ $valueTrim }}"
                             data-toggle="modal"
                             id="linkType{{ $valueTrim }}"
-                            class="linkType">{{ $nameTrim ?? $model->getName() }}</a></div>
+                            class="linkType">{{ $nameTrim ?? $model->getName() }}
+                        </a>
+                    </div>
                 @endforeach
             @else
-                <div><a href="#typeInfo{{ $serie[0] }}" data-toggle="modal" id="linkType{{ $serie[0] }}" class="linkType">{{ $keySer }}</a></div>
+                <div>
+                    <a href="#typeInfo{{ $serie[0] }}" data-toggle="modal"
+                       id="linkType{{ $serie[0] }}" class="linkType">{{ $keySer }}</a>
+                </div>
             @endif
         @endforeach
     </div>

@@ -22,7 +22,9 @@
                 </tr>
             @endforeach
             <tr>
-                <td class="warningContainer"><span id="starsWarning" class="starsWarning"></span></td>
+                <td class="warningContainer">
+                    <span id="starsWarning" class="starsWarning"></span>
+                </td>
             </tr>
         </table>
     </div>
@@ -44,8 +46,12 @@
     </div>
 </div>
 <div class="row justify-content-end">
-    <div class="col-md-6 text-center"><input type="image" src="{{ fileUrl('/img/Rate.png') }}" id="rating_form_submit" alt="Rate!"></div>
-    <div class="col-md-3"><button class="btn btn-danger" data-dismiss="modal" id="close-rating-modal">Close</button></div>
+    <div class="col-md-6 text-center">
+        <input type="image" src="{{ fileUrl('/img/Rate.png') }}" id="rating_form_submit" alt="Rate!">
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-danger" data-dismiss="modal" id="close-rating-modal">Close</button>
+    </div>
 </div>
 <input type="hidden" name="reCaptchaToken" id="reCaptchaToken">
 {!! Form::close() !!}

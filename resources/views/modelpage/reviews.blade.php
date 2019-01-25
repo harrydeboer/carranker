@@ -12,9 +12,12 @@
     <div class="row justify-content-center">
         @foreach ($reviews as $key => $review)
             <article class="reviewArticle col-md-7">
-                <h4>{!! $review->getUser()->getUsername() . ' on ' . $review->getTrim()->getYearBegin() . '-' . $review->getTrim()->getYearEnd() .
-                        ' ' . $review->getTrim()->getFramework() . ' ' . $review->getTrim()->getName() . ' with ' . number_format($review->getRating(), 1) !!}
-                    <span class="fa fa-star"></span> at {{ $review->getDate() }}</h4>
+                <h4>
+                    {!! $review->getUser()->getUsername() . ' on ' . $review->getTrim()->getYearBegin() .
+                    '-' . $review->getTrim()->getYearEnd() . ' ' . $review->getTrim()->getFramework() . ' ' .
+                    $review->getTrim()->getName() . ' with ' . number_format($review->getRating(), 1) !!}
+                    <span class="fa fa-star"></span> at {{ $review->getDate() }}
+                </h4>
                 {!! $review->getContent() !!}
             </article>
         @endforeach

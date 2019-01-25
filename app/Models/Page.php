@@ -43,6 +43,7 @@ class Page extends BaseModel
         $this->content = $content;
     }
 
+    /** The menus have multiple pages and the pages have multiple menus so these are many to many. */
     public function getMenus(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Menu', 'menus_pages');

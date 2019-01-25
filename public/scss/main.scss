@@ -1,7 +1,6 @@
 @import 'bootstrapfile';
 @import 'fontawesome';
 
-
 $font-stack:    'OpenSans', sans-serif;
 $housecolor-blue: #336699;
 $housecolor-blue-r: 51;
@@ -80,10 +79,6 @@ header {
   margin-bottom: 50px;
 }
 
-footer {
-  margin-top: 50px;
-}
-
 .btn-primary {
   background-color: $housecolor-blue;
 }
@@ -121,6 +116,10 @@ footer {
 }
 
 /* Footer styling */
+footer {
+  margin-top: 50px;
+}
+
 #numbercar {
   border: none;
 }

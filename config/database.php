@@ -7,9 +7,8 @@ return [
     | Default Database Connection Name
     |--------------------------------------------------------------------------
     |
-    | Here you may specify which of the database connections below you wish
-    | to use as your default connection for all database work. Of course
-    | you may use many connections at once using the Database library.
+    | The default connection is never used, except when the config cache is not filled. To prevent the real mysql
+    | database to be wiped when running unit tests, the default is set to sqlite_testing to be safe.
     |
     */
 

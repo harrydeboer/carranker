@@ -17,7 +17,9 @@
                         {{ count($topTrims) }}
                     </span>
                 </h1>
-                <h2 id="atLeastVotes" class="text-center"><em>with at least {{ $minNumVotes }} votes</em></h2>
+                <h2 id="atLeastVotes" class="text-center">
+                    <em>with at least {{ $minNumVotes }} votes</em>
+                </h2>
                 <div id="fillableTable">
                     @include('homepage.tableTop')
                 </div>
@@ -71,7 +73,9 @@
             <table class="col-md-8 col-xs-12 collapseAspects" id="aspectsTable">
                 @foreach ($aspects as $aspect)
                     <tr class="row aspectFilter">
-                        <td class="col-md-3"><label for="filterTopForm{{ $aspect }}">{{ $aspect }}</label></td>
+                        <td class="col-md-3">
+                            <label for="filterTopForm{{ $aspect }}">{{ $aspect }}</label>
+                        </td>
                         <td class="col-md-1">0</td>
                         <td class="col-md-6">
                             <input value="{{ $filterform->aspects[$aspect] }}"
@@ -119,7 +123,6 @@
             <h2 id="recentReviews" class="col-md-7">Recent Reviews:</h2>
             @foreach ($reviews as $key => $review)
                 <div class="reviewItem justify-content-center col-md-7">
-
                     <h3>{{ $review->getUser()->getUsername() }} on
                         <a href="{{ $review->getTrim()->getUrl() }}">
                             {{ $review->getTrim()->getFullName() }}</a> with {{ $review->getRating()|number_format(1) }}

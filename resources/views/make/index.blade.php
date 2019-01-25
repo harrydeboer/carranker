@@ -4,7 +4,8 @@
     <div class="row">
         <section id="makeText" class="col-md-9">
             <h3 id="titleMake">{{ $make->getName() }}</h3>
-            <img src="{{ fileUrl($make->getImage()) }}" id="makeImg" alt="{{ $make->getName() }}" class="img-thumbnail pull-right">
+            <img src="{{ fileUrl($make->getImage()) }}" id="makeImg"
+                 alt="{{ $make->getName() }}" class="img-thumbnail pull-right">
             @if (!is_null($make->getContent()))
                 {!! $make->getContent() !!}
             @endif
@@ -19,8 +20,10 @@
                 </div>
                 <div class="panel-body text-center">
                     @foreach ($models as $model)
-                        <div><a href = "{{ '/model/' . rawurlencode($make->getName()) . '/' .
-                            rawurlencode($model->getName()) }}" class="asideLink" >{{ $model->getName() }}</a>
+                        <div>
+                            <a href = "{{ '/model/' . rawurlencode($make->getName()) . '/' .
+                            rawurlencode($model->getName()) }}" class="asideLink" >{{ $model->getName() }}
+                            </a>
                         </div>
                     @endforeach
                 </div>

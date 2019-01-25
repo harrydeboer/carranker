@@ -9,6 +9,9 @@ use RuntimeException;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Foundation\Application;
 
+/** The hashing has to be the same as the wordpress hashing so that any user can log into wordpress as well as
+ * Laravel.
+ */
 class WPHasher extends HashManager implements HasherContract
 {
     /**

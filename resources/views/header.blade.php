@@ -26,7 +26,8 @@
             @else
                 <li class="nav-item navText"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
             @endif
-            <li class="nav-item"><select id="nav_select_make" class="form-control">
+            <li class="nav-item">
+                <select id="nav_select_make" class="form-control">
                     <option value="">Make</option>
                     @foreach ($makenames as $makename)
                         @if ($makename === $makenameSession)
@@ -35,8 +36,10 @@
                             <option value="{{ $makename }}">{{ $makename }}</option>
                         @endif
                     @endforeach
-                </select></li>
-            <li class="nav-item"><select class="form-control" id="nav_select_model">
+                </select>
+            </li>
+            <li class="nav-item">
+                <select class="form-control" id="nav_select_model">
                     <option value="">Model</option>
                     @if (isset($modelnames))
                         @foreach ($modelnames as $modelname)
@@ -47,9 +50,12 @@
                             @endif
                         @endforeach
                     @endif
-                </select></li>
-            <li class="nav-item">{!! Form::text('query', null, ['class' => 'form-control', 'id' => 'search_form_text', 'placeholder' => 'Search car...']) !!}</li>
-            <li class="nav-item">{!! Form::submit('Go', ['class' => 'btn btn-primary', 'id' => 'search_form_submit']) !!}</li>
+                </select>
+            </li>
+            <li class="nav-item">{!! Form::text('query', null, ['class' => 'form-control', 'id' => 'search_form_text',
+            'placeholder' => 'Search car...']) !!}</li>
+            <li class="nav-item">{!! Form::submit('Go', ['class' => 'btn btn-primary',
+            'id' => 'search_form_submit']) !!}</li>
         </ul>
         {!! Form::close() !!}
     </div>

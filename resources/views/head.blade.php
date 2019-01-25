@@ -89,8 +89,10 @@
     </style>
 @endif
 
+{{--Lazy loading for images below the fold. The loading happens after 3 seconds, scrolling, resizing,
+orientation change and visibility change--}}
 <script>
-    var reCaptchaKey = "{{ $reCaptchaKey }}";
+    reCaptchaKey = "{{ $reCaptchaKey }}";
     var lazyloadThrottleTimeout;
     controller = "{{ $controller }}";
 

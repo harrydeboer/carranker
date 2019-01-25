@@ -27,6 +27,9 @@ class HomepageController extends Controller
 
     public function view(): \Illuminate\View\View
     {
+        /** Lazy loading is done when the user visits the homepage for the first time. The session gets lazyLoad false
+         * so that the next time the user visits the homepage there will not be lazy loading.
+         */
         $session = session();
         $session->put('lazyLoad', false);
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
@@ -57,12 +60,8 @@ class HomepageController extends Controller
         $form = new FilterTopForm($request->all());
 
         if ($form->validateFull($request)) {
-            foreach (CarSpecs::specsChoice() as $specName => $spec) {
-                $session->remove('checkAll' . $specName);
-                foreach ($spec['choices'] as $keyChoice => $item) {
-                    $session->forget($specName . $keyChoice);
-                }
-            }
+
+            /** When a user filters the top the filtering is stored in the session. */
             $session->put('minNumVotes', (int) $form->minNumVotes);
             $session->put('aspects', $form->aspects);
             $session->put('specsChoice', $form->specsChoice);
@@ -90,6 +89,7 @@ class HomepageController extends Controller
         return View::make('homepage.filterTop')->with($data);
     }
 
+    /** When a user wants to see more trims in the top the extra trims are retrieved. */
     public function showMoreTopTable(string $numberOfRows, string $offset): \Illuminate\View\View
     {
         $session = session();

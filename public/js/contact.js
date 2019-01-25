@@ -1,6 +1,6 @@
 $(document).ready(function ()
 {
-    /** When there is no swearing then a request is send to the server, which sends the email. */
+    /** When there is no swearing in the form then a request is send to the server, which sends the email. */
     $('#contact-form').on('submit', function (event)
     {
         var testProfanities = true;
@@ -41,6 +41,8 @@ $(document).ready(function ()
             });
 
             serializedForm = $(this).serialize();
+
+            /** The reCaptchaScript element is loaded when not present.*/
             if (!$('#reCaptchaScript').length) {
                 var head_ID = document.getElementsByTagName("head")[0];
                 var script_element = document.createElement('script');
@@ -63,6 +65,7 @@ $(document).ready(function ()
 
     function sendMail()
     {
+        /** The recaptcha element is executed and a token is added to the form which is by ajax to the server. */
         grecaptcha.execute(reCaptchaKey, {action: 'sendMail'}).then(function (reCaptchaToken) {
             serializedForm += "&reCaptchaToken=" + reCaptchaToken;
             $.post('sendMail', serializedForm, function (data) {

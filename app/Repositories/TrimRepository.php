@@ -33,6 +33,10 @@ class TrimRepository extends CarRepository
         return $trim->getYearBegin() . '-' . $trim->getYearEnd();
     }
 
+    /** The trims for the top on the homepage are retrieved. The filtering options are used when present.
+     * There is an aspectfilter, specs choice filter and specs range filter. The minimum number of votes is also a
+     * filter and the number of trims to be retrieved and the offset if present. The ratings are sorted from hight to low.
+     */
     public function findTrimsOfTop(SessionManager $session, int $minNumVotes, int $lengthTopTable, int $offset=null): Collection
     {
         $queryObj = $this->queryAspects($session);
@@ -51,7 +55,7 @@ class TrimRepository extends CarRepository
         if (!is_null($offset)) {
             $queryObj->offset($offset)->limit($lengthTopTable - $offset);
         }
-        $test = str_replace_array('?', $queryObj->getQuery()->getBindings(), $queryObj->getQuery()->toSql());
+
         $trims = $queryObj->get();
         foreach ($trims as $key => $trim) {
             $trims[$key]->setRating($trim->rating);
@@ -98,6 +102,8 @@ class TrimRepository extends CarRepository
                 if ($name === 'gearbox_type' && $choice === 'Automatic') {
                     $queryArr[] = 'Manual/Automatic';
                 }
+
+                /** The fuel can be both Gasoline and Electric or Gasoline and CNG per trim. */
                 if ($name === 'fuel' && ($choice === 'Electric' || $choice === 'Gasoline')) {
                     $queryArr[] = 'Gasoline,  Electric';
                 }
@@ -121,8 +127,9 @@ class TrimRepository extends CarRepository
         $sessionMin = $sessionSpecs[$name . 'min'];
         $sessionMax = $sessionSpecs[$name . 'max'];
 
-        /** The database only has year_begin and year_end not generation. Generation is the display name. */
         if (isset($sessionMin)) {
+
+            /** The database only has year_begin and year_end not generation. Generation is the display name. */
             if ($name === 'generation') {
                 $name = 'year_begin';
             }
@@ -130,6 +137,7 @@ class TrimRepository extends CarRepository
             $queryObj->where($name, '>=', $sessionMin);
         }
 
+        /** the max value in the select has to be cast to float or int. */
         if ($name === 'engine_capacity' && !is_null($sessionMax)) {
             $sessionMax = (float) $sessionMax;
         } else if (!is_null($sessionMax)) {
@@ -137,6 +145,8 @@ class TrimRepository extends CarRepository
         }
 
         if (isset($sessionMax) && $spec['max'] !== $sessionMax) {
+
+            /** The database only has year_begin and year_end not generation. Generation is the display name. */
             if ($name === 'generation') {
                 $name = 'year_end';
             }

@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 
+/** The user has the same table as wordpress: wp_users. One column is added to the wordpress table: remember_token. */
 class User extends Authenticatable
 {
     protected $primaryKey = 'ID';
@@ -70,6 +71,7 @@ class User extends Authenticatable
         return $this->remember_token;
     }
 
+    /** This function is needed to make Passport get the user via the column user_email instead of the default email. */
     public function findForPassport(string $useremail): User
     {
         return User::where('user_email', $useremail)->first();

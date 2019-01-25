@@ -17,8 +17,7 @@ class SitemapController extends Controller
 
         View::share('sitemap', $sitemap);
 
-        /** The sitemap is a xml-file so the header needs to be text/xml. The view is triggered here because
-         * sitemap extends the BaseController instead of Controller which would otherwise trigger the view. */
+        /** The sitemap is a xml-file so the header needs to be text/xml. */
         return response()->view('sitemap.index', compact($sitemap))->header('Content-Type', 'text/xml');
     }
 }

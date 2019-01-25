@@ -41,7 +41,8 @@ class Controller extends BaseController
         $this->trimRepository = new TrimRepository();
         View::share('makenames', $this->makeRepository->getMakeNames());
         View::share('metaKeyWords', 'car, cars, ranker, rate, rank, ranking, rating, top, top ' . self::topLength);
-        View::share('metaDescription', 'Check out the top ' . self::topLength . ' of all cars and rate your favorite cars!');
+        View::share('metaDescription', 'Check out the top ' . self::topLength .
+            ' of all cars and rate your favorite cars!');
         View::share('isDevEnv', App::environment() === 'local' ? 1 : 0);
         View::share('navform', new NavForm());
         View::share('menuHeader', $this->menuRepository->getByName('navigationHeader')->getPages()->get());
@@ -52,6 +53,8 @@ class Controller extends BaseController
         {
             View::share('isLoggedIn', is_null(Auth::user()) ? false : true);
             $session = session();
+
+            /** Lazy loading is done for the homepage if a user has not already visited the homepage. */
             $controller = explode('\\', get_class($this));
             if (end($controller) === 'HomepageController') {
                 View::share('lazyLoad', $session->get('lazyLoad') ?? true);
@@ -64,6 +67,9 @@ class Controller extends BaseController
         });
     }
 
+    /** When a user goes to a make or model page the make and model are stored in the session and used to fill the
+     * navigation selects for make and model.
+     */
     protected function shareSessionCars(SessionManager $session)
     {
         View::share('makenameSession', $session->get('makename'));

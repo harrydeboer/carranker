@@ -50,6 +50,7 @@ class IndexCars extends Command
         $this->indexOrReindex($this->trimRepository);
     }
 
+    /** An index is indexed or reindexed. The current index is deleted if present. */
     private function indexOrReindex($repository)
     {
         try {

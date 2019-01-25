@@ -17,14 +17,19 @@
         @if (count($models) > 0)
             <h3>Models</h3>
             @foreach ($models as $model)
-                <div><a href="/model/{{ rawurlencode($model->getMakename()) }}/{{ rawurlencode($model->getName()) }}" class="searchLink">
-                        {{ $model->getMakename() . ' ' . $model->getName() }}</a></div>
+                <div>
+                    <a href="/model/{{ rawurlencode($model->getMakename()) }}/{{ rawurlencode($model->getName()) }}"
+                       class="searchLink">{{ $model->getMakename() . ' ' . $model->getName() }}
+                    </a>
+                </div>
             @endforeach
         @endif
         @if (count($makes) > 0)
             <h3>Makes</h3>
             @foreach ($makes as $make)
-                <div><a href="/make/{{ rawurlencode($make->getName()) }}" class="searchLink">{{ $make->getName() }}</a></div>
+                <div>
+                    <a href="/make/{{ rawurlencode($make->getName()) }}" class="searchLink">{{ $make->getName() }}</a>
+                </div>
             @endforeach
         @endif
     </div>

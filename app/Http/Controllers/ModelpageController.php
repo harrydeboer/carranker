@@ -40,6 +40,11 @@ class ModelpageController extends Controller
     {
         $makename = rawurldecode($makename);
         $modelname = rawurldecode($modelname);
+
+        /**
+         * The model that the user visits is stored in the session and also the make of the model
+         * and is used to fill the make and model selects of the navigation.
+         */
         $session = session();
         $session->put('makename', $makename);
         $session->put('modelname', $modelname);
@@ -56,6 +61,8 @@ class ModelpageController extends Controller
 
         $trims = $model->getTrims();
         $reviews = $this->modelRepository->getReviews($model, self::numReviewsPerModelpage);
+
+        /** The links of the pagination get extra html classes to make them centered on the modelpage. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
             $reviews->onEachSide(1)->links());
         $trim = $this->trimRepository->find((int) $trimId);
@@ -83,6 +90,7 @@ class ModelpageController extends Controller
         return View::make('modelpage.index')->with($data);
     }
 
+    /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
     public function rate(RatingForm $form, Model $model): bool
     {
         $trimId = (int) $form->trimId;

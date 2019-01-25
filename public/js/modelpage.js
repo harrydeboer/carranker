@@ -6,8 +6,7 @@ $(document).ready(function ()
     });
     showSelectedGeneration();
 
-    /** When a trim is viewed all specs can be shown, but this will toggle the selected generation also so the right
-     * selected generation must be shown again. */
+    /** Show all or part of the specs of a car trim in the car trim modal. */
     $('.showAllSpecs').on('click', function()
     {
         if ($('.collapseSpecs:visible').length) {
@@ -23,6 +22,7 @@ $(document).ready(function ()
         $('#thankyou').modal('show');
     }
 
+    /** When a user wants to rate a trim then the generation, series and id of the trim are filled in in the rating form. */
     $(".toRateTrim").on('click', function()
     {
         $('.typeInfo').modal('hide');
@@ -47,8 +47,8 @@ $(document).ready(function ()
         showDialog('review');
     });
 
-    /** A rating can be send to the server when there is no swearing for a review
-     * or when the submit is not a review the required attributes in the html validate the form. */
+    /** A rating can be send to the server when there is no swearing in a review
+     * or when the submit is not a review. The required attributes in the html validate the form. */
     $('#rating-form').on('submit', function(event)
     {
         var testProfanities = true;
@@ -77,6 +77,8 @@ $(document).ready(function ()
             /** Show the loader img */
             $('#hideAll').show();
 
+            /** The recaptcha element is loaded and waits for execution. Meanwhile the events default is prevented,
+             * because the token is not passed to the form yet. */
             var head_ID = document.getElementsByTagName("head")[0];
             var script_element = document.createElement('script');
             script_element.type = 'text/javascript';
@@ -89,6 +91,9 @@ $(document).ready(function ()
                     grecaptcha.execute(reCaptchaKey, {action: 'rate'}).then(function (reCaptchaToken)
                     {
                         $('#reCaptchaToken').val(reCaptchaToken);
+
+                        /** The form is submitted which triggers the current function again but now the recaptcha element
+                         * is loaded and the events default is not prevented so that the form will actually submit. */
                         $('#rating-form').submit();
                     });
                 });
@@ -105,12 +110,15 @@ $(document).ready(function ()
     for (var gen in generationsSeriesTrims) {
         menuGenerations.append('<option value="' + gen + '">' + gen + '</option>');
     }
+
     showSeriesSelect();
     showTrimsSelect();
+
     menuGenerations.on('change', function()
     {
         showSeriesSelect();
     });
+
     menuSeries.on('change', function()
     {
         showTrimsSelect();
@@ -150,9 +158,9 @@ $(document).ready(function ()
         }
     }
 
-    /** The dialog with the rating form can have three forms. When a trim is viewed and the user wants to rate
-     * this trim then the user does not need to specify the right generation, serie or trim. When from the modelpage the
-     * rate form is shown the user needs to specify the generation, serie and/or trim and these are then required.
+    /** The dialog with the rating form can have three shapes. When a trim is viewed and the user wants to rate
+     * this trim then the user does not need to specify the right generation, serie or trim. When the form is selected
+     * from the modelpage the user needs to specify the generation, serie and/or trim and these are then required.
      * Finally when the user wants to write a review the textarea is displayed in the form and made required. */
     function showDialog(typeShow)
     {

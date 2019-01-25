@@ -6,6 +6,9 @@ namespace App;
 
 class CarSpecs
 {
+    /** The car trims have specs of which the possible values are fixed choices. On the homepage these specs can be
+     * shown or hidden and the name of the spec has a more readable display name.
+     */
     public static function specsChoice(): array
     {
         return [
@@ -94,6 +97,11 @@ class CarSpecs
         ];
     }
 
+    /** Certain car trim specs can have a range of values within a manimum and maximum. The homepage has min and max
+     * selects where the options are the minimum towards the maximum in certain steps. The specs can be shown or hidden.
+     * The name of the spec has a more readable display name. Each spec has a unit, like liters,
+     * which is also displayed on the homepage.
+     */
     public static function specsRange(): array
     {
         $specsRange = [
@@ -179,6 +187,9 @@ class CarSpecs
             ],
         ];
 
+        /** The choices for the min and max select are generated. For the spec generation the min and max
+         * selects are reversed so that the most recent year is displayed first in the selects.
+         */
         foreach ($specsRange as $key => $spec) {
             $specsRange[$key]['minRange'] = self::getRange($key, $spec, 'Min');
             $specsRange[$key]['maxRange'] = self::getRange($key, $spec, 'Max');
@@ -200,6 +211,10 @@ class CarSpecs
             for ($i = $spec['min']; $i <= $spec['max']; $i = $i + $spec['step']) {
                 $range["{$i}"] = $i;
             }
+
+            /** The for loop does not always end at the maximum for float numbers.
+             * When the maximum is not present it is added to the choices of the min and max select.
+             */
             if ($specName === 'engine_capacity' && !isset($range["7"])) {
                 $range["7"] = 7.0;
             }

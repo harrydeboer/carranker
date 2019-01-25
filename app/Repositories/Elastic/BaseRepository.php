@@ -8,6 +8,7 @@ abstract class BaseRepository
 {
     protected $modelClassName;
 
+    /** The child of this base repository has a model. The modelname is stored in the property modelClassName. */
     public function __construct()
     {
         $classNameArray = explode('\\', static::class);

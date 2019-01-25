@@ -23,6 +23,11 @@ class Trim extends BaseModel
      */
     protected $fillable = ['model_id', 'name', 'make', 'model', 'price', 'votes', 'year_begin', 'year_end'];
 
+    /**
+     * The aspects and specs choice and specs range are merged with the fillable property.
+     * When a new trim is made there is a check on the choices specs. They must match the choices in the CarSpecs class.
+     * When a new trim is made the model_id has to match the model name and make name.
+     */
     public function __construct(array $attributes = [])
     {
         $this->fillable = array_merge(self::$aspects, self::$specsRange, self::$specsChoice, $this->fillable);
@@ -90,11 +95,15 @@ class Trim extends BaseModel
         return '/model/' . rawurlencode($this->make) . '/' . rawurlencode($this->model) . '/' . $this->getId();
     }
 
+    /** The images are stored in directories with names that contain no special characters.
+     * To get the image url the special characters must be replaced by normal characters. */
     public function getImage(): string
     {
         $image = '/img/models/';
-        $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities($this->make))) . '_';
-        $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities($this->model))) . '.jpg';
+        $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
+                "$1", htmlentities($this->make))) . '_';
+        $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
+                "$1", htmlentities($this->model))) . '.jpg';
 
         $root = dirname(__DIR__, 2);
         if (!file_exists($root . '/public/' . $image)) {

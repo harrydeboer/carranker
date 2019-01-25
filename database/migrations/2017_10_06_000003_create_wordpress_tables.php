@@ -10,13 +10,14 @@ use Tests\Unit\SqliteCreateQuery;
 
 class CreateWordpressTables extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
+        /** The real migrations don't create the wordpress tables. They are created via installing wordpress in the
+         * browser. The mysql test database installs wordpress via the test suite installer.
+         * The sqlite database installs wordpress for the wordpress schema. The schema can only be retrieved by means of
+         * an wpdb object of which a dummy is used. There also needs to be a function is_multisite which is defined to
+         * always return zero. Then the mysql create statements need to be translated to slqite create statements.
+         */
         if (!Schema::hasTable('wp_users')) {
             if (isset($GLOBALS['argv'][2]) && $GLOBALS['argv'][2] === '--database=test_mysql') {
                 $config_file_path = base_path() .

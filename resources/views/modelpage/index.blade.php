@@ -35,13 +35,15 @@
                         @foreach ($aspects as $key => $aspect)
                             <tr class="row rowRating">
                                 <td class="col-md-7">{{ ucfirst($aspect) }}:</td>
-                                <td class="col-md-5">{{ is_null($model->getAspect($aspect)) ? '-': number_format($model->getAspect($aspect), 1) }} <span
-                                            class="fa fa-star fa-star-shadow"></span></td>
+                                <td class="col-md-5">{{ is_null($model->getAspect($aspect)) ? '-':
+                                number_format($model->getAspect($aspect), 1) }} <span class="fa fa-star fa-star-shadow"></span>
+                                </td>
                             </tr>
                         @endforeach
                         <tr class="row rowRating">
                             <td class="col-md-7">Price: </td>
-                            <td class="col-md-5">{{ is_null($model->getPrice($FXRate)) ? 'N/A' : round($model->getPrice($FXRate), -3) . ' $'}}</td>
+                            <td class="col-md-5">{{ is_null($model->getPrice($FXRate)) ? 'N/A' :
+                            round($model->getPrice($FXRate), -3) . ' $'}}</td>
                         </tr>
                     </table>
                     <BR>
