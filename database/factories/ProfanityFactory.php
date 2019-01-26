@@ -6,7 +6,9 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\Profanity::class, function (Faker $faker): array {
 
+    $name = $faker->unique()->name;
+
     return [
-        'name' => $faker->unique()->name,
+        'name' => strtolower(str_replace(' ', '', $name)),
     ];
 });

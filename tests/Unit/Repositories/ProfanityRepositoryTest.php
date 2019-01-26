@@ -25,4 +25,15 @@ class ProfanityRepositoryTest extends TestCase
 
         $this->assertEquals($this->profanityRepository->getProfanityNames(), [$profanity->getName()]);
     }
+
+    public function testValidate()
+    {
+        $badWord = factory(\App\Models\Profanity::class)->create();
+
+        $this->assertFalse($this->profanityRepository->validate($badWord->getName()));
+
+        $this->assertTrue($this->profanityRepository->validate("hey there"));
+
+        $this->assertTrue($this->profanityRepository->validate(null));
+    }
 }
