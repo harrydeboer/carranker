@@ -50,8 +50,12 @@ class ContactController extends Controller
                 });
 
             } catch (\Exception $e) {
+
                 return View::make('contact.mailSend')->with(['success' => "0"]);
             }
+        } else {
+
+            return View::make('contact.mailSend')->with(['success' => "0"]);
         }
 
         return View::make('contact.mailSend')->with(['success' => "1"]);
