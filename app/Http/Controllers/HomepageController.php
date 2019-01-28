@@ -47,6 +47,7 @@ class HomepageController extends Controller
             'reviews' => $this->ratingRepository->findRecentReviews(self::homepageNumReviews),
             'topTrims' => $topTrims,
             'minNumVotes' => $minNumVotes,
+            'minNumVotesDefault' => self::minNumVotes,
             'filterform' => new FilterTopForm($session->all()),
             'content' => $this->pageRepository->getByName('home')->getContent(),
         ];

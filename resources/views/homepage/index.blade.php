@@ -143,5 +143,6 @@
         var specsChoice = {!! json_encode($specsChoice) !!};
         var numShowMoreLess = {!! $numShowMoreLess !!};
         var minNumVotes = {!! $minNumVotes !!};
+        var minNumVotesDefault = {!! $minNumVotesDefault !!};
     </script>
 @endsection

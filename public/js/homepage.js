@@ -45,7 +45,7 @@ $(document).ready(function ()
                 $(this).prop('checked', true);
             });
         }
-        $('#minNumVotes').val(minNumVotes);
+        $('#minNumVotes').val(minNumVotesDefault);
         $('.aspectElement').each(function () {
             $(this).val(1);
         });
