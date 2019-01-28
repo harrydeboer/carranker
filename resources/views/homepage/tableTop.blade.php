@@ -10,7 +10,7 @@
             </div>
         </td>
         <td class="col-2">
-            <span class="ratingLinkTop">{{ number_format($trim->getRating(), 1) }} <span class="fa fa-star"></span>
+            <span class="ratingLinkTop">{{ number_format($trim->getRatingFiltering(), 1) }} <span class="fa fa-star"></span>
             </span>
         </td>
     </tr>

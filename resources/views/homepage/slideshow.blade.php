@@ -17,7 +17,7 @@
                          alt="{{ $topTrims[$index]->getMakename() . ' ' . $topTrims[$index]->getModelname() }}"></a>
                 <div class="carousel-caption {{ $index == 0 ? 'active' : '' }}">
                     {{ ($index + 1) . '. ' . $topTrims[$index]->getMakename() . ' ' . $topTrims[$index]->getModelname() . ' ' .
-                    number_format($topTrims[$index]->getRating(), 1) }} <span class="fa fa-star"></span>
+                    number_format($topTrims[$index]->getRatingFiltering(), 1) }} <span class="fa fa-star"></span>
                 </div>
             </div>
         @endfor

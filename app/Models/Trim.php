@@ -15,6 +15,7 @@ class Trim extends BaseModel
     protected $table = 'trims';
     public static $hasTrimVersions = 0;
     public $timestamps = false;
+    private $rating;
 
     /**
      * The attributes that are mass assignable.
@@ -80,14 +81,19 @@ class Trim extends BaseModel
         return is_null($this->getName()) ? $name : $name . ' ' . $this->getName();
     }
 
+    public function getRatingFiltering(): float
+    {
+        return $this->rating;
+    }
+
+    public function setRatingFiltering(float $rating)
+    {
+        $this->rating = $rating;
+    }
+
     public function getPrice(float $FXRate): ?float
     {
         return $this->price * $FXRate;
-    }
-
-    public function setRating(float $rating)
-    {
-        $this->rating = $rating;
     }
 
     public function getUrl(): string

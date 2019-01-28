@@ -58,7 +58,7 @@ class TrimRepository extends CarRepository
 
         $trims = $queryObj->get();
         foreach ($trims as $key => $trim) {
-            $trims[$key]->setRating($trim->rating);
+            $trims[$key]->setRatingFiltering($trim->rating);
         }
 
         return $trims;
