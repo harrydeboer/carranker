@@ -55,3 +55,4 @@
 </div>
 <input type="hidden" name="reCaptchaToken" id="reCaptchaToken">
 {!! Form::close() !!}
+<input type="hidden" value="{{ $reCaptchaKey }}" id="reCaptchaKey">

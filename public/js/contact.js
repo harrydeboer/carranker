@@ -48,7 +48,7 @@ $(document).ready(function ()
                 var script_element = document.createElement('script');
                 script_element.type = 'text/javascript';
                 script_element.id = "reCaptchaScript";
-                script_element.src = "https://www.google.com/recaptcha/api.js?render=" + reCaptchaKey;
+                script_element.src = "https://www.google.com/recaptcha/api.js?render=" + $('#reCaptchaKey').val();
                 head_ID.appendChild(script_element);
             } else {
                 sendMail();
@@ -66,7 +66,7 @@ $(document).ready(function ()
     function sendMail()
     {
         /** The recaptcha element is executed and a token is added to the form which is by ajax to the server. */
-        grecaptcha.execute(reCaptchaKey, {action: 'sendMail'}).then(function (reCaptchaToken) {
+        grecaptcha.execute($('#reCaptchaKey').val(), {action: 'sendMail'}).then(function (reCaptchaToken) {
             serializedForm += "&reCaptchaToken=" + reCaptchaToken;
             $.post('sendMail', serializedForm, function (data) {
                 $('#hideAll').hide();

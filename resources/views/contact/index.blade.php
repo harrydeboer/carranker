@@ -21,6 +21,7 @@
                     <input type="submit" value="Send" class="btn btn-success" id="filter_top_form_submit">
                 </div>
             {!! Form::close() !!}
+            <input type="hidden" value="{{ $reCaptchaKey }}" id="reCaptchaKey">
         </div>
     </div>
     <script>

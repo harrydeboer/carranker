@@ -47,7 +47,6 @@ class Controller extends BaseController
         View::share('navform', new NavForm());
         View::share('menuHeader', $this->menuRepository->getByName('navigationHeader')->getPages()->get());
         View::share('menuFooter', $this->menuRepository->getByName('navigationFooter')->getPages()->get());
-        View::share('reCaptchaKey', env('reCaptchaKey'));
 
         $this->middleware(function (Request $request, \Closure $next): Response
         {

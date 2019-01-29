@@ -12,8 +12,8 @@ class ContentSecurityPolicy
     {
         $response = $next($request);
 
-        $response->headers->set('Content-Security-Policy', "default-src 'self' 'unsafe-inline'; img-src 'self' data:;" .
-         " script-src 'self' 'unsafe-inline' https://www.googletagmanager.com/gtag/js https://www.google.com/recaptcha/api.js" .
+        $response->headers->set('Content-Security-Policy', "default-src 'self'; img-src 'self' data:;" .
+         " script-src 'self' https://www.googletagmanager.com/gtag/js https://www.google.com/recaptcha/api.js" .
         " https://www.gstatic.com; frame-src 'self' https://www.google.com/");
 
         return $response;

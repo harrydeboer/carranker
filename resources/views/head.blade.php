@@ -1,43 +1,3 @@
-<style>
-    @font-face {
-        font-family: OpenSans;
-        font-display: swap;
-        src: url({{ fileUrl('/fonts/OpenSans.ttf') }});
-    }
-
-    @font-face {
-        font-family: 'FontAwesome';
-        font-display: swap;
-        src: url({{ fileUrl('/fontawesome/fonts/fontawesome-webfont.eot') }});
-        src: url({{ fileUrl('/fontawesome/fonts/fontawesome-webfont.eot') }})
-        format('embedded-opentype'),
-        url({{ fileUrl('/fontawesome/fonts/fontawesome-webfont.woff2') }})
-        format('woff2'),
-        url({{ fileUrl('/fontawesome/fonts/fontawesome-webfont.woff') }})
-        format('woff'),
-        url({{ fileUrl('/fontawesome/fonts/fontawesome-webfont.ttf') }})
-        format('truetype'),
-        url({{ fileUrl('/fontawesome/fonts/fontawesome-webfont.svg') }})
-        format('svg');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    #hideAll {
-        display: none;
-        position: fixed;
-        z-index: 9999;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        background: rgba( 255, 255, 255, .8 );
-        background-repeat: no-repeat;
-        background-position: center;
-        background-image: url({{ fileUrl('/img/Loader.gif') }});
-    }
-</style>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="{{ $metaKeyWords }}" >
 <meta name="description" content="{{ $metaDescription }}" >
@@ -77,7 +37,6 @@
             color: blue;
         }
 
-
         @foreach ($aspects as $key => $aspect)
         {{ '.radio' . $key . ':checked ~ .label' . $key }} {
             color: gold;
@@ -88,51 +47,3 @@
         @endforeach
     </style>
 @endif
-
-{{--Lazy loading for images below the fold. The loading happens after 3 seconds, scrolling, resizing,
-orientation change and visibility change--}}
-<script>
-    reCaptchaKey = "{{ $reCaptchaKey }}";
-    var lazyloadThrottleTimeout;
-    controller = "{{ $controller }}";
-
-    function lazyload()
-    {
-        if (lazyloadThrottleTimeout) {
-            clearTimeout(lazyloadThrottleTimeout);
-        }
-
-        lazyloadThrottleTimeout = setTimeout(function()
-        {
-            var scrollTop = window.pageYOffset;
-            lazyloadImages.forEach(function(img)
-            {
-                if (img.offsetTop < (window.innerHeight + scrollTop)) {
-                    img.src = img.dataset.src;
-                    img.classList.remove('lazy');
-                }
-            });
-            if (lazyloadImages.length === 0) {
-                document.removeEventListener("scroll", lazyload);
-                window.removeEventListener("resize", lazyload);
-                window.removeEventListener("orientationChange", lazyload);
-                document.removeEventListener("visibilitychange", lazyload);
-            }
-        }, 20);
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        lazyloadImages = document.querySelectorAll("img.lazy");
-        if ( controller === 'homepage') {
-            if ({{ $lazyLoad === true ? 'true' : 'false'}}) {
-                setTimeout(lazyload, 3000);
-                document.addEventListener("scroll", lazyload);
-                window.addEventListener("resize", lazyload);
-                window.addEventListener("orientationChange", lazyload);
-                document.addEventListener("visibilitychange", lazyload);
-            }
-        } else {
-            lazyload();
-        }
-    });
-</script>

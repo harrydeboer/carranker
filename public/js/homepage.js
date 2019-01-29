@@ -40,19 +40,24 @@ $(document).ready(function ()
     /** When a user wants the default settings of all filters this function resets to default filtering. */
     $('#filterTopFormReset').on('click', function (event)
     {
-        for (var index in specsChoice) {
-            $('.' + index).each(function () {
+        $('.checkAll').each(function()
+        {
+            $(this).prop('checked', true);
+            $('.' + $(this).data('specname')).each(function ()
+            {
                 $(this).prop('checked', true);
             });
-        }
-        $('#minNumVotes').val(minNumVotesDefault);
-        $('.aspectElement').each(function () {
+        });
+
+        $('#minNumVotes').val($('#minNumVotesDefault').val());
+
+        $('.aspectElement').each(function ()
+        {
             $(this).val(1);
         });
-        $('.checkAll').each(function() {
-            $(this).prop('checked', true);
-        });
-        $('.specsRange').each(function () {
+
+        $('.specsRange').each(function ()
+        {
             $(this).val("");
         });
 
@@ -68,6 +73,7 @@ $(document).ready(function ()
         }, 1000);
     });
 
+    numShowMoreLess = $('#numShowMoreLess').val();
     if (typeof sessionStorage.numberOfRows === 'undefined') {
         sessionStorage.numberOfRows = $('#tableTop tr').length;
     }

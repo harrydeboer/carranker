@@ -83,12 +83,12 @@ $(document).ready(function ()
             var script_element = document.createElement('script');
             script_element.type = 'text/javascript';
             script_element.id = "reCaptchaScript";
-            script_element.src = "https://www.google.com/recaptcha/api.js?render=" + reCaptchaKey;
+            script_element.src = "https://www.google.com/recaptcha/api.js?render=" + $('#reCaptchaKey').val();
             head_ID.appendChild(script_element);
 
             $('#reCaptchaScript').on('load', function () {
                 grecaptcha.ready(function () {
-                    grecaptcha.execute(reCaptchaKey, {action: 'rate'}).then(function (reCaptchaToken)
+                    grecaptcha.execute($('#reCaptchaKey').val(), {action: 'rate'}).then(function (reCaptchaToken)
                     {
                         $('#reCaptchaToken').val(reCaptchaToken);
 

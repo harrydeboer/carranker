@@ -29,6 +29,7 @@ class ContactController extends Controller
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'form' => new ContactForm(),
             'page' => $this->pageRepository->getByName('contact'),
+            'reCaptchaKey' => env('reCaptchaKey'),
         ];
 
         return View::make('contact.index')->with($data);

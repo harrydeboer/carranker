@@ -21,7 +21,4 @@
 @if ($controller !== 'cms')
     <script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
 @endif
-<script>
-    var controller = "{{ $controller }}";
-</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92295454-1"></script>

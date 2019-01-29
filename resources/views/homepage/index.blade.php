@@ -31,6 +31,7 @@
                         <button id="showMore" class="btn-lg btn-primary">Show more</button>
                     </div>
                 </div>
+                <input type="hidden" value="{{ $numShowMoreLess }}" id="numShowMoreLess">
                 <BR><BR>
                 <div class="row justify-content-center col-md-12">
                     <div class="text-center">
@@ -41,6 +42,7 @@
         </div>
     </div>
     <div id="preferencesDialog" class="col-md-8 collapse mx-auto">
+        <input type="hidden" value="{{ $minNumVotesDefault }}" id="minNumVotesDefault">
         {!! Form::model($filterform, ['route' => ['filterTop'], 'id' => 'filterTopForm']) !!}
         {!! Form::label('minNumVotes', 'Minimum number of votes:', ['class' => 'collapseChoice control-label']) !!}
         {!! Form::number('minNumVotes', old('minNumVotes'), ['class'=>'collapseChoice form-control',
@@ -139,10 +141,4 @@
             @endforeach
         @endif
     </div>
-    <script>
-        var specsChoice = {!! json_encode($specsChoice) !!};
-        var numShowMoreLess = {!! $numShowMoreLess !!};
-        var minNumVotes = {!! $minNumVotes !!};
-        var minNumVotesDefault = {!! $minNumVotesDefault !!};
-    </script>
 @endsection
