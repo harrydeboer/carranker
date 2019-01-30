@@ -51,16 +51,16 @@ return [
             'prefix' => '',
             'strict' => true,
             'engine' => null,
-        'modes'  => env("APP_ENV", null) == 'local' ? 
-            ['ONLY_FULL_GROUP_BY',
-            'STRICT_TRANS_TABLES',
-            'NO_ZERO_IN_DATE',
-            'NO_ZERO_DATE',
-            'ERROR_FOR_DIVISION_BY_ZERO',
-            'NO_ENGINE_SUBSTITUTION',] : null,
-        'options' => env("APP_ENV", null) == 'local' ? null :
+            'modes'  => env("APP_ENV", null) == 'local' ?
+                ['ONLY_FULL_GROUP_BY',
+                    'STRICT_TRANS_TABLES',
+                    'NO_ZERO_IN_DATE',
+                    'NO_ZERO_DATE',
+                    'ERROR_FOR_DIVISION_BY_ZERO',
+                    'NO_ENGINE_SUBSTITUTION',] : null,
+            'options' => env("APP_ENV", null) == 'local' ? null :
                 [PDO::MYSQL_ATTR_SSL_CA => '/var/lib/mysql/ca.pem',
-                PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,],
+                    PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,],
         ],
 
         'test_mysql' => [
@@ -111,7 +111,6 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
         ],
-
     ],
 
     /*

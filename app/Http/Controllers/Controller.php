@@ -51,10 +51,10 @@ class Controller extends BaseController
         $this->middleware(function (Request $request, \Closure $next): Response
         {
             View::share('isLoggedIn', is_null(Auth::user()) ? false : true);
-            $session = session();
 
             /** Lazy loading is done for the homepage if a user has not already visited the homepage. */
             $controller = explode('\\', get_class($this));
+            $session = session();
             if (end($controller) === 'HomepageController') {
                 View::share('lazyLoad', $session->get('lazyLoad') ?? true);
             } else {
