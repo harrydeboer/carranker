@@ -23,7 +23,7 @@ class ProfanityRepositoryTest extends TestCase
     {
         $profanity = factory(Profanity::class)->create();
 
-        $this->assertEquals($this->profanityRepository->getProfanityNames(), [$profanity->getName()]);
+        $this->assertEquals($this->profanityRepository->getProfanityNames(), $profanity->getName());
     }
 
     public function testValidate()

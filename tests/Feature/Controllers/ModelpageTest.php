@@ -34,8 +34,8 @@ class ModelpageTest extends TestCase
 
         $postArrayFirst = [
             'generation' => $trim->getYearBegin() . '-' . $trim->getYearEnd(),
-            'serie' => $trim->getFramework(),
-            'trimId' => $trim->getId(),
+            'serie' => $trim->getYearBegin() . '-' . $trim->getYearEnd() . ';' . $trim->getFramework(),
+            'trimId' => $trim->getYearBegin() . '-' . $trim->getYearEnd() . ';' . $trim->getFramework() . ';' . $trim->getId(),
             'content' => 'Review',
             'reCaptchaToken' => 'notusedintests',
         ];
