@@ -192,6 +192,6 @@ return [
     |
     */
 
-    'same_site' => null,
+    'same_site' => env('SAME_SITE_COOKIE', null),
 
 ];

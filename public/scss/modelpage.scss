@@ -96,6 +96,60 @@
   margin: 0 auto;
 }
 
+.fa-star-form {
+  color: lightgrey;
+  float: right;
+  border-color: #ddd;
+  font-size: 30px;
+  margin-right: 7px;
+}
+
+.radioStar {
+  position: absolute;
+  opacity: 0;
+  z-index: 0;
+  float: right;
+  width: 1px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.label:hover {
+  color: blue;
+}
+
+.radio0:checked ~ .label0 {
+  color: gold;
+}
+.radio1:checked ~ .label1 {
+  color: gold;
+}
+.radio2:checked ~ .label2 {
+  color: gold;
+}
+.radio3:checked ~ .label3 {
+  color: gold;
+}
+.radio4:checked ~ .label4 {
+  color: gold;
+}
+
+.label0:hover, .label0:hover ~ .label0 {
+  color: blue !important;
+}
+.label1:hover, .label1:hover ~ .label1 {
+  color: blue !important;
+}
+.label2:hover, .label2:hover ~ .label2 {
+  color: blue !important;
+}
+.label3:hover, .label3:hover ~ .label3 {
+  color: blue !important;
+}
+.label4:hover, .label4:hover ~ .label4 {
+  color: blue !important;
+}
+
 @media (min-width: 990px) {
   #ratingHeading {
     margin-right: 10%;
@@ -115,11 +169,11 @@
 }
 
 /** Thank you styling */
-#thankyouDialog {
+#thankYouDialog {
   width: 300px;
 }
 
-#thankyouHeader {
+#thankYouHeader {
   background-color: limegreen;
 }
 

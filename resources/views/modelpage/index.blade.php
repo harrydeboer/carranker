@@ -82,11 +82,11 @@
             </div>
         </div>
     @endforeach
-    <div class="modal" id="thankyou">
-        <div class="modal-dialog" id="thankyouDialog">
+    <div class="modal {{ $isThankYou === true ? 'showThankYou' : ''}}" id="thankYou">
+        <div class="modal-dialog" id="thankYouDialog">
             <div class="modal-content">
-                <div class="modal-header" id="thankyouHeader">
-                    <h3 id="thankyouHeading">Thank you for your rating</h3>
+                <div class="modal-header" id="thankYouHeader">
+                    <h3 id="thankYouHeading">Thank you for your rating</h3>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -95,10 +95,4 @@
         </div>
     </div>
     @include('modelpage.reviews')
-    <script>
-        var profanities = {!! json_encode($profanities) !!};
-        var hasTrimTypes = {{ $hasTrimTypes === true ? 'true' : 'false' }};
-        var isThankYou = {{ $isThankYou === true ? 'true' : 'false' }};
-        var generationsSeriesTrims = {!! json_encode($generationsSeriesTrims) !!};
-    </script>
 @endsection

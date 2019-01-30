@@ -4,14 +4,15 @@ namespace App\Repositories;
 
 class ProfanityRepository extends BaseRepository
 {
-    public function getProfanityNames(): array
+    public function getProfanityNames(): string
     {
         $profanitiesObjects = $this->all();
 
-        $profanities = [];
+        $profanities = "";
         foreach ($profanitiesObjects as $profanitiesObject) {
-            $profanities[] = $profanitiesObject->getName();
+            $profanities .= $profanitiesObject->getName() . ' ';
         }
+        $profanities = rtrim($profanities, ' ');
 
         return $profanities;
     }
@@ -24,9 +25,9 @@ class ProfanityRepository extends BaseRepository
 
         $string = strtolower($string);
         $stringWords = explode(' ', $string);
-        foreach ($this->getProfanityNames() as $profanityName) {
+        foreach ($this->all() as $profanity) {
             foreach ($stringWords as $word) {
-                if ($word === $profanityName) {
+                if ($word === $profanity->getName()) {
                     return false;
                 }
             }

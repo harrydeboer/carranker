@@ -22,9 +22,7 @@
                 </div>
             {!! Form::close() !!}
             <input type="hidden" value="{{ $reCaptchaKey }}" id="reCaptchaKey">
+            <input type="hidden" value="{{ $profanities }}" id="profanities">
         </div>
     </div>
-    <script>
-        var profanities = {!! json_encode($profanities) !!};
-    </script>
 @endsection

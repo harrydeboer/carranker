@@ -18,9 +18,10 @@ $(document).ready(function ()
         }
     });
 
-    if (isThankYou === true) {
-        $('#thankyou').modal('show');
+    if ($('#thankYou').hasClass('showThankYou')) {
+        $('#thankYou').modal('show');
     }
+
 
     /** When a user wants to rate a trim then the generation, series and id of the trim are filled in in the rating form. */
     $(".toRateTrim").on('click', function()
@@ -52,6 +53,7 @@ $(document).ready(function ()
     $('#rating-form').on('submit', function(event)
     {
         var testProfanities = true;
+        var profanities = $('#profanities').val().split(' ');
 
         if ($('#rating_form_content:visible').length) {
             var content = $('#rating_form_content').val();
@@ -107,9 +109,6 @@ $(document).ready(function ()
     var menuGenerations = $('#rating_form_generation');
     var menuSeries = $('#rating_form_serie');
     var menuTrims = $('#rating_form_trim');
-    for (var gen in generationsSeriesTrims) {
-        menuGenerations.append('<option value="' + gen + '">' + gen + '</option>');
-    }
 
     showSeriesSelect();
     showTrimsSelect();
@@ -126,36 +125,12 @@ $(document).ready(function ()
 
     function showSeriesSelect()
     {
-        var selectedGen = $('#rating_form_generation').val();
 
-        menuSeries.empty();
-        menuSeries.append('<option value="">Series</option>');
-        if ($('#rating_form_generation option:selected').text() === 'Generation') {
-            return;
-        }
-        for (var serie in generationsSeriesTrims[selectedGen]) {
-            menuSeries.append('<option value="' + selectedGen + ' ' + serie + '">' + serie + '</option>');
-        }
     }
 
     function showTrimsSelect()
     {
-        var selectedGen = menuGenerations.val();
-        var selectedSerie = $('#rating_form_serie option:selected').text();
 
-        menuTrims.empty();
-
-        menuTrims.append('<option value="">Trims</option>');
-        if ($('#rating_form_serie option:selected').text() === 'Series') {
-            return;
-        }
-        for (var trim in generationsSeriesTrims[selectedGen][selectedSerie]) {
-            var trimId = generationsSeriesTrims[selectedGen][selectedSerie][trim];
-            menuTrims.append('<option value="' + trimId + '">' + trim + '</option>');
-            if (hasTrimTypes === false) {
-                $('#rating_form_trim').val(trimId);
-            }
-        }
     }
 
     /** The dialog with the rating form can have three shapes. When a trim is viewed and the user wants to rate
