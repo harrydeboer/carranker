@@ -17,7 +17,7 @@ class RatingForm extends BaseForm
         $rules = [
             'generation' => 'string|required',
             'serie' => 'string|required',
-            'trimId' => 'integer|required',
+            'trimId' => 'string|required',
             'content' => 'string|nullable',
             'reCaptchaToken' => 'string|required',
         ];

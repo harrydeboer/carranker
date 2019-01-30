@@ -31,13 +31,34 @@
     <div id="dialogContainer">
         <div id="reviewWarning"></div>
         <div class="form-group text-center">
-            {!! Form::select('generation', ['' => 'Generation'], null, ['class' => 'form-control', 'id' => 'rating_form_generation']) !!}
+            <select name="generation" class="form-control" id="rating_form_generation">
+                <option value="">Generation</option>
+                @foreach ($generationsSeriesTrims as $generationName => $generation)
+                    <option value="{{ $generationName }}">{{ $generationName }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
-            {!! Form::select('serie', ['' => 'Serie'], null, ['class' => 'form-control', 'id' => 'rating_form_serie']) !!}
+            <select name="serie" class="form-control" id="rating_form_serie">
+                <option value="">Serie</option>
+                @foreach ($generationsSeriesTrims as $generationName => $generation)
+                    @foreach ($generation as $serieName => $serie)
+                        <option value="{{ $generationName . ';' . $serieName }}">{{ $serieName }}</option>
+                    @endforeach
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
-            {!! Form::select('trimId', ['' => 'Trim'], null, ['class' => 'form-control', 'id' => 'rating_form_trim']) !!}
+            <select name="trimId" class="form-control" id="rating_form_trim">
+                <option value="">Trim</option>
+                @foreach ($generationsSeriesTrims as $generationName => $generation)
+                    @foreach ($generation as $serieName => $serie)
+                        @foreach ($serie as $trimName => $trimId)
+                            <option value="{{ $generationName . ';' . $serieName . ';' . $trimId }}">{{ $trimName }}</option>
+                        @endforeach
+                    @endforeach
+                @endforeach
+            </select>
         </div>
         <div class="form-group" id="divArea">
             {!! Form::textarea('content', old('content'), ['class'=>'form-control',

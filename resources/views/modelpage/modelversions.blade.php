@@ -17,7 +17,7 @@
                         <a href="#typeInfo{{ $valueTrim }}"
                             data-toggle="modal"
                             id="linkType{{ $valueTrim }}"
-                            class="linkType">{{ $nameTrim ?? $model->getName() }}
+                            class="linkType trimType">{{ $nameTrim ?? $model->getName() }}
                         </a>
                     </div>
                 @endforeach

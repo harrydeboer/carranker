@@ -22,6 +22,11 @@ $(document).ready(function ()
         $('#thankYou').modal('show');
     }
 
+    if ($('.trimType').length > 0) {
+        hasTrimTypes = true;
+    } else {
+        hasTrimTypes = false;
+    }
 
     /** When a user wants to rate a trim then the generation, series and id of the trim are filled in in the rating form. */
     $(".toRateTrim").on('click', function()
@@ -104,34 +109,59 @@ $(document).ready(function ()
         }
     });
 
-    /** The generations have series and when a generation is selected the right options for the series must be filled in.
-     * The series have trims and when a serie is selected the right options for the trims must be filled in. */
+    /** The generations have series and when a generation is selected the right options for the series must be shown.
+     * The series have trims and when a serie is selected the right options for the trims must be shown. */
     var menuGenerations = $('#rating_form_generation');
     var menuSeries = $('#rating_form_serie');
+    var menuSeriesOptions = $('#rating_form_serie option');
     var menuTrims = $('#rating_form_trim');
-
-    showSeriesSelect();
-    showTrimsSelect();
+    var menuTrimsOptions = $('#rating_form_trim option');
+    menuSeriesOptions.hide();
+    menuTrimsOptions.hide();
 
     menuGenerations.on('change', function()
     {
-        showSeriesSelect();
+        var selectedGeneration = $(this).val();
+        menuSeriesOptions.hide();
+        menuTrimsOptions.hide();
+        menuSeries.val('');
+        menuTrims.val('');
+        menuSeriesOptions.each(function()
+        {
+            if ($(this).val() !== '') {
+                var serieArray = $(this).val().split(';');
+                if (serieArray[0] === selectedGeneration) {
+                    $(this).show();
+                }
+            } else {
+                $(this).show();
+            }
+        });
     });
 
     menuSeries.on('change', function()
     {
-        showTrimsSelect();
+        var selectedGeneration = $(this).val();
+        var selectedSerie = $(this).val();
+        menuTrimsOptions.hide();
+        menuTrims.val('');
+        menuTrimsOptions.each(function()
+        {
+            if ($(this).val() !== '') {
+                var trimArray = $(this).val().split(';');
+                if (trimArray[0] + ';' + trimArray[1] === selectedSerie) {
+                    $(this).show();
+                    if (hasTrimTypes === false) {
+                        $(this).prop('selected', true);
+                    } else {
+                        $(this).show();
+                    }
+                }
+            } else {
+                $(this).show();
+            }
+        });
     });
-
-    function showSeriesSelect()
-    {
-
-    }
-
-    function showTrimsSelect()
-    {
-
-    }
 
     /** The dialog with the rating form can have three shapes. When a trim is viewed and the user wants to rate
      * this trim then the user does not need to specify the right generation, serie or trim. When the form is selected

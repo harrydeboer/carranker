@@ -94,7 +94,8 @@ class ModelpageController extends Controller
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
     public function rate(RatingForm $form, Model $model): bool
     {
-        $trimId = (int) $form->trimId;
+        $trimArray = explode(';', $form->trimId);
+        $trimId = (int) end($trimArray);
         $trim = $this->trimRepository->get($trimId);
         $user = Auth::user();
         if (is_null($user)) {
