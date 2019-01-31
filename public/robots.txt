@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://carranker.com/sitemap
+Sitemap: https://carranker.com/api/sitemap
