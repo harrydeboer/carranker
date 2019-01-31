@@ -33,7 +33,7 @@ class SitemapService
                 break;
         }
 
-        $update = '2019-01-16';
+        $update = '2019-01-31';
 
         foreach ($pages as $page) {
             $url = $sitemap->addChild('url');
