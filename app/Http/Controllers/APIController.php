@@ -9,6 +9,8 @@ use App\Repositories\ModelRepository;
 use App\Repositories\TrimRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
+use App\Services\SitemapService;
+use Illuminate\Http\Response;
 
 /** When Oauth authenticated a user can get any make, model or trim as json. */
 class APIController extends BaseController
@@ -52,4 +54,16 @@ class APIController extends BaseController
     {
         return response()->json($this->makeRepository->getModelNames($makename));
     }
+
+    public function makeSitemap(): Response
+    {
+        $sitemap = new SitemapService();
+        $makeRepository = new MakeRepository();
+        $modelRepository = new ModelRepository();
+        $sitemap = $sitemap->makeSitemap($makeRepository->getMakeNames(), $modelRepository->getModelNames());
+
+        /** The sitemap is a xml-file so the header needs to be text/xml. */
+        return response($sitemap)->header('Content-Type', 'text/xml');
+    }
+
 }
