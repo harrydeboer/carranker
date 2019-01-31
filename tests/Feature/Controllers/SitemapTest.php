@@ -10,7 +10,7 @@ class SitemapTest extends TestCase
 {
     public function testSitemap()
     {
-        $response = $this->get('/sitemap');
+        $response = $this->get('/api/sitemap');
         $response->assertStatus(200);
 
         $response->assertSee('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
