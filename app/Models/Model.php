@@ -73,9 +73,9 @@ class Model extends BaseModel
     {
         $image = '/img/models/';
         $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
-                "$1", htmlentities($this->make))) . '_';
+                "$1", htmlentities(str_replace('/', '', $this->make)))) . '_';
         $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
-                "$1", htmlentities($this->getName()))) . '.jpg';
+                "$1", htmlentities(str_replace('/', '', $this->getName())))) . '.jpg';
 
         $root = dirname(__DIR__, 2);
         if (!file_exists($root . '/public/' . $image)) {

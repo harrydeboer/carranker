@@ -36,10 +36,11 @@ class ModelpageController extends Controller
         $this->userRepository = new UserRepository();
     }
 
-    public function view(string $makename, string $modelname, Request $request, string $trimId='0'): \Illuminate\View\View
+    public function view(string $makename, string $modelname, Request $request): \Illuminate\View\View
     {
         $makename = rawurldecode($makename);
         $modelname = rawurldecode($modelname);
+        $trimId = (int) $request->query('trimId');
 
         /**
          * The model that the user visits is stored in the session and also the make of the model
@@ -65,7 +66,7 @@ class ModelpageController extends Controller
         /** The links of the pagination get extra html classes to make them centered on the modelpage. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
             $reviews->onEachSide(1)->links());
-        $trim = $this->trimRepository->find((int) $trimId);
+        $trim = $this->trimRepository->find($trimId);
 
         $data = [
             'controller' => 'modelpage',

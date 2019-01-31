@@ -20,7 +20,7 @@ class ModelpageTest extends TestCase
 
         $response->assertStatus(200);
 
-        $response = $this->get('/model/' . $trim->getModel()->getMakename() . '/' . $trim->getModel()->getName() . '/' . $trim->getId());
+        $response = $this->get('/model/' . $trim->getModel()->getMakename() . '/' . $trim->getModel()->getName() . '?trimId=' . $trim->getId());
         $response->assertViewHas('selectedGeneration', $trim->getYearBegin() . '-' . $trim->getYearEnd());
         $response->assertStatus(200);
     }

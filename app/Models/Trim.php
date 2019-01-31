@@ -98,7 +98,7 @@ class Trim extends BaseModel
 
     public function getUrl(): string
     {
-        return '/model/' . rawurlencode($this->make) . '/' . rawurlencode($this->model) . '/' . $this->getId();
+        return '/model/' . rawurlencode($this->make) . '/' . rawurlencode($this->model) . '?trimId=' . $this->getId();
     }
 
     /** The images are stored in directories with names that contain no special characters.
