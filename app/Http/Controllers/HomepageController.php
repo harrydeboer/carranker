@@ -9,7 +9,6 @@ use App\Forms\FilterTopForm;
 use App\Models\Aspect;
 use App\Repositories\RatingRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\View;
 
 class HomepageController extends Controller

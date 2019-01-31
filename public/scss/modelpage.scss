@@ -118,35 +118,11 @@
   color: blue;
 }
 
-.radio0:checked ~ .label0 {
-  color: gold;
-}
-.radio1:checked ~ .label1 {
-  color: gold;
-}
-.radio2:checked ~ .label2 {
-  color: gold;
-}
-.radio3:checked ~ .label3 {
-  color: gold;
-}
-.radio4:checked ~ .label4 {
+.radioStar:checked ~ .fa-star-form {
   color: gold;
 }
 
-.label0:hover, .label0:hover ~ .label0 {
-  color: blue !important;
-}
-.label1:hover, .label1:hover ~ .label1 {
-  color: blue !important;
-}
-.label2:hover, .label2:hover ~ .label2 {
-  color: blue !important;
-}
-.label3:hover, .label3:hover ~ .label3 {
-  color: blue !important;
-}
-.label4:hover, .label4:hover ~ .label4 {
+.fa-star-form:hover, .fa-star-form:hover ~ .fa-star-form {
   color: blue !important;
 }
 

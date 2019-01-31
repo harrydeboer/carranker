@@ -10,10 +10,9 @@
                 <tr>
                     <td>
                         @for ($i = 10; $i > 0; $i--)
-                            {!! Form::radio('star[' . $aspect . ']', $i, false, ['class' => 'radioStar radio' .
-                            $keyAspect, 'id' => 'RatingForm-star-' . $keyAspect . $i, ' required']) !!}
+                            {!! Form::radio('star[' . $aspect . ']', $i, false, ['class' => 'radioStar', 'id' => 'RatingForm-star-' . $keyAspect . $i, ' required']) !!}
                             {!! Form::label('RatingForm-star-' . $keyAspect . $i, ' ',
-                            ['class' => 'fa fa-star fa-star-form label' . $keyAspect]) !!}
+                            ['class' => 'fa fa-star fa-star-form']) !!}
                         @endfor
                     </td>
                 </tr>
