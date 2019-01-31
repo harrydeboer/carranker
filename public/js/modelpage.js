@@ -37,10 +37,8 @@ $(document).ready(function ()
         var serie = $(this).data('serie');
         var IDTrim = $(this).data('idtrim');
         $('#rating_form_generation').val(generation);
-        showSeriesSelect();
-        $('#rating_form_serie').val(generation + ' ' + serie);
-        showTrimsSelect();
-        $('#rating_form_trim').val(IDTrim);
+        $('#rating_form_serie').val(generation + ';' + serie);
+        $('#rating_form_trim').val(generation + ';' + serie + ';' + IDTrim);
     });
 
     $("#showModelDialog").on('click', function()
