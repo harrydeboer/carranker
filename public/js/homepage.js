@@ -73,7 +73,7 @@ $(document).ready(function ()
         }, 1000);
     });
 
-    numShowMoreLess = $('#numShowMoreLess').val();
+    numShowMoreLess = parseInt($('#numShowMoreLess').val());
     if (typeof sessionStorage.numberOfRows === 'undefined') {
         sessionStorage.numberOfRows = $('#tableTop tr').length;
     }
