@@ -26,7 +26,6 @@ AddType application/x-font-ttf .ttf
     Header set X-Frame-Options "allow-from https://www.google.com/recaptcha/api.js"
     Header set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
     Header set X-Content-Type-Options "nosniff"
-#    Header set Content-Security-Policy "default-src 'self';"
     <FilesMatch "\\.(ico|jpe?g|png|gif|swf|css|js|ttf|woff|woff2|otf|eot)$">
         Header set Cache-Control "max-age=31536000, must-revalidate"
     </FilesMatch>
@@ -42,7 +41,7 @@ AddType application/x-font-ttf .ttf
 
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
-Options -MultiViews
+        Options -MultiViews
     </IfModule>
     RewriteEngine On
 

@@ -1,11 +1,21 @@
 <IfModule mod_deflate.c>
     SetOutputFilter DEFLATE
-    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/x-javascript application/x-httpd-php
+    AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript application/json
     BrowserMatch ^Mozilla/4 gzip-only-text/html
     BrowserMatch ^Mozilla/4\.0[678] no-gzip
     BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
     BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
     SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "allow-from https://www.google.com/recaptcha/api.js"
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+    Header set X-Content-Type-Options "nosniff"
+    <FilesMatch "\\.(ico|jpe?g|png|gif|swf|css|js|ttf|woff|woff2|otf|eot)$">
+            Header set Cache-Control "max-age=31536000, must-revalidate"
+    </FilesMatch>
 </IfModule>
 
 <FilesMatch "\.(ttf|otf|eot|woff|woff2)$">
