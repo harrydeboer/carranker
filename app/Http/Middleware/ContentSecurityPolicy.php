@@ -14,8 +14,9 @@ class ContentSecurityPolicy
 
         $response->headers->set('Content-Security-Policy', "default-src 'self'; style-src 'self' " .
             "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css " .
-            "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css https://fonts.googleapis.com/css;" .
-            " font-src 'self' https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/ " .
+            "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css http://fonts.googleapis.com/css;" .
+            " font-src 'self' https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3ZBw1xU1rKptJj_0jans920.woff2" .
+            " https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/ " .
             "https://fonts.gstatic.com/s/opensans/v15/; img-src 'self' data:;" .
          " script-src 'self' https://www.googletagmanager.com/gtag/js https://www.google.com/recaptcha/api.js" .
         " https://www.gstatic.com https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " .
