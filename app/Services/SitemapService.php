@@ -11,7 +11,10 @@ class SitemapService
 {
     public function makeSitemap(array $makenames, array $modelnames): string
     {
-        $sitemap = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"/>');
+        $sitemap = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
+                <?xml-stylesheet type="application/xml" 
+                href="/css/sitemap.xsl"?>
+                <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"/>');
 
         $pageRepository = new PageRepository();
         $pages = $pageRepository->all();
