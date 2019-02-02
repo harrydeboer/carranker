@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0"
                 xmlns:html="http://www.w3.org/TR/REC-html40"
                 xmlns:sitemap="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -11,7 +10,7 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             </head>
             <body>
-                <h1>XML Sitemap</h1>                
+                <h1>XML Sitemap</h1>
                 <div id="content">
                     <table cellpadding="5">
                         <tr>
