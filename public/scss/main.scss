@@ -1,32 +1,10 @@
-@import 'bootstrapfile';
-@import 'fontawesome';
-
 @font-face {
-  font-family: OpenSans;
+  font-family: OpenSansFallback;
   font-display: swap;
   src: url('../fonts/OpenSans.ttf?v1.0.0');
 }
 
-@font-face {
-  font-family: 'FontAwesome';
-  font-display: swap;
-  src: url('../fontawesome/fonts/fontawesome-webfont.eot?v1.0.0');
-  src: url('../fontawesome/fonts/fontawesome-webfont.eot?v1.0.0')
-  format('embedded-opentype'),
-  url('../fontawesome/fonts/fontawesome-webfont.woff2?v1.0.0')
-  format('woff2'),
-  url('../fontawesome/fonts/fontawesome-webfont.woff?v1.0.0')
-  format('woff'),
-  url('../fontawesome/fonts/fontawesome-webfont.ttf?v1.0.0')
-  format('truetype'),
-  url('../fontawesome/fonts/fontawesome-webfont.svg?v1.0.0')
-  format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
 #hideAll {
-  display: none;
   position: fixed;
   z-index: 9999;
   top: 0;
@@ -35,11 +13,16 @@
   width: 100%;
   background: rgba( 255, 255, 255, .8 );
   background-repeat: no-repeat;
-  background-position: center;
-  background-image: url('../img/Loader.gif?v1.0.0');
 }
 
-$font-stack:    'OpenSans', sans-serif;
+#hideAll img {
+  position:absolute;
+  top:0;
+  bottom:0;
+  margin:auto;
+}
+
+$font-stack: 'OpenSans', 'OpenSansFallback', sans-serif;
 $housecolor-blue: #336699;
 $housecolor-blue-r: 51;
 $housecolor-blue-g: 102;
@@ -60,7 +43,7 @@ body {
 }
 
 .btn {
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .panel-default>.panel-heading, .modal-header{

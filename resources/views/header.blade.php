@@ -1,5 +1,5 @@
 <img src="{{ fileUrl('/img/HeaderChrome.jpg') }}" alt="Chrome wheels" id="headerImg" class="img-thumbnail hidden-xs">
-<div class="navbar navbar-toggleable-md navbar-light bg-faded">
+<div class="navbar navbar-toggleable-md navbar-light bg-faded navbar-expand-lg">
     <button class="navbar-toggler navbar-toggler-right"
             type="button"
             data-toggle="collapse"

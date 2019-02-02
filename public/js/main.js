@@ -1,45 +1,21 @@
-/** Lazy loading for images below the fold. The loading happens after 3 seconds, scrolling, resizing,
-    orientation change and visibility change */
-var lazyloadThrottleTimeout;
-
-function lazyload()
-{
-    if (lazyloadThrottleTimeout) {
-        clearTimeout(lazyloadThrottleTimeout);
-    }
-
-    lazyloadThrottleTimeout = setTimeout(function()
-    {
-        var scrollTop = window.pageYOffset;
-        lazyloadImages.forEach(function(img)
-        {
-            if (img.offsetTop < (window.innerHeight + scrollTop)) {
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-            }
-        });
-        if (lazyloadImages.length === 0) {
-            document.removeEventListener("scroll", lazyload);
-            window.removeEventListener("resize", lazyload);
-            window.removeEventListener("orientationChange", lazyload);
-            document.removeEventListener("visibilitychange", lazyload);
-        }
-    }, 20);
+if (typeof($.fn.modal) === 'undefined') {
+    document.write('<script src="/js/popper.min.js"></script>');
+    document.write('<script src="/js/bootstrap.min.js"></script>');
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-    lazyloadImages = document.querySelectorAll("img.lazy");
-    if ( lazyloadImages.length > 0 ) {
-        setTimeout(lazyload, 3000);
-        document.addEventListener("scroll", lazyload);
-        window.addEventListener("resize", lazyload);
-        window.addEventListener("orientationChange", lazyload);
-        document.addEventListener("visibilitychange", lazyload);
-    }
-});
 
 $(document).ready(function ()
 {
+    if ($('#hideAll').is(':visible') === true) {
+        $('head').prepend('<link href="/bootstrap-4.2.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />');
+    }
+
+    var $span = $('<span class="fa hidden"></span>').appendTo('body');
+    if ($span.css('fontFamily') !== 'FontAwesome' ) {
+        // Fallback Link
+        $('head').prepend('<link href="/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">');
+    }
+    $span.remove();
+
     var menuMake = $('#nav_select_make');
     var menuModel = $('#nav_select_model');
 

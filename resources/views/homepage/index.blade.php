@@ -24,10 +24,10 @@
                     @include('homepage.tableTop')
                 </div>
                 <div class="row justify-content-center col-md-12">
-                    <div class="col-md-2 text-center">
+                    <div class="col-md-3 text-center">
                         <button id="showLess" class="btn-lg btn-primary">Show less</button>
                     </div>
-                    <div class="col-md-2 text-center">
+                    <div class="col-md-3 text-center">
                         <button id="showMore" class="btn-lg btn-primary">Show more</button>
                     </div>
                 </div>
