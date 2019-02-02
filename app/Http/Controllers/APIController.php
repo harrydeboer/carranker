@@ -62,7 +62,7 @@ class APIController extends BaseController
         $modelRepository = new ModelRepository();
         $sitemap = $sitemap->makeSitemap($makeRepository->getMakeNames(), $modelRepository->getModelNames());
 
-        return response($sitemap)->header('Content-Type', 'application/xlst+xml');
+        return response($sitemap)->header('Content-Type', 'application/xml');
     }
 
 }
