@@ -46,7 +46,7 @@ class TrimController extends Controller
         $this->set('form', new TrimForm($createOrUpdate, $formObject));
     }
 
-    public function create($request)
+    public function create(array $urlParams, object $request)
     {
         $form = new TrimForm('create', $request);
 
@@ -67,7 +67,7 @@ class TrimController extends Controller
         $this->_template->_action = 'view';
     }
 
-    public function update($request)
+    public function update(array $urlParams, object $request)
     {
         $form = new TrimForm('update', $request);
 
@@ -85,7 +85,7 @@ class TrimController extends Controller
         $this->_template->_action = 'view';
     }
 
-    public function delete($request)
+    public function delete(array $urlParams, object $request)
     {
         $trim = Trim::getById((int) $request->deleteTrimId);
         $modelname = explode(';', $trim->getModel());
@@ -96,7 +96,7 @@ class TrimController extends Controller
         $this->_template->_action = 'view';
     }
 
-    private function decorateView($model)
+    private function decorateView(Model $model)
     {
         $this->set('model', $model);
         $this->set('generationsSeriesTrims', Trim::getGenerationsSeriesTrims($model));

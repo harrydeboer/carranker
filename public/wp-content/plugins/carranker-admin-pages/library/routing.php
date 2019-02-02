@@ -27,6 +27,8 @@ if ($urlArray[1] === 'wp-admin' && isset($urlArray[2])) {
         $url = 'model/' . $action;
     } elseif ($page == 'trim-admin-page') {
         $url = 'trim/' . $action;
+    } elseif ($page == 'profanity-admin-page') {
+        $url = 'profanity/' . $action;
     }
 
     if (!is_null($url)) {

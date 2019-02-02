@@ -12,6 +12,12 @@ class CarrankerAdmin
         add_action( 'admin_menu', array($this, 'my_admin_makes' ));
         add_action( 'admin_menu', array($this, 'my_admin_models' ));
         add_action( 'admin_menu', array($this, 'my_admin_trims' ));
+        add_action( 'admin_menu', array($this, 'my_admin_profanities' ));
+    }
+
+    public function my_admin_profanities()
+    {
+        add_menu_page( 'Profanities', 'Profanities', 'delete_posts', 'profanity-admin-page', array($this, 'admin_page' ));
     }
 
     public function my_admin_trims()

@@ -30,13 +30,13 @@ class ModelController extends Controller
         $this->set('form', new ModelForm($createOrUpdate, $formObject));
     }
 
-    public function create($request)
+    public function create(array $urlParams, object $request)
     {
         $form = new ModelForm('create', $request);
 
         if ($form->validate($request)) {
             $model = new Model($request);
-            $make = Make::getByName($request->make);
+            $make = Make::findByName($request->make);
             $model->setContent($request->content);
             $model->setMakeId($make->getId());
             $model->create();
@@ -48,13 +48,13 @@ class ModelController extends Controller
         $this->_template->_action = 'view';
     }
 
-    public function update($request)
+    public function update(array $urlParams, object $request)
     {
         $form = new ModelForm('update', $request);
 
         if ($form->validate($request)) {
             $model = new Model($request);
-            $make = Make::getByName($model->getMake());
+            $make = Make::findByName($model->getMake());
             $model->setContent($request->content);
             $model->setMakeId($make->getId());
             $model->update();
@@ -64,7 +64,7 @@ class ModelController extends Controller
         $this->_template->_action = 'view';
     }
 
-    public function delete($request)
+    public function delete(array $urlParams, object $request)
     {
         Model::delete((int) $request->deleteModelId);
         $this->set('form', new ModelForm('create'));

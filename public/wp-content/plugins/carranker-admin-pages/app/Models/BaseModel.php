@@ -43,11 +43,15 @@ abstract class BaseModel
         return new $className($result[0]);
     }
 
-    public static function getByName(string $name)
+    public static function findByName(string $name): ?BaseModel
     {
         global $wpdb;
 
         $result = $wpdb->get_results("SELECT * FROM " . static::$table . " WHERE name='{$name}'");
+
+        if ($result === []) {
+            return null;
+        }
 
         $result = self::sanitize_result($result, $wpdb);
 

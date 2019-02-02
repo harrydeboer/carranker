@@ -20,7 +20,7 @@ class MakeController extends Controller
         $createOrUpdate = 'create';
         $formObject = null;
         if (!empty($urlParams['makename'])) {
-            $make = Make::getByName($urlParams['makename']);
+            $make = Make::findByName($urlParams['makename']);
             $this->set('make', $make);
             $formObject = $make->getProperties();
             $createOrUpdate = 'update';
@@ -28,7 +28,7 @@ class MakeController extends Controller
         $this->set('form', new MakeForm($createOrUpdate, $formObject));
     }
 
-    public function create($request)
+    public function create(array $urlParams, object $request)
     {
         $form = new MakeForm('create', $request);
 
@@ -44,7 +44,7 @@ class MakeController extends Controller
         $this->_template->_action = 'view';
     }
 
-    public function update($request)
+    public function update(array $urlParams, object $request)
     {
         $form = new MakeForm('update', $request);
 
@@ -58,7 +58,7 @@ class MakeController extends Controller
         $this->_template->_action = 'view';
     }
 
-    public function delete($request)
+    public function delete(array $urlParams, object $request)
     {
         Make::delete((int) $request->deleteMakeId);
         $this->set('form', new MakeForm('create'));
