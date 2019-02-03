@@ -13,15 +13,18 @@ $(document).ready(function ()
     {
         /** When all specs are shown the button group must be aligned vertically
          * so that the aspect ranges fit next to the buttons. */
-        if ($('#choices.btn-group-vertical').length) {
-            $('#choices').removeClass('btn-group-vertical');
-            $('#choices').addClass('col-md-12').removeClass('col-md-4 col-xs-12');
+        if ($('#aspectsTable:visible').length) {
+            $('#choices').addClass('col-xl-12').removeClass('col-xl-4').removeClass('vertical');
         } else {
-            $('#choices').addClass('btn-group-vertical');
-            $('#choices').addClass('col-md-4 col-xs-12').removeClass('col-md-12');
+            $('#choices').addClass('col-xl-4').addClass('vertical').removeClass('col-xl-12');
         }
 
-        $('.collapseChoice').toggle();
+        if ($('.collapseChoice:visible').length) {
+            $('.collapseChoice').toggle();
+        } else {
+            $('.collapseChoice').toggle().css('display', 'inline');
+        }
+
         $('.collapseAspects').toggle();
         if ($('.collapseRange:visible').length) {
             $('.collapseRange').toggle();

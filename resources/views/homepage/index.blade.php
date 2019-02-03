@@ -50,7 +50,7 @@
         <div class="row mx-auto col-md-12">
             <div id="choices" class="btn-group text-center">
                 @foreach ($specsChoice as $specName => $spec)
-                    <div class="dropdown button-inline {{ $spec['show'] === true ? '' : 'collapseChoice' }}">
+                    <div class="dropdown col-xl-6 col-lg-12 button-inline {{ $spec['show'] === true ? '' : 'collapseChoice' }}">
                         <button class="btn btn-primary specsChoice"
                                 data-toggle="dropdown" id="filterTopForm{{ $specName }}">{{ $spec['display'] }}</button>
                         <table class="dropdown-menu">
@@ -72,14 +72,14 @@
                     </div>
                 @endforeach
             </div>
-            <table class="col-md-8 col-xs-12 collapseAspects" id="aspectsTable">
+            <table class="col-xl-8 col-lg-12 collapseAspects" id="aspectsTable">
                 @foreach ($aspects as $aspect)
                     <tr class="row aspectFilter">
-                        <td class="col-md-3">
+                        <td class="col-xl-3 col-lg-4 aspectName">
                             <label for="filterTopForm{{ $aspect }}">{{ $aspect }}</label>
                         </td>
-                        <td class="col-md-1">0</td>
-                        <td class="col-md-6">
+                        <td class="col-xl-1 col-lg-2 aspectMin">0</td>
+                        <td class="col-xl-6 col-lg-4 aspectRange">
                             <input value="{{ $filterform->aspects[$aspect] }}"
                                    name="aspects[{{ $aspect }}]"
                                    id="filterTopForm{{ $aspect }}"
@@ -89,7 +89,7 @@
                                    max="5"
                                    step="1">
                         </td>
-                        <td class="col-md-1">5</td>
+                        <td class="col-xl-1 col-lg-2 aspectMax">5</td>
                     </tr>
                 @endforeach
             </table>
@@ -97,16 +97,16 @@
         <table class="table" id="specsRangeTable">
             @foreach ($specsRange as $specName => $spec)
                 <tr class="row rangeRow {{ $spec['show'] === true ? '' : 'collapseRange' }}">
-                    <td class="col-md-4 col-sm-8">{{ $spec['display'] }}</td>
-                    <td class="col-md-3 col-sm-2">
+                    <td class="col-md-4 col-sm-6">{{ $spec['display'] }}</td>
+                    <td class="col-md-3 col-sm-3">
                         {!! Form::select('specsRange[' . $specName . 'min' . ']', $spec['minRange'],
                         null, ['class' => 'specsRange form-control']) !!}
                     </td>
-                    <td class="col-md-3 col-sm-2">
+                    <td class="col-md-3 col-sm-3">
                         {!! Form::select('specsRange[' . $specName . 'max' . ']', $spec['maxRange'],
                         null, ['class' => 'specsRange form-control']) !!}
                     </td>
-                    <td class="col-md-2 hidden-md-down">{{ $spec['unit'] }}</td>
+                    <td class="col-md-2 d-none d-md-block">{{ $spec['unit'] }}</td>
                 </tr>
             @endforeach
         </table>

@@ -7,7 +7,6 @@ use App\Models\Aspect;
 use App\Models\Trim;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Session\SessionManager;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 
 class TrimRepository extends CarRepository
@@ -65,15 +64,15 @@ class TrimRepository extends CarRepository
     }
 
     /** Filter the trims for the user settings in the aspect ranges of the filter top form. */
-    private function queryAspects(SessionManager $session)
+    private function queryAspects(SessionManager $session): Builder
     {
-        $selectAspects = "(";
+        $selectAspects = "*, (";
         $total = 0;
         $sessionAspects = $session->get('aspects');
         foreach (Aspect::getAspects() as $aspect) {
             if ($sessionAspects[$aspect] !== null) {
                 $total += $sessionAspects[$aspect];
-                $selectAspects .= $sessionAspects[$aspect] . " * " . strtolower($aspect) . " + ";
+                $selectAspects .= "? * " . strtolower($aspect) . " + ";
             } else {
                 $total += 1;
                 $selectAspects .= strtolower($aspect) . " + ";
@@ -82,7 +81,11 @@ class TrimRepository extends CarRepository
         $selectAspects = substr($selectAspects, 0, -3);
         $selectAspects .= ") / $total as rating";
 
-        return Trim::select('trims.*', DB::raw($selectAspects));
+        if (is_null($sessionAspects)) {
+            return Trim::selectRaw($selectAspects);
+        }
+
+        return Trim::selectRaw($selectAspects, $sessionAspects);
     }
 
     /** Filter the trims for the user settings in the dropdowns of the filter top form. */
