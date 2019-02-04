@@ -29,7 +29,8 @@ abstract class BaseForm extends Model
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
             $response = curl_exec($ch);
-            if ($response === false) {
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            if ($httpCode !== 200) {
                 return false;
             }
             $result = json_decode($response);
