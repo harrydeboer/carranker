@@ -1,4 +1,4 @@
-<img src="{{ fileUrl('/img/HeaderChrome.jpg') }}" alt="Chrome wheels" id="headerImg" class="img-thumbnail hidden-xs">
+<img src="{{ fileUrl('/img/HeaderChrome.jpg') }}" alt="Chrome wheels" id="headerImg" class="img-thumbnail d-none d-md-block">
 <div class="navbar navbar-toggleable-md navbar-light bg-faded navbar-expand-lg">
     <button class="navbar-toggler navbar-toggler-right"
             type="button"
@@ -6,7 +6,7 @@
             data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-header hidden-xs hidden-sm">
+    <div class="navbar-header d-none d-md-block">
         <img src="{{ fileUrl('/img/CarRanker.png') }}" alt="Car Ranker" id="carrankerLogo" class="img-thumbnail">
     </div>
     <div class="navbar-collapse collapse" id="navbarCollapse">

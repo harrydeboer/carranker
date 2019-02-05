@@ -5,7 +5,7 @@
         <section class="col-md-9 col-xs-12 text-center">
             {!! $content !!}
         </section>
-        <div id="slideshow" class="col-md-3 hidden-md-down">
+        <div id="slideshow" class="col-md-3 d-none d-md-block">
             @include('homepage.slideshow')
         </div>
     </div>
