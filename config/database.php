@@ -141,11 +141,11 @@ return [
 
         'client' => 'phpredis',
 
-        'default' => [
+        'session' => [
             'host' => env('REDIS_HOST', 'localhost'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),
-            'database' => 0,
+            'database' => env('REDIS_DB_SESSION', 0),
             'read_timeout' => 60,
         ],
 
@@ -153,7 +153,7 @@ return [
             'host'     => env('REDIS_HOST', 'localhost'),
             'password' => env('REDIS_PASSWORD', null),
             'port'     => env('REDIS_PORT', 6379),
-            'database' => 1,
+            'database' => env('REDIS_DB_CACHE', 1),
             'read_timeout' => 60,
         ],
     ],

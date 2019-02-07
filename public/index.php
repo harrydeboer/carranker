@@ -60,4 +60,3 @@ $response = $kernel->handle(
 $response->send();
 
 $kernel->terminate($request, $response);
-echo microtime(true) - LARAVEL_START;
