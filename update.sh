@@ -12,3 +12,4 @@
   curl https://carranker.com/opcache_reset.php
   php artisan migrate --force --no-interaction
   php artisan getcmsdata
+  php artisan getfxrate
