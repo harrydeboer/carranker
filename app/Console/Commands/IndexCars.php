@@ -48,6 +48,8 @@ class IndexCars extends Command
         $this->indexOrReindex($this->makeRepository);
         $this->indexOrReindex($this->modelRepository);
         $this->indexOrReindex($this->trimRepository);
+
+        $this->info('Cars indexed!');
     }
 
     /** An index is indexed or reindexed. The current index is deleted if present. */

@@ -51,6 +51,8 @@ class GetFXRateEuroDollar extends Command
                 $this->fXRateRepository->update($fxrate);
             }
 
+            $this->info('FX rate updated!');
+
         } else {
             throw new \Exception("Api for fxrates not available.");
         }

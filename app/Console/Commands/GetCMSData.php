@@ -103,6 +103,8 @@ class GetCMSData extends Command
                 $message->subject('Wordpress api error');
                 $message->to(env('MAIL_USERNAME'));
             });
+        } else {
+            $this->info('CMS info synchronized with Laravel!');
         }
     }
 }
