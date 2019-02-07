@@ -24,29 +24,18 @@ class ContactController extends Controller
 
     public function view(): Response
     {
-        $user = Auth::user();
-        $cacheString = is_null($user) ? 'contactpage' : 'contactpageauth';
+        $this->decorator();
 
-        if ($this->redis->get($cacheString) === false) {
-            $this->decorator();
+        $data = [
+            'controller' => 'contact',
+            'title' => 'Contact',
+            'profanities' => $this->profanityRepository->getProfanityNames(),
+            'form' => new ContactForm(),
+            'page' => $this->pageRepository->getByName('contact'),
+            'reCaptchaKey' => env('reCaptchaKey'),
+        ];
 
-            $data = [
-                'controller' => 'contact',
-                'title' => 'Contact',
-                'profanities' => $this->profanityRepository->getProfanityNames(),
-                'form' => new ContactForm(),
-                'page' => $this->pageRepository->getByName('contact'),
-                'reCaptchaKey' => env('reCaptchaKey'),
-            ];
-
-            $response = response()->view('contact.index', $data, 200);
-
-            $this->redis->set($cacheString, $response->getContent(), self::cacheExpire);
-
-            return $response;
-        }
-
-        return response($this->redis->get($cacheString), 200);
+        return response()->view('contact.index', $data, 200);
     }
 
     public function sendMail(Request $request): Response

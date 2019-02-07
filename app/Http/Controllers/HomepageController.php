@@ -31,7 +31,9 @@ class HomepageController extends Controller
     {
         $session = session();
         $isLazyLoad = is_null($session->get('lazyLoad'));
-        $cacheString = $isLazyLoad ? 'homepagelazy' : 'homepage';
+        $makename = $session->get('makename');
+        $modelname = $session->get('modelname');
+        $cacheString = $isLazyLoad ? 'homepagelazy' . $makename . $modelname : 'homepage' . $makename . $modelname;
         $user = Auth::user();
         $cacheString = is_null($user) ? $cacheString : $cacheString . 'auth';
 
