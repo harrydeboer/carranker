@@ -11,20 +11,19 @@ class MakeController extends Controller
 {
     public function view(string $makename): Response
     {
+        /**
+         * The make that the user visits is stored in the session
+         * and is used to fill the make and model selects of the navigation.
+         */
+        $session = session();
+        $session->put('makename', $makename);
+        $session->put('modelname', null);
         $user = Auth::user();
         $cacheString = is_null($user) ? 'makepage' . $makename : 'makepageauth' . $makename;
 
         if ($this->redis->get($cacheString) === false) {
             $this->decorator();
             $make = $this->makeRepository->getByName(rawurldecode($makename));
-
-            /**
-             * The make that the user visits is stored in the session
-             * and is used to fill the make and model selects of the navigation.
-             */
-            $session = session();
-            $session->put('makename', $make->getName());
-            $session->put('modelname', null);
             $this->shareSessionCars($session);
 
             $models = $make->getModels();
