@@ -40,6 +40,7 @@ class Controller extends BaseController
         $this->redis = new \Redis();
         $this->redis->connect(env('REDIS_HOST'), (int)env('REDIS_PORT'));
         $this->redis->auth(env('REDIS_PASSWORD'));
+        $this->redis->select(env('REDIS_DB'));
     }
 
     protected function decorator()
