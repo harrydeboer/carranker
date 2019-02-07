@@ -21,7 +21,8 @@ class ModelpageTest extends TestCase
         $response->assertStatus(200);
 
         $response = $this->get('/model/' . $trim->getModel()->getMakename() . '/' . $trim->getModel()->getName() . '?trimId=' . $trim->getId());
-        $response->assertViewHas('selectedGeneration', $trim->getYearBegin() . '-' . $trim->getYearEnd());
+        $generation = $trim->getYearBegin() . '-' . $trim->getYearEnd();
+        $response->assertSee('<option value="' . $generation . '" selected>' . $generation . '</option>');
         $response->assertStatus(200);
     }
 
@@ -45,7 +46,7 @@ class ModelpageTest extends TestCase
 
         $response = $this->actingAs($user)->post('/model/' . $trim->getModel()->getMakename() . '/' .
             $trim->getModel()->getName(), $postArrayFirst);
-        $response->assertViewHas('isThankYou', true);
+        $response->assertSee('showThankYou');
         $response->assertStatus(200);
 
         $trimDBFirst = $trimRepository->get(1);
@@ -63,7 +64,7 @@ class ModelpageTest extends TestCase
 
         $response = $this->actingAs($user)->post('/model/' . $trim->getModel()->getMakename() . '/' .
             $trim->getModel()->getName(), $postArraySecond);
-        $response->assertViewHas('isThankYou', true);
+        $response->assertSee('showThankYou');
         $response->assertStatus(200);
 
         $trimDBSecond = $trimRepository->get(1);

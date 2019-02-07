@@ -3,7 +3,7 @@
     Generation:
     <select id="generationSelect">
         @foreach ($generationsSeriesTrims as $keyGen => $generation)
-            <option {{ $selectedGeneration === $keyGen ? 'selected' : '' }}>{{ $keyGen }}</option>
+            <option value="{{ $keyGen }}" {{ $selectedGeneration === $keyGen ? 'selected' : '' }}>{{ $keyGen }}</option>
         @endforeach
     </select>
 </div>

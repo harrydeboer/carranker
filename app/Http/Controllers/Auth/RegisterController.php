@@ -6,10 +6,10 @@ use App\Providers\WPHasher;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
 use App\User;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
-use Illuminate\View\View;
 
 class RegisterController extends Controller
 {
@@ -59,14 +59,15 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function showRegistrationForm(): View
+    public function showRegistrationForm(): Response
     {
+        $this->decorator();
         $data = [
             'title' => 'Register',
             'controller' => 'user',
             'page' => $this->pageRepository->getByName('register'),
         ];
 
-        return view('auth.register')->with($data);
+        return response()->view('auth.register', $data, 200);
     }
 }

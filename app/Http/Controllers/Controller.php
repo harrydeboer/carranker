@@ -26,19 +26,36 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected const topLength = 10;
+    protected const cacheExpire = 600;
     protected $menuRepository;
     protected $pageRepository;
     protected $makeRepository;
     protected $modelRepository;
     protected $trimRepository;
+    protected $redis;
+    protected $cacheString;
 
     public function __construct()
     {
+        $this->redis = new \Redis();
+        $this->redis->connect(env('REDIS_HOST'), (int)env('REDIS_PORT'));
+        $this->redis->auth(env('REDIS_PASSWORD'));
+    }
+
+    protected function decorator()
+    {
+        $session = session();
+
+        /** Lazy loading is done when the user visits the homepage for the first time. The session gets lazyLoad false
+         * so that the next time the user visits the homepage there will not be lazy loading.
+         */
+        $user = Auth::user();
         $this->menuRepository = new MenuRepository();
         $this->pageRepository = new PageRepository();
         $this->makeRepository = new MakeRepository();
         $this->modelRepository = new ModelRepository();
         $this->trimRepository = new TrimRepository();
+        View::share('isLoggedIn', is_null($user) ? false : true);
         View::share('makenames', $this->makeRepository->getMakeNames());
         View::share('metaKeyWords', 'car, cars, ranker, rate, rank, ranking, rating, top, top ' . self::topLength);
         View::share('metaDescription', 'Check out the top ' . self::topLength .
@@ -47,23 +64,7 @@ class Controller extends BaseController
         View::share('navform', new NavForm());
         View::share('menuHeader', $this->menuRepository->getByName('navigationHeader')->getPages()->get());
         View::share('menuFooter', $this->menuRepository->getByName('navigationFooter')->getPages()->get());
-
-        $this->middleware(function (Request $request, \Closure $next): Response
-        {
-            View::share('isLoggedIn', is_null(Auth::user()) ? false : true);
-
-            /** Lazy loading is done for the homepage if a user has not already visited the homepage. */
-            $controller = explode('\\', get_class($this));
-            $session = session();
-            if (end($controller) === 'HomepageController') {
-                View::share('lazyLoad', $session->get('lazyLoad') ?? true);
-            } else {
-                View::share('lazyLoad', false);
-            }
-            $this->shareSessionCars($session);
-
-            return $next($request);
-        });
+        $this->shareSessionCars($session);
     }
 
     /** When a user goes to a make or model page the make and model are stored in the session and used to fill the
@@ -76,8 +77,9 @@ class Controller extends BaseController
         View::share('modelnameSession', $session->get('modelname'));
     }
 
-    public function search(Request $request): \Illuminate\View\View
+    public function search(Request $request): Response
     {
+        $this->decorator();
         $form = new NavForm($request->all());
 
         if ($form->validateFull($request)) {
@@ -89,7 +91,7 @@ class Controller extends BaseController
                 'trims' => $this->trimRepository->findTrimsForSearch($form->query),
             ];
 
-            return View::make('base.search')->with($data);
+            return response()->view('base.search', $data, 200);
         }
 
         $data = [
@@ -100,6 +102,6 @@ class Controller extends BaseController
             'trims' => [],
         ];
 
-        return View::make('base.search')->with($data);
+        return response()->view('base.search', $data, 200);
     }
 }

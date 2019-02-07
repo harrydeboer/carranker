@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\View\View;
+use Illuminate\Http\Response;
 
 class LoginController extends Controller
 {
@@ -37,15 +37,16 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function showLoginForm(): View
+    public function showLoginForm(): Response
     {
+        $this->decorator();
         $data = [
             'title' => 'Login',
             'controller' => 'user',
             'page' => $this->pageRepository->getByName('login'),
         ];
 
-        return view('auth.login')->with($data);
+        return response()->view('auth.login', $data, 200);
     }
 
     /**

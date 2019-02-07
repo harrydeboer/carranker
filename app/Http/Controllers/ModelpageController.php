@@ -15,7 +15,7 @@ use App\Repositories\UserRepository;
 use App\Services\TrimService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+use Illuminate\Http\Response;
 
 class ModelpageController extends Controller
 {
@@ -36,8 +36,18 @@ class ModelpageController extends Controller
         $this->userRepository = new UserRepository();
     }
 
-    public function view(string $makename, string $modelname, Request $request): \Illuminate\View\View
+    public function view(string $makename, string $modelname, Request $request): Response
     {
+        $user = Auth::user();
+        $cacheString = 'modelpage' . $makename . $modelname;
+        $request->getQueryString();
+
+        if ($this->redis->get($cacheString) === true && is_null($user) && $request->getMethod() === 'GET') {
+            return response($this->redis->get($cacheString), 200);
+        }
+
+        $this->decorator();
+        $request->getMethod();
         $makename = rawurldecode($makename);
         $modelname = rawurldecode($modelname);
         $trimId = (int) $request->query('trimId');
@@ -89,7 +99,13 @@ class ModelpageController extends Controller
             'ratings' => $this->userRepository->getRatingsModel(Auth::user(), $model->getId()),
         ];
 
-        return View::make('modelpage.index')->with($data);
+        $response = response()->view('modelpage.index', $data, 200);
+
+        if (is_null($user) && $request->getMethod() === 'GET') {
+            $this->redis->set($cacheString, $response->getContent(), self::cacheExpire);
+        }
+
+        return $response;
     }
 
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */

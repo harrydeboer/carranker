@@ -10,9 +10,9 @@
     <a href="https://policies.google.com/terms">Terms of Service</a> apply.
 </div>
 <BR>
-<img data-src="{{ fileUrl('/img/No123.jpg') }}" src="{{ $lazyLoad === false ? fileUrl('/img/No123.jpg') :
-    fileUrl('/img/favicon-16x16.png') }}" alt="Cars No 1, 2 and 3" id="numbercar"
-     class="{{ $lazyLoad === true ? 'lazy' : '' }} img-thumbnail col-md-12">
+<img data-src="{{ fileUrl('/img/No123.jpg') }}" src="{{ isset($lazyLoad) && $lazyLoad === true ? fileUrl('/img/favicon-16x16.png') :
+    fileUrl('/img/No123.jpg') }}" alt="Cars No 1, 2 and 3" id="numbercar"
+     class="{{ isset($lazyLoad) && $lazyLoad === true ? 'lazy' : '' }} img-thumbnail col-md-12">
 <BR>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
