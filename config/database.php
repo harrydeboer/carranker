@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'sqlite_testing'),
+    'default' => env('DB_CONNECTION'),
 
     /*
     |--------------------------------------------------------------------------
@@ -40,50 +40,50 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'unix_socket' => env('DB_SOCKET', ''),
+            'host' => env('DB_HOST'),
+            'port' => env('DB_PORT'),
+            'database' => env('DB_DATABASE'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
+            'unix_socket' => env('DB_SOCKET'),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'strict' => true,
             'engine' => null,
-            'modes'  => env("APP_ENV", null) == 'local' ?
+            'modes'  => env("APP_ENV") == 'local' ?
                 ['ONLY_FULL_GROUP_BY',
                     'STRICT_TRANS_TABLES',
                     'NO_ZERO_IN_DATE',
                     'NO_ZERO_DATE',
                     'ERROR_FOR_DIVISION_BY_ZERO',
                     'NO_ENGINE_SUBSTITUTION',] : null,
-            'options' => env("APP_ENV", null) == 'local' ? null :
+            'options' => env("APP_ENV") == 'local' ? null :
                 [PDO::MYSQL_ATTR_SSL_CA => '/var/lib/mysql/ca.pem',
                     PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,],
         ],
 
         'test_mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('TEST_DATABASE', ''),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'unix_socket' => env('DB_SOCKET', ''),
+            'host' => env('DB_HOST'),
+            'port' => env('DB_PORT'),
+            'database' => env('TEST_DATABASE'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
+            'unix_socket' => env('DB_SOCKET'),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'strict' => true,
             'engine' => null,
-            'modes'  => env("APP_ENV", null) == 'testing' ?
+            'modes'  => env("APP_ENV") == 'testing' ?
                 ['ONLY_FULL_GROUP_BY',
                     'STRICT_TRANS_TABLES',
                     'NO_ZERO_IN_DATE',
                     'NO_ZERO_DATE',
                     'ERROR_FOR_DIVISION_BY_ZERO',
                     'NO_ENGINE_SUBSTITUTION',] : null,
-            'options' => env("APP_ENV", null) == 'testing' ? null :
+            'options' => env("APP_ENV") == 'testing' ? null :
                 [PDO::MYSQL_ATTR_SSL_CA => '/var/lib/mysql/ca.pem',
                     PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,],
         ],
@@ -142,24 +142,24 @@ return [
         'client' => 'phpredis',
 
         'default' => [
-            'host'     => env('REDIS_HOST', 'localhost'),
-            'password' => env('REDIS_PASSWORD', null),
-            'port'     => env('REDIS_PORT', 6379),
-            'database' => env('APP_ENV') === 'testing' ? 15 : env('REDIS_DB_CACHE', 15),
+            'host'     => env('REDIS_HOST'),
+            'password' => env('REDIS_PASSWORD'),
+            'port'     => env('REDIS_PORT'),
+            'database' => env('APP_ENV') === 'testing' ? 15 : env('REDIS_DB_CACHE'),
         ],
 
         'session' => [
-            'host' => env('REDIS_HOST', 'localhost'),
-            'password' => env('REDIS_PASSWORD', null),
-            'port' => env('REDIS_PORT', 6379),
-            'database' => env('APP_ENV') === 'testing' ? 13 : env('REDIS_DB_SESSION', 13),
+            'host' => env('REDIS_HOST'),
+            'password' => env('REDIS_PASSWORD'),
+            'port' => env('REDIS_PORT'),
+            'database' => env('APP_ENV') === 'testing' ? 13 : env('REDIS_DB_SESSION'),
         ],
 
         'cache' => [
-            'host'     => env('REDIS_HOST', 'localhost'),
-            'password' => env('REDIS_PASSWORD', null),
-            'port'     => env('REDIS_PORT', 6379),
-            'database' => env('APP_ENV') === 'testing' ? 14 : env('REDIS_DB_CACHE', 14),
+            'host'     => env('REDIS_HOST'),
+            'password' => env('REDIS_PASSWORD'),
+            'port'     => env('REDIS_PORT'),
+            'database' => env('APP_ENV') === 'testing' ? 14 : env('REDIS_DB_CACHE'),
         ],
     ],
 ];

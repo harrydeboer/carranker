@@ -29,5 +29,7 @@ class FlushRedis extends Command
         $redis->auth(env('REDIS_PASSWORD'));
         $redis->select((int) config('database.redis.default.database'));
         $redis->flushDB();
+
+        $this->info('Redis default database flushed!');
     }
 }
