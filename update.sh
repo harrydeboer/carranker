@@ -8,6 +8,7 @@
   php artisan route:clear
   php artisan config:clear
   php artisan view:clear
+  php artisan flushredis
   curl https://carranker.com/opcache_reset.php
   php artisan migrate --force --no-interaction
   php artisan getcmsdata

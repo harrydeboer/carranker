@@ -14,10 +14,7 @@ class TeardownTest extends TestCase
         DB::unprepared("DROP DATABASE " . env('TEST_DATABASE') . ";");
         DB::unprepared("CREATE DATABASE " . env('TEST_DATABASE') . ";");
 
-        $redis = new \Redis();
-        $redis->connect(env('REDIS_HOST'), (int) env('REDIS_PORT'));
-        $redis->auth(env('REDIS_PASSWORD'));
-        $redis->flushAll();
+        $this->artisan('flushredis')->execute();
 
         $this->assertTrue(true);
     }

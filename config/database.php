@@ -141,20 +141,25 @@ return [
 
         'client' => 'phpredis',
 
+        'default' => [
+            'host'     => env('REDIS_HOST', 'localhost'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port'     => env('REDIS_PORT', 6379),
+            'database' => env('APP_ENV') === 'testing' ? 15 : env('REDIS_DB_CACHE', 15),
+        ],
+
         'session' => [
             'host' => env('REDIS_HOST', 'localhost'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),
-            'database' => env('REDIS_DB_SESSION', 0),
-            'read_timeout' => 60,
+            'database' => env('APP_ENV') === 'testing' ? 13 : env('REDIS_DB_SESSION', 13),
         ],
 
         'cache' => [
             'host'     => env('REDIS_HOST', 'localhost'),
             'password' => env('REDIS_PASSWORD', null),
             'port'     => env('REDIS_PORT', 6379),
-            'database' => env('REDIS_DB_CACHE', 1),
-            'read_timeout' => 60,
+            'database' => env('APP_ENV') === 'testing' ? 14 : env('REDIS_DB_CACHE', 14),
         ],
     ],
 ];
