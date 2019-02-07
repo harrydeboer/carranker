@@ -35,7 +35,7 @@ class HomepageController extends Controller
         $user = Auth::user();
         $cacheString = is_null($user) ? $cacheString : $cacheString . 'auth';
 
-        if ($this->redis->get($cacheString) === true && is_null($session->get('aspects'))) {
+        if ($this->redis->get($cacheString) !== false && is_null($session->get('aspects'))) {
             $session->put('lazyLoad', false);
 
             return response($this->redis->get($cacheString), 200);

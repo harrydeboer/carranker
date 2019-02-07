@@ -39,10 +39,10 @@ class ModelpageController extends Controller
     public function view(string $makename, string $modelname, Request $request): Response
     {
         $user = Auth::user();
-        $cacheString = 'modelpage' . $makename . $modelname;
-        $request->getQueryString();
+        $trimId = $request->query('trimId');
+        $cacheString = 'modelpage' . $makename . $modelname . $trimId;
 
-        if ($this->redis->get($cacheString) === true && is_null($user) && $request->getMethod() === 'GET') {
+        if ($this->redis->get($cacheString) !== false && is_null($user) && $request->getMethod() === 'GET') {
             return response($this->redis->get($cacheString), 200);
         }
 
@@ -50,7 +50,7 @@ class ModelpageController extends Controller
         $request->getMethod();
         $makename = rawurldecode($makename);
         $modelname = rawurldecode($modelname);
-        $trimId = (int) $request->query('trimId');
+        $trimId = (int) $trimId;
 
         /**
          * The model that the user visits is stored in the session and also the make of the model
