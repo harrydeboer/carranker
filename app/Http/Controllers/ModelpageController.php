@@ -102,7 +102,7 @@ class ModelpageController extends Controller
         $response = response()->view('modelpage.index', $data, 200);
 
         if (is_null($user) && $request->getMethod() === 'GET') {
-            $this->redis->set($cacheString, $response->getContent(), self::cacheExpire);
+            $this->redis->set($cacheString, $response->getContent(), $this->cacheExpire);
         }
 
         return $response;

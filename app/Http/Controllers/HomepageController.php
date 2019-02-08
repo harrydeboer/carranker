@@ -69,7 +69,7 @@ class HomepageController extends Controller
         $response = response()->view('homepage.index', $data, 200);
 
         if (is_null($session->get('aspects'))) {
-            $this->redis->set($cacheString, $response->getContent(), self::cacheExpire);
+            $this->redis->set($cacheString, $response->getContent(), $this->cacheExpire);
         }
 
         return $response;

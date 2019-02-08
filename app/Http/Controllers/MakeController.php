@@ -36,7 +36,7 @@ class MakeController extends Controller
 
             $response = response()->view('make.index', $data, 200);
 
-            $this->redis->set($cacheString, $response->getContent(), self::cacheExpire);
+            $this->redis->set($cacheString, $response->getContent(), $this->cacheExpire);
 
             return $response;
         }

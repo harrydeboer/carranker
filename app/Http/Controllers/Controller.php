@@ -26,7 +26,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected const topLength = 10;
-    protected const cacheExpire = 600;
+    protected $cacheExpire;
     protected $menuRepository;
     protected $pageRepository;
     protected $makeRepository;
@@ -38,6 +38,7 @@ class Controller extends BaseController
     public function __construct()
     {
         $this->redis = new \Redis();
+        $this->cacheExpire = env('APP_ENV') === 'local' ? 0 : 600;
         $this->redis->connect(env('REDIS_HOST'), (int)env('REDIS_PORT'));
         $this->redis->auth(env('REDIS_PASSWORD'));
         $this->redis->select((int) config('database.redis.default.database'));
