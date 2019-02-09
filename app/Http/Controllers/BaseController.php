@@ -39,7 +39,7 @@ class BaseController extends Controller
     public function __construct()
     {
         $this->redis = new \Redis();
-        $this->cacheExpire = env('APP_ENV') === 'local' ? 600 : 600;
+        $this->cacheExpire = env('APP_ENV') === 'local' ? 0 : 600;
         $this->redis->connect(env('REDIS_HOST'), (int)env('REDIS_PORT'));
         $this->redis->auth(env('REDIS_PASSWORD'));
         $this->redis->select((int) config('database.redis.default.database'));
@@ -101,7 +101,8 @@ class BaseController extends Controller
                     $this->redis->set($cacheString, $footer, $this->cacheExpire);
                 }
 
-                $page = $header . '<meta name="csrf-token" content="' . csrf_token() . '" />' .
+                $header = str_replace('[*metacsrf*]', '<meta name="csrf-token" content="' . csrf_token() . '" />', $header);
+                $page = $header .
                     '<input type="hidden" value="' . $modelname . '" id="modelnameSession">' .
                     $response->getContent() . $footer;
             }
