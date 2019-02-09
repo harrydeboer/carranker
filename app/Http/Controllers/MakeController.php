@@ -19,12 +19,9 @@ class MakeController extends BaseController
         $cacheString = 'makepage';
         $makename = rawurldecode($makename);
         $this->title = $makename;
-        $session = session();
-        $session->put('makename', $makename);
 
         if ($this->redis->get($cacheString) === false) {
             $make = $this->makeRepository->getByName($makename);
-            $this->shareSessionCars($session);
 
             $models = $make->getModels();
             $data = [

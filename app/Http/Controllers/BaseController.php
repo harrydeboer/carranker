@@ -39,7 +39,7 @@ class BaseController extends Controller
     public function __construct()
     {
         $this->redis = new \Redis();
-        $this->cacheExpire = env('APP_ENV') === 'local' ? 0 : 600;
+        $this->cacheExpire = env('APP_ENV') === 'local' ? 600 : 600;
         $this->redis->connect(env('REDIS_HOST'), (int)env('REDIS_PORT'));
         $this->redis->auth(env('REDIS_PASSWORD'));
         $this->redis->select((int) config('database.redis.default.database'));
@@ -61,18 +61,27 @@ class BaseController extends Controller
                 $page = $response->getContent();
             } else {
                 $session = session();
-                $this->decorator();
                 $user = Auth::user();
 
-                $response = $next($request);
-                $responseCode = $response->status();
-                $makename = $session->get('makename');
-                $modelname = $session->get('modelname');
+                $routeParams = $request->route()->parameters();
+                if (isset($routeParams['make'])) {
+                    $makename = rawurldecode($routeParams['make']);
+                    $session->put('makename', $makename);
+                } else {
+                    $makename = $session->get('makename');
+                }
+                if (isset($routeParams['model'])) {
+                    $modelname = rawurldecode($routeParams['model']);
+                    $session->put('modelname', $modelname);
+                } else {
+                    $modelname = $session->get('modelname');
+                }
 
                 $cacheString = is_null($user) ? 'header' . $makename . $controller : 'headerauth' . $makename . $controller;
                 if ($this->redis->get($cacheString) !== false) {
                     $header = response($this->redis->get($cacheString), 200)->getContent();
                 } else {
+                    $this->decorator();
                     $header = response()->view('header', [
                         'title' => $this->title,
                         'controller' => $controller
@@ -80,10 +89,14 @@ class BaseController extends Controller
                     $this->redis->set($cacheString, $header, $this->cacheExpire);
                 }
 
+                $response = $next($request);
+                $responseCode = $response->status();
+
                 $cacheString = 'footer' . $controller;
                 if ($this->redis->get($cacheString) !== false) {
                     $footer = response($this->redis->get($cacheString), 200)->getContent();
                 } else {
+                    $this->decorator();
                     $footer = response()->view('footer', ['controller' => $controller], 200)->getContent();
                     $this->redis->set($cacheString, $footer, $this->cacheExpire);
                 }

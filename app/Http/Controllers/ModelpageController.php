@@ -39,20 +39,12 @@ class ModelpageController extends BaseController
 
     public function view(string $makename, string $modelname, Request $request): Response
     {
-        $session = session();
         $makename = rawurldecode($makename);
         $modelname = rawurldecode($modelname);
         $user = Auth::user();
         $trimId = $request->query('trimId');
         $cacheString = 'modelpage' . $makename . $modelname . $trimId;
         $this->title = $makename . ' ' . $modelname;
-
-        /**
-         * The model that the user visits is stored in the session and also the make of the model
-         * and is used to fill the make and model selects of the navigation.
-         */
-        $session->put('makename', $makename);
-        $session->put('modelname', $modelname);
 
         if ($this->redis->get($cacheString) !== false && is_null($user) && $request->getMethod() === 'GET') {
             return response($this->redis->get($cacheString), 200);
@@ -61,7 +53,6 @@ class ModelpageController extends BaseController
         $this->decorator();
         $request->getMethod();
         $trimId = (int) $trimId;
-        $this->shareSessionCars($session);
 
         $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
         $model->getMake();
