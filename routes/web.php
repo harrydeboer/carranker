@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 Route::get('', ['as' => 'Home', 'uses' => 'HomepageController@view']);
-Route::get('search', ['as' => 'base.search', 'uses' => 'Controller@search']);
+Route::get('search', ['as' => 'base.search', 'uses' => 'BaseController@search']);
 Route::get('filterTop', ['as' => 'filterTop', 'uses' => 'HomepageController@filterTop']);
 Route::get('showMoreTopTable/{numberOfRows}/{offset}', ['as' => 'showMoreTopTable', 'uses' => 'HomepageController@showMoreTopTable']);
 Route::get('contact', ['as' => 'Contact', 'uses' => 'ContactController@view']);

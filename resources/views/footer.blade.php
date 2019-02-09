@@ -1,3 +1,5 @@
+</div>
+<footer class="container">
 <div class="navbar navbar-default text-center">
     <ul id="navmenuFooter" class="nav navbar-nav">
         @foreach ($menuFooter as $page)
@@ -29,3 +31,5 @@
     <script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
 @endif
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92295454-1"></script>
+    </body>
+    </html>

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Response;
 
-class LoginController extends Controller
+class LoginController extends BaseController
 {
     protected $maxAttempts = 3;
     protected $decayMinutes = 5;
+    protected $title = 'Login';
 
     /*
     |--------------------------------------------------------------------------
@@ -39,10 +40,7 @@ class LoginController extends Controller
 
     public function showLoginForm(): Response
     {
-        $this->decorator();
         $data = [
-            'title' => 'Login',
-            'controller' => 'user',
             'page' => $this->pageRepository->getByName('login'),
         ];
 

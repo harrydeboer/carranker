@@ -5,31 +5,29 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
-class MakeController extends Controller
+class MakeController extends BaseController
 {
+    protected $title;
+
     public function view(string $makename): Response
     {
         /**
          * The make that the user visits is stored in the session
          * and is used to fill the make and model selects of the navigation.
          */
+        $cacheString = 'makepage';
+        $makename = rawurldecode($makename);
+        $this->title = $makename;
         $session = session();
         $session->put('makename', $makename);
-        $session->put('modelname', null);
-        $user = Auth::user();
-        $cacheString = is_null($user) ? 'makepage' . $makename : 'makepageauth' . $makename;
 
         if ($this->redis->get($cacheString) === false) {
-            $this->decorator();
-            $make = $this->makeRepository->getByName(rawurldecode($makename));
+            $make = $this->makeRepository->getByName($makename);
             $this->shareSessionCars($session);
 
             $models = $make->getModels();
             $data = [
-                'controller' => 'make',
-                'title' => $make->getName(),
                 'make' => $make,
                 'models' => $models,
             ];

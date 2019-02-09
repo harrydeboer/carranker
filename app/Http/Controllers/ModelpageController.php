@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ModelpageController extends Controller
+class ModelpageController extends BaseController
 {
     private const numReviewsPerModelpage = 3;
     private $ratingRepository;
@@ -25,6 +25,7 @@ class ModelpageController extends Controller
     private $trimService;
     private $profanityRepository;
     private $userRepository;
+    protected $title;
 
     public function __construct()
     {
@@ -39,9 +40,12 @@ class ModelpageController extends Controller
     public function view(string $makename, string $modelname, Request $request): Response
     {
         $session = session();
+        $makename = rawurldecode($makename);
+        $modelname = rawurldecode($modelname);
         $user = Auth::user();
         $trimId = $request->query('trimId');
         $cacheString = 'modelpage' . $makename . $modelname . $trimId;
+        $this->title = $makename . ' ' . $modelname;
 
         /**
          * The model that the user visits is stored in the session and also the make of the model
@@ -56,8 +60,6 @@ class ModelpageController extends Controller
 
         $this->decorator();
         $request->getMethod();
-        $makename = rawurldecode($makename);
-        $modelname = rawurldecode($modelname);
         $trimId = (int) $trimId;
         $this->shareSessionCars($session);
 
@@ -79,8 +81,6 @@ class ModelpageController extends Controller
         $trim = $this->trimRepository->find($trimId);
 
         $data = [
-            'controller' => 'modelpage',
-            'title' => $makename . ' ' . $modelname,
             'aspects' => Aspect::getAspects(),
             'specsChoice' => CarSpecs::specsChoice(),
             'specsRange' => CarSpecs::specsRange(),

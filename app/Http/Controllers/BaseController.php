@@ -14,26 +14,27 @@ use App\Repositories\TrimRepository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Session\SessionManager;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
-class Controller extends BaseController
+class BaseController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected const topLength = 10;
+    protected $title;
     protected $cacheExpire;
+    protected $redis;
+    protected $cacheString;
     protected $menuRepository;
     protected $pageRepository;
     protected $makeRepository;
     protected $modelRepository;
     protected $trimRepository;
-    protected $redis;
-    protected $cacheString;
 
     public function __construct()
     {
@@ -42,21 +43,68 @@ class Controller extends BaseController
         $this->redis->connect(env('REDIS_HOST'), (int)env('REDIS_PORT'));
         $this->redis->auth(env('REDIS_PASSWORD'));
         $this->redis->select((int) config('database.redis.default.database'));
-    }
 
-    protected function decorator()
-    {
-        $session = session();
-
-        /** Lazy loading is done when the user visits the homepage for the first time. The session gets lazyLoad false
-         * so that the next time the user visits the homepage there will not be lazy loading.
-         */
-        $user = Auth::user();
         $this->menuRepository = new MenuRepository();
         $this->pageRepository = new PageRepository();
         $this->makeRepository = new MakeRepository();
         $this->modelRepository = new ModelRepository();
         $this->trimRepository = new TrimRepository();
+
+        $this->middleware(function (Request $request, \Closure $next): Response
+        {
+            $controllerArray = explode('\\', get_class($this));
+            $controller = strtolower(str_replace('Controller', '', end($controllerArray)));
+
+            if ($request->ajax()) {
+                $response = $next($request);
+                $responseCode = $response->status();
+                $page = $response->getContent();
+            } else {
+                $session = session();
+                $this->decorator();
+                $user = Auth::user();
+
+                $response = $next($request);
+                $responseCode = $response->status();
+                $makename = $session->get('makename');
+                $modelname = $session->get('modelname');
+
+                $cacheString = is_null($user) ? 'header' . $makename . $controller : 'headerauth' . $makename . $controller;
+                if ($this->redis->get($cacheString) !== false) {
+                    $header = response($this->redis->get($cacheString), 200)->getContent();
+                } else {
+                    $header = response()->view('header', [
+                        'title' => $this->title,
+                        'controller' => $controller
+                    ], 200)->getContent();
+                    $this->redis->set($cacheString, $header, $this->cacheExpire);
+                }
+
+                $cacheString = 'footer' . $controller;
+                if ($this->redis->get($cacheString) !== false) {
+                    $footer = response($this->redis->get($cacheString), 200)->getContent();
+                } else {
+                    $footer = response()->view('footer', ['controller' => $controller], 200)->getContent();
+                    $this->redis->set($cacheString, $footer, $this->cacheExpire);
+                }
+
+                $page = $header . '<meta name="csrf-token" content="' . csrf_token() . '" />' .
+                    '<input type="hidden" value="' . $modelname . '" id="modelnameSession">' .
+                    $response->getContent() . $footer;
+            }
+
+            if ($responseCode === 200 || $responseCode === 404) {
+                return response($page, $responseCode);
+            }
+
+            return $response;
+        });
+    }
+
+    protected function decorator()
+    {
+        $session = session();
+        $user = Auth::user();
         View::share('isLoggedIn', is_null($user) ? false : true);
         View::share('makenames', $this->makeRepository->getMakeNames());
         View::share('metaKeyWords', 'car, cars, ranker, rate, rank, ranking, rating, top, top ' . self::topLength);
@@ -81,13 +129,11 @@ class Controller extends BaseController
 
     public function search(Request $request): Response
     {
-        $this->decorator();
         $form = new NavForm($request->all());
+        $this->title = 'Search results';
 
         if ($form->validateFull($request)) {
             $data = [
-                'title' => 'Search results',
-                'controller' => 'base',
                 'makes' => $this->makeRepository->findMakesForSearch($form->query),
                 'models' => $this->modelRepository->findModelsForSearch($form->query),
                 'trims' => $this->trimRepository->findTrimsForSearch($form->query),
@@ -97,8 +143,6 @@ class Controller extends BaseController
         }
 
         $data = [
-            'title' => 'Search results',
-            'controller' => 'base',
             'makes' => [],
             'models' => [],
             'trims' => [],

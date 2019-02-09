@@ -13,13 +13,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class HomepageController extends Controller
+class HomepageController extends BaseController
 {
     private const minNumVotes = 30;
     private const topSliderNumber = 10;
     private const numShowMoreLess = 10;
     private const homepageNumReviews = 3;
     private $ratingRepository;
+    protected $title = 'Car Ranker';
 
     public function __construct()
     {
@@ -43,7 +44,6 @@ class HomepageController extends Controller
             return response($this->redis->get($cacheString), 200);
         }
 
-        $this->decorator();
         $session->put('lazyLoad', false);
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
         $topTrims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes,
@@ -52,8 +52,6 @@ class HomepageController extends Controller
         $data = [
             'topLengthSlider' => min(count($topTrims), self::topSliderNumber),
             'numShowMoreLess' => self::numShowMoreLess,
-            'controller' => 'homepage',
-            'title' => 'Car Ranker',
             'lazyLoad' => $isLazyLoad,
             'specsChoice' => CarSpecs::specsChoice(),
             'specsRange' => CarSpecs::specsRange(),

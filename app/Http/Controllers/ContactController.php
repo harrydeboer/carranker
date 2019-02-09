@@ -9,12 +9,12 @@ use App\Repositories\ProfanityRepository;
 use Illuminate\Http\Response;
 use Illuminate\Mail\Message;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
-class ContactController extends Controller
+class ContactController extends BaseController
 {
     private $profanityRepository;
+    protected $title = 'Contact';
 
     public function __construct()
     {
@@ -27,8 +27,6 @@ class ContactController extends Controller
         $this->decorator();
 
         $data = [
-            'controller' => 'contact',
-            'title' => 'Contact',
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'form' => new ContactForm(),
             'page' => $this->pageRepository->getByName('contact'),

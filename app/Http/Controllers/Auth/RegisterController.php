@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Providers\WPHasher;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Repositories\UserRepository;
 use App\User;
 use Illuminate\Http\Response;
@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 
-class RegisterController extends Controller
+class RegisterController extends BaseController
 {
+    protected $title = 'Register';
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -61,10 +62,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(): Response
     {
-        $this->decorator();
         $data = [
-            'title' => 'Register',
-            'controller' => 'user',
             'page' => $this->pageRepository->getByName('register'),
         ];
 
