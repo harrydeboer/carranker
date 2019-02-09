@@ -95,6 +95,8 @@ class BaseController extends Controller
                 $responseCode = $response->status();
 
                 $cacheString = 'footer' . $controller;
+                $isLazyLoad = $session->get('lazyLoad') ?? false;
+                $cacheString = $isLazyLoad ? $cacheString . 'lazy' : $cacheString;
                 if ($this->redis->get($cacheString) !== false) {
                     $footer = response($this->redis->get($cacheString), 200)->getContent();
                 } else {
