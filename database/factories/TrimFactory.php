@@ -23,7 +23,7 @@ $factory->define(App\Models\Trim::class, function (Faker $faker): array {
         'number_of_gears' => $faker->randomElement(\App\CarSpecs::specsChoice()['number_of_gears']['choices']),
         'gearbox_type' => $faker->randomElement(\App\CarSpecs::specsChoice()['gearbox_type']['choices']),
         'price' => $faker->randomNumber(4),
-        'votes' => $faker->randomNumber(2),
+        'votes' => $faker->randomNumber(2) + 1,
         'year_begin' => $year_begin,
         'year_end' => $year_begin + $faker->randomNumber(1),
         'max_trunk_capacity' => $faker->randomNumber(2),

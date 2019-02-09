@@ -16,7 +16,7 @@ $factory->define(App\Models\Model::class, function (Faker $faker): array {
         'content' => $faker->text(),
         'wiki_car_model' => $faker->unique()->name,
         'price' => $faker->randomNumber(4),
-        'votes' => $faker->randomNumber(2),
+        'votes' => $faker->randomNumber(2) + 1,
     ];
 
     foreach (Aspect::getAspects() as $aspect) {
