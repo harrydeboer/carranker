@@ -38,13 +38,17 @@ class HomepageController extends BaseController
         $user = Auth::user();
         $cacheString = is_null($user) ? $cacheString : $cacheString . 'auth';
 
-        if ($this->redis->get($cacheString) !== false && is_null($session->get('aspects'))) {
+        if ($isLazyLoad) {
+            $session->put('lazyLoad', true);
+        } else {
             $session->put('lazyLoad', false);
+        }
+
+        if ($this->redis->get($cacheString) !== false && is_null($session->get('aspects'))) {
 
             return response($this->redis->get($cacheString), 200);
         }
 
-        $session->put('lazyLoad', false);
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
         $topTrims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes,
             $session->get('numberOfRows') ?? self::topLength);

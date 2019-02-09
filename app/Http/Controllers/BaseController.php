@@ -99,7 +99,10 @@ class BaseController extends Controller
                     $footer = response($this->redis->get($cacheString), 200)->getContent();
                 } else {
                     $this->decorator();
-                    $footer = response()->view('footer', ['controller' => $controller], 200)->getContent();
+                    $footer = response()->view('footer', [
+                        'controller' => $controller,
+                        'lazyLoad' => $session->get('lazyLoad') ?? false,
+                    ], 200)->getContent();
                     $this->redis->set($cacheString, $footer, $this->cacheExpire);
                 }
 

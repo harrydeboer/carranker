@@ -13,9 +13,9 @@
     </div>
     <BR>
     <img data-src="{{ fileUrl('/img/No123.jpg') }}"
-         src="{{ isset($lazyLoad) && $lazyLoad === true ? fileUrl('/img/favicon-16x16.png') : fileUrl('/img/No123.jpg') }}"
+         src="{{ $lazyLoad === true ? fileUrl('/img/favicon-16x16.png') : fileUrl('/img/No123.jpg') }}"
          alt="No 1 2 3" id="numbercar"
-         class="{{ isset($lazyLoad) && $lazyLoad === true ? 'lazy' : '' }} img-thumbnail col-md-12 d-none d-lg-block">
+         class="{{ $lazyLoad === true ? 'lazy' : '' }} img-thumbnail col-md-12 d-none d-lg-block">
     <BR>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
