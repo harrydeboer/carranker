@@ -67,6 +67,9 @@ class BaseController extends Controller
                 if (isset($routeParams['make'])) {
                     $makename = rawurldecode($routeParams['make']);
                     $session->put('makename', $makename);
+                    if (!isset($routeParams['model'])) {
+                        $session->put('modelname', '');
+                    }
                 } else {
                     $makename = $session->get('makename');
                 }
@@ -83,7 +86,6 @@ class BaseController extends Controller
                 } else {
                     $this->decorator();
                     $header = response()->view('header', [
-                        'title' => $this->title,
                         'controller' => $controller
                     ], 200)->getContent();
                     $this->redis->set($cacheString, $header, $this->cacheExpire);
@@ -102,6 +104,7 @@ class BaseController extends Controller
                 }
 
                 $header = str_replace('[*metacsrf*]', '<meta name="csrf-token" content="' . csrf_token() . '" />', $header);
+                $header = str_replace('[*title*]', $this->title, $header);
                 $page = $header .
                     '<input type="hidden" value="' . $modelname . '" id="modelnameSession">' .
                     $response->getContent() . $footer;
