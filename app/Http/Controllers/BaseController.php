@@ -110,7 +110,7 @@ class BaseController extends Controller
                     $response->getContent() . $footer;
             }
 
-            if ($responseCode === 200 || $responseCode === 404) {
+            if ($responseCode === 200 || $responseCode === 404 || ($responseCode === 500 && env('APP_ENV') !== 'local')) {
                 return response($page, $responseCode);
             }
 
