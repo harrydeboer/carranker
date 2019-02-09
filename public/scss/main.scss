@@ -58,14 +58,16 @@ body {
     border: none;
     height: 110px;
     margin-bottom: 25px;
-    background-image: url('../img/HeaderChrome.jpg');
+    background: url('../img/HeaderChrome.jpg') no-repeat center;
+    background-size: contain;
+    resize: both;
   }
 
   #numbercar {
     height: 230px;
-    width: 1000px;
-    margin-left: 50px;
-    background-image: url('../img/No123.jpg');
+    background: url('../img/No123.jpg') no-repeat center;
+    background-size: contain;
+    resize: both;
   }
 
   #numbercar.lazy {
