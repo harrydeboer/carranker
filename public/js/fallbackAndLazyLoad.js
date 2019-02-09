@@ -17,6 +17,7 @@ function lazyload()
         {
             if (img.offsetTop < (window.innerHeight + scrollTop)) {
                 img.src = img.dataset.src;
+                img.setAttribute('style', "background-image = url('" + img.dataset.src + "')");
                 img.classList.remove('lazy');
             }
         });
@@ -30,7 +31,7 @@ function lazyload()
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    lazyloadImages = document.querySelectorAll("img.lazy");
+    lazyloadImages = document.querySelectorAll(".lazy");
     if ( lazyloadImages.length > 0 ) {
         setTimeout(lazyload, 3000);
         document.addEventListener("scroll", lazyload);

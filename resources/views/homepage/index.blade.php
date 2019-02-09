@@ -1,9 +1,9 @@
 
 <div class="row">
-    <section class="col-md-9 col-xs-12 text-center">
+    <section class="col-lg-9 col-md-12 text-center">
         {!! $content !!}
     </section>
-    <div id="slideshow" class="col-md-3 d-none d-md-block">
+    <div id="slideshow" class="col-lg-3 d-none d-lg-block">
         @include('homepage.slideshow')
     </div>
 </div>

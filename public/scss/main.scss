@@ -52,10 +52,25 @@ body {
 }
 
 /** Header styling */
-#headerImg {
-  margin-top: 25px;
-  border: none;
-  margin-bottom: 25px;
+@media (min-width: 992px) {
+  #headerImg {
+    margin-top: 25px;
+    border: none;
+    height: 110px;
+    margin-bottom: 25px;
+    background-image: url('../img/HeaderChrome.jpg');
+  }
+
+  #numbercar {
+    height: 230px;
+    width: 1000px;
+    margin-left: 50px;
+    background-image: url('../img/No123.jpg');
+  }
+
+  #numbercar.lazy {
+    background-image: none;
+  }
 }
 
 #carrankerLogo {
