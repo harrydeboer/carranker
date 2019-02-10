@@ -57,7 +57,7 @@ class BaseController extends Controller
             $response = $next($request);
             $responseCode = $response->status();
 
-            $footer = $cacheService->cacheFooter($controller, session(), $this->redis, $this->cacheExpire);
+            $footer = $cacheService->cacheFooter($controller, session(), $this->redis, $this->cacheExpire, $responseCode);
 
             return $cacheService->makeResponse($header, $response, $responseCode, $footer, $this->title);
         });
