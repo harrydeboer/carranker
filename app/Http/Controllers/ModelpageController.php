@@ -9,8 +9,10 @@ use App\Forms\RatingForm;
 use App\Models\Aspect;
 use App\Models\Model;
 use App\Repositories\FXRateRepository;
+use App\Repositories\ModelRepository;
 use App\Repositories\ProfanityRepository;
 use App\Repositories\RatingRepository;
+use App\Repositories\TrimRepository;
 use App\Repositories\UserRepository;
 use App\Services\TrimService;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +37,8 @@ class ModelpageController extends BaseController
         $this->fXRateRepository = new FXRateRepository();
         $this->trimService = new TrimService();
         $this->userRepository = new UserRepository();
+        $this->modelRepository = new ModelRepository();
+        $this->trimRepository = new TrimRepository();
     }
 
     public function view(string $makename, string $modelname, Request $request): Response
@@ -50,7 +54,6 @@ class ModelpageController extends BaseController
             return response($this->redis->get($cacheString), 200);
         }
 
-        $this->decorator();
         $request->getMethod();
         $trimId = (int) $trimId;
 
@@ -78,6 +81,7 @@ class ModelpageController extends BaseController
             'model' => $model,
             'ratingform' => $form,
             'trims' => $trims,
+            'isLoggedIn' => is_null($user) ? false : true,
             'isThankYou' => $isThankYou,
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),

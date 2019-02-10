@@ -24,8 +24,6 @@ class ContactController extends BaseController
 
     public function view(): Response
     {
-        $this->decorator();
-
         $data = [
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'form' => new ContactForm(),

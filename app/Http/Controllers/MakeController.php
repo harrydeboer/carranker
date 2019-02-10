@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Repositories\MakeRepository;
 use Illuminate\Http\Response;
 
 class MakeController extends BaseController
@@ -21,7 +22,8 @@ class MakeController extends BaseController
         $this->title = $makename;
 
         if ($this->redis->get($cacheString) === false) {
-            $make = $this->makeRepository->getByName($makename);
+            $makeRepository = new MakeRepository();
+            $make = $makeRepository->getByName($makename);
 
             $models = $make->getModels();
             $data = [

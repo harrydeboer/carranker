@@ -26,6 +26,7 @@ class HomepageController extends BaseController
     {
         parent::__construct();
         $this->ratingRepository = new RatingRepository();
+        $this->trimRepository = new TrimRepository();
     }
 
     public function view(): Response

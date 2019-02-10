@@ -12,7 +12,11 @@ class ContentSecurityPolicy
     {
         $response = $next($request);
 
-//        if (env('APP_ENV') === 'production' || env('APP_ENV') === 'acceptance') {
+        /** When the app env is local the Laravel error message must be displayed with inline styling and scripting.
+         * Therefore the Content Security Policy is not demanded locally. The other app envs need this security.
+         * Testing has to be done with this security enabled also.
+         */
+        if (env('APP_ENV') !== 'local') {
             $response->headers->set('Content-Security-Policy', "default-src 'self'; style-src 'self' " .
                 "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css " .
                 "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css;" .
@@ -23,7 +27,7 @@ class ContentSecurityPolicy
                 " https://www.gstatic.com https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " .
                 "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js " .
                 "https://code.jquery.com/jquery-3.3.1.min.js; frame-src 'self' https://www.google.com/");
-//        }
+        }
 
         return $response;
     }
