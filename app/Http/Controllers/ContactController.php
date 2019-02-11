@@ -24,6 +24,12 @@ class ContactController extends BaseController
 
     public function view(): Response
     {
+        $cacheString = 'contact';
+        if ($this->redis->get($cacheString) !== false) {
+
+            return response($this->redis->get($cacheString), 200);
+        }
+
         $data = [
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'form' => new ContactForm(),
@@ -31,7 +37,11 @@ class ContactController extends BaseController
             'reCaptchaKey' => env('reCaptchaKey'),
         ];
 
-        return response()->view('contact.index', $data, 200);
+        $response = response()->view('contact.index', $data, 200);
+
+        $this->redis->set($cacheString, $response->getContent(), $this->cacheExpire);
+
+        return $response;
     }
 
     public function sendMail(Request $request): Response

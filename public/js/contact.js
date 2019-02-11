@@ -55,8 +55,10 @@ $(document).ready(function ()
                 sendMail();
             }
 
-            $('#reCaptchaScript').on('load', function() {
-                grecaptcha.ready(function () {
+            $('#reCaptchaScript').on('load', function()
+            {
+                grecaptcha.ready(function ()
+                {
                     sendMail();
                 });
             });
@@ -67,13 +69,17 @@ $(document).ready(function ()
     function sendMail()
     {
         /** The recaptcha element is executed and a token is added to the form which is by ajax to the server. */
-        grecaptcha.execute($('#reCaptchaKey').val(), {action: 'sendMail'}).then(function (reCaptchaToken) {
+        grecaptcha.execute($('#reCaptchaKey').val(), {action: 'sendMail'}).then(function (reCaptchaToken)
+        {
             serializedForm += "&reCaptchaToken=" + reCaptchaToken;
-            $.post('sendMail', serializedForm, function (data) {
+            $.post('sendMail', serializedForm, function (data)
+            {
                 $('#hideAll').hide();
                 if (data === "1") {
                     $('#success').html("Thank you for your mail!");
+                    $('#error').html("");
                 } else {
+                    $('#success').html("");
                     $('#error').html("Could not deliver mail. Try again later.");
                 }
                 $('html, body').animate({

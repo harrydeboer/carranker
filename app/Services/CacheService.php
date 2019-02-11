@@ -8,18 +8,23 @@ use App\Forms\NavForm;
 use App\Repositories\MakeRepository;
 use App\Repositories\MenuRepository;
 use Illuminate\Session\SessionManager;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CacheService
 {
-    public function cacheHeader(string $controller, Request $request, \Redis $redis, int $cacheExpire): string
+    private $redis;
+    private $cacheExpire;
+
+    public function __construct(\Redis $redis, int $cacheExpire)
+    {
+        $this->redis = $redis;
+        $this->cacheExpire = $cacheExpire;
+    }
+
+    public function cacheHeader(string $controller, array $routeParams, bool $isLoggedIn): string
     {
         $session = session();
-        $user = Auth::user();
 
-        $routeParams = $request->route()->parameters();
         if (isset($routeParams['make'])) {
             $makename = rawurldecode($routeParams['make']);
             $session->put('makename', $makename);
@@ -36,9 +41,9 @@ class CacheService
             $modelname = $session->get('modelname');
         }
 
-        $cacheString = is_null($user) ? 'header' . $makename . $controller : 'headerauth' . $makename . $controller;
-        if ($redis->get($cacheString) !== false) {
-            $header = response($redis->get($cacheString), 200)->getContent();
+        $cacheString = $isLoggedIn ? 'headerauth' . $makename . $controller : 'header' . $makename . $controller;
+        if ($this->redis->get($cacheString) !== false) {
+            $header = response($this->redis->get($cacheString), 200)->getContent();
         } else {
 
             $makeRepository = new MakeRepository();
@@ -46,7 +51,7 @@ class CacheService
 
             $data = [
                 'controller' => $controller,
-                'isLoggedIn' => is_null($user) ? false : true,
+                'isLoggedIn' => $isLoggedIn,
                 'makenames' => $makeRepository->getMakeNames(),
                 'metaKeyWords' => 'car, cars, ranker, rate, rank, ranking, rating, top',
                 'metaDescription' => 'Check out the top of all cars and rate your favorite cars!',
@@ -58,7 +63,7 @@ class CacheService
             ];
 
             $header = response()->view('header', $data, 200)->getContent();
-            $redis->set($cacheString, $header, $cacheExpire);
+            $this->redis->set($cacheString, $header, $this->cacheExpire);
         }
 
         $header = str_replace('[*metacsrf*]', '<meta name="csrf-token" content="' . csrf_token() . '" />', $header);
@@ -66,7 +71,7 @@ class CacheService
         return $header . '<input type="hidden" value="' . $modelname . '" id="modelnameSession">';
     }
 
-    public function cacheFooter(string $controller, SessionManager $session, \Redis $redis, int $cacheExpire, int $responseCode): string
+    public function cacheFooter(string $controller, SessionManager $session, int $responseCode): string
     {
         $cacheString = 'footer' . $controller;
 
@@ -77,8 +82,8 @@ class CacheService
         }
 
         $cacheString = $isLazyLoad ? $cacheString . 'lazy' : $cacheString;
-        if ($redis->get($cacheString) !== false) {
-            $footer = response($redis->get($cacheString), 200)->getContent();
+        if ($this->redis->get($cacheString) !== false) {
+            $footer = response($this->redis->get($cacheString), 200)->getContent();
         } else {
             $menuRepository = new MenuRepository();
 
@@ -88,7 +93,7 @@ class CacheService
                 'lazyLoad' => $isLazyLoad,
             ],
                 200)->getContent();
-            $redis->set($cacheString, $footer, $cacheExpire);
+            $this->redis->set($cacheString, $footer, $this->cacheExpire);
         }
 
         return $footer;

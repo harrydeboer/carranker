@@ -12,6 +12,7 @@ use App\Repositories\ModelRepository;
 use App\Repositories\PageRepository;
 use App\Repositories\TrimRepository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -26,7 +27,6 @@ class BaseController extends Controller
     protected $cacheExpire;
     protected $redis;
     protected $cacheString;
-    protected $menuRepository;
     protected $pageRepository;
     protected $makeRepository;
     protected $modelRepository;
@@ -51,13 +51,15 @@ class BaseController extends Controller
                 return $next($request);
             }
 
-            $cacheService = new CacheService();
-            $header = $cacheService->cacheHeader($controller, $request, $this->redis, $this->cacheExpire);
+            $cacheService = new CacheService($this->redis, $this->cacheExpire);
+
+            $isLoggedIn = is_null(Auth::user()) ? false : true;
+            $header = $cacheService->cacheHeader($controller, $request->route()->parameters(), $isLoggedIn);
 
             $response = $next($request);
             $responseCode = $response->status();
 
-            $footer = $cacheService->cacheFooter($controller, session(), $this->redis, $this->cacheExpire, $responseCode);
+            $footer = $cacheService->cacheFooter($controller, session(), $responseCode);
 
             return $cacheService->makeResponse($header, $response, $responseCode, $footer, $this->title);
         });

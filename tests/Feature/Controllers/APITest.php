@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 class APITest extends TestCase
 {
     private $user;
-    private $trim;
 
     public function setUp() {
         parent::setUp();

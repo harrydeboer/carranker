@@ -11,7 +11,6 @@ use App\Repositories\RatingRepository;
 use App\Repositories\TrimRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class HomepageController extends BaseController
 {
@@ -33,11 +32,7 @@ class HomepageController extends BaseController
     {
         $session = session();
         $isLazyLoad = is_null($session->get('lazyLoad'));
-        $makename = $session->get('makename');
-        $modelname = $session->get('modelname');
-        $cacheString = $isLazyLoad ? 'homepagelazy' . $makename . $modelname : 'homepage' . $makename . $modelname;
-        $user = Auth::user();
-        $cacheString = is_null($user) ? $cacheString : $cacheString . 'auth';
+        $cacheString = $isLazyLoad ? 'homepagelazy' : 'homepage';
 
         if ($isLazyLoad) {
             $session->put('lazyLoad', true);
