@@ -13,12 +13,8 @@ class MakeController extends BaseController
 
     public function view(string $makename): Response
     {
-        /**
-         * The make that the user visits is stored in the session
-         * and is used to fill the make and model selects of the navigation.
-         */
-        $cacheString = 'makepage';
         $makename = rawurldecode($makename);
+        $cacheString = 'makepage' . $makename;
         $this->title = $makename;
 
         if ($this->redis->get($cacheString) === false) {
