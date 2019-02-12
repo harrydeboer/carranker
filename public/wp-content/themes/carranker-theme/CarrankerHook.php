@@ -9,7 +9,7 @@ class CarrankerHook
         add_filter( 'rest_authentication_errors', array($this, 'rest_authentication_required_by_admin' ));
         add_action( 'rest_api_init', array($this, 'register_route' ));
 
-        // This theme uses wp_nav_menu() in two locations.
+            // This theme uses wp_nav_menu() in two locations.
         register_nav_menus(
             array(
                 'menu-1' => __( 'Primary', 'carranker-theme' ),

@@ -43,15 +43,12 @@ class MenuRepositoryTest extends TestCase
         $itemHome->title = $pageHome->getName();
         $menusCMS->navigationHeader = [$itemHome];
 
-        $result = $this->menuRepository->syncMenusWithCMS($menusCMS);
-        $this->assertFalse($result === "");
-
         $itemContact = new stdClass();
         $itemContact->title = $pageContact->getName();
         $menusCMS->navigationFooter = [$itemContact];
 
         $result = $this->menuRepository->syncMenusWithCMS($menusCMS);
-        $this->assertEquals($result, "");
+        $this->assertTrue($result);
 
         $this->assertNull($this->menuRepository->find($menu->getId()));
 
@@ -70,5 +67,16 @@ class MenuRepositoryTest extends TestCase
             $this->assertEquals($page->getContent(), $pageContact->getContent());
             $this->assertEquals($page->getTitle(), $pageContact->getTitle());
         }
+    }
+
+    public function testSyncMenusWithCMSException()
+    {
+        $menusCMS = new stdClass();
+        $itemHome = new stdClass();
+        $itemHome->title = '';
+        $menusCMS->navigationHeader = [$itemHome];
+
+        $this->expectException(\Exception::class);
+        $this->menuRepository->syncMenusWithCMS($menusCMS);
     }
 }

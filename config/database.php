@@ -145,21 +145,21 @@ return [
             'host'     => env('REDIS_HOST'),
             'password' => env('REDIS_PASSWORD'),
             'port'     => env('REDIS_PORT'),
-            'database' => env('APP_ENV') === 'testing' ? 15 : env('REDIS_DB_CACHE'),
+            'database' => env('APP_ENV') === 'testing' ? env('TEST_REDIS_DB') : env('REDIS_DB'),
         ],
 
         'session' => [
             'host' => env('REDIS_HOST'),
             'password' => env('REDIS_PASSWORD'),
             'port' => env('REDIS_PORT'),
-            'database' => env('APP_ENV') === 'testing' ? 13 : env('REDIS_DB_SESSION'),
+            'database' => env('APP_ENV') === 'testing' ? env('TEST_REDIS_DB_SESSION') : env('REDIS_DB_SESSION'),
         ],
 
         'cache' => [
             'host'     => env('REDIS_HOST'),
             'password' => env('REDIS_PASSWORD'),
             'port'     => env('REDIS_PORT'),
-            'database' => env('APP_ENV') === 'testing' ? 14 : env('REDIS_DB_CACHE'),
+            'database' => env('APP_ENV') === 'testing' ? env('TEST_REDIS_DB_CACHE') : env('REDIS_DB_CACHE'),
         ],
     ],
 ];
