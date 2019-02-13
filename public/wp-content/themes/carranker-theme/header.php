@@ -21,9 +21,10 @@ $post = get_post();
 if ($post->post_name == 'phpinfo' && in_array( 'administrator', (array) $user->roles )) {
     phpinfo();
     exit;
-} elseif ($post->post_name == 'opcachereset' && DEV_ENV !== 1 && in_array( 'administrator', (array) $user->roles )) {
+} elseif ($post->post_name == 'opcachereset' && (APP_ENV !== 'local' && APP_ENV !== 'testing')
+    && in_array( 'administrator', (array) $user->roles )) {
     opcache_reset();
-    echo 'opcache reset';
+    echo 'Opcache reset!';
 }
 
 ?><!doctype html>

@@ -53,6 +53,7 @@ class MakeController extends Controller
             $make->setContent($request->content);
             $make->update();
             $this->set('make', $make);
+            $this->redis->flushDB();
         }
         $this->set('form', $form);
         $this->_template->_action = 'view';
@@ -63,5 +64,6 @@ class MakeController extends Controller
         Make::delete((int) $request->deleteMakeId);
         $this->set('form', new MakeForm('create'));
         $this->_template->_action = 'view';
+        $this->redis->flushDB();
     }
 }

@@ -35,8 +35,8 @@ class BaseController extends Controller
     public function __construct()
     {
         $this->redis = new \Redis();
-        $this->cacheExpire = env('APP_ENV') === 'local' ? 0 : 3600;
-        $this->redis->connect(env('REDIS_HOST'), (int)env('REDIS_PORT'));
+        $this->cacheExpire = env('APP_ENV') === 'local' ? 120 : 3600;
+        $this->redis->connect(env('REDIS_HOST'), (int) env('REDIS_PORT'));
         $this->redis->auth(env('REDIS_PASSWORD'));
         $this->redis->select((int) config('database.redis.default.database'));
         $this->pageRepository = new PageRepository();

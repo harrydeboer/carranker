@@ -53,6 +53,7 @@ class ProfanityController extends Controller
             $profanity = new Profanity($request);
             $profanity->update();
             $this->set('profanities', Profanity::all(substr($request->name, 0, 1)));
+            $this->redis->flushDB();
         } else {
             $this->set('profanities', Profanity::all($urlParams['character']));
         }
@@ -67,6 +68,7 @@ class ProfanityController extends Controller
         if (!is_null($profanity)) {
             Profanity::delete($profanity->getId());
             $this->set('profanities', Profanity::all(substr($request->deleteProfanityName, 0, 1)));
+            $this->redis->flushDB();
         } else {
             $this->set('profanities', Profanity::all($urlParams['character']));
         }

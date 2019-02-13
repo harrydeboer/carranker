@@ -7,16 +7,15 @@ $dotenvPath = dirname(__DIR__) . '/vendor/vlucas/phpdotenv/src/';
 require_once($dotenvPath . 'Dotenv.php' );
 require_once($dotenvPath . 'Loader.php' );
 require_once($dotenvPath . 'Validator.php' );
-$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv = new Dotenv\Dotenv(dirname(__DIR__));
 $dotenv->load();
 
-define('DB_NAME', getenv('DB_NAME'));
-define('DB_USER', getenv('DB_USER'));
+define('DB_NAME', getenv('DB_DATABASE'));
+define('DB_USER', getenv('DB_USERNAME'));
 define('DB_PASSWORD', getenv('DB_PASSWORD'));
 define('DB_HOST', getenv('DB_HOST'));
-define('DEV_ENV', (int) getenv('DEV_ENV'));
+define('APP_ENV', getenv('APP_ENV'));
 define('JWT_AUTH_SECRET_KEY', getenv('JWT_AUTH_SECRET_KEY'));
-define('LARAVEL_URL', getenv('LARAVEL_URL'));
 define( 'WP_CONTENT_URL', getenv('WP_CONTENT_URL' ));
 
 // ===========================================================

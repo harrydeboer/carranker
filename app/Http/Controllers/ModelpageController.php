@@ -15,6 +15,7 @@ use App\Repositories\RatingRepository;
 use App\Repositories\TrimRepository;
 use App\Repositories\UserRepository;
 use App\Services\TrimService;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -120,6 +121,10 @@ class ModelpageController extends BaseController
             $this->ratingRepository->createRating($user, $model, $trim, $form);
         } else {
             $this->ratingRepository->updateRating($rating, $form);
+        }
+
+        if (!is_null($form->content)) {
+            $this->redis->delete('homepage', 'homepagelazy');
         }
 
         return true;

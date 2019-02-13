@@ -7,7 +7,7 @@ $dotenvPath = dirname(__DIR__) . '/vendor/vlucas/phpdotenv/src/';
 require_once($dotenvPath . 'Dotenv.php' );
 require_once($dotenvPath . 'Loader.php' );
 require_once($dotenvPath . 'Validator.php' );
-$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv = new Dotenv\Dotenv(dirname(__DIR__));
 $dotenv->load();
 
 /*
@@ -38,15 +38,14 @@ define( 'WP_DEBUG', true );
 // These tests will DROP ALL TABLES in the database with the prefix named below.
 // DO NOT use a production database or one that is shared with something else.
 
-define('DB_NAME', getenv('DB_TEST_NAME'));
-define('DB_USER', getenv('DB_USER'));
+define('DB_NAME', getenv('TEST_DATABASE'));
+define('DB_USER', getenv('DB_USERNAME'));
 define('DB_PASSWORD', getenv('DB_PASSWORD'));
 define('DB_HOST', getenv('DB_HOST'));
 define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' );
-define('DEV_ENV', (int) getenv('DEV_ENV'));
+define('APP_ENV', 'testing');
 define('JWT_AUTH_SECRET_KEY', getenv('JWT_AUTH_SECRET_KEY'));
-define('LARAVEL_URL', getenv('LARAVEL_URL'));
 define( 'WP_CONTENT_URL', getenv('WP_CONTENT_URL' ));
 
 /**#@+

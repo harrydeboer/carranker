@@ -24,7 +24,7 @@ class RatingRepository extends BaseRepository
             'trim_id' => $trim->getId(),
             'time' => time(),
         ];
-        if ($form->content === null) {
+        if (is_null($form->content)) {
             $createArray['content'] = null;
         } else {
             $createArray['content'] = mb_convert_encoding($form->content, 'HTML-ENTITIES', 'ISO-8859-1');
@@ -41,7 +41,7 @@ class RatingRepository extends BaseRepository
         foreach ($form->star as $key => $aspect) {
             $rating->setAspect($key, (int) $aspect);
         }
-        if ($form->content === null) {
+        if (is_null($form->content)) {
             $rating->setContent();
         } else {
             $rating->setContent($form->content);
