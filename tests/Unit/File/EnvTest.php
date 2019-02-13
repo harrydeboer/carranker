@@ -22,15 +22,4 @@ class EnvTest extends TestCase
 
         $this->assertEquals($envNames, $envExampleNames);
     }
-
-    public function testEnvWordpress()
-    {
-        $dotenv = new Dotenv\Dotenv(base_path() . '/wordpress');
-        $envNames = $dotenv->getEnvironmentVariableNames();
-
-        $dotenv = new Dotenv\Dotenv(base_path() . '/wordpress', '.env.example');
-        $envExampleNames = $dotenv->getEnvironmentVariableNames();
-
-        $this->assertEquals($envNames, $envExampleNames);
-    }
 }
