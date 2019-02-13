@@ -15,6 +15,7 @@ use App\Repositories\RatingRepository;
 use App\Repositories\TrimRepository;
 use App\Repositories\UserRepository;
 use App\Services\TrimService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -63,11 +64,12 @@ class ModelpageController extends BaseController
         $form = new RatingForm($request->all());
 
         $isThankYou = false;
+        $trims = $model->getTrims();
         if ($form->validateFull($request, $form->reCaptchaToken)) {
-            $isThankYou = $this->rate($form, $model);
+            $isThankYou = $this->rate($form, $model, $trims);
         }
 
-        $trims = $model->getTrims();
+
         $reviews = $this->modelRepository->getReviews($model, self::numReviewsPerModelpage);
 
         /** The links of the pagination get extra html classes to make them centered on the modelpage. */
@@ -105,7 +107,7 @@ class ModelpageController extends BaseController
     }
 
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
-    public function rate(RatingForm $form, Model $model): bool
+    public function rate(RatingForm $form, Model $model, Collection $trims): bool
     {
         $trimArray = explode(';', $form->trimId);
         $trimId = (int) end($trimArray);
@@ -124,7 +126,10 @@ class ModelpageController extends BaseController
         }
 
         if (!is_null($form->content)) {
-            $this->redis->delete('homepage', 'homepagelazy');
+            $this->redis->delete('homepage', 'homepagelazy', 'modelpage' . $trim->getMakename() . $trim->getModelname());
+            foreach ($trims as $trim) {
+                $this->redis->delete('modelpage' . $trim->getMakename() . $trim->getModelname() . $trim->getId());
+            }
         }
 
         return true;
