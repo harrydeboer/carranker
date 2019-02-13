@@ -27,8 +27,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script>
-    <script src="{{ fileUrl('/js/main.min.js') }}"></script>
-    @if ($controller !== 'cms')
+    @if (env('APP_ENV') === 'local')
+        <script src="{{ fileUrl('/js/main.js') }}"></script>
+        <script src="{{ fileUrl('/js/' . $controller . '.js') }}"></script>
+    @else
+        <script src="{{ fileUrl('/js/main.min.js') }}"></script>
         <script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
     @endif
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92295454-1"></script>
