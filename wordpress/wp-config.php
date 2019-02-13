@@ -13,7 +13,7 @@ $dotenv->load();
 define('DB_NAME', getenv('DB_DATABASE'));
 define('DB_USER', getenv('DB_USERNAME'));
 define('DB_PASSWORD', getenv('DB_PASSWORD'));
-define('DB_HOST', getenv('DB_HOST'));
+define('DB_HOST', getenv('WP_DB_HOST'));
 define('APP_ENV', getenv('APP_ENV'));
 define('JWT_AUTH_SECRET_KEY', getenv('JWT_AUTH_SECRET_KEY'));
 define( 'WP_CONTENT_URL', getenv('WP_CONTENT_URL' ));
@@ -64,21 +64,14 @@ define( 'WPLANG', '' );
 // ===========
 // Hide errors
 // ===========
-ini_set( 'display_errors', 1 );
-define( 'WP_DEBUG_DISPLAY', true );
+ini_set( 'display_errors', getenv('APP_DEBUG') ? 1 : 0 );
+define( 'WP_DEBUG_DISPLAY', getenv('APP_DEBUG') );
 
 // =================================================================
 // Debug mode
 // Debugging? Enable these. Can also enable them in local-config.php
 // =================================================================
-define( 'WP_DEBUG', true );
-
-// ======================================
-// Load a Memcached config if we have one
-// ======================================
-if ( file_exists( __DIR__ . '/memcached.php' ) ) {
-    $memcached_servers = include( __DIR__ . '/memcached.php' );
-}
+define( 'WP_DEBUG', getenv('APP_DEBUG') );
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) )
