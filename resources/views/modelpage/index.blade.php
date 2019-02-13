@@ -5,7 +5,6 @@
         </div>
         <div class="col-md-12">
             <img src="{{ fileUrl($model->getImage()) }}"
-                 onerror="this.style.display='none';"
                  id="carModelImg"
                  alt="{{ $model->getMakename() . ' ' . $model->getName() }}"
                  class="pull-right img-thumbnail">

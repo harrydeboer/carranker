@@ -1,4 +1,3 @@
-
 <div class="row">
     <section class="col-lg-9 col-md-12 text-center">
         {!! $content !!}
