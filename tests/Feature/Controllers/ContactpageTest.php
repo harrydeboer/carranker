@@ -17,7 +17,7 @@ class ContactpageTest extends TestCase
 
     public function testSendMail()
     {
-        $response = $this->post('/sendMail', [
+        $response = $this->post('/contact', [
             'email' => 'test@test.com',
             'name' => 'Test',
             'subject' => 'Test',
