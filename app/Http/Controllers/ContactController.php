@@ -22,34 +22,23 @@ class ContactController extends BaseController
         $this->profanityRepository = new ProfanityRepository();
     }
 
-    public function view(): Response
+    public function view(Request $request): Response
     {
         $cacheString = 'contact';
-        if ($this->redis->get($cacheString) !== false) {
+        if ($this->redis->get($cacheString) !== false  && $request->getMethod() === 'GET') {
 
             return response($this->redis->get($cacheString), 200);
         }
 
+        $form = new ContactForm($request->all());
         $data = [
             'profanities' => $this->profanityRepository->getProfanityNames(),
-            'form' => new ContactForm(),
+            'form' => $form,
             'page' => $this->pageRepository->getByName('contact'),
             'reCaptchaKey' => env('reCaptchaKey'),
         ];
 
-        $response = response()->view('contact.index', $data, 200);
-
-        $this->redis->set($cacheString, $response->getContent(), $this->cacheExpire);
-
-        return $response;
-    }
-
-    public function sendMail(Request $request): Response
-    {
-        $form = new ContactForm($request->all());
-
         if ($form->validateFull($request, $form->reCaptchaToken)) {
-
             try {
                 Mail::send('contact.message', ['userMessage' => $form->message], function (Message $message) use ($form)
                 {
@@ -59,15 +48,18 @@ class ContactController extends BaseController
                     $message->to(env('MAIL_USERNAME'));
                 });
 
+                $data['success'] = 'Thank you for your mail!';
             } catch (\Exception $e) {
-
-                return response()->view('contact.mailSend', ['success' => "0"], 200);
+                $data['error'] = 'Could not deliver mail. Try again later.';
             }
-        } else {
-
-            return response()->view('contact.mailSend', ['success' => "0"], 200);
         }
 
-        return response()->view('contact.mailSend', ['success' => "1"], 200);
+        $response = response()->view('contact.index', $data, 200);
+
+        if ($request->getMethod() === 'GET') {
+            $this->redis->set($cacheString, $response->getContent(), $this->cacheExpire);
+        }
+
+        return $response;
     }
 }

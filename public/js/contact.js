@@ -32,60 +32,32 @@ $(document).ready(function ()
 
         if (!testProfanities) {
             $('#error').html('No swearing please.<BR>');
-        } else {
+        } else if (!$('#reCaptchaScript').length) {
+
+            /** Show the loader img */
             $('#hideAll').show();
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            serializedForm = $(this).serialize();
-
             /** The reCaptchaScript element is loaded when not present.*/
-            if (!$('#reCaptchaScript').length) {
-                var head_ID = document.getElementsByTagName("head")[0];
-                var script_element = document.createElement('script');
-                script_element.type = 'text/javascript';
-                script_element.id = "reCaptchaScript";
-                script_element.src = "https://www.google.com/recaptcha/api.js?render=" + $('#reCaptchaKey').val();
-                head_ID.appendChild(script_element);
-            } else {
-                sendMail();
-            }
+            var head_ID = document.getElementsByTagName("head")[0];
+            var script_element = document.createElement('script');
+            script_element.type = 'text/javascript';
+            script_element.id = "reCaptchaScript";
+            script_element.src = "https://www.google.com/recaptcha/api.js?render=" + $('#reCaptchaKey').val();
+            head_ID.appendChild(script_element);
 
-            $('#reCaptchaScript').on('load', function()
-            {
-                grecaptcha.ready(function ()
-                {
-                    sendMail();
+            $('#reCaptchaScript').on('load', function () {
+                grecaptcha.ready(function () {
+                    grecaptcha.execute($('#reCaptchaKey').val(), {action: 'rate'}).then(function (reCaptchaToken)
+                    {
+                        $('#reCaptchaToken').val(reCaptchaToken);
+
+                        /** The form is submitted which triggers the current function again but now the recaptcha element
+                         * is loaded and the events default is not prevented so that the form will actually submit. */
+                        $('#contact-form').submit();
+                    });
                 });
             });
+            event.preventDefault();
         }
-        event.preventDefault();
     });
-
-    function sendMail()
-    {
-        /** The recaptcha element is executed and a token is added to the form which is by ajax to the server. */
-        grecaptcha.execute($('#reCaptchaKey').val(), {action: 'sendMail'}).then(function (reCaptchaToken)
-        {
-            serializedForm += "&reCaptchaToken=" + reCaptchaToken;
-            $.post('sendMail', serializedForm, function (data)
-            {
-                $('#hideAll').hide();
-                if (data === "1") {
-                    $('#success').html("Thank you for your mail!");
-                    $('#error').html("");
-                } else {
-                    $('#success').html("");
-                    $('#error').html("Could not deliver mail. Try again later.");
-                }
-                $('html, body').animate({
-                    scrollTop: $("#contactsArticle").offset().top
-                }, 1000);
-            });
-        });
-    }
 });

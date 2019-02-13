@@ -16,7 +16,6 @@ use App\Repositories\TrimRepository;
 use App\Repositories\UserRepository;
 use App\Services\TrimService;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
