@@ -70,10 +70,10 @@ define( 'WP_TESTS_EMAIL', getenv('TEST_EMAIL') );
 define( 'WP_TESTS_TITLE', 'Test Blog' );
 
 /** WP_PHP_BINARY is not set to php if the install of wordpress in the test database is already executed.
- * A dummy binary is used which does nothing so that wordpress does not install again. Use path to bin/dummy.exe
- * dirname(__DIR__) . '/bin/dummy.exe'
+ * A dummy binary is used which does nothing so that wordpress does not install again. Use path to bin/dummy.bat
+ * dirname(__DIR__) . '/bin/dummy.bat'
  */
-define( 'WP_PHP_BINARY', dirname(__DIR__) . '/bin/dummy.exe');
+define( 'WP_PHP_BINARY', dirname(__DIR__) . '/bin/dummy.bat');
 
 define( 'WPLANG', '' );
 
