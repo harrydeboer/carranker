@@ -6,10 +6,11 @@ use App\Providers\WPHasher;
 use App\Http\Controllers\BaseController;
 use App\Repositories\UserRepository;
 use App\User;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Contracts\Validation\Validator as ValidatorContract;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\Factory;
 
 class RegisterController extends BaseController
 {
@@ -29,17 +30,19 @@ class RegisterController extends BaseController
 
     protected $redirectTo = '/';
     private $userRepository;
+    private $validatorFactory;
 
-    public function __construct()
+    public function __construct(Guard $guard, Factory $validatorFactory)
     {
-        parent::__construct();
+        parent::__construct($guard);
         $this->userRepository = new UserRepository();
+        $this->validatorFactory = $validatorFactory;
         $this->middleware('guest');
     }
 
-    protected function validator(array $data): ValidatorContract
+    protected function validator(array $data): Validator
     {
-        return Validator::make($data, [
+        return $this->validatorFactory->make($data, [
             'user_login' => 'required|string|max:255',
             'user_email' => 'required|string|email|max:255|unique:wp_users',
             'password' => 'required|string|min:6|confirmed',

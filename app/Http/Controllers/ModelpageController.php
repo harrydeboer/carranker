@@ -15,8 +15,8 @@ use App\Repositories\RatingRepository;
 use App\Repositories\TrimRepository;
 use App\Repositories\UserRepository;
 use App\Services\TrimService;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -30,9 +30,9 @@ class ModelpageController extends BaseController
     private $userRepository;
     protected $title;
 
-    public function __construct()
+    public function __construct(Guard $guard)
     {
-        parent::__construct();
+        parent::__construct($guard);
         $this->profanityRepository = new ProfanityRepository();
         $this->ratingRepository = new RatingRepository();
         $this->fXRateRepository = new FXRateRepository();
@@ -46,7 +46,7 @@ class ModelpageController extends BaseController
     {
         $makename = rawurldecode($makename);
         $modelname = rawurldecode($modelname);
-        $user = Auth::user();
+        $user = $this->guard->user();
         $trimId = $request->query('trimId');
         $cacheString = 'modelpage' . $makename . $modelname . $trimId;
         $this->title = $makename . ' ' . $modelname;
@@ -93,7 +93,7 @@ class ModelpageController extends BaseController
             'links' => $links,
             'hasTrimTypes' => $this->trimService->hasTrimTypes($trims),
             'FXRate' => $this->fXRateRepository->getByName('euro/dollar')->getValue(),
-            'ratings' => $this->userRepository->getRatingsModel(Auth::user(), $model->getId()),
+            'ratings' => $this->userRepository->getRatingsModel($this->guard->user(), $model->getId()),
         ];
 
         $response = response()->view('modelpage.index', $data, 200);
@@ -111,7 +111,7 @@ class ModelpageController extends BaseController
         $trimArray = explode(';', $form->trimId);
         $trimId = (int) end($trimArray);
         $trim = $this->trimRepository->get($trimId);
-        $user = Auth::user();
+        $user = $this->guard->user();
         if (is_null($user)) {
             return false;
         }

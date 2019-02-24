@@ -6,19 +6,22 @@ namespace App\Http\Controllers;
 
 use App\Forms\ContactForm;
 use App\Repositories\ProfanityRepository;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Response;
+use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class ContactController extends BaseController
 {
+    private $mailer;
     private $profanityRepository;
     protected $title = 'Contact';
 
-    public function __construct()
+    public function __construct(Mailer $mailer, Guard $guard)
     {
-        parent::__construct();
+        parent::__construct($guard);
+        $this->mailer = $mailer;
         $this->profanityRepository = new ProfanityRepository();
     }
 
@@ -34,7 +37,7 @@ class ContactController extends BaseController
 
         if ($form->validateFull($request, $form->reCaptchaToken)) {
             try {
-                Mail::send('contact.message', ['userMessage' => $form->message], function (Message $message) use ($form)
+                $this->mailer->send('contact.message', ['userMessage' => $form->message], function (Message $message) use ($form)
                 {
                     $message->from(env('MAIL_POSTMASTER_USERNAME'), $form->name);
                     $message->replyTo($form->email, $form->name);

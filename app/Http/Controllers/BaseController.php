@@ -12,7 +12,7 @@ use App\Repositories\ModelRepository;
 use App\Repositories\PageRepository;
 use App\Repositories\TrimRepository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Guard;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -31,9 +31,11 @@ class BaseController extends Controller
     protected $makeRepository;
     protected $modelRepository;
     protected $trimRepository;
+    protected $guard;
 
-    public function __construct()
+    public function __construct(Guard $guard)
     {
+        $this->guard = $guard;
         $this->redis = new \Redis();
         $this->cacheExpire = env('APP_ENV') === 'local' ? 0 : 3600;
         $this->redis->connect(env('REDIS_HOST'), (int) env('REDIS_PORT'));
@@ -53,7 +55,7 @@ class BaseController extends Controller
 
             $cacheService = new CacheService($this->redis, $this->cacheExpire);
 
-            $isLoggedIn = is_null(Auth::user()) ? false : true;
+            $isLoggedIn = is_null($this->guard->user()) ? false : true;
             $header = $cacheService->cacheHeader($controller, $request->route()->parameters(), $isLoggedIn);
 
             $response = $next($request);

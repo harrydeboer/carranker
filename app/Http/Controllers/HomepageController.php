@@ -9,6 +9,7 @@ use App\Forms\FilterTopForm;
 use App\Models\Aspect;
 use App\Repositories\RatingRepository;
 use App\Repositories\TrimRepository;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -21,9 +22,9 @@ class HomepageController extends BaseController
     private $ratingRepository;
     protected $title = 'Car Ranker';
 
-    public function __construct()
+    public function __construct(Guard $guard)
     {
-        parent::__construct();
+        parent::__construct($guard);
         $this->ratingRepository = new RatingRepository();
         $this->trimRepository = new TrimRepository();
     }

@@ -7,11 +7,12 @@ namespace App\Console\Commands;
 use App\Repositories\MenuRepository;
 use App\Repositories\PageRepository;
 use Illuminate\Console\Command;
+use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
-use Illuminate\Support\Facades\Mail;
 
 class GetCMSData extends Command
 {
+    private $mailer;
     private $pageRepository;
     private $menuRepository;
 
@@ -34,9 +35,10 @@ class GetCMSData extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Mailer $mailer)
     {
         parent::__construct();
+        $this->mailer = $mailer;
         $this->pageRepository = new PageRepository();
         $this->menuRepository = new MenuRepository();
     }
@@ -110,7 +112,7 @@ class GetCMSData extends Command
 
         /** When there are errors in the syncing or in the cms a mail is send to the contact form email address. */
         if ($errors !== "") {
-            Mail::send('contact.message', ['userMessage' => $errors], function (Message $message) {
+            $this->mailer->send('contact.message', ['userMessage' => $errors], function (Message $message) {
                 $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
                 $message->subject('Wordpress api error');
                 $message->to(env('MAIL_USERNAME'));

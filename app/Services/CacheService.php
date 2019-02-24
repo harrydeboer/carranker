@@ -66,8 +66,6 @@ class CacheService
             $this->redis->set($cacheString, $header, $this->cacheExpire);
         }
 
-        $header = str_replace('[*metacsrf*]', '<meta name="csrf-token" content="' . csrf_token() . '" />', $header);
-
         return $header . '<input type="hidden" value="' . $modelname . '" id="modelnameSession">';
     }
 
