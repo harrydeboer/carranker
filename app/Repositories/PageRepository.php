@@ -19,7 +19,7 @@ class PageRepository extends BaseRepository
 
     /** The pages from the cms have to be synced with the database. First the pages are created when not present in the
      * database or updated. Then the pages that are not in the cms are deleted.
-     * When data changes redis has to be flushed.
+     * When data there is an update or delete the cache must be flushed.
      */
     public function syncPagesWithCMS(array $pagesCMS): bool
     {
@@ -41,7 +41,7 @@ class PageRepository extends BaseRepository
             throw new \Exception("Error: Necessary page(s) deleted.");
         }
 
-        $flushRedis = false;
+        $flushCache = false;
         $creates = array_diff($namesCMS, $namesDB);
         foreach ($pagesCMS as $pageCMS) {
             if (in_array($pageCMS->slug, $creates)) {
@@ -50,11 +50,11 @@ class PageRepository extends BaseRepository
                     'content' => $pageCMS->content->rendered,
                     'title' => $pageCMS->title->rendered,
                 ]);
-                $flushRedis = true;
+                $flushCache = true;
             } else {
                 $page = $this->getByName($pageCMS->slug);
                 if ($pageCMS->content->rendered !== $page->getContent()) {
-                    $flushRedis = true;
+                    $flushCache = true;
                 }
                 $page->setContent($pageCMS->content->rendered);
                 $page->setTitle($pageCMS->title->rendered);
@@ -66,9 +66,9 @@ class PageRepository extends BaseRepository
         foreach ($deletes as $deleteName) {
             $page = $this->getByName($deleteName);
             $this->delete($page->getId());
-            $flushRedis = true;
+            $flushCache = true;
         }
 
-        return $flushRedis;
+        return $flushCache;
     }
 }

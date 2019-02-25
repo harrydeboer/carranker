@@ -79,7 +79,6 @@ class TrimController extends Controller
             $trim->update();
             $this->set('trim', $trim);
             $this->decorateView($model);
-            $this->redis->flushDB();
         }
         $this->set('form', $form);
         $this->set('hasTrimTypes', Trim::$hasTrimTypes);
@@ -95,7 +94,6 @@ class TrimController extends Controller
         $this->set('form', new TrimForm('create'));
         $this->decorateView($model);
         $this->_template->_action = 'view';
-        $this->redis->flushDB();
     }
 
     private function decorateView(Model $model)

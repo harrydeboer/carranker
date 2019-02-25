@@ -95,19 +95,15 @@ class GetCMSData extends Command
         }
 
         try {
-            $flushRedisPages = $this->pageRepository->syncPagesWithCMS($pagesCMS);
+            $flushPages = $this->pageRepository->syncPagesWithCMS($pagesCMS);
         } catch (\Exception $exception) {
             $errors .= $exception->getMessage();
         }
 
         try {
-            $flushRedisMenus = $this->menuRepository->syncMenusWithCMS($menus);
+            $flushMenus = $this->menuRepository->syncMenusWithCMS($menus);
         } catch (\Exception $exception) {
             $errors .= $exception->getMessage();
-        }
-
-        if ($flushRedisPages || $flushRedisMenus) {
-            $this->call('flushredis');
         }
 
         /** When there are errors in the syncing or in the cms a mail is send to the contact form email address. */

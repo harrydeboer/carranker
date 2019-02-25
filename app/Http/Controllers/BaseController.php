@@ -22,8 +22,6 @@ class BaseController extends Controller
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected const topLength = 10;
-    protected $redis;
-    protected $cacheString;
     protected $pageRepository;
     protected $guard;
     protected $viewFactory;
@@ -32,11 +30,6 @@ class BaseController extends Controller
     {
         $this->guard = app('Illuminate\Contracts\Auth\Guard');
         $this->viewFactory = app('Illuminate\Contracts\View\Factory');
-        $this->redis = new \Redis();
-        $this->cacheExpire = env('APP_ENV') === 'local' ? 0 : 3600;
-        $this->redis->connect(env('REDIS_HOST'), (int) env('REDIS_PORT'));
-        $this->redis->auth(env('REDIS_PASSWORD'));
-        $this->redis->select((int) config('database.redis.default.database'));
         $this->pageRepository = new PageRepository();
 
         $this->middleware(function (Request $request, \Closure $next): Response

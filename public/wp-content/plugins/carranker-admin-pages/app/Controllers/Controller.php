@@ -15,17 +15,12 @@ abstract class Controller {
     protected $_controller;
     protected $_action;
     protected $_template;
-    protected $redis;
 
     /* Builds a model, user and template object. Parameters, brands */
     public function __construct($controller, $action)
     {
         $this->_controller = $controller;
         $this->_action = $action;
-        $this->redis = new \Redis();
-        $this->redis->connect(getenv('REDIS_HOST'), (int)getenv('REDIS_PORT'));
-        $this->redis->auth(getenv('REDIS_PASSWORD'));
-        $this->redis->select(APP_ENV === 'testing' ? (int) getenv('TEST_REDIS_DB') : (int) getenv('REDIS_DB'));
 
         require_once dirname(__DIR__, 2) . '/library/Template.php';
         require_once dirname(__DIR__) . '/Models/BaseModel.php';

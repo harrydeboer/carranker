@@ -59,7 +59,6 @@ class ModelController extends Controller
             $model->setMakeId($make->getId());
             $model->update();
             $this->set('model', $model);
-            $this->redis->flushDB();
         }
         $this->set('form', $form);
         $this->_template->_action = 'view';
@@ -70,6 +69,5 @@ class ModelController extends Controller
         Model::delete((int) $request->deleteModelId);
         $this->set('form', new ModelForm('create'));
         $this->_template->_action = 'view';
-        $this->redis->flushDB();
     }
 }

@@ -120,13 +120,6 @@ class ModelpageController extends BaseController
             $this->ratingRepository->updateRating($rating, $form);
         }
 
-        if (!is_null($form->content)) {
-            $this->redis->delete('homepage', 'homepagelazy', 'modelpage' . $trim->getMakename() . $trim->getModelname());
-            foreach ($trims as $trim) {
-                $this->redis->delete('modelpage' . $trim->getMakename() . $trim->getModelname() . $trim->getId());
-            }
-        }
-
         return true;
     }
 }

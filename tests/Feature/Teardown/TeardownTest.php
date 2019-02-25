@@ -14,8 +14,6 @@ class TeardownTest extends TestCase
         DB::unprepared("DROP DATABASE " . env('TEST_DATABASE') . ";");
         DB::unprepared("CREATE DATABASE " . env('TEST_DATABASE') . ";");
 
-        $this->artisan('flushredis')->execute();
-
         $this->assertTrue(true);
     }
 }
