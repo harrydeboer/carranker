@@ -31,14 +31,6 @@ class HomepageController extends BaseController
     public function view(): Response
     {
         $session = session();
-        $isLazyLoad = is_null($session->get('lazyLoad'));
-
-        if ($isLazyLoad) {
-            $session->put('lazyLoad', true);
-        } else {
-            $session->put('lazyLoad', false);
-        }
-
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
         $topTrims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes,
             $session->get('numberOfRows') ?? self::topLength);
@@ -47,7 +39,6 @@ class HomepageController extends BaseController
             'title' => 'Car Ranker',
             'topLengthSlider' => min(count($topTrims), self::topSliderNumber),
             'numShowMoreLess' => self::numShowMoreLess,
-            'lazyLoad' => $isLazyLoad,
             'specsChoice' => CarSpecs::specsChoice(),
             'specsRange' => CarSpecs::specsRange(),
             'aspects' => Aspect::getAspects(),
@@ -61,7 +52,6 @@ class HomepageController extends BaseController
 
         return response()->view('homepage.index', $data, 200);
     }
-
 
     public function filterTop(Request $request): Response
     {

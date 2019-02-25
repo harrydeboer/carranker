@@ -47,8 +47,9 @@ class BaseController extends Controller
             $menuRepository = new MenuRepository();
 
             $session = session();
-            if ($controller === 'homepage') {
-                $isLazyLoad = $session->get('lazyLoad') ?? false;
+            if (is_null($session->get('lazyLoad'))) {
+                $isLazyLoad = true;
+                $session->put('lazyLoad', false);
             } else {
                 $isLazyLoad = false;
             }

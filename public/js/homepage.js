@@ -176,8 +176,6 @@ $(document).ready(function ()
             $('html, body').animate({
                 scrollTop: $("#topCars").offset().top
             }, 1000);
-            lazyloadImages = document.querySelectorAll("img.lazy");
-            setTimeout(lazyload, 3000);
         });
 
         event.preventDefault();
