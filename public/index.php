@@ -37,10 +37,12 @@ require_once($illuminatePath . '/Encryption/Encrypter.php');
 $encrypter = new \Illuminate\Encryption\Encrypter(base64_decode(substr(getenv('APP_KEY'), 7)), getenv('APP_CIPHER'));
 
 $url = $_SERVER['REQUEST_URI'];
-$cacheExpire = getenv('APP_ENV') === 'local' ? 0 : 3600;
+$cacheExpire = getenv('APP_ENV') === 'local' ? 120 : 3600;
+session_start();
 
 if ($url === '/' && $redis->get($url) !== false && isset($_SESSION['lazyLoad'])) {
 
+    $isLazyLoad = false;
     if (isset($_COOKIE['laravel_session'])) {
         $result = $encrypter->decrypt($_COOKIE['laravel_session'], false);
         $redisData = $redisSession->get('laravel:' . $result);
@@ -56,10 +58,10 @@ if ($url === '/' && $redis->get($url) !== false && isset($_SESSION['lazyLoad']))
         echo $redis->get($url);
     }
 
-} else if ($url === '/' && $redis->get($url . 'lazy') !== false) {
+} else if ($url === '/' && $redis->get($url . 'lazy') !== false && !isset($_SESSION['lazyLoad'])) {
 
-    session_start();
     $_SESSION['lazyLoad'] = false;
+    $isLazyLoad = true;
     echo $redis->get($url . 'lazy');
 
 } else {
@@ -112,11 +114,11 @@ if ($url === '/' && $redis->get($url) !== false && isset($_SESSION['lazyLoad']))
         $request = Illuminate\Http\Request::capture()
     );
 
-    if ($url === '/' && isset($_COOKIE['laravel_session'])) {
+    if ($url === '/' && isset($_SESSION['lazyLoad'])) {
         if (!isset($sessionObject['aspects'])) {
             $redis->set($url, $response->getContent(), $cacheExpire);
         }
-    } else if ($url === '/' && !isset($_COOKIE['laravel_session'])) {
+    } else if ($url === '/' && !isset($_SESSION['lazyLoad'])) {
         $redis->set($url . 'lazy', $response->getContent(), $cacheExpire);
     }
     $response->send();
