@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Response;
 
@@ -11,7 +10,6 @@ class LoginController extends BaseController
 {
     protected $maxAttempts = 3;
     protected $decayMinutes = 5;
-    protected $title = 'Login';
 
     /*
     |--------------------------------------------------------------------------
@@ -33,15 +31,16 @@ class LoginController extends BaseController
      */
     protected $redirectTo = '/';
 
-    public function __construct(Guard $guard)
+    public function __construct()
     {
-        parent::__construct($guard);
+        parent::__construct();
         $this->middleware('guest')->except('logout');
     }
 
     public function showLoginForm(): Response
     {
         $data = [
+            'title' => 'Login',
             'page' => $this->pageRepository->getByName('login'),
         ];
 

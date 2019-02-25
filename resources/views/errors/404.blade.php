@@ -1,1 +1,5 @@
-<h2>{{ $exception->getMessage() }}</h2>
+@extends('layout')
+
+@section('content')
+    <h2>{{ $exception->getMessage() }}</h2>
+@endsection

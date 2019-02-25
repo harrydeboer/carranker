@@ -9,7 +9,6 @@ use App\Forms\FilterTopForm;
 use App\Models\Aspect;
 use App\Repositories\RatingRepository;
 use App\Repositories\TrimRepository;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -20,11 +19,11 @@ class HomepageController extends BaseController
     private const numShowMoreLess = 10;
     private const homepageNumReviews = 3;
     private $ratingRepository;
-    protected $title = 'Car Ranker';
+    private $trimRepository;
 
-    public function __construct(Guard $guard)
+    public function __construct()
     {
-        parent::__construct($guard);
+        parent::__construct();
         $this->ratingRepository = new RatingRepository();
         $this->trimRepository = new TrimRepository();
     }
@@ -33,7 +32,6 @@ class HomepageController extends BaseController
     {
         $session = session();
         $isLazyLoad = is_null($session->get('lazyLoad'));
-        $cacheString = $isLazyLoad ? 'homepagelazy' : 'homepage';
 
         if ($isLazyLoad) {
             $session->put('lazyLoad', true);
@@ -41,16 +39,12 @@ class HomepageController extends BaseController
             $session->put('lazyLoad', false);
         }
 
-        if ($this->redis->get($cacheString) !== false && is_null($session->get('aspects'))) {
-
-            return response($this->redis->get($cacheString), 200);
-        }
-
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
         $topTrims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes,
             $session->get('numberOfRows') ?? self::topLength);
 
         $data = [
+            'title' => 'Car Ranker',
             'topLengthSlider' => min(count($topTrims), self::topSliderNumber),
             'numShowMoreLess' => self::numShowMoreLess,
             'lazyLoad' => $isLazyLoad,
@@ -65,13 +59,7 @@ class HomepageController extends BaseController
             'content' => $this->pageRepository->getByName('home')->getContent(),
         ];
 
-        $response = response()->view('homepage.index', $data, 200);
-
-        if (is_null($session->get('aspects'))) {
-            $this->redis->set($cacheString, $response->getContent(), $this->cacheExpire);
-        }
-
-        return $response;
+        return response()->view('homepage.index', $data, 200);
     }
 
 
@@ -79,7 +67,6 @@ class HomepageController extends BaseController
     {
         $session = session();
         $form = new FilterTopForm($request->all());
-        $trimRepository = new TrimRepository();
 
         if ($form->validateFull($request)) {
 
@@ -89,7 +76,7 @@ class HomepageController extends BaseController
             $session->put('specsChoice', $form->specsChoice);
             $session->put('specsRange', $form->specsRange);
 
-            $topTrims = $trimRepository->findTrimsOfTop($session, (int) $form->minNumVotes, (int) $form->numberOfRows);
+            $topTrims = $this->trimRepository->findTrimsOfTop($session, (int) $form->minNumVotes, (int) $form->numberOfRows);
             $session->put('numberOfRows', count($topTrims));
 
             $data = [
@@ -116,9 +103,8 @@ class HomepageController extends BaseController
     public function showMoreTopTable(string $numberOfRows, string $offset): Response
     {
         $session = session();
-        $trimRepository = new TrimRepository();
         $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
-        $trims = $trimRepository->findTrimsOfTop($session, $minNumVotes, (int) $numberOfRows, (int) $offset);
+        $trims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes, (int) $numberOfRows, (int) $offset);
         $session->put('numberOfRows', count($trims) + (int) $offset);
 
         return response()->view('homepage.showMoreTopTable', ['trims' => $trims, 'offset' => (int) $offset], 200);

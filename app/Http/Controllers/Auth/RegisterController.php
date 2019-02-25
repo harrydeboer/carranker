@@ -6,7 +6,6 @@ use App\Providers\WPHasher;
 use App\Http\Controllers\BaseController;
 use App\Repositories\UserRepository;
 use App\User;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Response;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Contracts\Validation\Validator;
@@ -14,7 +13,6 @@ use Illuminate\Validation\Factory;
 
 class RegisterController extends BaseController
 {
-    protected $title = 'Register';
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -32,9 +30,9 @@ class RegisterController extends BaseController
     private $userRepository;
     private $validatorFactory;
 
-    public function __construct(Guard $guard, Factory $validatorFactory)
+    public function __construct(Factory $validatorFactory)
     {
-        parent::__construct($guard);
+        parent::__construct();
         $this->userRepository = new UserRepository();
         $this->validatorFactory = $validatorFactory;
         $this->middleware('guest');
@@ -66,6 +64,7 @@ class RegisterController extends BaseController
     public function showRegistrationForm(): Response
     {
         $data = [
+            'title' => 'Register',
             'page' => $this->pageRepository->getByName('register'),
         ];
 

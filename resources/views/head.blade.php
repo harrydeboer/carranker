@@ -4,6 +4,9 @@
 <meta name="author" content="Harry de Boer" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="theme-color" content="#336699">
+@if (isset($csrf_token))
+    <meta name="csrf-token" content="{{ $csrf_token }}">
+@endif
 
 <link rel="apple-touch-icon" sizes="180x180" href="{{ fileUrl('/img/apple-touch-icon.png') }}">
 <link rel="icon" type="image/png" href="{{ fileUrl('/img/favicon-32x32.png') }}" sizes="32x32">

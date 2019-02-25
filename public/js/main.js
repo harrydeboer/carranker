@@ -3,9 +3,6 @@ if (typeof($.fn.modal) === 'undefined') {
     document.write('<script src="/js/bootstrap.min.js"></script>');
 }
 
-var modelnameSession = document.getElementById('modelnameSession').value;
-document.getElementById('nav_select_model').value=modelnameSession;
-
 $(document).ready(function ()
 {
     if ($('#hideAll').is(':visible') === true) {

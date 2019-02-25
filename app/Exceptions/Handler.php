@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -50,6 +51,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        $viewFactory = app('Illuminate\Contracts\View\Factory');
+        $viewFactory->share('message', $exception->getMessage());
+        $viewFactory->share('controller', 'error');
+
+        try {
+            if ($exception->getStatusCode() === 404) {
+                $viewFactory->share('title', 'Not Found');
+            }  else {
+                $viewFactory->share('title', 'Error');
+            }
+        } catch (Exception $exception) {
+            $viewFactory->share('title', 'Error');
+        }
+
         return parent::render($request, $exception);
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends BaseController
@@ -33,9 +32,9 @@ class ResetPasswordController extends BaseController
      *
      * @return void
      */
-    public function __construct(Guard $guard)
+    public function __construct()
     {
-        parent::__construct($guard);
+        parent::__construct();
         $this->middleware('guest');
     }
 }

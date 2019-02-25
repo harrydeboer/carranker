@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Forms\ContactForm;
 use App\Repositories\ProfanityRepository;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Response;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
@@ -16,11 +15,10 @@ class ContactController extends BaseController
 {
     private $mailer;
     private $profanityRepository;
-    protected $title = 'Contact';
 
-    public function __construct(Mailer $mailer, Guard $guard)
+    public function __construct(Mailer $mailer)
     {
-        parent::__construct($guard);
+        parent::__construct();
         $this->mailer = $mailer;
         $this->profanityRepository = new ProfanityRepository();
     }
@@ -29,6 +27,7 @@ class ContactController extends BaseController
     {
         $form = new ContactForm($request->all());
         $data = [
+            'title' => 'Contact',
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'form' => $form,
             'page' => $this->pageRepository->getByName('contact'),
