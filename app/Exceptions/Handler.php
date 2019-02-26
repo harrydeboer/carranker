@@ -7,6 +7,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -61,7 +62,7 @@ class Handler extends ExceptionHandler
             }  else {
                 $viewFactory->share('title', 'Error');
             }
-        } catch (Exception $exception) {
+        } catch (Throwable $exceptionNot404) {
             $viewFactory->share('title', 'Error');
         }
 
