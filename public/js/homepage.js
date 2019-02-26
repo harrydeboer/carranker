@@ -91,9 +91,6 @@ $(document).ready(function ()
         /** More trims are loaded only when there are not enough trims hidden. Otherwise the hidden trims are shown. */
         if ($('.topRow:visible').length + numShowMoreLess > $('.topRow').length) {
 
-            /** Show the loader img */
-            $('#hideAll').show();
-
             /** The extra number of trims is numShowMoreLess except for the case that the current number of trims is not a ten fold.
              * Showing more trims is always the upper ten fold. */
             if ($('.topRow:visible').length % 10 === 0) {
@@ -105,15 +102,17 @@ $(document).ready(function ()
             $.get('showMoreTopTable/' + sessionStorage.numberOfRows + '/' + $('.topRow').length, "", function (data)
             {
                 $('#tableTop').append(data);
+
                 sessionStorage.numberOfRows = $('#tableTop tr').length;
                 showPartTopTable(sessionStorage.numberOfRows);
+
                 var heightNew = $(document).height();
                 $(window).scrollTop(y + heightNew - height);
-                $('#hideAll').hide();
             });
         } else {
             sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) + numShowMoreLess;
             showPartTopTable(sessionStorage.numberOfRows);
+
             var heightNew = $(document).height();
             $(window).scrollTop(y + heightNew - height);
         }
@@ -133,6 +132,7 @@ $(document).ready(function ()
                 sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) - parseInt(sessionStorage.numberOfRows) % 10;
             }
             showPartTopTable(sessionStorage.numberOfRows);
+
             var heightNew = $(document).height();
             $(window).scrollTop(y + heightNew - height);
         }
@@ -140,9 +140,6 @@ $(document).ready(function ()
 
     $("#filterTopForm").on('submit', function (event)
     {
-        /** Show the loader img */
-        $('#hideAll').show();
-
         /** When there are less trims visible than numShowMoreLess the filtering tries to find numShowMoreLess trims.
          * Otherwise the number of visible trims is asked from the server. */
         var rows;
@@ -163,16 +160,12 @@ $(document).ready(function ()
             $('#slideshow').html(array[1]);
             $("#atLeastVotes").html('<em>with at least ' + array[2] + ' votes</em>');
 
-            /** Hide the loader img */
-            $("#hideAll").hide();
-
             /** Activate the slider */
             $('#carousel').carousel();
 
             showPartTopTable($('#tableTop tr').length);
-
             sessionStorage.numberOfRows = $('#tableTop tr').length;
-            $("#preferencesDialog").css('margin-top', '0');
+            
             $('html, body').animate({
                 scrollTop: $("#topCars").offset().top
             }, 1000);
