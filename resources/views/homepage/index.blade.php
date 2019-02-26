@@ -43,7 +43,7 @@
     </div>
     <div id="preferencesDialog" class="col-md-8 collapse mx-auto">
         <input type="hidden" value="{{ $minNumVotesDefault }}" id="minNumVotesDefault">
-        {!! Form::model($filterform, ['route' => ['filterTop'], 'id' => 'filterTopForm']) !!}
+        {!! Form::model($filterform, ['route' => ['filterTop'], 'id' => 'filterTopForm', 'method' => 'get']) !!}
         {!! Form::label('minNumVotes', 'Minimum number of votes:', ['class' => 'collapseChoice control-label']) !!}
         {!! Form::number('minNumVotes', old('minNumVotes'), ['class'=>'collapseChoice form-control',
         'step' => 1, 'id' => 'minNumVotes', 'required']) !!}

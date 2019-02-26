@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function ()
     function lazyload()
     {
         if (typeof hasLazyLoaded === 'undefined') {
-            var scrollTop = window.pageYOffset;
             lazyloadImages.forEach(function (img) {
                 img.src = img.dataset.src;
                 img.classList.remove('lazy');

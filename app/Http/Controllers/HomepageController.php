@@ -30,10 +30,9 @@ class HomepageController extends BaseController
 
     public function view(): Response
     {
-        $session = session();
-        $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
-        $topTrims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes,
-            $session->get('numberOfRows') ?? self::topLength);
+        $form = new FilterTopForm();
+        $minNumVotes = self::minNumVotes;
+        $topTrims = $this->trimRepository->findTrimsOfTop($form, $minNumVotes,self::topLength);
 
         $data = [
             'title' => 'Car Ranker',
@@ -46,7 +45,7 @@ class HomepageController extends BaseController
             'topTrims' => $topTrims,
             'minNumVotes' => $minNumVotes,
             'minNumVotesDefault' => self::minNumVotes,
-            'filterform' => new FilterTopForm($session->all()),
+            'filterform' => $form,
             'content' => $this->pageRepository->getByName('home')->getContent(),
         ];
 
@@ -55,25 +54,17 @@ class HomepageController extends BaseController
 
     public function filterTop(Request $request): Response
     {
-        $session = session();
         $form = new FilterTopForm($request->all());
 
         if ($form->validateFull($request)) {
 
-            /** When a user filters the top the filtering is stored in the session. */
-            $session->put('minNumVotes', (int) $form->minNumVotes);
-            $session->put('aspects', $form->aspects);
-            $session->put('specsChoice', $form->specsChoice);
-            $session->put('specsRange', $form->specsRange);
-
-            $topTrims = $this->trimRepository->findTrimsOfTop($session, (int) $form->minNumVotes, (int) $form->numberOfRows);
-            $session->put('numberOfRows', count($topTrims));
+            $topTrims = $this->trimRepository->findTrimsOfTop($form, (int) $form->minNumVotes, (int) $form->numberOfRows);
 
             $data = [
                 'topLength' => count($topTrims),
                 'topLengthSlider' => min(count($topTrims), self::topSliderNumber),
                 'topTrims' => $topTrims,
-                'minNumVotes' => $session->get('minNumVotes'),
+                'minNumVotes' => (int) $form->minNumVotes,
             ];
 
             return response()->view('homepage.filterTop', $data, 200);
@@ -89,12 +80,10 @@ class HomepageController extends BaseController
     }
 
     /** When a user wants to see more trims in the top the extra trims are retrieved. */
-    public function showMoreTopTable(string $numberOfRows, string $offset): Response
+    public function showMoreTopTable(Request $request, string $numberOfRows, string $offset): Response
     {
-        $session = session();
-        $minNumVotes = $session->get('minNumVotes') ?? self::minNumVotes;
-        $trims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes, (int) $numberOfRows, (int) $offset);
-        $session->put('numberOfRows', count($trims) + (int) $offset);
+        $form = new FilterTopForm($request->all());
+        $trims = $this->trimRepository->findTrimsOfTop($form, (int) $form->minNumVotes, (int) $numberOfRows, (int) $offset);
 
         return response()->view('homepage.showMoreTopTable', ['trims' => $trims, 'offset' => (int) $offset], 200);
     }

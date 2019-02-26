@@ -9,11 +9,16 @@ use App\CarSpecs;
 
 class FilterTopForm extends BaseForm
 {
+    public $hasRequest = false;
     public $fillable = ['minNumVotes', 'aspects', 'specsChoice', 'specsRange', 'numberOfRows'];
 
     /** This form has default values for the filtering of the top. */
     public function __construct(array $attributes = [])
     {
+        if ($attributes !== []) {
+            $this->hasRequest = true;
+        }
+
         $array = [];
         foreach (Aspect::getAspects() as $aspect) {
             $array[$aspect] = 1;

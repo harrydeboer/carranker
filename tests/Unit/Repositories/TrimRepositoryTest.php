@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Trim;
+use App\Forms\FilterTopForm;
 use App\Repositories\TrimRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -49,15 +50,16 @@ class TrimRepositoryTest extends TestCase
         factory(Trim::class)->create(['votes' => 31, 'framework' => 'Van']);
         factory(Trim::class)->create(['votes' => 25]);
 
-        $session = session();
-
+        $form = new FilterTopForm();
+        $form->hasRequest = true;
+        
         $aspects = [];
         foreach (\App\Models\Aspect::getAspects() as $aspect) {
             $aspects[$aspect] = '1';
         }
-        $session->put('aspects', $aspects);
+        $form->aspects = $aspects;
 
-        $session->put('specsChoice', ['framework' . $index => '1']);
+        $form->specsChoice = ['framework' . $index => '1'];
 
         $specsRange = [];
         foreach (\App\CarSpecs::specsRange() as $specName => $spec) {
@@ -66,11 +68,11 @@ class TrimRepositoryTest extends TestCase
         }
         $specsRange['pricemin'] = '5000';
         $specsRange['pricemax'] = '10000';
-        $session->put('specsRange', $specsRange);
+        $form->specsRange = $specsRange;
         $minNumVotes = 30;
         $lengthTopTable = 4;
 
-        $trims = $this->trimRepository->findTrimsOfTop($session, $minNumVotes, $lengthTopTable);
+        $trims = $this->trimRepository->findTrimsOfTop($form, $minNumVotes, $lengthTopTable);
 
         foreach ($trims as $trim) {
             $this->assertTrue((int) $trim->votes >= $minNumVotes);

@@ -82,6 +82,17 @@ $(document).ready(function ()
     if (typeof sessionStorage.numberOfRows === 'undefined') {
         sessionStorage.numberOfRows = $('#tableTop tr').length;
     }
+    if (typeof sessionStorage.topTable !== 'undefined') {
+        $('#fillableTable').html(sessionStorage.topTable);
+        $('#slideshow').html(sessionStorage.slideshow);
+        $("#atLeastVotes").html('<em>with at least ' + sessionStorage.minNumVotes + ' votes</em>');
+        $(".checkAll").click();
+        $.each(sessionStorage.filterTopForm.split('&'), function (index, elem) {
+            var vals = elem.split('=');
+            $("[name='" + decodeURIComponent(vals[0]) + "']").val(decodeURIComponent(vals[1]));
+            $("[name='" + decodeURIComponent(vals[0]) + "']").prop('checked', true);
+        });
+    }
     showPartTopTable(sessionStorage.numberOfRows);
 
     /** When more or less trims are shown in the top table the scrolling makes that the button remains in the same place of the window. */
@@ -101,11 +112,12 @@ $(document).ready(function ()
                 sessionStorage.numberOfRows = $('.topRow:visible').length + numShowMoreLess - $('.topRow:visible').length % 10;
             }
 
-            $.get('showMoreTopTable/' + sessionStorage.numberOfRows + '/' + $('.topRow').length, "", function (data)
+            $.get('showMoreTopTable/' + sessionStorage.numberOfRows + '/' + $('.topRow').length, $('#filterTopForm').serialize(), function (data)
             {
                 $('#tableTop').append(data);
 
                 sessionStorage.numberOfRows = $('#tableTop tr').length;
+                sessionStorage.topTable = $('#tableTop')[0].outerHTML;
                 showPartTopTable(sessionStorage.numberOfRows);
 
                 var heightNew = $(document).height();
@@ -150,6 +162,7 @@ $(document).ready(function ()
         } else {
             rows = $('.topRow:visible').length;
         }
+        sessionStorage.filterTopForm = $(this).serialize();
 
         /** Three pieces of html, the slideshow, the top table and the least number of votes, are filled with the
          * ajax callback data. The data has a splitpoint to split at the right point for the three pieces of html.
@@ -161,6 +174,10 @@ $(document).ready(function ()
             $('#fillableTable').html(array[0]);
             $('#slideshow').html(array[1]);
             $("#atLeastVotes").html('<em>with at least ' + array[2] + ' votes</em>');
+
+            sessionStorage.topTable = array[0];
+            sessionStorage.slideshow = array[1];
+            sessionStorage.minNumVotes = array[2];
 
             /** Activate the slider */
             $('#carousel').carousel();
