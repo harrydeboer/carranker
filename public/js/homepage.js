@@ -1,5 +1,7 @@
 $(document).ready(function ()
 {
+    sessionStorage.lazyLoad = false;
+
     /** Activate the slider */
     $('#sliderTop').carousel();
 
@@ -165,7 +167,7 @@ $(document).ready(function ()
 
             showPartTopTable($('#tableTop tr').length);
             sessionStorage.numberOfRows = $('#tableTop tr').length;
-            
+
             $('html, body').animate({
                 scrollTop: $("#topCars").offset().top
             }, 1000);

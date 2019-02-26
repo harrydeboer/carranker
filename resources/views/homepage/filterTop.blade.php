@@ -1,5 +1,5 @@
 @include('homepage.tableTop')
 splitPoint
-@include('homepage.slideshow', ['lazyLoad' => false])
+@include('homepage.slideshow')
 splitPoint
 {{ $minNumVotes }}

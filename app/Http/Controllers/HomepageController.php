@@ -74,7 +74,6 @@ class HomepageController extends BaseController
                 'topLengthSlider' => min(count($topTrims), self::topSliderNumber),
                 'topTrims' => $topTrims,
                 'minNumVotes' => $session->get('minNumVotes'),
-                'lazyLoad' => false,
             ];
 
             return response()->view('homepage.filterTop', $data, 200);

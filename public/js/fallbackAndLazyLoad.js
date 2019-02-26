@@ -23,11 +23,13 @@ document.addEventListener("DOMContentLoaded", function ()
         }
     }
 
-    if ( lazyloadImages.length > 0 ) {
+    if ( lazyloadImages.length > 0 && typeof sessionStorage.lazyLoad === 'undefined' ) {
         setTimeout(lazyload, 3000);
         document.addEventListener("scroll", lazyload);
         window.addEventListener("resize", lazyload);
         window.addEventListener("orientationChange", lazyload);
         document.addEventListener("visibilitychange", lazyload);
+    } else {
+        lazyload();
     }
 });

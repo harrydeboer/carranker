@@ -39,14 +39,6 @@ class BaseController extends Controller
             $makeRepository = new MakeRepository();
             $menuRepository = new MenuRepository();
 
-            $session = session();
-            if (is_null($session->get('lazyLoad'))) {
-                $isLazyLoad = true;
-                $session->put('lazyLoad', false);
-            } else {
-                $isLazyLoad = false;
-            }
-
             $this->viewFactory->share('isLoggedIn', is_null($this->guard->user()) ? false : true);
             $this->viewFactory->share('controller', $controller);
             $this->viewFactory->share('makenames', $makeRepository->getMakeNames());
@@ -55,7 +47,6 @@ class BaseController extends Controller
             $this->viewFactory->share('navform', new NavForm());
             $this->viewFactory->share('menuHeader', $menuRepository->getByName('navigationHeader')->getPages()->get());
             $this->viewFactory->share('menuFooter', $menuRepository->getByName('navigationFooter')->getPages()->get());
-            $this->viewFactory->share('lazyLoad', $isLazyLoad);
 
             return $next($request);
         });
