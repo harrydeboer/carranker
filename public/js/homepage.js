@@ -79,9 +79,11 @@ $(document).ready(function ()
     });
 
     numShowMoreLess = parseInt($('#numShowMoreLess').val());
+
     if (typeof sessionStorage.numberOfRows === 'undefined') {
         sessionStorage.numberOfRows = $('#tableTop tr').length;
     }
+
     if (typeof sessionStorage.topTable !== 'undefined') {
         $('#fillableTable').html(sessionStorage.topTable);
         $('#slideshow').html(sessionStorage.slideshow);
@@ -93,6 +95,7 @@ $(document).ready(function ()
             $("[name='" + decodeURIComponent(vals[0]) + "']").prop('checked', true);
         });
     }
+    
     showPartTopTable(sessionStorage.numberOfRows);
 
     /** When more or less trims are shown in the top table the scrolling makes that the button remains in the same place of the window. */

@@ -31,4 +31,9 @@ class VerifyCsrfToken extends Middleware
 
         return $response;
     }
+
+    protected function getTokenFromRequest($request)
+    {
+        return $request->cookie('XSRF-TOKEN');
+    }
 }
