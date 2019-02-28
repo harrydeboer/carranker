@@ -28,6 +28,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.7",
         "predis/predis": "^1.1",
+        "spatie/laravel-varnish": "^2.2",
         "wpackagist-plugin/jwt-authentication-for-wp-rest-api": "1.2.5",
         "wpackagist-plugin/user-role-editor": "4.47"
     },
@@ -37,7 +38,7 @@
         "laravel/dusk": "^5.0",
         "mockery/mockery": "0.9.*",
         "phploc/phploc": "^4.0",
-        "phpunit/phpunit": "~6.0",
+        "phpunit/phpunit": "^7.0",
         "wp-phpunit/wp-phpunit": "5.0.2"
     },
     "autoload": {

@@ -12,3 +12,4 @@
   php artisan migrate --force --no-interaction
   php artisan getcmsdata
   php artisan getfxrate
+  php artisan varnish:flush
