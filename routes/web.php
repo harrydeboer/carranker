@@ -16,7 +16,7 @@ Route::get('model/{make}/{model}', 'ModelpageController@view')->where('model', '
 Route::post('model/{make}/{model}', ['as' => 'make.model', 'uses' => 'ModelpageController@view'])->where('model', '.*');
 
 if (env('APP_ENV') ==='acceptance' || env('APP_ENV') ==='production') {
-    Route::group(['middleware' => 'cacheable', 'scheme' => 'https'], function ()
+    Route::group(['middleware' => 'cacheable'], function ()
     {
         Route::get('', ['as' => 'Home', 'uses' => 'HomepageController@view']);
         Route::get('make/{make}', 'MakeController@view');
