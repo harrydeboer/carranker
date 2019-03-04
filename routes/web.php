@@ -15,11 +15,19 @@ Route::post('register', ['as' => 'register', 'uses' => 'Auth\RegisterController@
 Route::get('model/{make}/{model}', 'ModelpageController@view')->where('model', '.*');
 Route::post('model/{make}/{model}', ['as' => 'make.model', 'uses' => 'ModelpageController@view'])->where('model', '.*');
 
-Route::group(['middleware' => 'cacheable', 'scheme' => 'https'], function() {
+if (env('APP_ENV') ==='acceptance' || env('APP_ENV') ==='production') {
+    Route::group(['middleware' => 'cacheable', 'scheme' => 'https'], function ()
+    {
+        Route::get('', ['as' => 'Home', 'uses' => 'HomepageController@view']);
+        Route::get('make/{make}', 'MakeController@view');
+
+        /** Catch all remaining routes for the cms pages. */
+        Route::get('{url?}', 'CmsController@view')->where('url', '.*');
+    });
+} else {
     Route::get('', ['as' => 'Home', 'uses' => 'HomepageController@view']);
     Route::get('make/{make}', 'MakeController@view');
 
     /** Catch all remaining routes for the cms pages. */
     Route::get('{url?}', 'CmsController@view')->where('url', '.*');
-});
-
+}
