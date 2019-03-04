@@ -39,7 +39,7 @@
                     <option value="">Model</option>
                     @if (isset($modelnames))
                         @foreach ($modelnames as $modelname)
-                            @if ($modelname === $modelnameRoute)
+                            @if (isset($modelnameRoute) && $modelname === $modelnameRoute)
                                 <option value="{{ $modelname }}" selected>{{ $modelname }}</option>
                             @else
                                 <option value="{{ $modelname }}">{{ $modelname }}</option>
