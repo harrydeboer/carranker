@@ -21,11 +21,7 @@
                 <li class="nav-item navText"><a href="/{{ $page->getName() === 'home' ? '' :
                     strtolower($page->getName()) }}" class="nav-link">{{ $page->getTitle() }}</a></li>
             @endforeach
-            @if ( $isLoggedIn === true )
-                <li class="nav-item navText"><a href="{{ route('logout') }}" class="nav-link">Logout</a></li>
-            @else
-                <li class="nav-item navText"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
-            @endif
+            <li><a href="{{ route('login') }}"><i class="fa fa-user fa-2x"></i></a></li>
             <li class="nav-item">
                 <select id="nav_select_make" class="form-control">
                     <option value="">Make</option>

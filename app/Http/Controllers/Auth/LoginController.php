@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\BaseController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends BaseController
 {
@@ -31,20 +32,13 @@ class LoginController extends BaseController
      */
     protected $redirectTo = '/';
 
-    public function __construct()
+    public function view()
     {
-        parent::__construct();
-        $this->middleware('guest')->except('logout');
-    }
-
-    public function showLoginForm(): Response
-    {
-        $data = [
-            'title' => 'Login',
+        return response()->view('auth.base', [
+            'title' => 'Authentication',
+            'isLoggedIn' => is_null(Auth::user()) ? false : true,
             'page' => $this->pageRepository->getByName('login'),
-        ];
-
-        return response()->view('auth.login', $data, 200);
+        ], 200);
     }
 
     /**
