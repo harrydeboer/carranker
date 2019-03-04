@@ -33,7 +33,7 @@ class PageRepositoryTest extends TestCase
         $pagesCMS = [];
         $pagesCMS[] = $this->makePageCMS('home', 'Home', 'Content');
         $pagesCMS[] = $this->makePageCMS('contact', 'Contact', 'Content');
-        $pagesCMS[] = $this->makePageCMS('login', 'Login', 'Content');
+        $pagesCMS[] = $this->makePageCMS('auth', 'Authentication', 'Content');
         $pagesCMS[] = $this->makePageCMS('register', 'Register', 'Content');
         $pagesCMS[] = $this->makePageCMS('opcachereset', 'OPcacheReset', 'Content');
         $pagesCMS[] = $this->makePageCMS('phpinfo', 'PHPInfo', 'Content');

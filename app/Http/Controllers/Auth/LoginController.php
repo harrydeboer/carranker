@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends BaseController
@@ -37,7 +36,7 @@ class LoginController extends BaseController
         return response()->view('auth.base', [
             'title' => 'Authentication',
             'isLoggedIn' => is_null(Auth::user()) ? false : true,
-            'page' => $this->pageRepository->getByName('login'),
+            'page' => $this->pageRepository->getByName('auth'),
         ], 200);
     }
 

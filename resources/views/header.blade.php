@@ -21,7 +21,7 @@
                 <li class="nav-item navText"><a href="/{{ $page->getName() === 'home' ? '' :
                     strtolower($page->getName()) }}" class="nav-link">{{ $page->getTitle() }}</a></li>
             @endforeach
-            <li><a href="{{ route('login') }}"><i class="fa fa-user fa-2x"></i></a></li>
+            <li><a href="{{ route('auth') }}"><i class="fa fa-user fa-2x"></i></a></li>
             <li class="nav-item">
                 <select id="nav_select_make" class="form-control">
                     <option value="">Make</option>
