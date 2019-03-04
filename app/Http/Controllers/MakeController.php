@@ -23,6 +23,7 @@ class MakeController extends BaseController
         ];
 
         $this->viewFactory->share('makenameRoute', $makename);
+        $this->viewFactory->share('modelnames', $makeRepository->getModelNames($makename));
 
         return response()->view('make.index', $data, 200);
     }
