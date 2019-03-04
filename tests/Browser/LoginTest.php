@@ -15,7 +15,7 @@ class LoginTest extends DuskTestCase
 
         $this->browse(function ($browser) use ($user)
         {
-            $browser->visit('/login')
+            $browser->visit('/auth')
                 ->type('user_email', $user->user_email)
                 ->type('password', 'secret')
                 ->press('Login')
