@@ -56,7 +56,7 @@
                     </div>
                 @else
                     <div class="text-center">
-                        <a href="/login" class="btn btn-primary" id="loginLink">Login to rate this car!</a>
+                        <a href="{{ route('auth') }}" class="btn btn-primary" id="loginLink">Login to rate this car!</a>
                     </div>
                 @endif
                 <BR>
