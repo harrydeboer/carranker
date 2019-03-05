@@ -20,7 +20,7 @@ return [
      * The default amount of minutes that content rendered using the `CacheWithVarnish`
      * middleware should be cached.
      */
-    'cache_time_in_minutes' => 60 * 24,
+    'cache_time_in_minutes' => 10,
 
     /*
      * The name of the header that triggers Varnish to cache the response.
