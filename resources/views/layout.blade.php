@@ -17,6 +17,5 @@
 <footer class="container">
     @include('footer')
 </footer>
-zzzzzzz
 </body>
 </html>
