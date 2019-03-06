@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a7b49e2e22c49bd2d82d59b087f148b",
+    "content-hash": "533c584246432ff1aa3e8901184b6b7e",
     "packages": [
         {
             "name": "composer/installers",
@@ -4206,15 +4206,15 @@
         },
         {
             "name": "wpackagist-plugin/jwt-authentication-for-wp-rest-api",
-            "version": "1.2.5",
+            "version": "1.2.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jwt-authentication-for-wp-rest-api/",
-                "reference": "tags/1.2.5"
+                "reference": "tags/1.2.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jwt-authentication-for-wp-rest-api.1.2.5.zip",
+                "url": "https://downloads.wordpress.org/plugin/jwt-authentication-for-wp-rest-api.1.2.6.zip",
                 "reference": null,
                 "shasum": null
             },
