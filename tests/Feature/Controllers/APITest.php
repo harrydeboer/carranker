@@ -12,7 +12,8 @@ class APITest extends TestCase
 {
     private $user;
 
-    public function setUp() {
+    public function setUp(): void
+    {
         parent::setUp();
         $userRepository = new UserRepository();
         $this->user = $userRepository->get(1);

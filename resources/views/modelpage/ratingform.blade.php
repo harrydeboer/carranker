@@ -30,7 +30,7 @@
     <div id="dialogContainer">
         <div id="reviewWarning"></div>
         <div class="form-group text-center">
-            <select name="generation" class="form-control" id="rating_form_generation">
+            <select name="generation" class="form-control" id="rating_form_generation" required>
                 <option value="">Generation</option>
                 @foreach ($generationsSeriesTrims as $generationName => $generation)
                     <option value="{{ $generationName }}">{{ $generationName }}</option>
@@ -38,7 +38,7 @@
             </select>
         </div>
         <div class="form-group">
-            <select name="serie" class="form-control" id="rating_form_serie">
+            <select name="serie" class="form-control" id="rating_form_serie" required>
                 <option value="">Serie</option>
                 @foreach ($generationsSeriesTrims as $generationName => $generation)
                     @foreach ($generation as $serieName => $serie)
@@ -48,7 +48,7 @@
             </select>
         </div>
         <div class="form-group">
-            <select name="trimId" class="form-control" id="rating_form_trim">
+            <select name="trimId" class="form-control" id="rating_form_trim" required>
                 <option value="">Trim</option>
                 @foreach ($generationsSeriesTrims as $generationName => $generation)
                     @foreach ($generation as $serieName => $serie)

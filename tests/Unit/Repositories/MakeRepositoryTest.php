@@ -16,7 +16,7 @@ class MakeRepositoryTest extends TestCase
     private $make;
     private $model;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->makeRepository = new MakeRepository();

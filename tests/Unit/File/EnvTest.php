@@ -14,11 +14,11 @@ class EnvTest extends TestCase
 
     public function testEnvLaravel()
     {
-        $dotenv = new Dotenv\Dotenv(base_path(), '.env');
+        $dotenv = Dotenv\Dotenv::create(base_path(), '.env');
         $dotenv->load();
         $envNames = $dotenv->getEnvironmentVariableNames();
 
-        $dotenv = new Dotenv\Dotenv(base_path(), '.env.example');
+        $dotenv = Dotenv\Dotenv::create(base_path(), '.env.example');
         $dotenv->load();
         $envExampleNames = $dotenv->getEnvironmentVariableNames();
 

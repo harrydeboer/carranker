@@ -3,18 +3,7 @@
 /* Path to the WordPress codebase you'd like to test. Add a forward slash in the end. */
 define( 'ABSPATH', __DIR__ . '/wp/' );
 
-$dotenvPath = dirname(__DIR__) . '/vendor/vlucas/phpdotenv/src/';
-require_once($dotenvPath . '/Exception/ExceptionInterface.php' );
-require_once($dotenvPath . '/Exception/InvalidCallbackException.php' );
-require_once($dotenvPath . '/Exception/InvalidFileException.php' );
-require_once($dotenvPath . '/Exception/InvalidPathException.php' );
-require_once($dotenvPath . '/Exception/ValidationException.php' );
-require_once($dotenvPath . 'Dotenv.php' );
-require_once($dotenvPath . 'Loader.php' );
-require_once($dotenvPath . 'Parser.php' );
-require_once($dotenvPath . 'Validator.php' );
-$dotenv = new Dotenv\Dotenv(dirname(__DIR__));
-$dotenv->load();
+require_once __DIR__ . '/readenvfile.php';
 
 /*
  * Path to the theme to test with.

@@ -4,18 +4,7 @@
  *  it is not a php file. Modifying the .env file does not need opcache_reset().
  */
 
-$dotenvPath = dirname(__DIR__) . '/vendor/vlucas/phpdotenv/src/';
-require_once($dotenvPath . '/Exception/ExceptionInterface.php' );
-require_once($dotenvPath . '/Exception/InvalidCallbackException.php' );
-require_once($dotenvPath . '/Exception/InvalidFileException.php' );
-require_once($dotenvPath . '/Exception/InvalidPathException.php' );
-require_once($dotenvPath . '/Exception/ValidationException.php' );
-require_once($dotenvPath . 'Dotenv.php' );
-require_once($dotenvPath . 'Loader.php' );
-require_once($dotenvPath . 'Parser.php' );
-require_once($dotenvPath . 'Validator.php' );
-$dotenv = new Dotenv\Dotenv(dirname(__DIR__));
-$dotenv->load();
+require_once __DIR__ . '/readenvfile.php';
 
 define('DB_NAME', getenv('DB_DATABASE'));
 define('DB_USER', getenv('DB_USERNAME'));

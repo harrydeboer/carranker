@@ -51,7 +51,7 @@ return [
             'prefix' => '',
             'strict' => true,
             'engine' => null,
-            'modes'  => env("APP_ENV") == 'local' ?
+            'modes'  => env("APP_ENV") === 'local' || env("APP_ENV") === 'testing' ?
                 ['ONLY_FULL_GROUP_BY',
                     'STRICT_TRANS_TABLES',
                     'NO_ZERO_IN_DATE',

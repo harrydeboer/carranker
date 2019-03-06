@@ -15,7 +15,7 @@ class TrimRepositoryTest extends TestCase
     private $trimRepository;
     private $trim;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->trimRepository = new TrimRepository();

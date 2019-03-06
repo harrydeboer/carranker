@@ -14,7 +14,7 @@ class ModelRepositoryTest extends TestCase
     private $model;
     private $review;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->modelRepository = new ModelRepository();

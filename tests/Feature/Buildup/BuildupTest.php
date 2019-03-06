@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class BuildupTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         factory('App\Models\Profanity')->create();
