@@ -43,7 +43,7 @@ class IndexCars extends Command
         $this->trimRepository = new TrimRepository();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $this->indexOrReindex($this->makeRepository);
         $this->indexOrReindex($this->modelRepository);
@@ -53,7 +53,7 @@ class IndexCars extends Command
     }
 
     /** An index is indexed or reindexed. The current index is deleted if present. */
-    private function indexOrReindex($repository)
+    private function indexOrReindex($repository): void
     {
         try {
             $repository->deleteIndex();

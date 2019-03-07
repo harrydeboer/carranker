@@ -85,7 +85,7 @@ class Model extends BaseModel
         return $image;
     }
 
-    public function setContent(string $content)
+    public function setContent(string $content): void
     {
         $this->content = $content;
     }
@@ -112,7 +112,7 @@ class Model extends BaseModel
         return str_replace(' ', '_', $this->getMakename()) . '_' . $this->wiki_car_model;
     }
 
-    public function setVotes(int $votes)
+    public function setVotes(int $votes): void
     {
         $this->votes = $votes;
     }

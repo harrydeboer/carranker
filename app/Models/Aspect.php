@@ -28,7 +28,7 @@ trait Aspect
         return $this->$aspect;
     }
 
-    public function setAspect(string $aspectName, float $aspect)
+    public function setAspect(string $aspectName, float $aspect): void
     {
         $this->$aspectName = $aspect;
     }

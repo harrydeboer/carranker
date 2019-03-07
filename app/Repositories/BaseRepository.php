@@ -41,7 +41,7 @@ class BaseRepository
         return $model;
     }
 
-    public function update(Model $model)
+    public function update(Model $model): void
     {
         if (get_class($model) === $this->modelClassName) {
             $model->save();
@@ -50,7 +50,7 @@ class BaseRepository
         }
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         $this->modelClassName::destroy($id);
     }

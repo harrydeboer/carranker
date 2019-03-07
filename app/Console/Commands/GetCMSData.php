@@ -43,7 +43,7 @@ class GetCMSData extends Command
         $this->menuRepository = new MenuRepository();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $ch = curl_init();
 

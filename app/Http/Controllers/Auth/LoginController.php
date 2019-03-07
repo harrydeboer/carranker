@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends BaseController
@@ -31,7 +32,7 @@ class LoginController extends BaseController
      */
     protected $redirectTo = '/';
 
-    public function view()
+    public function view(): Response
     {
         return response()->view('auth.base', [
             'title' => 'Authentication',

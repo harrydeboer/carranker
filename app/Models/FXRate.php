@@ -21,7 +21,7 @@ class FXRate extends BaseModel
         return $this->value;
     }
 
-    public function setValue(float $value)
+    public function setValue(float $value): void
     {
         $this->value = $value;
     }

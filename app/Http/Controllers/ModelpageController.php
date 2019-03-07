@@ -63,7 +63,7 @@ class ModelpageController extends BaseController
         $isThankYou = false;
         $trims = $model->getTrims();
         if ($form->validateFull($request, $form->reCaptchaToken)) {
-            $isThankYou = $this->rate($form, $model, $trims);
+            $isThankYou = $this->rate($form, $model);
         }
 
         $reviews = $this->modelRepository->getReviews($model, self::numReviewsPerModelpage);
@@ -102,7 +102,7 @@ class ModelpageController extends BaseController
     }
 
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
-    public function rate(RatingForm $form, Model $model, Collection $trims): bool
+    public function rate(RatingForm $form, Model $model): bool
     {
         $trimArray = explode(';', $form->trimId);
         $trimId = (int) end($trimArray);

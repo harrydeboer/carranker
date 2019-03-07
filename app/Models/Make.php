@@ -33,7 +33,7 @@ class Make extends BaseModel
         return $this->hasMany('\App\Models\Model', 'make_id', 'id')->get();
     }
 
-    public function setContent(string $content)
+    public function setContent(string $content): void
     {
         $this->content = $content;
     }

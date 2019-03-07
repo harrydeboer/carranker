@@ -15,22 +15,22 @@ abstract class BaseRepository
         $this->modelClassName = 'App\Models\Elastic\\' . str_replace('Repository', '', end($classNameArray));
     }
 
-    public function reindex()
+    public function reindex(): void
     {
         $this->modelClassName::reindex();
     }
 
-    public function createIndex(int $shards = null, int $replicas = null)
+    public function createIndex(int $shards = null, int $replicas = null): void
     {
         $this->modelClassName::createIndex($shards, $replicas);
     }
 
-    public function deleteIndex()
+    public function deleteIndex(): void
     {
         $this->modelClassName::deleteIndex();
     }
 
-    public function putMappingTrait(bool $ignoreConflicts)
+    public function putMappingTrait(bool $ignoreConflicts): void
     {
         $this->modelClassName::putMapping($ignoreConflicts);
     }
@@ -40,17 +40,17 @@ abstract class BaseRepository
         return $this->modelClassName::mappingExists();
     }
 
-    public function rebuildMapping()
+    public function rebuildMapping(): void
     {
         $this->modelClassName::rebuildMapping();
     }
 
-    public function deleteMapping()
+    public function deleteMapping(): void
     {
         $this->modelClassName::deleteMapping();
     }
 
-    public function addAllToIndex()
+    public function addAllToIndex(): void
     {
         $this->modelClassName::addAllToIndex();
     }

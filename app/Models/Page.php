@@ -28,7 +28,7 @@ class Page extends BaseModel
         return $this->title;
     }
 
-    public function setTitle(string $title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -38,7 +38,7 @@ class Page extends BaseModel
         return $this->content;
     }
 
-    public function setContent(string $content)
+    public function setContent(string $content): void
     {
         $this->content = $content;
     }

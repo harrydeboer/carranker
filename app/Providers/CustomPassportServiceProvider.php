@@ -18,8 +18,8 @@ class CustomPassportServiceProvider extends PassportServiceProvider
     protected function makePasswordGrant(): PasswordGrant
     {
         $grant = new PasswordGrant(
-            new UserRepository(new WPHasher($this->app)),
-            $this->app->make(RefreshTokenRepository::class)
+            new UserRepository(new WPHasher(app())),
+            app(RefreshTokenRepository::class)
         );
 
         $grant->setRefreshTokenTTL(Passport::refreshTokensExpireIn());

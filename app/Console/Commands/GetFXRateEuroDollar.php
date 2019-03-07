@@ -31,7 +31,7 @@ class GetFXRateEuroDollar extends Command
         $this->fXRateRepository = new FXRateRepository();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $ch = curl_init("http://data.fixer.io/api/latest?access_key=" . env("FIXER_API_KEY"));
 

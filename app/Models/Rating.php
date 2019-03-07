@@ -56,7 +56,7 @@ class Rating extends BaseModel
         return date('d-m-Y', $this->time);
     }
 
-    public function setContent(string $content=null)
+    public function setContent(string $content=null): void
     {
         $this->content = $content;
     }

@@ -58,7 +58,7 @@ class Trim extends BaseModel
         }
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -86,7 +86,7 @@ class Trim extends BaseModel
         return $this->rating;
     }
 
-    public function setRatingFiltering(float $rating)
+    public function setRatingFiltering(float $rating): void
     {
         $this->rating = $rating;
     }
@@ -229,7 +229,7 @@ class Trim extends BaseModel
         return '/img/' . $fuel . '.png';
     }
 
-    public function setVotes(int $votes)
+    public function setVotes(int $votes): void
     {
         $this->votes = $votes;
     }
