@@ -51,7 +51,6 @@ class ModelpageController extends BaseController
         $modelname = rawurldecode($modelname);
         $user = $this->guard->user();
         $trimId = $request->query('trimId');
-        $cacheString = 'modelpage' . $makename . $modelname . $trimId;
 
         $request->getMethod();
         $trimId = (int) $trimId;

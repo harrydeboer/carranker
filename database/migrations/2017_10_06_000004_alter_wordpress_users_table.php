@@ -14,7 +14,7 @@ class AlterWordpressUsersTable extends Migration
     public function up()
     {
         Schema::table('wp_users', function (Blueprint $table) {
-            $table->string('remember_token', 100)->nullable();
+            $table->string('remember_token')->default('');
             $table->dateTime('user_registered')->nullable()->default(Null)->change();
             $table->increments('ID')->change();
             $table->string('user_login')->unique()->change();
