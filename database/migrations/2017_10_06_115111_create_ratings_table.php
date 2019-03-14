@@ -28,7 +28,6 @@ class CreateRatingsTable extends Migration
 
             $table->foreign('model_id')->references('id')->on('models');
             $table->foreign('trim_id')->references('id')->on('trims');
-            $table->foreign('user_id')->references('ID')->on('wp_users');
         });
     }
 
