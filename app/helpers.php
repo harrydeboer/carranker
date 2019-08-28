@@ -11,9 +11,5 @@ function fileUrl(string $url): string
         return $url . '?' . filemtime($root . '/public' . $url);
     }
 
-    if (!strpos($url, '/img')) {
-        throw new \Illuminate\Contracts\Filesystem\FileNotFoundException('The file with url ' . $url . ' does not exist.');
-    }
-
     return "";
 }
