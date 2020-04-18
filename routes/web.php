@@ -14,12 +14,8 @@ Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']
 Route::post('register', ['as' => 'register', 'uses' => 'Auth\RegisterController@register']);
 Route::get('model/{make}/{model}', 'ModelpageController@view')->where('model', '.*');
 Route::post('model/{make}/{model}', ['as' => 'make.model', 'uses' => 'ModelpageController@view'])->where('model', '.*');
+Route::get('', ['as' => 'Home', 'uses' => 'HomepageController@view']);
+Route::get('make/{make}', 'MakeController@view');
 
-Route::group(['middleware' => 'cacheable'], function ()
-{
-    Route::get('', ['as' => 'Home', 'uses' => 'HomepageController@view']);
-    Route::get('make/{make}', 'MakeController@view');
-
-    /** Catch all remaining routes for the cms pages. */
-    Route::get('{url?}', 'CmsController@view')->where('url', '.*');
-});
+/** Catch all remaining routes for the cms pages. */
+Route::get('{url?}', 'CmsController@view')->where('url', '.*');

@@ -11,24 +11,22 @@
         }
     ],
     "require": {
-        "php": ">=7.3.2",
+        "php": ">=7.4.4",
         "ext-curl": "*",
         "ext-iconv": "*",
         "ext-libxml": "*",
         "ext-pdo": "*",
-        "ext-redis": "*",
         "ext-simplexml": "*",
         "ext-xmlreader": "*",
         "doctrine/dbal": "^2.6",
         "elasticquent/elasticquent": "dev-master",
         "fideloper/proxy": "~4.0",
-        "johnpbloch/wordpress": "5.1.0",
+        "johnpbloch/wordpress": "5.4",
         "laravel/framework": "5.8.*",
         "laravel/passport": "^7.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.8",
         "predis/predis": "^1.1",
-        "spatie/laravel-varnish": "^2.2",
         "wpackagist-plugin/jwt-authentication-for-wp-rest-api": "1.2.6",
         "wpackagist-plugin/user-role-editor": "4.47"
     },
@@ -40,7 +38,7 @@
         "phploc/phploc": "^4.0",
         "phpunit/phpunit": "^7.5",
         "sebastian/phpcpd": "^4.1",
-        "wp-phpunit/wp-phpunit": "5.1.0"
+        "wp-phpunit/wp-phpunit": "5.4"
     },
     "autoload": {
         "classmap": [

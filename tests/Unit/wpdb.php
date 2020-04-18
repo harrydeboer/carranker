@@ -21,7 +21,6 @@ class wpdb
     public $usermeta = 'usermeta';
     public $blogs = 'blogs';
     public $blogmeta = 'blogmeta';
-    public $blog_versions = 'blog_versions';
     public $registration_log = 'registration_log';
     public $site = 'site';
     public $sitemeta = 'sitemeta';

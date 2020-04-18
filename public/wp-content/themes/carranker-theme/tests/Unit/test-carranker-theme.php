@@ -32,6 +32,7 @@ class CarrankerThemeTest extends WP_UnitTestCase
                 $test = false;
             }
         }
+
         $this->assertTrue($test);
     }
 }
