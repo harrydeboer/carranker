@@ -60,9 +60,7 @@ return [
 					'NO_ENGINE_SUBSTITUTION',] : null,
 			'options' => env("APP_ENV") === 'local' || env("APP_ENV") === 'testing' ? null :
 				[
-					PDO::MYSQL_ATTR_SSL_CA => '/home/harry/client-ssl/ca.pem',
-					PDO::MYSQL_ATTR_SSL_CERT => '/home/harry/client-ssl/client-cert.pem',
-					PDO::MYSQL_ATTR_SSL_KEY => '/home/harry/client-ssl/client-key.pem',
+					PDO::MYSQL_ATTR_SSL_CA => '/var/lib/mysql/ca.pem',
 					PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
 				],
 		],
@@ -80,19 +78,14 @@ return [
 			'prefix' => '',
 			'strict' => true,
 			'engine' => null,
-			'modes'  => env("APP_ENV") === 'local' || env("APP_ENV") === 'testing' ?
-				['ONLY_FULL_GROUP_BY',
+			'modes'  =>
+				[
+					'ONLY_FULL_GROUP_BY',
 					'STRICT_TRANS_TABLES',
 					'NO_ZERO_IN_DATE',
 					'NO_ZERO_DATE',
 					'ERROR_FOR_DIVISION_BY_ZERO',
-					'NO_ENGINE_SUBSTITUTION',] : null,
-			'options' => env("APP_ENV") === 'local' || env("APP_ENV") === 'testing' ? null :
-				[
-					PDO::MYSQL_ATTR_SSL_CA => '/home/harry/client-ssl/ca.pem',
-					PDO::MYSQL_ATTR_SSL_CERT => '/home/harry/client-ssl/client-cert.pem',
-					PDO::MYSQL_ATTR_SSL_KEY => '/home/harry/client-ssl/client-key.pem',
-					PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
+					'NO_ENGINE_SUBSTITUTION',
 				],
 		],
 
