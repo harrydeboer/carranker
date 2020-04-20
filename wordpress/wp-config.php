@@ -13,6 +13,10 @@ define('DB_HOST', getenv('WP_DB_HOST'));
 define('APP_ENV', getenv('APP_ENV'));
 define('JWT_AUTH_SECRET_KEY', getenv('JWT_AUTH_SECRET_KEY'));
 define( 'WP_CONTENT_URL', getenv('WP_CONTENT_URL' ));
+if (APP_ENV === 'production' || APP_ENV === 'acceptance') {
+	define( 'MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT );
+	define( 'DB_SSL', true );
+}
 
 // ===========================================================
 // No file edits unless explicitly allowed in local-config.php

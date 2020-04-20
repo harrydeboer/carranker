@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "938c9b694f1a4e3a8fc52adde97178e5",
+    "content-hash": "fc83402376adf7c3bec861bea4d6a0ac",
     "packages": [
         {
             "name": "composer/installers",
@@ -726,18 +726,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elasticquent/Elasticquent.git",
-                "reference": "fa1dce1953a4f5dea787b85eae3afea5dcb270ce"
+                "reference": "ee06ec76d5d72d2536e04b942c40e7457af86660"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elasticquent/Elasticquent/zipball/fa1dce1953a4f5dea787b85eae3afea5dcb270ce",
-                "reference": "fa1dce1953a4f5dea787b85eae3afea5dcb270ce",
+                "url": "https://api.github.com/repos/elasticquent/Elasticquent/zipball/ee06ec76d5d72d2536e04b942c40e7457af86660",
+                "reference": "ee06ec76d5d72d2536e04b942c40e7457af86660",
                 "shasum": ""
             },
             "require": {
                 "elasticsearch/elasticsearch": "~6.1",
-                "illuminate/config": "~4.2|^5|^6",
-                "illuminate/database": "~4.2|^5|^6",
+                "illuminate/config": "~4.2|^5|^6|^7",
+                "illuminate/database": "~4.2|^5|^6|^7",
                 "nesbot/carbon": "~1.0|~2",
                 "php": ">=5.4.0"
             },
@@ -774,7 +774,7 @@
                 "eloquent",
                 "laravel"
             ],
-            "time": "2020-01-24T00:08:40+00:00"
+            "time": "2020-04-20T03:39:16+00:00"
         },
         {
             "name": "elasticsearch/elasticsearch",
@@ -6834,7 +6834,8 @@
         "ext-libxml": "*",
         "ext-pdo": "*",
         "ext-simplexml": "*",
-        "ext-xmlreader": "*"
+        "ext-xmlreader": "*",
+        "ext-mysqli": "*"
     },
     "platform-dev": []
 }

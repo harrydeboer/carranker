@@ -28,7 +28,8 @@
         "laravelcollective/html": "^5.8",
         "predis/predis": "^1.1",
         "wpackagist-plugin/jwt-authentication-for-wp-rest-api": "1.2.6",
-        "wpackagist-plugin/user-role-editor": "4.47"
+        "wpackagist-plugin/user-role-editor": "4.47",
+        "ext-mysqli": "*"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
