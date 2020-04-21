@@ -79,6 +79,7 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover",
+            "@php wordpressupgradedb.php",
             "php -r \"copy('wordpress/.htaccess', 'wordpress/wp/.htaccess');\"",
             "php -r \"copy('wordpress/wp-cli.phar', 'wordpress/wp/wp-cli.phar');\""
         ]
