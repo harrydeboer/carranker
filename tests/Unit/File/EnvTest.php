@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\File;
 
+use Dotenv\Store\File\Reader;
 use Tests\TestCase;
-use Dotenv;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class EnvTest extends TestCase
@@ -14,14 +14,22 @@ class EnvTest extends TestCase
 
     public function testEnvLaravel()
     {
-        $dotenv = Dotenv\Dotenv::create(base_path(), '.env');
-        $dotenv->load();
-        $envNames = $dotenv->getEnvironmentVariableNames();
+	    $contents = Reader::read([base_path() . "/.env.example"], true);
+	    $envExampleNames = explode("\r\n", $contents[base_path() . "/.env.example"]);
 
-        $dotenv = Dotenv\Dotenv::create(base_path(), '.env.example');
-        $dotenv->load();
-        $envExampleNames = $dotenv->getEnvironmentVariableNames();
+	    $contents = Reader::read([base_path() . "/.env"], true);
+        $envNames = explode("\r\n", $contents[base_path() . "/.env"]);
 
-        $this->assertEquals($envNames, $envExampleNames);
+        $this->assertEquals(count($envNames), count($envExampleNames));
+
+        foreach ($envExampleNames as $key => $name) {
+        	if ($envNames[$key] === "") {
+        		$this->assertTrue($name === "");
+	        } elseif ($name === "") {
+		        $this->assertTrue($envNames[$key] === "");
+	        }else {
+		        $this->assertTrue( strpos( $envNames[$key], $name ) === 0);
+	        }
+        }
     }
 }

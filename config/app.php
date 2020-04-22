@@ -177,7 +177,6 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         App\Providers\CustomPassportServiceProvider::class,
         \App\Providers\HashServiceProvider::class,
-        Elasticquent\ElasticquentServiceProvider::class,
     ],
 
     /*
@@ -228,7 +227,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Es' => Elasticquent\ElasticquentElasticsearchFacade::class,
     ],
 
 ];

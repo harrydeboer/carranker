@@ -17,14 +17,14 @@ class SearchTest extends TestCase
 
         $response = $this->get('/search?query=' . $make->getName());
         $response->assertStatus(200);
-        $response->assertSee('<h3>Makes</h3>');
+        $response->assertSee('<h3>Makes</h3>', false);
 
         $response = $this->get('/search?query=' . $model->getName());
         $response->assertStatus(200);
-        $response->assertSee('<h3>Models</h3>');
+        $response->assertSee('<h3>Models</h3>', false);
 
         $response = $this->get('/search?query=' . $trim->getName());
         $response->assertStatus(200);
-        $response->assertSee('<h3>Modelversions</h3>');
+        $response->assertSee('<h3>Modelversions</h3>', false);
     }
 }

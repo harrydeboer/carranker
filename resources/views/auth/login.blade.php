@@ -10,7 +10,7 @@
                 </ul>
             </div>
         @endif
-        {!! Form::open(['route' => 'loginattempt', 'id' => 'login-form']) !!}
+        {!! Form::open(['route' => 'login', 'id' => 'login-form']) !!}
         {!! Form::label('user_email', 'Email', ['class' => 'control-label']) !!}
         {!! Form::email('user_email', null, ['class' => 'form-control', 'required']) !!}
         {!! Form::label('password', 'Password', ['class' => 'control-label']) !!}

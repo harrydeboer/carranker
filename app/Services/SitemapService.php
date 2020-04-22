@@ -18,7 +18,7 @@ class SitemapService
         $pageRepository = new PageRepository();
         $pages = $pageRepository->all();
 
-        $env = env('APP_ENV');
+        $env = getenv('APP_ENV');
 
         switch ($env) {
             case 'local':

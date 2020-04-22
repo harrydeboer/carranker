@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Providers\WPHasher;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 $factory->define(App\User::class, function (Faker $faker): array
 {
@@ -20,6 +21,6 @@ $factory->define(App\User::class, function (Faker $faker): array
         'user_status' => 0,
         'display_name' => $userName,
         'user_registered' => $faker->time('Y-m-d H:i:s'),
-        'remember_token' => str_random(10),
+        'remember_token' => Str::random(10),
     ];
 });

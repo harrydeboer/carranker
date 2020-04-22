@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-use Exception;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -31,33 +29,20 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Report or log an exception.
-     *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param  \Exception  $exception
-     * @return void
-     */
-    public function report(Exception $exception)
-    {
-        parent::report($exception);
-    }
-
-    /**
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $e)
     {
         $viewFactory = app('Illuminate\Contracts\View\Factory');
-        $viewFactory->share('message', $exception->getMessage());
+        $viewFactory->share('message', $e->getMessage());
         $viewFactory->share('controller', 'error');
 
         try {
-            if ($exception->getStatusCode() === 404) {
+            if ($e->getStatusCode() === 404) {
                 $viewFactory->share('title', 'Not Found');
             }  else {
                 $viewFactory->share('title', 'Error');
@@ -66,6 +51,6 @@ class Handler extends ExceptionHandler
             $viewFactory->share('title', 'Error');
         }
 
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
     }
 }

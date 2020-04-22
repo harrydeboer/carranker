@@ -13,11 +13,11 @@ class SitemapTest extends TestCase
         $response = $this->get('/api/sitemap');
         $response->assertStatus(200);
 
-        $response->assertSee('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
-        $response->assertSee('<loc>');
-        $response->assertSee('<priority>');
-        $response->assertSee('<lastmod>');
-        $response->assertSee('<changefreq>');
-        $response->assertSee('<url>');
+        $response->assertSee('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', false);
+        $response->assertSee('<loc>', false);
+        $response->assertSee('<priority>', false);
+        $response->assertSee('<lastmod>', false);
+        $response->assertSee('<changefreq>', false);
+        $response->assertSee('<url>', false);
     }
 }
