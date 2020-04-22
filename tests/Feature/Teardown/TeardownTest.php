@@ -11,8 +11,8 @@ class TeardownTest extends TestCase
 {
     public function testTeardown()
     {
-        DB::unprepared("DROP DATABASE " . env('TEST_DATABASE') . ";");
-        DB::unprepared("CREATE DATABASE " . env('TEST_DATABASE') . ";");
+        DB::unprepared("DROP DATABASE " . getenv('TEST_DATABASE') . ";");
+        DB::unprepared("CREATE DATABASE " . getenv('TEST_DATABASE') . ";");
 
         $this->assertTrue(true);
     }
