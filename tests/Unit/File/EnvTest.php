@@ -28,7 +28,8 @@ class EnvTest extends TestCase
 	        } elseif ($name === "") {
 		        $this->assertTrue($envNames[$key] === "");
 	        }else {
-		        $this->assertTrue( strpos( $envNames[$key], $name ) === 0);
+		        $this->assertTrue( strpos( $envNames[$key], $name ) === 0,
+			        "the first part of $envNames[$key] is not $name");
 	        }
         }
     }

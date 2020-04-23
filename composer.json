@@ -23,6 +23,7 @@
         "ext-pdo": "*",
         "ext-simplexml": "*",
         "ext-xmlreader": "*",
+        "ext-redis": "*",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
