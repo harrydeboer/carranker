@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ContactController extends BaseController
 {
@@ -46,6 +47,7 @@ class ContactController extends BaseController
 
                 $data['success'] = 'Thank you for your mail!';
             } catch (\Exception $e) {
+            	Log::debug($e->getMessage());
                 $data['error'] = 'Could not deliver mail. Try again later.';
             }
         }
