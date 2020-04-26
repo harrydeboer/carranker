@@ -31,9 +31,9 @@ class FlushRedisDB extends Command
 	public function handle(): void
 	{
 		$this->redis = new \Redis();
-		$this->redis->connect(getenv('REDIS_HOST'), (int) getenv('REDIS_PORT'));
-		$this->redis->auth(getenv('REDIS_PASSWORD'));
-		$this->redis->select((int) getenv('REDIS_DB'));
+		$this->redis->connect(env('REDIS_HOST'), (int) env('REDIS_PORT'));
+		$this->redis->auth(env('REDIS_PASSWORD'));
+		$this->redis->select((int) env('REDIS_DB'));
 		$this->redis->flushDB();
 
 		$this->info('Redis db flushed!');

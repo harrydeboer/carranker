@@ -21,11 +21,11 @@ abstract class BaseForm extends Model
             return false;
         }
 
-        if (!is_null($token) && getenv('APP_ENV') !== 'testing') {
+        if (!is_null($token) && env('APP_ENV') !== 'testing') {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, "secret=" . getenv('reCaptchaSecret') . "&response=" . $token);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, "secret=" . env('reCaptchaSecret') . "&response=" . $token);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
             $response = curl_exec($ch);

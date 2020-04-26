@@ -16,7 +16,7 @@ class ContentSecurityPolicy
          * Therefore the Content Security Policy is not demanded locally. The other app envs need this security.
          * Testing has to be done with this security enabled also.
          */
-        if (getenv('APP_ENV') !== 'local') {
+        if (env('APP_ENV') !== 'local') {
             $response->headers->set('Content-Security-Policy', "default-src 'self'; style-src 'self' " .
                 "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css " .
                 "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css;" .

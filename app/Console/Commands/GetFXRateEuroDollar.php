@@ -33,7 +33,7 @@ class GetFXRateEuroDollar extends Command
 
     public function handle(): void
     {
-        $ch = curl_init("http://data.fixer.io/api/latest?access_key=" . getenv("FIXER_API_KEY"));
+        $ch = curl_init("http://data.fixer.io/api/latest?access_key=" . env("FIXER_API_KEY"));
 
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
