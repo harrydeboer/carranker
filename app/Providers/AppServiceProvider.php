@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Builder::defaultStringLength(191);
-        if (env('APP_ENV') === 'acceptance' || env('APP_ENV') === 'production' ) {
+        if (getenv('APP_ENV') === 'acceptance' || getenv('APP_ENV') === 'production' ) {
             URL::forceScheme('https');
         }
     }

@@ -32,17 +32,17 @@ class ContactController extends BaseController
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'form' => $form,
             'page' => $this->pageRepository->getByName('contact'),
-            'reCaptchaKey' => env('reCaptchaKey'),
+            'reCaptchaKey' => getenv('reCaptchaKey'),
         ];
 
         if ($form->validateFull($request, $form->reCaptchaToken)) {
             try {
                 $this->mailer->send('contact.message', ['userMessage' => $form->message], function (Message $message) use ($form)
                 {
-                    $message->from(env('MAIL_POSTMASTER_USERNAME'), $form->name);
+                    $message->from(getenv('MAIL_POSTMASTER_USERNAME'), $form->name);
                     $message->replyTo($form->email, $form->name);
                     $message->subject($form->subject);
-                    $message->to(env('MAIL_USERNAME'));
+                    $message->to(getenv('MAIL_USERNAME'));
                 });
 
                 $data['success'] = 'Thank you for your mail!';

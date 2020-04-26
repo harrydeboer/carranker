@@ -47,7 +47,7 @@ class GetCMSData extends Command
     {
         $ch = curl_init();
 
-        $env = env('APP_ENV');
+        $env = getenv('APP_ENV');
 
         switch ($env) {
             case 'local':
@@ -67,7 +67,7 @@ class GetCMSData extends Command
         /** The token for the wordpress admin user is retrieved with the help of the JWT Authentication plugin. */
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_URL, $baseUrl . "/wp-json/jwt-auth/v1/token");
-        curl_setopt($ch, CURLOPT_POSTFIELDS,"username=" . env('WP_ADMIN_USERNAME') . "&password=" . env('WP_ADMIN_PASSWORD'));
+        curl_setopt($ch, CURLOPT_POSTFIELDS,"username=" . getenv('WP_ADMIN_USERNAME') . "&password=" . getenv('WP_ADMIN_PASSWORD'));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
         $token = json_decode($response);
@@ -109,9 +109,9 @@ class GetCMSData extends Command
         /** When there are errors in the syncing or in the cms a mail is send to the contact form email address. */
         if ($errors !== "") {
             $this->mailer->send('contact.message', ['userMessage' => $errors], function (Message $message) {
-                $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
+                $message->from(getenv('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
                 $message->subject('Wordpress api error');
-                $message->to(env('MAIL_USERNAME'));
+                $message->to(getenv('MAIL_USERNAME'));
             });
         } else {
             $this->info('CMS info synchronized with Laravel!');
