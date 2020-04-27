@@ -7,7 +7,7 @@ declare( strict_types=1 );
  * In that file only wp_upgrade() is needed. Wordpress and the necessary functions have to be loaded first.
  * When the database needs no upgrade then this functions will do nothing.
  */
-define( 'WP_INSTALLING', true );
+define('WP_INSTALLING', true);
 
 /** Load WordPress Bootstrap */
 require __DIR__ . "/wordpress/wp/wp-load.php";
