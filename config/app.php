@@ -162,7 +162,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+	    \Spatie\Varnish\VarnishServiceProvider::class,
         /*
          * Package Service Providers...
          */

@@ -13,3 +13,4 @@
   php artisan getcmsdata
   php artisan getfxrate
   php artisan flushredisdb
+  php artisan varnish:flush
