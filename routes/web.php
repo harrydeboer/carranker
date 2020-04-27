@@ -12,11 +12,12 @@ Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']
 Route::get('model/{make}/{model}', 'ModelpageController@view')->where('model', '.*');
 Route::get('contact', 'ContactController@view');
 
+Route::get('filterTop', ['as' => 'filterTop', 'uses' => 'HomepageController@filterTop']);
+Route::get('showMoreTopTable/{numberOfRows}/{offset}', ['as' => 'showMoreTopTable', 'uses' => 'HomepageController@showMoreTopTable']);
+
 Route::group(['middleware' => 'cacheable'], function ()
 {
 	Route::get('search', ['as' => 'base.search', 'uses' => 'BaseController@search']);
-	Route::get('filterTop', ['as' => 'filterTop', 'uses' => 'HomepageController@filterTop']);
-	Route::get('showMoreTopTable/{numberOfRows}/{offset}', ['as' => 'showMoreTopTable', 'uses' => 'HomepageController@showMoreTopTable']);
 	Route::get('', ['as' => 'Home', 'uses' => 'HomepageController@view']);
 	Route::get('make/{make}', 'MakeController@view');
 
