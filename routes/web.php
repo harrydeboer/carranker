@@ -6,6 +6,9 @@ Route::post('contact', ['as' => 'contact.view', 'uses' => 'ContactController@vie
 Route::post('login', ['as' => 'login', 'uses' => 'Auth\LoginController@login']);
 Route::post('register', ['as' => 'register', 'uses' => 'Auth\RegisterController@register']);
 Route::post('model/{make}/{model}', ['as' => 'make.model', 'uses' => 'ModelpageController@view'])->where('model', '.*');
+Route::get('auth', ['as' => 'auth', 'uses' => 'Auth\LoginController@view']);
+Route::get('register', 'Auth\RegisterController@showRegistrationForm');
+Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 
 Route::group(['middleware' => 'cacheable'], function ()
 {
@@ -14,9 +17,6 @@ Route::group(['middleware' => 'cacheable'], function ()
 	Route::get('filterTop', ['as' => 'filterTop', 'uses' => 'HomepageController@filterTop']);
 	Route::get('showMoreTopTable/{numberOfRows}/{offset}', ['as' => 'showMoreTopTable', 'uses' => 'HomepageController@showMoreTopTable']);
 	Route::get('contact', 'ContactController@view');
-	Route::get('auth', ['as' => 'auth', 'uses' => 'Auth\LoginController@view']);
-	Route::get('register', 'Auth\RegisterController@showRegistrationForm');
-	Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 	Route::get('model/{make}/{model}', 'ModelpageController@view')->where('model', '.*');
 	Route::get('', ['as' => 'Home', 'uses' => 'HomepageController@view']);
 	Route::get('make/{make}', 'MakeController@view');
