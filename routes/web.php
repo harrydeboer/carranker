@@ -12,7 +12,6 @@ Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']
 
 Route::group(['middleware' => 'cacheable'], function ()
 {
-	Route::get('auth', ['as' => 'auth', 'uses' => 'Auth\LoginController@view']);
 	Route::get('search', ['as' => 'base.search', 'uses' => 'BaseController@search']);
 	Route::get('filterTop', ['as' => 'filterTop', 'uses' => 'HomepageController@filterTop']);
 	Route::get('showMoreTopTable/{numberOfRows}/{offset}', ['as' => 'showMoreTopTable', 'uses' => 'HomepageController@showMoreTopTable']);
