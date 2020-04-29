@@ -34,7 +34,6 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.1",
-        "predis/predis": "^1.1",
         "wpackagist-plugin/jwt-authentication-for-wp-rest-api": "1.2.6",
         "wpackagist-plugin/user-role-editor": "4.53.1"
     },
