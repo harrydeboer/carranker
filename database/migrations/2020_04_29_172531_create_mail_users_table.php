@@ -19,7 +19,7 @@ class CreateMailUsersTable extends Migration
             $table->string('password');
             $table->string('email');
 
-	        $table->foreign('mail_domain_id')->references('id')->on('mail_domains');
+	        $table->foreign('domain_id')->references('id')->on('mail_domains');
         });
     }
 
