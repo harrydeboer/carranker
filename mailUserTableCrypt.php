@@ -11,5 +11,13 @@ if ( count( $argv ) < 2 ) {
 }
 
 $password = $argv[1];
+$saltlength = 50;
 
-echo crypt( $password, '$6$' );
+$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+$charactersLength = strlen($characters);
+$salt = '';
+for ($i = 0; $i < $saltlength; $i++) {
+	$salt .= $characters[rand(0, $charactersLength - 1)];
+}
+
+echo crypt( $password, '$6$' . $salt );
