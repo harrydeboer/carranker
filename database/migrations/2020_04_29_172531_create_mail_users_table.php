@@ -15,7 +15,7 @@ class CreateMailUsersTable extends Migration
     {
         Schema::create('mail_users', function (Blueprint $table) {
             $table->increments('id');
-	        $table->integer('mail_domain_id')->unsigned();
+	        $table->integer('domain_id')->unsigned();
             $table->string('password');
             $table->string('email');
 

@@ -15,7 +15,7 @@ class CreateMailAliasesTable extends Migration
     {
         Schema::create('mail_aliases', function (Blueprint $table) {
             $table->increments('id');
-	        $table->integer('mail_domain_id')->unsigned();
+	        $table->integer('domain_id')->unsigned();
             $table->string('source');
             $table->string('destination');
 
