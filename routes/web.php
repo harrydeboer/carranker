@@ -15,6 +15,11 @@ Route::get('contact', 'ContactController@view');
 Route::get('filterTop', ['as' => 'filterTop', 'uses' => 'HomepageController@filterTop']);
 Route::get('showMoreTopTable/{numberOfRows}/{offset}', ['as' => 'showMoreTopTable', 'uses' => 'HomepageController@showMoreTopTable']);
 
+Route::get('home', function ()
+{
+	return redirect('/');
+});
+
 Route::group(['middleware' => 'cacheable'], function ()
 {
 	Route::get('search', ['as' => 'base.search', 'uses' => 'BaseController@search']);

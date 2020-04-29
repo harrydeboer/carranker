@@ -39,7 +39,11 @@ class SitemapService
 
         foreach ($pages as $page) {
             $url = $sitemap->addChild('url');
-            $url->addChild('loc', $baseUrl . '/' . $page->getName());
+            if ($page->getName() === 'home') {
+	            $url->addChild( 'loc', $baseUrl . '/' );
+            } else {
+	            $url->addChild( 'loc', $baseUrl . '/' . $page->getName() );
+            }
             $url->addChild('priority', '1.0');
             $url->addChild('lastmod', $update);
             $url->addChild('changefreq', 'monthly');
