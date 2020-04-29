@@ -84,8 +84,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
             "@php wpupgradedbandtranslations.php",
-            "php -r \"copy('wordpress/.htaccess', 'wordpress/wp/.htaccess');\"",
-            "php -r \"copy('wordpress/wp-cli.phar', 'wordpress/wp/wp-cli.phar');\""
+            "php -r \"copy('wordpress/.htaccess', 'wordpress/wp/.htaccess');\""
         ]
     },
     "config": {
