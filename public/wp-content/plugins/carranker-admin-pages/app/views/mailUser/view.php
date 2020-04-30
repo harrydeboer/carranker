@@ -6,8 +6,8 @@
             New mail user:<form method="post" id="createMailUserForm">
                 <input type="text" name="domain" placeholder="domain">
                 <input type="password" name="password" placeholder="password">
-                <input type="text" name="email" placeholder="email">
-                <input type="text" name="forward" placeholder="forward">
+                <input type="email" name="email" placeholder="email">
+                <input type="email" name="forward" placeholder="forward">
                 <input type="hidden" value="create" name="carrankerAdminAction">
                 <input type="submit" value="Create">
             </form>
@@ -20,8 +20,8 @@
             <td>
                 <form method="post" class="updateMailUserForm">
                     <input type="text" name="domain" value="<?= $mailUser->getDomain() ?>" placeholder="domain">
-                    <input type="text" name="email" value="<?= $mailUser->getEmail() ?>" placeholder="email">
-                    <input type="text" name="forward" value="<?= $mailUser->getForward() ?>" placeholder="forward">
+                    <input type="email" name="email" value="<?= $mailUser->getEmail() ?>" placeholder="email">
+                    <input type="email" name="forward" value="<?= $mailUser->getForward() ?>" placeholder="forward">
                     <input type="hidden" value="update" name="carrankerAdminAction">
                     <input type="hidden" value="<?= $mailUser->getId() ?>" name="id">
                     <input type="submit" value="Update">
@@ -29,7 +29,7 @@
                 <form method="post">
                     Reset password
                     <input type="password" name="password">
-                    <input type="hidden" name="email" value="<?= $mailUser->getEmail() ?>">
+                    <input type="hidden" name="id" value="<?= $mailUser->getId() ?>">
                     <input type="hidden" value="updatePassword" name="carrankerAdminAction">
                     <input type="submit" value="Update">
                 </form>
@@ -44,7 +44,7 @@
 <br>
 <br>
 <form method="post" id="deleteMailUserForm">
-    <input type="text" name="deleteMailUserEmail">
+    <input type="email" name="deleteMailUserEmail">
     <input type="hidden" value="delete" name="carrankerAdminAction">
     <input type="submit" value="Delete">
 </form>

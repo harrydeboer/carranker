@@ -65,7 +65,7 @@ class MailUserController extends Controller
 	    $form = new MailUserFormPasswordUpdate('update', $request);
 
 	    if ($form->validate($request)) {
-		    $mailUser = MailUser::findByEmail($request->email);
+		    $mailUser = MailUser::getById((int) $request->id);
 		    $mailUser->setPassword($this->encryptPasswordSHA512($request->password));
 		    $mailUser->update();
 		    $this->set('mailUsers', MailUser::all());
