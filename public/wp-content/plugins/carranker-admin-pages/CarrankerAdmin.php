@@ -8,11 +8,12 @@ class CarrankerAdmin
 {
     public function __construct()
     {
-        /** For the tables parameters, specs_dropdown, specs_minmax, makes, models and trims an admin menu entry is added. */
+        /** For the tables profanities, mail users, makes, models and trims an admin menu entry is added. */
         add_action( 'admin_menu', array($this, 'my_admin_makes' ));
         add_action( 'admin_menu', array($this, 'my_admin_models' ));
         add_action( 'admin_menu', array($this, 'my_admin_trims' ));
         add_action( 'admin_menu', array($this, 'my_admin_profanities' ));
+        add_action( 'admin_menu', array($this, 'my_admin_mail_users' ));
     }
 
     public function my_admin_profanities()
@@ -34,6 +35,11 @@ class CarrankerAdmin
     {
         add_menu_page( 'Makes', 'Makes', 'delete_posts', 'make-admin-page', array($this, 'admin_page' ));
     }
+
+	public function my_admin_mail_users()
+	{
+		add_menu_page( 'Mail Users', 'Mail Users', 'ure_delete_roles', 'mail-user-admin-page', array($this, 'admin_page' ));
+	}
 
     public function admin_page()
     {

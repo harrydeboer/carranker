@@ -17,7 +17,7 @@ class CreateMailUsersTable extends Migration
             $table->increments('id');
 	        $table->string('domain');
             $table->string('password');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('forward')->nullable();
         });
     }

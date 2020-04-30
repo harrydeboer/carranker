@@ -19,8 +19,6 @@ class Profanity extends BaseModel
 
         $result = self::sanitize_result($result, $wpdb);
 
-        $className = static::class;
-
         $profanities = [];
         foreach ($result as $row) {
             $profanities[] = new Profanity($row);

@@ -21,14 +21,16 @@ if ($urlArray[1] === 'wp-admin' && isset($urlArray[2])) {
     $page = $urlParams['page'];
 
 
-    if ($page == 'make-admin-page') {
+    if ($page === 'make-admin-page') {
         $url = 'make/' . $action;
-    } elseif ($page == 'model-admin-page') {
+    } elseif ($page === 'model-admin-page') {
         $url = 'model/' . $action;
-    } elseif ($page == 'trim-admin-page') {
+    } elseif ($page === 'trim-admin-page') {
         $url = 'trim/' . $action;
-    } elseif ($page == 'profanity-admin-page') {
+    } elseif ($page === 'profanity-admin-page') {
         $url = 'profanity/' . $action;
+    } elseif ($page === 'mail-user-admin-page') {
+	    $url = 'mailuser/' . $action;
     }
 
     if (!is_null($url)) {

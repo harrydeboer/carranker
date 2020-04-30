@@ -30,7 +30,7 @@ abstract class BaseModel
         return $properties;
     }
 
-    public static function getById(int $id)
+    public static function getById(int $id): ?BaseModel
     {
         global $wpdb;
 
