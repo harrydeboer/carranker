@@ -30,7 +30,7 @@ if ($urlArray[1] === 'wp-admin' && isset($urlArray[2])) {
     } elseif ($page === 'profanity-admin-page') {
         $url = 'profanity/' . $action;
     } elseif ($page === 'mail-user-admin-page') {
-	    $url = 'mailuser/' . $action;
+	    $url = 'mailUser/' . $action;
     }
 
     if (!is_null($url)) {
