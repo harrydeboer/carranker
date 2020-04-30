@@ -15,11 +15,10 @@ class CreateMailUsersTable extends Migration
     {
         Schema::create('mail_users', function (Blueprint $table) {
             $table->increments('id');
-	        $table->integer('domain_id')->unsigned();
+	        $table->string('domain');
             $table->string('password');
             $table->string('email');
-
-	        $table->foreign('domain_id')->references('id')->on('mail_domains');
+            $table->string('forward')->nullable();
         });
     }
 
