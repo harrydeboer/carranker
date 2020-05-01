@@ -10,7 +10,7 @@ endforeach; ?>
         <?php endforeach;
         foreach ($form->selectFields as $key => $field): ?>
             <tr><td><label><?= $key ?></label></td><td>
-                    <select name="<?= $key ?>" <?= $key === 'make' || $key === 'model' ? 'id="' . $key . 'Select"': '' ?>>
+                    <select name="<?= $key ?>" <?= $key === 'make' || $key === 'model' ? 'id="' . $key . 'Select"': '' ?> required>
                         <?php foreach ($form->selectChoices[$key] as $choice):
                             if ($choice === $field): ?>
                                 <option value="<?= $choice ?>" selected><?= $choice ?></option>
