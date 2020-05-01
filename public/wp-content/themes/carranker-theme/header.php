@@ -17,17 +17,13 @@ $user = wp_get_current_user();
 if ( !in_array( 'administrator', (array) $user->roles ) && !in_array( 'editor', (array) $user->roles ) ) {
 	wp_redirect('/wp-admin');
 }
+
 $post = get_post();
 if ($post->post_name == 'phpinfo' && in_array( 'administrator', (array) $user->roles )) {
 	phpinfo();
 	exit;
-} elseif ($post->post_name == 'opcachereset' && (APP_ENV !== 'local' && APP_ENV !== 'testing')
-          && in_array( 'administrator', (array) $user->roles )) {
-	opcache_reset();
-	echo 'Opcache reset!';
-}
-
-?><!doctype html>
+} ?>
+<!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>" />

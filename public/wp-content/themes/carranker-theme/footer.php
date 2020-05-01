@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 if ( has_nav_menu( 'footer' ) || ! has_nav_menu( 'expanded' ) ) {
 ?>
-
 <nav class="footer-menu-wrapper" aria-label="<?php esc_attr_e( 'Horizontal', 'carranker-theme' ); ?>" role="navigation">
 
     <ul class="footer-menu reset-list-style">
@@ -23,6 +22,5 @@ if ( has_nav_menu( 'footer' ) || ! has_nav_menu( 'expanded' ) ) {
 <?php
 
 wp_footer(); ?>
-
 </body>
 </html>
