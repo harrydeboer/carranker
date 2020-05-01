@@ -60,8 +60,9 @@ return [
 					'NO_ENGINE_SUBSTITUTION',] : null,
 			'options' => env("APP_ENV") === 'local' || env("APP_ENV") === 'testing' ? null :
 				[
-					PDO::MYSQL_ATTR_SSL_CA => '/var/lib/mysql/ca.pem',
-					PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
+					PDO::MYSQL_ATTR_SSL_CA => '/etc/letsencrypt/live/carranker.com/chain.pem',
+					PDO::MYSQL_ATTR_SSL_CERT => '/etc/letsencrypt/live/carranker.com/cert.pem',
+					PDO::MYSQL_ATTR_SSL_KEY => '/etc/letsencrypt/live/carranker.com/privkey.pem',
 				],
 		],
 
