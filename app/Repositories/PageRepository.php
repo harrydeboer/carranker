@@ -37,7 +37,7 @@ class PageRepository extends BaseRepository
 
         if (!in_array('auth', $namesCMS) || !in_array('register', $namesCMS) ||
             !in_array('contact', $namesCMS) || !in_array('home', $namesCMS) ||
-            !in_array('phpinfo', $namesCMS) || !in_array('opcachereset', $namesCMS)) {
+            !in_array('phpinfo', $namesCMS)) {
             throw new \Exception("Error: Necessary page(s) deleted.");
         }
 
