@@ -21,7 +21,7 @@ AddType application/x-font-ttf .ttf
     ExpiresByType application/x-font-ttf "access plus 1 year"
 </IfModule>
 
-<FilesMatch "\.(ttf|otf|eot|woff|woff2)$">
+<FilesMatch "\.(ttf|otf|eot|woff|woff2|jpeg|png)$">
     <IfModule mod_headers.c>
             SetEnvIf Origin "http(s)?://(www\.)?(cms.carranker.com|accept.cms.carranker.com|cms.carranker)$" AccessControlAllowOrigin=$0
             Header add Access-Control-Allow-Origin %{AccessControlAllowOrigin}e env=AccessControlAllowOrigin
