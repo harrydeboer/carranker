@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4.3",
+        "php": ">=7.4.5",
         "ext-curl": "*",
         "ext-iconv": "*",
         "ext-json": "*",
@@ -29,7 +29,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "johnpbloch/wordpress": "5.4.1",
-        "laravel/framework": "^7.0",
+        "laravel/framework": "^7.9.2",
         "laravel/passport": "^8.4",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
