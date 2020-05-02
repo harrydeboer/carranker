@@ -34,3 +34,5 @@ if (get_locale() !== 'en_US') {
 
 	$upgrader->bulk_upgrade();
 }
+
+echo "Wordpress database upgraded and updated translations!\r\n";

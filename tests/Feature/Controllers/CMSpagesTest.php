@@ -21,11 +21,4 @@ class CMSpagesTest extends TestCase
 
         $response->assertStatus(200);
     }
-
-    public function testOPcacheReset()
-    {
-        $response = $this->get('/opcachereset');
-
-        $response->assertStatus(200);
-    }
 }

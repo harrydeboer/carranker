@@ -28,7 +28,7 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
-        "johnpbloch/wordpress": "5.4",
+        "johnpbloch/wordpress": "5.4.1",
         "laravel/framework": "^7.0",
         "laravel/passport": "^8.4",
         "laravel/tinker": "^2.0",
@@ -40,11 +40,11 @@
     "require-dev": {
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
-        "laravel/dusk": "^6.0",
+        "laravel/dusk": "^6.1",
         "mockery/mockery": "^1.3.1",
         "nunomaduro/collision": "^4.1",
         "phpunit/phpunit": "^8.5",
-        "wp-phpunit/wp-phpunit": "5.4"
+        "wp-phpunit/wp-phpunit": "5.4.1"
     },
     "autoload": {
         "classmap": [
@@ -83,7 +83,7 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
-            "@php wpupgradedbandtranslations.php",
+            "@php wpUpgradeDbAndTranslations.php",
             "php -r \"copy('wordpress/.htaccess', 'wordpress/wp/.htaccess');\""
         ]
     },
