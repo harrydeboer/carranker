@@ -1,53 +1,55 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+<p align="center"><img src="https://carranker.com/img/HeaderChrome.jpg"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+<h1>First install</h1>
 
-## About Laravel
+<h3>The steps below must be followed in numerical order.</h3>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+<ol>
+<li>Create the carranker database.</li>
+<li>Mkdir sitefolder in /var/www.</li>
+<li>Execute command ‘chown {youruser}:{yourusergroup} {sitefolder}’ in /var/www.</li>
+<li>Execute command ‘git init’ in sitefolder.</li>
+<li>Execute command ‘git remote add origin {ssh-origin}’.</li>
+<li>Execute command ‘git pull origin master’.</li>
+<li>Make apache configuration files for laravel and wordpress and edit these files to match the sites.</li>
+<li>Rerun the letsencrypt command with the laravel and wordpress sites added.</li>
+<li>Enable the new sites.</li>
+<li>Enable the necessary apache modules ‘a2enmod headers proxy rewrite proxy_balancer proxy_http slotmem_shm ssl’.</li>
+<li>Restart apache.</li>
+<li>Ask site owner for recaptcha key, secret and fixer api key.</li>
+<li>Cp .env.example to .env file in sitefolder folder and fill in database credentials etc.</li>
+<li>Execute command php artisan key:generate</li>
+<li>Execute “composer install --no-dev --no-progress --prefer-dist” in sitefolder or composer install for dev environment.</li>
+<li>Browse to cms and install.</li>
+<li>Execute command ‘chmod 777 -R storage’ in sitefolder.</li>
+<li>Execute command ‘git reset –hard’ in sitefolder. </li>
+<li>Run command ‘php artisan migrate’ in sitefolder.</li>
+<li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
+<li>Add pages Home, Auth, Register, About, Contact and PHPinfo.</li>
+<li>Add menus navigationHeader with page Home as primary menu and navigationFooter with About and Contact as footer menu.</li>
+<li>Activate Carranker Theme and set permalinks on Post name.</li>
+<li>Activate plugins.</li>
+<li>Add permissions to the role editor: create_users, delete_users, edit_theme_options, edit_themes, edit_users, list_users and remove_users.</li>
+<li>Enable cronjob (not in dev environment) with crontab -e: * * * * * (cd path/to/sitefolder && php artisan getcmsdata).</li>
+<li>Enable cronjob (not in dev environment) with crontab -e: 0 * * * * (cd path/to/sitefolder && php artisan getfxrate).</li>
+<li>Run command ‘php artisan getcmsdata’ in sitefolder.</li>
+<li>Run command ‘php artisan getfxrate’ in sitefolder.</li>
+<li>Run command ‘php artisan passport:install’ in sitefolder.</li>
+<li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
+<li>Repeat all the steps for the acceptance site with allowance for certain ips only (and the server ip) in the main apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
+<li>In production: add harry@carranker.com, info@carranker.com, postmaster@carranker.com and root@carranker.com in Mail Users in the admin panel. Forward info@carranker.com to carranker@gmail.com.</li>
+</ol>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+<h3>Testing</h3>
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
-
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+<ol>
+<li>Create the testdatabase. </li>
+<li>Run ‘php artisan dusk:install’ when dusk is used the first time.</li>
+<li>Execute unittests.sh for unit tests.</li>
+<li>Execute featuretests.sh for feature tests.</li>
+<li>Install phpunit 7.5.20 globally via composer</li>
+<li>Execute wordpresstests.sh for feature tests.</li>
+<li>Execute php artisan dusk for browser tests.</li>
+<li>Execute ‘./jmeter -n -t CarRanker.jmx’ with .jmx in apache-jmeter/bin for stress tests.</li>
+</ol>
