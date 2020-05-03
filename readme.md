@@ -2,33 +2,33 @@
 
 <h1>First install</h1>
 
-<h3>The steps below must be followed in numerical order.</h3>
+<h3>The steps below must be followed in numerical order</h3>
 
 <ol>
 <li>Create the carranker database.</li>
-<li>Mkdir sitefolder in /var/www.</li>
+<li>Mkdir sitefolder in /var/www. The sitefolder must have the same name as the site name (domain name) in /etc/apache2/sites-available (without the .conf).</li>
 <li>Execute command ‘chown {youruser}:{yourusergroup} {sitefolder}’ in /var/www.</li>
 <li>Execute command ‘git init’ in sitefolder.</li>
 <li>Execute command ‘git remote add origin {ssh-origin}’.</li>
 <li>Execute command ‘git pull origin master’.</li>
 <li>Make apache configuration files for laravel and wordpress and edit these files to match the sites.</li>
-<li>Rerun the letsencrypt command with the laravel and wordpress sites added.</li>
+<li>Run the certbot command (not in dev environment) with the laravel and wordpress sites added.</li>
 <li>Enable the new sites.</li>
 <li>Enable the necessary apache modules ‘a2enmod headers proxy rewrite proxy_balancer proxy_http slotmem_shm ssl’.</li>
 <li>Restart apache.</li>
 <li>Ask site owner for recaptcha key, secret and fixer api key.</li>
 <li>Cp .env.example to .env file in sitefolder folder and fill in database credentials etc.</li>
 <li>Execute command php artisan key:generate</li>
-<li>Execute “composer install --no-dev --no-progress --prefer-dist” in sitefolder or composer install for dev environment.</li>
-<li>Browse to cms and install.</li>
+<li>Execute ’composer install --no-dev --no-progress --prefer-dist’ in sitefolder or ’composer install’ for the dev environment.</li>
+<li>Browse to the cms and install wordpress.</li>
 <li>Execute command ‘chmod 777 -R storage’ in sitefolder.</li>
 <li>Execute command ‘git reset –hard’ in sitefolder. </li>
 <li>Run command ‘php artisan migrate’ in sitefolder.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
 <li>Add pages Home, Auth, Register, About, Contact and PHPinfo.</li>
 <li>Add menus navigationHeader with page Home as primary menu and navigationFooter with About and Contact as footer menu.</li>
-<li>Activate Carranker Theme and set permalinks on Post name.</li>
-<li>Activate plugins.</li>
+<li>Activate the Carranker Theme and set the permalinks on ’Post name’.</li>
+<li>Activate the plugins.</li>
 <li>Add permissions to the role editor: create_users, delete_users, edit_theme_options, edit_themes, edit_users, list_users and remove_users.</li>
 <li>Enable cronjob (not in dev environment) with crontab -e: * * * * * (cd path/to/sitefolder && php artisan getcmsdata).</li>
 <li>Enable cronjob (not in dev environment) with crontab -e: 0 * * * * (cd path/to/sitefolder && php artisan getfxrate).</li>
