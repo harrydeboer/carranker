@@ -25,6 +25,7 @@
         "ext-filter": "*",
         "ext-hash": "*",
         "ext-iconv": "*",
+        "ext-igbinary": "*",
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
