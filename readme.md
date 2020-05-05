@@ -6,8 +6,8 @@
 
 <ol>
 <li>Create the carranker database.</li>
-<li>Mkdir sitefolder in /var/www. The sitefolder must have the same name as the site name (domain name) in /etc/apache2/sites-available (without the .conf).</li>
-<li>Execute command ‘chown {youruser}:{yourusergroup} {sitefolder}’ in /var/www.</li>
+<li>Sudo mkdir sitefolder in /var/www. The sitefolder must have the same name as the site name (domain name) in /etc/apache2/sites-available (without the .conf).</li>
+<li>Execute command ‘sudo chown {youruser}:{yourusergroup} {sitefolder}’ in /var/www. The owner of the sitefolder cannot be root.</li>
 <li>Execute command ‘git init’ in sitefolder.</li>
 <li>Execute command ‘git remote add origin {ssh-origin}’.</li>
 <li>Execute command ‘git pull origin master’.</li>
@@ -39,6 +39,7 @@
 <li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
 <li>Repeat all the steps for the acceptance site with allowance for certain ips only (and the server ip) in the main apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
 <li>In production: add harry@carranker.com, info@carranker.com, postmaster@carranker.com and root@carranker.com in Mail Users in the admin panel. Forward info@carranker.com to carranker@gmail.com.</li>
+<li>An update can be retrieved with the command ’./update.sh’</li>
 </ol>
 
 
