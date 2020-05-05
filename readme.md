@@ -40,7 +40,7 @@
 <li>Install varnish for acceptance and production.</li>
 <li>Repeat all the steps for the acceptance site with allowance for certain ips only (and the server ip) in the main apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
 <li>In production: add harry@carranker.com, info@carranker.com, postmaster@carranker.com and root@carranker.com in Mail Users in the admin panel. Forward info@carranker.com to carranker@gmail.com.</li>
-<li>An update can be retrieved with the command ’./update.sh’</li>
+<li>An update in prodoction or acceptance can be retrieved with the command ’./update.sh’</li>
 </ol>
 
 
