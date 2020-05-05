@@ -15,10 +15,17 @@ class CMSpagesTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testPHPinfo()
-    {
-        $response = $this->get('/phpinfo');
+	public function testAuth()
+	{
+		$response = $this->get('/auth');
 
-        $response->assertStatus(200);
-    }
+		$response->assertStatus(200);
+	}
+
+	public function testRegister()
+	{
+		$response = $this->get('/register');
+
+		$response->assertStatus(200);
+	}
 }

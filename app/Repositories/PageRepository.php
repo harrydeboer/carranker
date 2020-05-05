@@ -35,6 +35,7 @@ class PageRepository extends BaseRepository
             $namesCMS[] = $pageCMS->slug;
         }
 
+        /** The phpinfo page must be in the cms, but must not be in the laravel pages table. */
         if (!in_array('auth', $namesCMS) || !in_array('register', $namesCMS) ||
             !in_array('contact', $namesCMS) || !in_array('home', $namesCMS) ||
             !in_array('phpinfo', $namesCMS)) {

@@ -31,10 +31,6 @@ class MenuRepositoryTest extends TestCase
     {
         $pageHome = factory(\App\Models\Page::class)->create(['title' => 'Home', 'name' => 'home']);
         $pageContact = factory(\App\Models\Page::class)->create(['title' => 'Contact', 'name' => 'contact']);
-        factory(\App\Models\Page::class)->create(['title' => 'Register', 'name' => 'register']);
-        factory(\App\Models\Page::class)->create(['title' => 'Login', 'name' => 'login']);
-        factory(\App\Models\Page::class)->create(['title' => 'PHPInfo', 'name' => 'phpinfo']);
-        factory(\App\Models\Page::class)->create(['title' => 'OPcacheReset', 'name' => 'opcachereset']);
 
         $menu = factory(Menu::class)->create();
 

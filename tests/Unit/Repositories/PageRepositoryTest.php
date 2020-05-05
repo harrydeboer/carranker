@@ -27,6 +27,7 @@ class PageRepositoryTest extends TestCase
         $this->assertEquals($page->getId(), $pageFromDb->getId());
     }
 
+    /** The phpinfo page is in the cms, but must not be in the laravel pages table. */
     public function testSyncPagesWithCMS()
     {
         $page = factory(Page::class)->create();
@@ -35,7 +36,6 @@ class PageRepositoryTest extends TestCase
         $pagesCMS[] = $this->makePageCMS('contact', 'Contact', 'Content');
         $pagesCMS[] = $this->makePageCMS('auth', 'Authentication', 'Content');
         $pagesCMS[] = $this->makePageCMS('register', 'Register', 'Content');
-        $pagesCMS[] = $this->makePageCMS('opcachereset', 'OPcacheReset', 'Content');
         $pagesCMS[] = $this->makePageCMS('phpinfo', 'PHPInfo', 'Content');
 
         $result = $this->pageRepository->syncPagesWithCMS($pagesCMS);
@@ -44,8 +44,10 @@ class PageRepositoryTest extends TestCase
         $this->assertNull($this->pageRepository->find($page->getId()));
 
         foreach ($pagesCMS as $pageCMS) {
-            $pageDB = $this->pageRepository->getByName($pageCMS->slug);
-            $this->assertEquals($pageDB->getName(), $pageCMS->slug);
+        	if ($pageCMS->slug !== 'phpinfo') {
+		        $pageDB = $this->pageRepository->getByName( $pageCMS->slug );
+		        $this->assertEquals( $pageDB->getName(), $pageCMS->slug );
+	        }
         }
     }
 
