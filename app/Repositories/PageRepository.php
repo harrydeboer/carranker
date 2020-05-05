@@ -44,6 +44,9 @@ class PageRepository extends BaseRepository
         $flushCache = false;
         $creates = array_diff($namesCMS, $namesDB);
         foreach ($pagesCMS as $pageCMS) {
+        	if ($pageCMS->slug === 'phpinfo') {
+        		continue;
+	        }
             if (in_array($pageCMS->slug, $creates)) {
                 $this->create([
                     'name' => $pageCMS->slug,
