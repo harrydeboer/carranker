@@ -15,7 +15,7 @@
 <li>Run the certbot command (not in dev environment) with the laravel and wordpress sites added.</li>
 <li>Enable the new sites.</li>
 <li>Enable the necessary apache modules ‘a2enmod headers proxy rewrite proxy_balancer proxy_http slotmem_shm ssl’.</li>
-<li>Enable the php modules listed in composer.json.</li>
+<li>Enable the php modules listed in composer.json. In production and acceptance enable opcache.</li>
 <li>Restart apache.</li>
 <li>Ask site owner for recaptcha key, secret and fixer api key.</li>
 <li>Cp .env.example to .env file in sitefolder folder and fill in database credentials etc.</li>
