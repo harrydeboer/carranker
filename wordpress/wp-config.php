@@ -64,14 +64,14 @@ define( 'WPLANG', '' );
 // ===========
 // Hide errors
 // ===========
-ini_set( 'display_errors', getenv('APP_DEBUG') ? 1 : 0 );
-define( 'WP_DEBUG_DISPLAY', getenv('APP_DEBUG') );
+ini_set( 'display_errors', getenv('APP_DEBUG') === 'true' ? 1 : 0 );
+define( 'WP_DEBUG_DISPLAY', getenv('APP_DEBUG') === 'true' ? true : false );
 
 // =================================================================
 // Debug mode
 // Debugging? Enable these. Can also enable them in local-config.php
 // =================================================================
-define( 'WP_DEBUG', getenv('APP_DEBUG') );
+define( 'WP_DEBUG', getenv('APP_DEBUG') === 'true' ? true : false );
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) )
