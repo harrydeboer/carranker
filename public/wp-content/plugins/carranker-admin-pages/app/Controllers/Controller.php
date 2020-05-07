@@ -8,10 +8,8 @@ use CarrankerAdmin\App\Models\Make;
 use CarrankerAdmin\App\Models\Model;
 use CarrankerAdmin\Library\Template;
 
-abstract class Controller {
-
-    protected $_model;
-    protected $_user;
+abstract class Controller
+{
     protected $_controller;
     protected $_action;
     protected $_template;
@@ -35,7 +33,7 @@ abstract class Controller {
         $this->_template->set($name, $value);
     }
 
-    public function __destruct()
+    public function render()
     {
         $this->set('makenames', Make::getMakenames());
         $this->set('modelnames', Model::getModelnames());

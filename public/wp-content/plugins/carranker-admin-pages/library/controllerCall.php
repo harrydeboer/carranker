@@ -9,8 +9,11 @@ require_once dirname(__DIR__) . '/app/Controllers/' . ucfirst($controller) . 'Co
 
 $controllerName = '\CarrankerAdmin\App' . '\\' . ucfirst($controller) . 'Controller';
 $controllerObj = new $controllerName($controller, $action);
+
 if (isset($request)) {
     $controllerObj->{$action}($urlParams, $request);
 } else {
     $controllerObj->{$action}($urlParams);
 }
+
+$controllerObj->render();
