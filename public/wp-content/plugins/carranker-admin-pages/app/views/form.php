@@ -6,7 +6,12 @@ endforeach; ?>
     <table>
         <?php foreach ($form->textFields as $key => $field): ?>
             <tr><td><label><?= $key ?></label></td><td>
-                    <input type="text" name="<?= $key ?>" style="width:400px;" value="<?= $field ?>"></td></tr>
+                    <?php if ($key === 'name' && substr(get_class($form), -8) !== 'TrimForm'): ?>
+                    <input type="text" name="<?= $key ?>" style="width:400px;" value="<?= $field ?>" required>
+                    <?php else: ?>
+                    <input type="text" name="<?= $key ?>" style="width:400px;" value="<?= $field ?>">
+                    <?php endif; ?>
+                </td></tr>
         <?php endforeach;
         foreach ($form->selectFields as $key => $field): ?>
             <tr><td><label><?= $key ?></label></td><td>
