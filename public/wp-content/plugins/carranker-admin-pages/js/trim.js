@@ -17,6 +17,10 @@ jQuery('#selectTrimType').on('change', function()
     jQuery('#trimsForm').submit();
 });
 
+jQuery('#deleteTrim').on('click', function() {
+    jQuery('#realyDeleteTrim').modal('show');
+});
+
 fillSeries();
 
 function fillSeries()

@@ -85,8 +85,8 @@ class Model extends BaseModel
 		$result = $wpdb->get_results("SELECT * FROM trims WHERE model_id=$id");
 
 		foreach ($result as $row) {
-			$trimId = $row->id;
-			$wpdb->query("DELETE FROM trims WHERE id={$trimId}");
+			$trimId = (int) $row->id;
+			Trim::delete($trimId);
 		}
 
 		$wpdb->query("DELETE FROM " . static::$table . " WHERE id={$id}");

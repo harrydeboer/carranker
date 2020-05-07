@@ -14,13 +14,33 @@
     </select>
 </form>
 <?php require_once dirname(__DIR__) . '/form.php' ?>
-<br><br><br><br><br><br><br><br><br><br><br><br>
-<form method="post" id="deleteModelForm">
-    <input type="hidden" value="<?= isset($model) ? $model->getId() : '' ?>" name="deleteModelId">
-    <input type="submit" value="Delete">
-    <input type="hidden" value="delete" name="carrankerAdminAction">
-</form><?php
+<br><br><br><br><br><br><br><br><br><br><br><br><?php
+
 if (isset($model)): ?>
+    <button id="deleteModel">Delete</button>
+
+    <div class="modal" tabindex="-1" role="dialog" id="realyDeleteModel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Are you sure you want to remove this model, its trims and ratings?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="deleteModelForm">
+                        <input type="hidden" value="<?= $model->getId() ?>" name="deleteModelId">
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                        <input type="hidden" value="delete" name="carrankerAdminAction">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
         var make = "<?= $model->getMake() ?>";
         var model = "<?= $model->getName() ?>";

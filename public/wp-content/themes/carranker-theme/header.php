@@ -29,6 +29,8 @@ if ($post->post_name == 'phpinfo' && in_array( 'administrator', (array) $user->r
     <meta charset="<?php bloginfo( 'charset' ); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<?php wp_head(); ?>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title><?php echo $post->post_title; ?></title>
 </head>
 

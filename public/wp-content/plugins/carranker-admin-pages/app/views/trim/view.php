@@ -38,13 +38,35 @@
     <?php endif ?>
 </form>
 <?php require_once dirname(__DIR__) . '/form.php' ?>
-<br><br><br><br><br><br><br><br><br><br><br><br>
-<form method="post" id="deleteTrimForm">
-    <input type="hidden" value="<?= isset($trim) ? $trim->getId() : '' ?>" name="deleteTrimId">
-    <input type="submit" value="Delete">
-    <input type="hidden" value="delete" name="carrankerAdminAction">
-</form>
-<?php
+<br><br><br><br><br><br><br><br><br><br><br><br><?php
+
+if (isset($trim)): ?>
+    <button id="deleteTrim">Delete</button>
+
+    <div class="modal" tabindex="-1" role="dialog" id="realyDeleteTrim">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Are you sure you want to remove this trim and its ratings?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="deleteTrimForm">
+                        <input type="hidden" value="<?= $trim->getId() ?>" name="deleteTrimId">
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                        <input type="hidden" value="delete" name="carrankerAdminAction">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div><?php
+endif;
+
 if (isset($model)): ?>
     <script type="text/javascript">
         var model = "<?= $model->getName() ?>";

@@ -22,6 +22,10 @@ jQuery('#selectModels').on('change', function()
     }
 });
 
+jQuery('#deleteModel').on('click', function() {
+    jQuery('#realyDeleteModel').modal('show');
+});
+
 if (typeof model === 'undefined') {
     fillModels(jQuery('#selectMakes').val(), '', '#selectModels');
     fillModels(jQuery('#makeSelect').val(), '', '#modelSelect');

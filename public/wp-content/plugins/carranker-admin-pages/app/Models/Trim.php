@@ -92,4 +92,18 @@ class Trim extends BaseModel
 
         return $generationsSeriesTrims;
     }
+
+	public static function delete(int $id)
+	{
+		global $wpdb;
+
+		$result = $wpdb->get_results("SELECT * FROM ratings WHERE trim_id=$id");
+
+		foreach ($result as $row) {
+			$ratingId = $row->id;
+			$wpdb->query("DELETE FROM ratings WHERE id={$ratingId}");
+		}
+
+		$wpdb->query("DELETE FROM " . static::$table . " WHERE id={$id}");
+	}
 }
