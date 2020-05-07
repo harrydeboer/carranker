@@ -77,4 +77,18 @@ class Model extends BaseModel
 
         return $modelnames;
     }
+
+	public static function delete(int $id)
+	{
+		global $wpdb;
+
+		$result = $wpdb->get_results("SELECT * FROM trims WHERE model_id=$id");
+
+		foreach ($result as $row) {
+			$trimId = $row->id;
+			$wpdb->query("DELETE FROM trims WHERE id={$trimId}");
+		}
+
+		$wpdb->query("DELETE FROM " . static::$table . " WHERE id={$id}");
+	}
 }

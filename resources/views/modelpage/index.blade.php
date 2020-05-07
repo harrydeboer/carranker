@@ -7,13 +7,16 @@
                 <h3 id="titleCarModel">{{ $model->getMakename() . ' ' . $model->getName() }}</h3>
             </div>
             <div class="col-md-12">
-                <img src="{{ fileUrl($model->getImage()) }}"
-                     id="carModelImg"
-                     alt="{{ $model->getMakename() . ' ' . $model->getName() }}"
-                     class="pull-right img-thumbnail">
+                @if ($model->getImage() !== '')
+                    <img src="{{ fileUrl($model->getImage()) }}"
+                         id="carModelImg"
+                         alt="{{ $model->getMakename() . ' ' . $model->getName() }}"
+                         class="pull-right img-thumbnail">
+                @endif
                 @if (!is_null($model->getContent()))
                     {!! $model->getContent() !!}
                     <div id="reference">
+                        <br>
                         <a href="https://en.wikipedia.org/wiki/{{ $model->getWikiCarModel() }}">Source Wikipedia</a>
                     </div>
                 @endif

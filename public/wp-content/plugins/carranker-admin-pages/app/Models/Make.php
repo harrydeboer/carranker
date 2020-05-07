@@ -52,4 +52,18 @@ class Make extends BaseModel
 
         return $makenames;
     }
+
+	public static function delete(int $id)
+	{
+		global $wpdb;
+
+		$result = $wpdb->get_results("SELECT * FROM models WHERE make_id=$id");
+
+		foreach ($result as $row) {
+			$modelId = (int) $row->id;
+			Model::delete($modelId);
+		}
+
+		$wpdb->query("DELETE FROM " . static::$table . " WHERE id={$id}");
+	}
 }
