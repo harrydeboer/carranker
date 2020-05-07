@@ -8,7 +8,6 @@ class CarrankerHook
     {
         add_filter( 'rest_authentication_errors', array($this, 'rest_authentication_required_by_admin' ));
         add_action( 'rest_api_init', array($this, 'register_route' ));
-	    add_action( 'admin_enqueue_scripts', array($this, 'am_enqueue_admin_styles') );
 
             // This theme uses wp_nav_menu() in two locations.
         register_nav_menus(
@@ -39,14 +38,6 @@ class CarrankerHook
             'callback' => array($this, 'get_api_menus'),
         ]);
     }
-
-	public function am_enqueue_admin_styles(){
-
-		wp_register_style( 'am_admin_bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' );
-
-		wp_enqueue_style( 'am_admin_bootstrap');
-
-	}
 
     public function get_api_menus()
     {
