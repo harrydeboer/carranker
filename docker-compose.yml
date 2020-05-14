@@ -44,7 +44,7 @@ services:
       - PHP_INI_XDEBUG__REMOTE_PORT=9777
       - PHP_IDE_CONFIG=serverName=cms.carranker
   redis:
-    image: redis
+    image: redis:5.0
     ports:
       - "6379:6379"
     container_name: carranker-redis
