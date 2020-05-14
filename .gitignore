@@ -9,5 +9,9 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+/config/redis.conf
+/config/curl-ca-bundle.crt
+/tmp
+!/tmp/.gitkeep
 .env
 .phpunit.result.cache

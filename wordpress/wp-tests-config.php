@@ -68,7 +68,7 @@ define( 'WP_TESTS_TITLE', 'Test Blog' );
  * A dummy binary is used which does nothing so that wordpress does not install again. Use path to bin/dummy.bat
  * dirname(__DIR__) . '/bin/dummy.bat'
  */
-define( 'WP_PHP_BINARY', dirname(__DIR__) . '/bin/dummy.bat');
+define( 'WP_PHP_BINARY', dirname(__DIR__) . '/bin/dummy');
 
 define( 'WPLANG', '' );
 

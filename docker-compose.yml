@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      dockerfile: docker/web/Dockerfile
+      context: .
+      args:
+        uid: ${UID}
+    volumes:
+      - .:/var/www/html
+    container_name: carranker
+    ports:
+      - "80:80"
+    networks:
+      carranker:
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+      - APACHE_RUN_USER=www-data
+      - APACHE_RUN_GROUP=www-data
+      - XDEBUG_CONFIG=remote_host=host.docker.internal
+      - PHP_XDEBUG_ENABLED=1
+      - PHP_INI_XDEBUG__REMOTE_PORT=9777
+      - PHP_IDE_CONFIG=serverName=carranker
+  backend:
+    build:
+      dockerfile: docker/web/Dockerfile
+      context: .
+      args:
+        uid: ${UID}
+    volumes:
+      - .:/var/www/html
+    container_name: cms.carranker
+    ports:
+      - "8080:80"
+    networks:
+        carranker:
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/wordpress/wp
+      - APACHE_RUN_USER=www-data
+      - APACHE_RUN_GROUP=www-data
+      - XDEBUG_CONFIG=remote_host=host.docker.internal
+      - PHP_XDEBUG_ENABLED=1
+      - PHP_INI_XDEBUG__REMOTE_PORT=9777
+      - PHP_IDE_CONFIG=serverName=cms.carranker
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    container_name: carranker-redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./config/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      carranker:
+        ipv4_address: ${REDIS_HOST}
+  database:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    container_name: carranker-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_DEVUSER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    entrypoint:
+      sh -c "
+      echo 'CREATE DATABASE IF NOT EXISTS ${DB_DATABASE}; CREATE DATABASE IF NOT EXISTS ${TEST_DATABASE};' > /docker-entrypoint-initdb.d/init.sql;
+      /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      "
+    networks:
+      carranker:
+        ipv4_address: ${DB_HOST}
+  selenium:
+    image: selenium/standalone-chrome
+    container_name: carranker-selenium
+    networks:
+      carranker:
+
+networks:
+  carranker:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.25.0.0/24"
