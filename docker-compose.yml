@@ -47,6 +47,7 @@ services:
     command: redis-server /usr/local/etc/redis/redis.conf
     volumes:
       - ./config/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./storage/logs/redis/:/var/log/redis/
     networks:
       carranker:
         ipv4_address: ${REDIS_HOST}

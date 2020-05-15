@@ -8,7 +8,8 @@
 <li>When using Windows: use Powershell for the docker commands and Git Bash for everything else. 
 Or prepend Git Bash docker commands with winpty .</li>
 <li>Clone git repository in sitefolder.</li>
-<li>Add a redis.conf and apache2.conf in the folder config.</li>
+<li>Add a redis.conf and in this file set ’daemonize no’ instead of ’daemonize yes’. Comment the line with ’dir /var/lib/redis’. Comment the line with ’bind 127.0.0.1 ::1’</li>
+<li>Add a apache2.conf in the folder config.</li>
 <li>Add a ca certificate named curl-ca-bundle.crt in config.</li>
 <li>Ask site owner for recaptcha key, secret and fixer api key.</li>
 <li>Cp .env.example to .env file in sitefolder folder and fill in the blanks. 
