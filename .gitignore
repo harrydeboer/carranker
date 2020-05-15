@@ -13,9 +13,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/config/redis.conf
-/config/apache2.conf
-/config/curl-ca-bundle.crt
 /tmp/*
 !/tmp/.gitkeep
 .env

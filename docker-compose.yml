@@ -44,7 +44,7 @@ services:
     ports:
       - "6379:6379"
     container_name: carranker-redis
-    command: redis-server /usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf --requirepass ${REDIS_PASSWORD}
     volumes:
       - ./config/redis.conf:/usr/local/etc/redis/redis.conf
       - ./logs/redis/:/var/log/redis/
