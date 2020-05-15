@@ -9,7 +9,7 @@
 Or prepend Git Bash docker commands with winpty .</li>
 <li>Clone git repository in sitefolder.</li>
 <li>Ask site owner for recaptcha key, recaptcha secret and fixer api key.</li>
-<li>Cp .env.example to .env file in sitefolder folder and fill in the blanks. 
+<li>Cp .env.example to .env file in sitefolder folder and fill in the blanks and do not use passwords with "" around them. 
 REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docker-compose.yml.</li>
 <li>Execute the command ’docker-compose build’</li>
 <li>Execute the command ’docker-compose up -d’</li>
