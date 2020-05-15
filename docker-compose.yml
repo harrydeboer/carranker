@@ -11,6 +11,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html
+      - ./config/apache2.conf:/etc/apache2/apache2.conf
     container_name: carranker
     ports:
       - "80:80"
@@ -30,6 +31,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html
+      - ./config/apache2.conf:/etc/apache2/apache2.conf
     container_name: cms.carranker
     ports:
       - "8080:80"
