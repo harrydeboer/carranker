@@ -7,6 +7,8 @@ services:
       context: .
       args:
         uid: ${UID}
+        upass: ${UPASS}
+    working_dir: /var/www/html
     volumes:
       - .:/var/www/html
     container_name: carranker
@@ -16,11 +18,7 @@ services:
       carranker:
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html/public
-      - APACHE_RUN_USER=www-data
-      - APACHE_RUN_GROUP=www-data
       - XDEBUG_CONFIG=remote_host=host.docker.internal
-      - PHP_XDEBUG_ENABLED=1
-      - PHP_INI_XDEBUG__REMOTE_PORT=9777
       - PHP_IDE_CONFIG=serverName=carranker
   backend:
     build:
@@ -28,6 +26,8 @@ services:
       context: .
       args:
         uid: ${UID}
+        upass: ${UPASS}
+    working_dir: /var/www/html
     volumes:
       - .:/var/www/html
     container_name: cms.carranker
@@ -37,11 +37,7 @@ services:
         carranker:
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html/wordpress/wp
-      - APACHE_RUN_USER=www-data
-      - APACHE_RUN_GROUP=www-data
       - XDEBUG_CONFIG=remote_host=host.docker.internal
-      - PHP_XDEBUG_ENABLED=1
-      - PHP_INI_XDEBUG__REMOTE_PORT=9777
       - PHP_IDE_CONFIG=serverName=cms.carranker
   redis:
     image: redis:5.0

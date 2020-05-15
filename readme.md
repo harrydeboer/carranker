@@ -2,21 +2,22 @@
 
 <h1>First install local and testing</h1>
 
-<h3>The steps below must be followed in numerical order</h3>
+<h5>The steps below must be followed in numerical order</h3>
 
 <ol>
+<li>When using Windows: use Powershell for the docker commands and Git Bash for everything else. 
+Or prepend Git Bash docker commands with winpty .</li>
 <li>Clone git repository in sitefolder.</li>
-<li>Add a redis.conf in the folder config.</li>
+<li>Add a redis.conf and apache2.conf in the folder config.</li>
 <li>Add a ca certificate named curl-ca-bundle.crt in config.</li>
+<li>Ask site owner for recaptcha key, secret and fixer api key.</li>
+<li>Cp .env.example to .env file in sitefolder folder and fill in the blanks. 
+REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docker-compose.yml.</li>
 <li>Execute the command ’docker-compose build’</li>
 <li>Execute the command ’docker-compose up -d’</li>
-<li>Ask site owner for recaptcha key, secret and fixer api key.</li>
-<li>Cp .env.example to .env file in sitefolder folder and fill in database credentials etc.</li>
 <li>Execute command ’docker exec -it carranker php artisan key:generate’</li>
-<li>Execute ’docker-compose exec --user devuser composer install’ in sitefolder.</li>
+<li>Execute ’docker exec --user devuser -it carranker composer install’ in sitefolder.</li>
 <li>Browse to the cms at http://cms.carranker:8080 and install wordpress.</li>
-<li>Execute command ‘chmod 777 -R storage’ in container.</li>
-<li>Execute command ‘git reset –hard’ in sitefolder. </li>
 <li>Run command ‘php artisan migrate’ in sitefolder.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
 <li>Add pages Home, Auth, Register, About, Contact and PHPinfo.</li>
@@ -32,11 +33,11 @@
 <li>Execute ’./unittests.sh’ for unit tests.</li>
 <li>Execute ’./featuretests.sh’ for feature tests.</li>
 <li>Execute ’./wordpresstests.sh’ for feature tests.</li>
-<li>Execute ’docker exec -it carranker php artisan dusk’ for browser tests.</li>
+<li>Execute ’./dusktests.sh’ for browser tests.</li>
 <li>Execute ‘./jmeter -n -t CarRanker.jmx’ with .jmx in apache-jmeter/bin for stress tests.</li>
 </ol>
 
-<h3>First install acceptance and production</h3>
+<h2>First install acceptance and production</h3>
 
 <ol>
 <li>Create the carranker database.</li>
