@@ -13,14 +13,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
     unzip \
     libzip-dev \
     apache2=2.4.41-4ubuntu3 \
-    php$php \
-    php$php-mysql \
+    php${php} \
+    php${php}-mysql \
     php-pear \
     libc6 \
     libonig5 \
-    libapache2-mod-php$php
+    libapache2-mod-php${php}
 
-RUN a2enmod php$php
+RUN a2enmod php${php}
 
 RUN a2enmod headers proxy rewrite proxy_balancer proxy_http slotmem_shm ssl
 
@@ -43,7 +43,7 @@ EXPOSE 80
 EXPOSE 8080
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install \
-    php$php-sqlite php$php-bcmath php$php-curl php$php-mbstring php$php-igbinary php$php-redis php$php-xdebug php$php-zip \
+    php${php}-sqlite php${php}-bcmath php${php}-curl php${php}-mbstring php${php}-igbinary php${php}-redis php${php}-xdebug php${php}-zip \
     && phpenmod bcmath curl mbstring igbinary redis xdebug zip \
     && phpdismod ffi exif ftp gettext shmop sockets xsl
 
@@ -73,9 +73,9 @@ RUN echo "upload_max_filesize=1024M" >> /etc/php/7.4/apache2/php.ini \
 COPY --from=composer:1.10.6 /usr/bin/composer /usr/bin/composer
 
 ARG uid
-RUN useradd -G www-data,root -u $uid -d /home/devuser devuser
+RUN useradd -G www-data,root -u ${uid} -d /home/devuser devuser
 RUN mkdir -p /home/devuser/.composer && \
     chown -R devuser:devuser /home/devuser
 
 ARG upass
-RUN echo devuser:$upass | chpasswd && echo root:$upass | chpasswd && usermod -aG sudo devuser
+RUN echo devuser:${upass} | chpasswd && echo root:${upass} | chpasswd && usermod -aG sudo devuser
