@@ -5,6 +5,10 @@
 /vendor
 /.idea
 /.vagrant
+/logs/*
+!/logs/redis
+/logs/redis/*
+!/logs/redis/.gitkeep
 Homestead.json
 Homestead.yaml
 npm-debug.log
