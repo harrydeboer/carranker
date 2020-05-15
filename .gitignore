@@ -12,7 +12,7 @@ yarn-error.log
 /config/redis.conf
 /config/apache2.conf
 /config/curl-ca-bundle.crt
-/tmp
+/tmp/*
 !/tmp/.gitkeep
 .env
 .phpunit.result.cache
