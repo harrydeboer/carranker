@@ -8,11 +8,7 @@
 <li>When using Windows: use Powershell for the docker commands and Git Bash for everything else. 
 Or prepend Git Bash docker commands with winpty .</li>
 <li>Clone git repository in sitefolder.</li>
-<li>Add a redis.conf and in this file set ’daemonize no’ instead of ’daemonize yes’. 
-Comment the line with ’dir /var/lib/redis’. Comment the line with ’bind 127.0.0.1 ::1’.</li>
-<li>Add a apache2.conf in the folder config.</li>
-<li>Add a ca certificate named curl-ca-bundle.crt in config.</li>
-<li>Ask site owner for recaptcha key, secret and fixer api key.</li>
+<li>Ask site owner for recaptcha key, recaptcha secret and fixer api key.</li>
 <li>Cp .env.example to .env file in sitefolder folder and fill in the blanks. 
 REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docker-compose.yml.</li>
 <li>Execute the command ’docker-compose build’</li>
@@ -27,11 +23,11 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 <li>Activate the Carranker Theme and set the permalinks on ’Post name’.</li>
 <li>Activate the plugins.</li>
 <li>Add permissions to the role editor: create_users, delete_users, edit_theme_options, edit_themes, edit_users, list_users and remove_users.</li>
-<li>Run command ‘php artisan getcmsdata’ in sitefolder.</li>
-<li>Run command ‘php artisan getfxrate’ in sitefolder.</li>
-<li>Run command ‘php artisan passport:install’ in sitefolder.</li>
+<li>Run command ‘docker exec -it carranker php artisan getcmsdata’ in sitefolder.</li>
+<li>Run command ‘docker exec -it carranker php artisan getfxrate’ in sitefolder.</li>
+<li>Run command ‘docker exec -it carranker php artisan passport:install’ in sitefolder.</li>
 <li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
-<li>Run ‘php artisan dusk:install’ when dusk is used the first time.</li>
+<li>Run ‘docker exec -it carranker php artisan dusk:install’ when dusk is used the first time.</li>
 <li>Execute ’./unittests.sh’ for unit tests.</li>
 <li>Execute ’./featuretests.sh’ for feature tests.</li>
 <li>Execute ’./wordpresstests.sh’ for feature tests.</li>
