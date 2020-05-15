@@ -4,7 +4,7 @@
  *  it is not a php file. Modifying the .env file does not need opcache_reset().
  */
 
-require_once __DIR__ . '/readenvfile.php';
+require_once __DIR__ . '/readenv.php';
 
 define('DB_NAME', getenv('DB_DATABASE'));
 define('DB_USER', getenv('DB_USERNAME'));

@@ -3,7 +3,7 @@
 /* Path to the WordPress codebase you'd like to test. Add a forward slash in the end. */
 define( 'ABSPATH', __DIR__ . '/wp/' );
 
-require_once __DIR__ . '/readenvfile.php';
+require_once __DIR__ . '/readenv.php';
 
 /*
  * Path to the theme to test with.
