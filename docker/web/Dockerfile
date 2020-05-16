@@ -15,7 +15,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
     apache2=2.4.41-4ubuntu3 \
     php${php} \
     php${php}-mysql \
-    php-pear=1:1.10.9+submodules+notgz-1 \
+    libxml2 \
+    libxslt1.1 \
     libc6 \
     libonig5 \
     libapache2-mod-php${php}
@@ -41,8 +42,8 @@ EXPOSE 80
 EXPOSE 8080
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install \
-    php${php}-sqlite php${php}-bcmath php${php}-curl php${php}-mbstring php${php}-igbinary php${php}-redis php${php}-xdebug php${php}-zip \
-    && phpenmod bcmath curl mbstring igbinary redis xdebug zip \
+    php${php}-sqlite php${php}-xml php${php}-bcmath php${php}-curl php${php}-mbstring php${php}-igbinary php${php}-redis php${php}-xdebug php${php}-zip \
+    && phpenmod xml bcmath curl mbstring igbinary redis xdebug zip \
     && phpdismod ffi exif ftp gettext shmop sockets xsl
 
 # By default start up apache in the foreground, override with /bin/bash for interative.
