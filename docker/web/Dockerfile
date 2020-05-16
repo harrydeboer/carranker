@@ -15,7 +15,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
     apache2=2.4.41-4ubuntu3 \
     php${php} \
     php${php}-mysql \
-    php-pear \
+    php-pear=1:1.10.9+submodules+notgz-1 \
     libc6 \
     libonig5 \
     libapache2-mod-php${php}
@@ -47,25 +47,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
 
 # By default start up apache in the foreground, override with /bin/bash for interative.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
-
-RUN echo "xdebug.remote_enable=1" >> /etc/php/7.4/apache2/conf.d/20-xdebug.ini \
-    && echo "xdebug.remote_autostart=1" >> /etc/php/7.4/apache2/conf.d/20-xdebug.ini \
-    && echo "xdebug.remote_port=9777" >> /etc/php/7.4/apache2/conf.d/20-xdebug.ini \
-    && echo "xdebug.remote_timeout=1000" >> /etc/php/7.4/apache2/conf.d/20-xdebug.ini \
-    && echo "xdebug.profiler_enable=0" >> /etc/php/7.4/apache2/conf.d/20-xdebug.ini \
-    && echo "xdebug.profiler_output_dir=/var/www/html/tmp" >> /etc/php/7.4/apache2/conf.d/20-xdebug.ini \
-    && echo "xdebug.profiler_output_name=cachegrind.out.%t-%s" >> /etc/php/7.4/apache2/conf.d/20-xdebug.ini
-
-RUN echo "upload_max_filesize=1024M" >> /etc/php/7.4/apache2/php.ini \
-   && echo "post_max_size=1024M" >> /etc/php/7.4/apache2/php.ini \
-   && echo "post_max_size=1024M" >> /etc/php/7.4/apache2/php.ini \
-   && echo "memory_limit=1024M" >> /etc/php/7.4/apache2/php.ini \
-   && echo "max_input_time=3600" >> /etc/php/7.4/apache2/php.ini \
-   && echo "max_execution_time=3600" >> /etc/php/7.4/apache2/php.ini \
-   && echo "openssl.cafile=/var/www/html/config/curl-ca-bundle.crt" >> /etc/php/7.4/apache2/php.ini \
-   && echo "curl.cainfo=/var/www/html/config/curl-ca-bundle.crt" >> /etc/php/7.4/apache2/php.ini \
-   && echo "realpath_cache_size=4096K" >> /etc/php/7.4/apache2/php.ini \
-   && echo "realpath_cache_ttl=600" >> /etc/php/7.4/apache2/php.ini
 
 # 5. composer
 COPY --from=composer:1.10.6 /usr/bin/composer /usr/bin/composer

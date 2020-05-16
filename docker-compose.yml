@@ -12,6 +12,7 @@ services:
     volumes:
       - .:/var/www/html
       - ./config/apache2.conf:/etc/apache2/apache2.conf
+      - ./config/php.ini:/etc/php/7.4/apache2/conf.d/php.ini
     container_name: carranker
     ports:
       - "80:80"
@@ -32,6 +33,7 @@ services:
     volumes:
       - .:/var/www/html
       - ./config/apache2.conf:/etc/apache2/apache2.conf
+      - ./config/php.ini:/etc/php/7.4/apache2/conf.d/php.ini
     container_name: cms.carranker
     ports:
       - "8080:80"
@@ -81,4 +83,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: "172.25.0.0/24"
+        - subnet: "172.21.0.0/24"
