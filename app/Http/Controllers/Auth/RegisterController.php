@@ -42,7 +42,7 @@ class RegisterController extends BaseController
 	{
 		return $this->validatorFactory->make($data, [
 			'user_login' => 'required|string|max:255',
-			'user_email' => 'required|string|email|max:255|unique:wp_users',
+			'user_email' => 'required|string|email|max:255|unique:' . env('WP_DB_PREFIX') . 'users',
 			'password' => 'required|string|min:6|confirmed',
 		]);
 	}

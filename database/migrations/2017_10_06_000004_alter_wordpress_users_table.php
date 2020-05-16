@@ -13,7 +13,7 @@ class AlterWordpressUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('wp_users', function (Blueprint $table) {
+        Schema::table(env('WP_DB_PREFIX') . 'users', function (Blueprint $table) {
             $table->string('remember_token')->default('');
             $table->dateTime('user_registered')->nullable()->default(Null)->change();
             $table->increments('ID')->change();
@@ -29,7 +29,7 @@ class AlterWordpressUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('wp_users', function (Blueprint $table) {
+        Schema::table(env('WP_DB_PREFIX') . 'users', function (Blueprint $table) {
             $table->dropColumn('remember_token');
             $table->dateTime('user_registered')->default(0)->change();
             $table->bigIncrements('ID')->change();

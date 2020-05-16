@@ -8,11 +8,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 
-/** The user has the same table as wordpress: wp_users. One column is added to the wordpress table: remember_token. */
+/** The user has the same table as wordpress. One column is added to the wordpress table: remember_token. */
 class User extends Authenticatable
 {
     protected $primaryKey = 'ID';
-    protected $table = 'wp_users';
+    protected $table;
     public $timestamps = false;
 
     use Notifiable, HasApiTokens;
@@ -25,6 +25,12 @@ class User extends Authenticatable
     protected $hidden = [
         'user_pass', 'remember_token',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        $this->table = env('WP_DB_PREFIX') . 'users';
+        parent::__construct($attributes);
+    }
 
     public function getId(): int
     {

@@ -10,13 +10,14 @@ Or prepend Git Bash docker commands with winpty .</li>
 <li>Clone git repository in sitefolder.</li>
 <li>Ask site owner for recaptcha key, recaptcha secret and fixer api key.</li>
 <li>Cp .env.example to .env file in sitefolder folder and fill in the blanks and do not use passwords with "" around them. 
-REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docker-compose.yml.</li>
+REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docker-compose.yml. 
+The WP_DB_PREFIX can be found in app/User.php in the table name.</li>
 <li>Execute the command ’docker-compose build’</li>
 <li>Execute the command ’docker-compose up -d’</li>
-<li>Execute command ’docker exec -it carranker php artisan key:generate’</li>
 <li>Execute ’docker exec --user devuser -it carranker composer install’ in sitefolder.</li>
+<li>Execute command ’docker exec -it carranker php artisan key:generate’</li>
 <li>Browse to the cms at http://cms.carranker:8080 and install wordpress.</li>
-<li>Run command ‘php artisan migrate’ in sitefolder.</li>
+<li>Run command ‘docker exec -it carranker php artisan migrate’ in sitefolder.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
 <li>Add pages Home, Auth, Register, About, Contact and PHPinfo.</li>
 <li>Add menus navigationHeader with page Home as primary menu and navigationFooter with About and Contact as footer menu.</li>
@@ -27,7 +28,6 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 <li>Run command ‘docker exec -it carranker php artisan getfxrate’ in sitefolder.</li>
 <li>Run command ‘docker exec -it carranker php artisan passport:install’ in sitefolder.</li>
 <li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
-<li>Run ‘docker exec -it carranker php artisan dusk:install’ when dusk is used the first time.</li>
 <li>Execute ’./unittests.sh’ for unit tests.</li>
 <li>Execute ’./featuretests.sh’ for feature tests.</li>
 <li>Execute ’./wordpresstests.sh’ for feature tests.</li>

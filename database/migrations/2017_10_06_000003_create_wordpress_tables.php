@@ -18,7 +18,7 @@ class CreateWordpressTables extends Migration
          * an wpdb object of which a dummy is used. There also needs to be a function is_multisite which is defined to
          * always return zero. Then the mysql create statements need to be translated to slqite create statements.
          */
-        if (!Schema::hasTable('wp_users')) {
+        if (!Schema::hasTable(env('WP_DB_PREFIX') . 'users')) {
             if (isset($GLOBALS['argv'][2]) && $GLOBALS['argv'][2] === '--database=test_mysql') {
                 $config_file_path = base_path() .
                     '/wordpress/wp-tests-config.php';

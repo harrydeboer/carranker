@@ -14,25 +14,29 @@ require __DIR__ . "/wordpress/wp/wp-load.php";
 
 require_once(__DIR__ . "/wordpress/wp/wp-admin/includes/upgrade.php");
 
-wp_upgrade();
+/** If the database has not yet been installed this command does nothing. */
+if ( get_option( 'siteurl' ) !== false ) {
 
-if (get_locale() !== 'en_US') {
-	require_once __DIR__ . '/wordpress/wp/wp-admin/includes/class-wp-upgrader.php';
+    wp_upgrade();
 
-	$url     = 'update-core.php?action=do-translation-upgrade';
-	$nonce   = 'upgrade-translations';
-	$title   = __( 'Update Translations' );
-	$context = WP_LANG_DIR;
+    if (get_locale() !== 'en_US') {
+        require_once __DIR__ . '/wordpress/wp/wp-admin/includes/class-wp-upgrader.php';
 
-	$upgrader = new Language_Pack_Upgrader( new Language_Pack_Upgrader_Skin( [
-		'url'                => $url,
-		'nonce'              => $nonce,
-		'title'              => $title,
-		'context'            => $context,
-		'skip_header_footer' => true,
-	] ) );
+        $url = 'update-core.php?action=do-translation-upgrade';
+        $nonce = 'upgrade-translations';
+        $title = __('Update Translations');
+        $context = WP_LANG_DIR;
 
-	$upgrader->bulk_upgrade();
+        $upgrader = new Language_Pack_Upgrader(new Language_Pack_Upgrader_Skin([
+            'url' => $url,
+            'nonce' => $nonce,
+            'title' => $title,
+            'context' => $context,
+            'skip_header_footer' => true,
+        ]));
+
+        $upgrader->bulk_upgrade();
+    }
+
+    echo "Wordpress database upgraded and updated translations!\r\n";
 }
-
-echo "Wordpress database upgraded and updated translations!\r\n";

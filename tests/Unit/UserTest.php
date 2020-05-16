@@ -14,7 +14,7 @@ class UserTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->assertDatabaseHas('wp_users', [
+        $this->assertDatabaseHas(env('WP_DB_PREFIX') . 'users', [
             'user_login' => $user->getUsername(),
             'user_email' => $user->getEmail(),
             'user_pass' => $user->getAuthPassword(),
