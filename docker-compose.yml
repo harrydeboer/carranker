@@ -12,7 +12,8 @@ services:
     volumes:
       - .:/var/www/html
       - ./config/apache2.conf:/etc/apache2/apache2.conf
-      - ./config/php.ini:/etc/php/7.4/apache2/conf.d/php.ini
+      - ./config/php-apache2.ini:/etc/php/7.4/apache2/conf.d/php-apache2.ini
+      - ./config/php-cli.ini:/etc/php/7.4/cli/conf.d/php-cli.ini
     container_name: carranker
     ports:
       - "80:80"
@@ -22,6 +23,8 @@ services:
       - APACHE_DOCUMENT_ROOT=/var/www/html/public
       - XDEBUG_CONFIG=remote_host=host.docker.internal
       - PHP_IDE_CONFIG=serverName=carranker
+      - PHP_XDEBUG_ENABLED=1
+      - PHP_INI_XDEBUG__REMOTE_PORT=9777
   backend:
     build:
       dockerfile: docker/web/Dockerfile
@@ -33,7 +36,8 @@ services:
     volumes:
       - .:/var/www/html
       - ./config/apache2.conf:/etc/apache2/apache2.conf
-      - ./config/php.ini:/etc/php/7.4/apache2/conf.d/php.ini
+      - ./config/php-apache2.ini:/etc/php/7.4/apache2/conf.d/php-apache2.ini
+      - ./config/php-cli.ini:/etc/php/7.4/cli/conf.d/php-cli.ini
     container_name: cms.carranker
     ports:
       - "8080:80"
@@ -43,6 +47,8 @@ services:
       - APACHE_DOCUMENT_ROOT=/var/www/html/wordpress/wp
       - XDEBUG_CONFIG=remote_host=host.docker.internal
       - PHP_IDE_CONFIG=serverName=cms.carranker
+      - PHP_XDEBUG_ENABLED=1
+      - PHP_INI_XDEBUG__REMOTE_PORT=9777
   redis:
     image: redis:5.0
     ports:
