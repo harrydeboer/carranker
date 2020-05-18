@@ -60,10 +60,11 @@ class ModelpageController extends BaseController
         $form = new RatingForm($request->all());
 
         $isThankYou = false;
-        $trims = $model->getTrims();
+
         if ($form->validateFull($request, $form->reCaptchaToken)) {
             $isThankYou = $this->rate($form, $model);
         }
+        $trims = $model->getTrims();
 
         $reviews = $this->modelRepository->getReviews($model, self::numReviewsPerModelpage);
 
