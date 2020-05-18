@@ -26,6 +26,7 @@ AddType application/x-font-ttf .ttf
     Header set X-XSS-Protection "1; mode=block"
     Header set X-Frame-Options "allow-from https://www.google.com/recaptcha/api.js"
     Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "same-origin"
     <FilesMatch "\\.(ico|jpe?g|png|gif|swf|css|js|ttf|woff|woff2|otf|eot)$">
         Header set Cache-Control "max-age=31536000, must-revalidate"
     </FilesMatch>
