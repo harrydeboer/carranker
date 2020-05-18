@@ -30,6 +30,12 @@
 <IfModule mod_rewrite.c>
     RewriteCond %{HTTP:Authorization} ^(.*)
     RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
+    RedirectMatch 403 ^/wp-admin/install.php?$
+    RedirectMatch 403 ^/wp-admin/upgrade.php?$
+    RewriteCond %{HTTP:Authorization} ^(.*)
+    RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
+    RewriteCond %{QUERY_STRING} ^author=([0-9]*)
+    RewriteRule .* /? [L,R=302]
 </IfModule>
 
 # BEGIN WordPress
@@ -43,3 +49,13 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
+
+<Files xmlrpc.php>
+	Require all denied
+</Files>
+<Files readme.html>
+  Require all denied
+</Files>
+<Files license.txt>
+  Require all denied
+</Files>

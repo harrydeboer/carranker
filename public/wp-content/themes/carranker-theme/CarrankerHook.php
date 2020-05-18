@@ -6,10 +6,26 @@ class CarrankerHook
 {
     public function __construct()
     {
+        global $wpdb;
+        
         add_filter( 'rest_authentication_errors', array($this, 'rest_authentication_required_by_admin' ));
         add_action( 'rest_api_init', array($this, 'register_route' ));
 
-            // This theme uses wp_nav_menu() in two locations.
+        $wpdb->hide_errors();
+
+        define('DISALLOW_FILE_EDIT', true);
+
+        remove_action('wp_head', 'wlwmanifest_link');
+        remove_action('wp_head', 'rsd_link');
+        remove_action('xmlrpc_rsd_apis', 'rest_output_rsd');
+        remove_action('wp_head', 'rest_output_link_wp_head');
+        remove_action('template_redirect', 'rest_output_link_header', 11);
+
+        add_filter('xmlrpc_enabled', '__return_false');
+
+        add_filter('the_generator', array($this, 'remove_version' ));
+
+        // This theme uses wp_nav_menu() in two locations.
         register_nav_menus(
             array(
                 'menu-1' => __( 'Primary', 'carranker-theme' ),
@@ -29,6 +45,10 @@ class CarrankerHook
                 'after_title'   => '</h2>',
             )
         );
+    }
+
+    public function remove_version() {
+        return '';
     }
 
     public function register_route()
