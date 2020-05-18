@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6f32d5c82589c319c12ab06cd7fed21",
+    "content-hash": "3205aef8183f8f7d1a677d52c2d7748f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1830,16 +1830,16 @@
         },
         {
             "name": "laravelcollective/html",
-            "version": "v6.1.1",
+            "version": "v6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "895115187e6fca81350a0b1152b5804f52a8ac28"
+                "reference": "64f2268bf41bf02b3a9dd3c30f102e934d721664"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/895115187e6fca81350a0b1152b5804f52a8ac28",
-                "reference": "895115187e6fca81350a0b1152b5804f52a8ac28",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/64f2268bf41bf02b3a9dd3c30f102e934d721664",
+                "reference": "64f2268bf41bf02b3a9dd3c30f102e934d721664",
                 "shasum": ""
             },
             "require": {
@@ -1894,7 +1894,7 @@
             ],
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "https://laravelcollective.com",
-            "time": "2020-05-17T20:19:55+00:00"
+            "time": "2020-03-02T16:41:28+00:00"
         },
         {
             "name": "lcobucci/jwt",
