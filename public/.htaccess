@@ -21,6 +21,16 @@ AddType application/x-font-ttf .ttf
     ExpiresByType application/x-font-ttf "access plus 1 year"
 </IfModule>
 
+<IfModule mod_headers.c>
+    Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "allow-from https://www.google.com/recaptcha/api.js"
+    Header set X-Content-Type-Options "nosniff"
+    <FilesMatch "\\.(ico|jpe?g|png|gif|swf|css|js|ttf|woff|woff2|otf|eot)$">
+        Header set Cache-Control "max-age=31536000, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
 <FilesMatch "\.(ttf|otf|eot|woff|woff2|jpeg|png)$">
     <IfModule mod_headers.c>
             SetEnvIf Origin "http(s)?://(www\.)?(cms.carranker.com|accept.cms.carranker.com|cms.carranker)$" AccessControlAllowOrigin=$0
