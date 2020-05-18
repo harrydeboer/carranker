@@ -12,7 +12,7 @@ class CarrankerHook
         add_action( 'rest_api_init', array($this, 'register_route' ));
 
         $wpdb->hide_errors();
-
+        
         define('DISALLOW_FILE_EDIT', true);
 
         remove_action('wp_head', 'wlwmanifest_link');
