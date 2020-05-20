@@ -32,5 +32,16 @@ class ComposerTest extends TestCase
                 $this->assertObjectHasAttribute('ext-' . $extension, $requirements, "extension $extension is missing in composer.json");
             }
         }
+
+        foreach ($requirements as $key => $requirement) {
+            if (substr($key, 0, 4) === 'ext-') {
+                $extension = substr($key, 4, strlen($key));
+                if ($extension === 'Zend-OPcache') {
+                    $this->assertTrue(extension_loaded('Zend OPcache'), "Extension Zend Opcache is not loaded.");
+                } else {
+                    $this->assertTrue(extension_loaded($extension), "Extension $extension is not loaded.");
+                }
+            }
+        }
     }
 }
