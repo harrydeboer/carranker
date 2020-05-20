@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3205aef8183f8f7d1a677d52c2d7748f",
+    "content-hash": "1fecd3c826ea4aa93d95b6570a7a7591",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2357,16 +2357,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.34.0",
+            "version": "2.34.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "52ea68aebbad8a3b27b5d24e4c66ebe1933f8399"
+                "reference": "3e87404329b8072295ea11d548b47a1eefe5a162"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/52ea68aebbad8a3b27b5d24e4c66ebe1933f8399",
-                "reference": "52ea68aebbad8a3b27b5d24e4c66ebe1933f8399",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/3e87404329b8072295ea11d548b47a1eefe5a162",
+                "reference": "3e87404329b8072295ea11d548b47a1eefe5a162",
                 "shasum": ""
             },
             "require": {
@@ -2436,7 +2436,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-05-12T19:53:34+00:00"
+            "time": "2020-05-19T22:14:16+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -7512,32 +7512,43 @@
         "ext-curl": "*",
         "ext-date": "*",
         "ext-dom": "*",
+        "ext-exif": "*",
         "ext-fileinfo": "*",
         "ext-filter": "*",
+        "ext-ftp": "*",
+        "ext-gd": "*",
         "ext-hash": "*",
         "ext-iconv": "*",
-        "ext-igbinary": "*",
+        "ext-imagick": "*",
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
         "ext-mysqli": "*",
         "ext-mysqlnd": "*",
         "ext-openssl": "*",
+        "ext-pcntl": "*",
         "ext-pcre": "*",
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
         "ext-phar": "*",
+        "ext-posix": "*",
         "ext-readline": "*",
         "ext-redis": "*",
         "ext-reflection": "*",
         "ext-session": "*",
         "ext-simplexml": "*",
+        "ext-sockets": "*",
+        "ext-sodium": "*",
         "ext-spl": "*",
+        "ext-sysvmsg": "*",
+        "ext-sysvsem": "*",
+        "ext-sysvshm": "*",
         "ext-tokenizer": "*",
         "ext-xml": "*",
         "ext-xmlreader": "*",
         "ext-xmlwriter": "*",
         "ext-zip": "*",
+        "ext-zend-opcache": "*",
         "ext-zlib": "*"
     },
     "platform-dev": [],

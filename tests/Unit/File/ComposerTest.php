@@ -15,6 +15,22 @@ class ComposerTest extends TestCase
     {
         $string = file_get_contents(base_path() . '/composer.json');
         $jsonObject = json_decode($string);
-        $this->assertEquals($jsonObject->require->{'johnpbloch/wordpress'}, $jsonObject->{'require-dev'}->{'wp-phpunit/wp-phpunit'});
+        $requirements = $jsonObject->require;
+        $this->assertEquals($requirements->{'johnpbloch/wordpress'}, $jsonObject->{'require-dev'}->{'wp-phpunit/wp-phpunit'});
+
+        $extensions = get_loaded_extensions();
+        foreach ($extensions as $extension) {
+            if ($extension === 'Core' ||
+                $extension === 'standard' ||
+                $extension === 'xdebug' ||
+                $extension === 'pdo_sqlite' ||
+                $extension === 'sqlite3') {
+                continue;
+            } elseif ($extension === 'Zend OPcache') {
+                $this->assertObjectHasAttribute('ext-Zend-OPcache', $requirements, "extension Zend-OPcache is missing in composer.json");
+            } else {
+                $this->assertObjectHasAttribute('ext-' . $extension, $requirements, "extension $extension is missing in composer.json");
+            }
+        }
     }
 }
