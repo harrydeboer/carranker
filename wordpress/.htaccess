@@ -44,7 +44,7 @@
     RewriteCond %{REQUEST_URI} !^/wp/
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ /wp/$1
+    RewriteRule ^(.*)$ /wp/$1 [L]
     RewriteCond %{HTTP_HOST} ^(www\.)?(accept\.)?cms\.carranker(:8080)?(\.com)?$
     RewriteRule ^(/)?$ wp/index.php [L]
 </IfModule>
@@ -58,3 +58,18 @@
 <Files license.txt>
   Require all denied
 </Files>
+
+# BEGIN WordPress
+# The directives (lines) between `BEGIN WordPress` and `END WordPress` are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
