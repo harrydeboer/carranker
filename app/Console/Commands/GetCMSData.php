@@ -76,7 +76,7 @@ class GetCMSData extends Command
         /** The JWT token is used for the retrieval of the cms pages. */
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $header = ["Authorization: Bearer " . $token->token];
+        $header = ["Authorization: Bearer " . $token->data->token];
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         curl_setopt($ch, CURLOPT_URL, $baseUrl . "/wp-json/wp/v2/pages");
         $output = curl_exec($ch);
