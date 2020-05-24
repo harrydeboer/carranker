@@ -120,8 +120,7 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
-            "@php wpUpgradeDbAndTranslations.php",
-            "php -r \"copy('wordpress/.htaccess.basic', 'wordpress/wp/.htaccess');\""
+            "@php wpUpgradeDbAndTranslations.php"
         ]
     },
     "config": {
