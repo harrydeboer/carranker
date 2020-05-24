@@ -4,6 +4,9 @@ ARG php=7.4
 
 RUN apt-get update
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
+RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:ondrej/php
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
     git \
     zip \
