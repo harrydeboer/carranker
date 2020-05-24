@@ -41,7 +41,7 @@ services:
     ports:
       - "8080:80"
     environment:
-      - APACHE_DOCUMENT_ROOT=/var/www/html/wordpress/wp
+      - APACHE_DOCUMENT_ROOT=/var/www/html/wordpress
       - PHP_IDE_CONFIG=serverName=cms.carranker
   redis:
     image: redis:5.0
