@@ -38,6 +38,22 @@
     RewriteRule .* /? [L,R=302]
 </IfModule>
 
+<Files xmlrpc.php>
+	Require all denied
+</Files>
+<Files readme.html>
+  Require all denied
+</Files>
+<Files license.txt>
+  Require all denied
+</Files>
+<Files wp-config.php>
+  Require all denied
+</Files>
+<Files wp-tests-config.php>
+  Require all denied
+</Files>
+
 <IfModule mod_rewrite.c>
     RewriteEngine on
     RewriteCond %{HTTP_HOST} ^(www\.)?(accept\.)?cms\.carranker(:8080)?(\.com)?$
@@ -48,16 +64,6 @@
     RewriteCond %{HTTP_HOST} ^(www\.)?(accept\.)?cms\.carranker(:8080)?(\.com)?$
     RewriteRule ^(/)?$ wp/index.php [L]
 </IfModule>
-
-<Files xmlrpc.php>
-	Require all denied
-</Files>
-<Files readme.html>
-  Require all denied
-</Files>
-<Files license.txt>
-  Require all denied
-</Files>
 
 # BEGIN WordPress
 # The directives (lines) between `BEGIN WordPress` and `END WordPress` are
