@@ -25,6 +25,7 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 <li>Add permissions to the role editor: create_users, delete_users, edit_theme_options, edit_themes, edit_users, list_users and remove_users.</li>
 <li>Run command ‘docker exec -it carranker php artisan getcmsdata’ in sitefolder.</li>
 <li>Run command ‘docker exec -it carranker php artisan getfxrate’ in sitefolder.</li>
+<li>Run command ‘docker exec -it carranker php artisan indexcars’ in sitefolder.</li>
 <li>Run command ‘docker exec -it carranker php artisan passport:install’ in sitefolder.</li>
 <li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
 <li>Execute ’./unittests.sh’ for unit tests.</li>
@@ -67,6 +68,8 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 <li>Enable cronjob with crontab -e: 0 * * * * (cd path/to/sitefolder && php artisan getfxrate).</li>
 <li>Run command ‘php artisan getcmsdata’ in sitefolder.</li>
 <li>Run command ‘php artisan getfxrate’ in sitefolder.</li>
+<li>Install elasticsearch (version number can be found in docker-compose).</li>
+<li>Run command ‘php artisan indexcars’ in sitefolder.</li>
 <li>Run command ‘php artisan passport:install’ in sitefolder.</li>
 <li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
 <li>Install varnish for acceptance and production.</li>
