@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Models\Aspect;
 
 class CreateTrimsTable extends Migration
 {
@@ -21,11 +22,9 @@ class CreateTrimsTable extends Migration
             $table->string('model');
             $table->double('price')->nullable();
             $table->integer('votes');
-            $table->double('comfort')->nullable();
-            $table->double('design')->nullable();
-            $table->double('performance')->nullable();
-            $table->double('reliability')->nullable();
-            $table->double('costs')->nullable();
+            foreach (Aspect::getAspects() as $aspect) {
+                $table->double($aspect)->nullable();
+            }
             $table->string('framework', 50)->nullable();
             $table->string('fuel', 50)->nullable();
             $table->integer('year_begin');
