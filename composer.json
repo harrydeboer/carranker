@@ -60,6 +60,7 @@
         "ext-zip": "*",
         "ext-Zend-OPcache": "*",
         "ext-zlib": "*",
+        "elasticsearch/elasticsearch": "7.7.0",
         "doctrine/dbal": "2.10.2",
         "fideloper/proxy": "4.3.0",
         "fruitcake/laravel-cors": "1.0.6",

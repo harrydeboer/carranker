@@ -5,6 +5,8 @@
 /vendor
 /.idea
 /.vagrant
+/data/*
+!/data/.gitkeep
 /logs/*
 !/logs/redis
 /logs/redis/*

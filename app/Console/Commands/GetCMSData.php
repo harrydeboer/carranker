@@ -51,10 +51,10 @@ class GetCMSData extends Command
 
         switch ($env) {
             case 'local':
-                $baseUrl = "http://cms.carranker";
+                $baseUrl = "http://cms.carranker:8080";
                 break;
             case 'testing':
-                $baseUrl = "http://cms.carranker";
+                $baseUrl = "http://cms.carranker:8080";
                 break;
             case 'production':
                 $baseUrl = "https://cms.carranker.com";

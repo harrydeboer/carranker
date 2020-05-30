@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  frontend:
+  web:
     build:
       dockerfile: docker/web/Dockerfile
       context: .
@@ -12,41 +12,20 @@ services:
     volumes:
       - .:/var/www/html
       - ./config/apache2.conf:/etc/apache2/apache2.conf
+      - ./config/ports.conf:/etc/apache2/ports.conf
+      - ./config/000-default.conf:/etc/apache2/sites-available/000-default.conf
       - ./config/php-apache2.ini:/etc/php/7.4/apache2/conf.d/php-apache2.ini
       - ./config/php-cli.ini:/etc/php/7.4/cli/conf.d/php-cli.ini
     networks:
       carranker:
     container_name: carranker
     ports:
-      - "80:80"
-    environment:
-      - APACHE_DOCUMENT_ROOT=/var/www/html/public
-      - PHP_IDE_CONFIG=serverName=carranker
-  backend:
-    build:
-      dockerfile: docker/web/Dockerfile
-      context: .
-      args:
-        uid: ${UID}
-        upass: ${UPASS}
-    working_dir: /var/www/html
-    volumes:
-      - .:/var/www/html
-      - ./config/apache2.conf:/etc/apache2/apache2.conf
-      - ./config/php-apache2.ini:/etc/php/7.4/apache2/conf.d/php-apache2.ini
-      - ./config/php-cli.ini:/etc/php/7.4/cli/conf.d/php-cli.ini
-    networks:
-      carranker:
-    container_name: cms.carranker
-    ports:
-      - "8080:80"
-    environment:
-      - APACHE_DOCUMENT_ROOT=/var/www/html/wordpress
-      - PHP_IDE_CONFIG=serverName=cms.carranker
+      - 80:80
+      - 8080:8080
   redis:
     image: redis:5.0
     ports:
-      - "6379:6379"
+      - ${REDIS_PORT}:${REDIS_PORT}
     container_name: carranker-redis
     command: redis-server /usr/local/etc/redis/redis.conf --requirepass ${REDIS_PASSWORD}
     volumes:
@@ -55,10 +34,31 @@ services:
     networks:
       carranker:
         ipv4_address: ${REDIS_HOST}
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: carranker-elastic
+    environment:
+      - node.name=carranker-elastic
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=
+      - cluster.initial_master_nodes=carranker-elastic
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./data:/usr/share/elasticsearch/data
+    ports:
+      - ${ELASTIC_PORT}:${ELASTIC_PORT}
+    networks:
+      carranker:
+        ipv4_address: ${ELASTIC_HOST}
   database:
     image: mysql:8.0
     ports:
-      - "3306:3306"
+      - ${DB_PORT}:${DB_PORT}
     container_name: carranker-db
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}

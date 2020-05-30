@@ -39,9 +39,7 @@ ENV APACHE_RUN_GROUP=www-data
 ENV PHP_XDEBUG_ENABLED=1
 ENV PHP_INI_XDEBUG__REMOTE_PORT=9777
 ENV XDEBUG_CONFIG="remote_host=host.docker.internal"
-
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+ENV PHP_IDE_CONFIG="serverName=carranker"
 
 # Expose apache.
 EXPOSE 80
