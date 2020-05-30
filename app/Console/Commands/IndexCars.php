@@ -49,10 +49,11 @@ class IndexCars extends Command
         $this->trimRepository->deleteIndex();
 
         $this->makeRepository->createIndex();
-        $this->makeRepository->addAllToIndex();
         $this->modelRepository->createIndex();
-        $this->modelRepository->addAllToIndex();
         $this->trimRepository->createIndex();
+
+        $this->makeRepository->addAllToIndex();
+        $this->modelRepository->addAllToIndex();
         $this->trimRepository->addAllToIndex();
 
         $this->info('Cars indexed!');

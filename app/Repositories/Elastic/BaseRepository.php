@@ -12,6 +12,7 @@ abstract class BaseRepository
 {
     protected $client;
     protected $model;
+    protected $modelClassNameEloquent;
 
     /** The child of this base repository has a model. The modelname is stored in the property modelClassName. */
     public function __construct()
@@ -23,6 +24,7 @@ abstract class BaseRepository
 
         $classNameArray = explode('\\', static::class);
         $modelClassName = 'App\Models\Elastic\\' . str_replace('Repository', '', end($classNameArray));
+        $this->modelClassNameEloquent = 'App\Models\\' . str_replace('Repository', '', end($classNameArray));
         $this->model = new $modelClassName();
     }
 
@@ -79,5 +81,31 @@ abstract class BaseRepository
         }
 
         return $params;
+    }
+
+    public function addAllToIndex(): void
+    {
+        $models = $this->modelClassNameEloquent::all();
+
+        foreach ($models as $key => $model) {
+            $params['body'][] = [
+                'index' => [
+                    '_index' => $this->index,
+                    '_id' => $model->getId(),
+                ]
+            ];
+
+            $params['body'][] = $this->propertiesToParams($model);
+
+            if ($key % 1000 === 0) {
+                $this->client->bulk($params);
+                unset($params);
+            }
+        }
+
+        // Send the last batch if it exists
+        if (!empty($params['body'])) {
+            $this->client->bulk($params);
+        }
     }
 }

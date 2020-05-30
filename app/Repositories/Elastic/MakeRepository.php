@@ -31,22 +31,4 @@ class MakeRepository extends BaseRepository
 
         return $make;
     }
-
-    public function addAllToIndex(): void
-    {
-        $makes = Make::all();
-
-        foreach ($makes as $make) {
-            $params['body'][] = [
-                'index' => [
-                    '_index' => $this->index,
-                    '_id' => $make->getId(),
-                ]
-                ];
-
-            $params['body'][] = $this->propertiesToParams($make);
-        }
-
-        $this->client->bulk($params);
-    }
 }

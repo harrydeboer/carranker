@@ -32,22 +32,4 @@ class ModelRepository extends BaseRepository
 
         return $model;
     }
-
-    public function addAllToIndex(): void
-    {
-        $models = Model::all();
-
-        foreach ($models as $model) {
-            $params['body'][] = [
-                'index' => [
-                    '_index' => $this->index,
-                    '_id' => $model->getId(),
-                ]
-            ];
-
-            $params['body'][] = $this->propertiesToParams($model);
-        }
-
-        $this->client->bulk($params);
-    }
 }
