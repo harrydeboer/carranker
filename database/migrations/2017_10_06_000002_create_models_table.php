@@ -19,12 +19,12 @@ class CreateModelsTable extends Migration
             $table->string('name');
             $table->string('make');
             $table->text('content')->nullable();
-            $table->float('design')->nullable();
-            $table->float('comfort')->nullable();
-            $table->float('reliability')->nullable();
-            $table->float('performance')->nullable();
-            $table->float('costs')->nullable();
-            $table->float('price')->nullable();
+            $table->double('design')->nullable();
+            $table->double('comfort')->nullable();
+            $table->double('reliability')->nullable();
+            $table->double('performance')->nullable();
+            $table->double('costs')->nullable();
+            $table->double('price')->nullable();
             $table->integer('votes');
             $table->string('wiki_car_model')->nullable();
 

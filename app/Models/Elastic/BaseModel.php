@@ -34,6 +34,16 @@ class BaseModel
                 $mappings['properties'][$double] = ['type' => 'double'];
             }
         }
+        if (isset($this->timestamps)) {
+            foreach ($this->timestamps as $timestamp) {
+                $mappings['properties'][$timestamp] = ['type' => 'date'];
+            }
+        }
+        if (isset($this->booleans)) {
+            foreach ($this->booleans as $boolean) {
+                $mappings['properties'][$boolean] = ['type' => 'boolean'];
+            }
+        }
 
         return $mappings;
     }

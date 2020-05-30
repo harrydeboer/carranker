@@ -79,6 +79,16 @@ abstract class BaseRepository
                 $params[$double] = $model->$double;
             }
         }
+        if (isset($this->model->timestamps)) {
+            foreach ($this->model->timestamps as $timestamp) {
+                $params[$timestamp] = $model->$timestamp;
+            }
+        }
+        if (isset($this->model->booleans)) {
+            foreach ($this->model->booleans as $boolean) {
+                $params[$boolean] = $model->$boolean;
+            }
+        }
 
         return $params;
     }
