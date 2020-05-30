@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Repositories\Elastic\MakeRepository;
+use App\Repositories\Elastic\ModelRepository;
+use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Console\Command;
-use Elasticsearch\ClientBuilder;
 
 class IndexCars extends Command
 {
-    private $client;
+    private $makeRepository;
+    private $modelRepository;
+    private $trimRepository;
 
     /**
      * The name and signature of the console command.
@@ -33,21 +37,21 @@ class IndexCars extends Command
     public function __construct()
     {
         parent::__construct();
-        $hosts = [
-            env('ELASTIC_HOST') . ':' . env('ELASTIC_PORT')
-        ];
-        $this->client = ClientBuilder::create()->setHosts($hosts)->build();
+        $this->makeRepository = new MakeRepository();
+        $this->modelRepository = new ModelRepository();
+        $this->trimRepository = new TrimRepository();
     }
 
     public function handle()
     {
-        $params = [
-            'index' => 'my_index',
-            'id'    => 'my_id',
-            'body'  => ['testField' => 'abc']
-        ];
+        $this->makeRepository->deleteIndex();
+        $this->modelRepository->deleteIndex();
+        $this->trimRepository->deleteIndex();
 
-        $response = $this->client->index($params);
-        var_dump($response);
+        $this->makeRepository->addAllToIndex();
+        $this->modelRepository->addAllToIndex();
+        $this->trimRepository->addAllToIndex();
+
+        $this->info('Cars indexed!');
     }
 }
