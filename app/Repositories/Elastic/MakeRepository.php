@@ -37,16 +37,16 @@ class MakeRepository extends BaseRepository
         $makes = Make::all();
 
         foreach ($makes as $make) {
-            $params = [
-                'index' => $this->index,
-                'id'    => $make->getId(),
-                'body'  => [
-                    'name' => $make->getName(),
-                    'content' => $make->getContent(),
-                    'wiki_car_make' => $make->getWikiCarMake(),
-                ],
-            ];
-            $this->client->index($params);
+            $params['body'][] = [
+                'index' => [
+                    '_index' => $this->index,
+                    '_id' => $make->getId(),
+                ]
+                ];
+
+            $params['body'][] = $this->propertiesToParams($make);
         }
+
+        $this->client->bulk($params);
     }
 }

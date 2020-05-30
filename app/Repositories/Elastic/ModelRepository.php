@@ -38,23 +38,16 @@ class ModelRepository extends BaseRepository
         $models = Model::all();
 
         foreach ($models as $model) {
-            $params = [
-                'index' => $this->index,
-                'id'    => $model->getId(),
-                'body'  => [
-                    'name' => $model->getName(),
-                    'content' => $model->getContent(),
-                    'make_id' => $model->getMake()->getId(),
-                    'make' => $model->getMakename(),
-                    'price' => $model->getPrice(1),
-                    'votes' => $model->getVotes(),
-                    'wiki_car_model' => $model->getWikiCarModel(),
-                ],
+            $params['body'][] = [
+                'index' => [
+                    '_index' => $this->index,
+                    '_id' => $model->getId(),
+                ]
             ];
-            foreach (Aspect::getAspects() as $aspect) {
-                $params['body'][$aspect] = $model->getAspect($aspect);
-            }
-            $this->client->index($params);
+
+            $params['body'][] = $this->propertiesToParams($model);
         }
+
+        $this->client->bulk($params);
     }
 }
