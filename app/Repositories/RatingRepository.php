@@ -3,10 +3,11 @@
 namespace App\Repositories;
 
 use App\Forms\RatingForm;
-use App\Models\Model;
+use App\Models\Elastic\Model;
 use App\Models\Rating;
 use App\Models\Trim;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class RatingRepository extends BaseRepository
@@ -49,5 +50,19 @@ class RatingRepository extends BaseRepository
         $this->update($rating);
 
         return $rating;
+    }
+
+    /** The most recent reviews for the modelpage are retrieved and paginated. */
+    public function getReviews(Model $model, int $numReviewsPerModelpage): LengthAwarePaginator
+    {
+        return Rating::whereNotNull('content')
+            ->where('model_id', $model->getId())
+            ->orderBy('time', 'desc')
+            ->paginate($numReviewsPerModelpage);
+    }
+
+    public function getNumOfReviews(Model $model): int
+    {
+        return count(Rating::whereNotNull('content')->where('model_id', $model->getId())->get());
     }
 }

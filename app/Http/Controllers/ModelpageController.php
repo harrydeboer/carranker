@@ -7,16 +7,17 @@ namespace App\Http\Controllers;
 use App\CarSpecs;
 use App\Forms\RatingForm;
 use App\Models\Aspect;
-use App\Models\Model;
+use App\Models\Elastic\Model;
 use App\Repositories\FXRateRepository;
-use App\Repositories\MakeRepository;
+use App\Repositories\Elastic\MakeRepository;
+use App\Repositories\Elastic\ModelRepository as ModelRepositoryElastic;
 use App\Repositories\ModelRepository;
 use App\Repositories\ProfanityRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\TrimRepository;
+use App\Repositories\Elastic\TrimRepository as TrimRepositoryElastic;
 use App\Repositories\UserRepository;
 use App\Services\TrimService;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -30,7 +31,9 @@ class ModelpageController extends BaseController
     private $userRepository;
     private $makeRepository;
     private $modelRepository;
+    private $modelRepositoryElastic;
     private $trimRepository;
+    private $trimRepositoryElastic;
 
     public function __construct()
     {
@@ -42,7 +45,9 @@ class ModelpageController extends BaseController
         $this->userRepository = new UserRepository();
         $this->makeRepository = new MakeRepository();
         $this->modelRepository = new ModelRepository();
+        $this->modelRepositoryElastic = new ModelRepositoryElastic();
         $this->trimRepository = new TrimRepository();
+        $this->trimRepositoryElastic = new TrimRepositoryElastic();
     }
 
     public function view(string $makename, string $modelname, Request $request): Response
@@ -55,7 +60,7 @@ class ModelpageController extends BaseController
         $request->getMethod();
         $trimId = (int) $trimId;
 
-        $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
+        $model = $this->modelRepositoryElastic->getByMakeModelName($makename, $modelname);
         $model->getMake();
         $form = new RatingForm($request->all());
 
@@ -66,12 +71,12 @@ class ModelpageController extends BaseController
         }
         $trims = $model->getTrims();
 
-        $reviews = $this->modelRepository->getReviews($model, self::numReviewsPerModelpage);
+        $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelpage);
 
         /** The links of the pagination get extra html classes to make them centered on the modelpage. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
             $reviews->onEachSide(1)->links());
-        $trim = $this->trimRepository->find($trimId);
+        $trim = $this->trimRepositoryElastic->find($trimId);
 
         $data = [
             'title' => $makename . ' ' . $modelname,
@@ -85,7 +90,7 @@ class ModelpageController extends BaseController
             'isThankYou' => $isThankYou,
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
-            'selectedGeneration' => $this->trimRepository->findSelectedGeneration($trim),
+            'selectedGeneration' => $this->trimRepositoryElastic->findSelectedGeneration($trim),
             'reviews' => $reviews,
             'reCaptchaKey' => env('reCaptchaKey'),
             'links' => $links,

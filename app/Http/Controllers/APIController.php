@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Repositories\MakeRepository;
-use App\Repositories\ModelRepository;
-use App\Repositories\TrimRepository;
+use App\Repositories\Elastic\MakeRepository;
+use App\Repositories\Elastic\ModelRepository;
+use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use App\Services\SitemapService;

@@ -4,27 +4,49 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elastic;
 
-use App\Models\Aspect;
-use App\Models\Model;
+use App\Models\Elastic\Model;
 
 class ModelRepository extends BaseRepository
 {
-    protected $index = 'models';
+    protected string $index = 'models';
 
-    public function getByName(string $name)
+    public function getModelNames(): array
     {
         $params = [
             'index' => $this->index,
+            'size' => 2000,
             'body'  => [
                 'query' => [
-                    'match' => [
-                        'name' => $name
-                    ]
-                ]
-            ]
+                    'match_all' => new \stdClass(),
+                ],
+            ],
         ];
+        $models = $this->arrayToModels($this->client->search($params));
+        $modelnames = [];
+        foreach($models as $model) {
+            $modelnames[] = $model->getMakename() . ';' . $model->getName();
+        }
 
-        $model = $this->client->search($params);
+        return $modelnames;
+    }
+
+    public function getByMakeModelName(string $makename, string $modelname): Model
+    {
+        $params = [
+            'index' => $this->index,
+            'size' => 2000,
+            'body'  => [
+                'query' => [
+                    'bool' => [
+                        'must' => [
+                            ['match' => [ 'make' => $makename ]],
+                            ['match' => [ 'name' => $modelname ]],
+                        ]
+                    ],
+                ],
+            ],
+        ];
+        $model = $this->arrayToModels($this->client->search($params))[0];
 
         if (is_null($model)) {
             abort(404, "The requested model does not exist.");

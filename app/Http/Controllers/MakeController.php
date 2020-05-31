@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Repositories\MakeRepository;
+use App\Repositories\Elastic\MakeRepository;
 use Illuminate\Http\Response;
 
 class MakeController extends BaseController
@@ -13,7 +13,7 @@ class MakeController extends BaseController
     {
         $makename = rawurldecode($makename);
         $makeRepository = new MakeRepository();
-        $make = $makeRepository->getByName($makename);
+        $make = $makeRepository->getByName($makename)[0];
 
         $models = $make->getModels();
         $data = [

@@ -7,10 +7,10 @@ namespace App\Http\Controllers;
 use App\Repositories\MenuRepository;
 use Illuminate\Http\Request;
 use App\Forms\NavForm;
-use App\Repositories\MakeRepository;
-use App\Repositories\ModelRepository;
+use App\Repositories\Elastic\MakeRepository;
+use App\Repositories\Elastic\ModelRepository;
 use App\Repositories\PageRepository;
-use App\Repositories\TrimRepository;
+use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Routing\Controller;
@@ -62,9 +62,9 @@ class BaseController extends Controller
         if ($form->validateFull($request)) {
             $data = [
                 'title' => 'Search results',
-                'makes' => $makeRepository->findMakesForSearch($form->query),
-                'models' => $modelRepository->findModelsForSearch($form->query),
-                'trims' => $trimRepository->findTrimsForSearch($form->query),
+                'makes' => $makeRepository->findForSearch($form->query),
+                'models' => $modelRepository->findForSearch($form->query),
+                'trims' => $trimRepository->findForSearch($form->query),
             ];
 
             return response()->view('base.search', $data, 200);
