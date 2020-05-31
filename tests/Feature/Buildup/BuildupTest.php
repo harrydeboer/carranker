@@ -15,6 +15,7 @@ class BuildupTest extends TestCase
         factory('App\Models\Trim')->create();
         $this->artisan('getcmsdata')->execute();
         $this->artisan('getfxrate')->execute();
+        $this->artisan('indexcars')->execute();
     }
 
     public function testDummy()

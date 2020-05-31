@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\Elastic;
 
 use App\Models\BaseModel;
-use App\Models\Make;
 use Elasticsearch\ClientBuilder;
 
 abstract class BaseRepository
@@ -26,6 +25,12 @@ abstract class BaseRepository
         $modelClassName = 'App\Models\Elastic\\' . str_replace('Repository', '', end($classNameArray));
         $this->modelClassNameEloquent = 'App\Models\\' . str_replace('Repository', '', end($classNameArray));
         $this->model = new $modelClassName();
+
+        if (env('APP_ENV') === 'acceptance') {
+            $this->index = 'accept' . $this->index;
+        } elseif (env('APP_ENV') === 'testing') {
+            $this->index = 'test' . $this->index;
+        }
     }
 
     public function createIndex()
