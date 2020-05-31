@@ -7,7 +7,7 @@ namespace App\Repositories;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 
-class BaseRepository
+abstract class BaseRepository
 {
     protected $modelClassName;
 

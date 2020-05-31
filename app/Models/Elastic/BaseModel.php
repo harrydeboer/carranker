@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Elastic;
 
-class BaseModel
+abstract class BaseModel
 {
     public function getMappings(): array
     {

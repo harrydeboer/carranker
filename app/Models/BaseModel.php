@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Check if all attributes passed to the constructor are present in the fillable property of the models.
  * For testing: check if the model factory has only set attributes that are present in the fillable property.
  */
-class BaseModel extends Model
+abstract class BaseModel extends Model
 {
     public function getId(): int
     {
