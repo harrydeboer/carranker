@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\Elastic;
 
 use App\Models\BaseModel;
-use Elasticsearch\ClientBuilder;
 
 abstract class BaseRepository
 {
@@ -16,10 +15,7 @@ abstract class BaseRepository
     /** The child of this base repository has a model. The modelname is stored in the property modelClassName. */
     public function __construct()
     {
-        $hosts = [
-            env('ELASTIC_HOST') . ':' . env('ELASTIC_PORT')
-        ];
-        $this->client = ClientBuilder::create()->setHosts($hosts)->build();
+        $this->client = Client::getClient();
 
         $classNameArray = explode('\\', static::class);
         $modelClassName = 'App\Models\Elastic\\' . str_replace('Repository', '', end($classNameArray));
