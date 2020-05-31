@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -26,5 +27,24 @@ class UserTest extends TestCase
             'user_registered' => $user->getUserRegistered(),
             'remember_token' => $user->getRememberToken(),
         ]);
+
+        $user = User::find($user->getId());
+
+        $properties = array_merge($user->getFillable(), $user->getHidden());
+        foreach ($user->getAttributes() as $key => $attribute) {
+            if ($key !== 'ID') {
+                $this->assertTrue(in_array($key, $properties));
+            }
+        }
+
+        /** Test user table is in sync with laravel. The table can be altered by wordpress updates and these changes
+          have to be synchronised with Laravel. */
+        $result = DB::table(env('WP_DB_PREFIX') . 'users')->first();
+
+        foreach ($result as $key => $column) {
+            if ($key !== 'ID') {
+                $this->assertTrue(in_array($key, $properties));
+            }
+        }
     }
 }

@@ -22,7 +22,7 @@ class BaseModel extends Model
         parent::__construct($attributes);
         if ($attributes !== []) {
             foreach ($attributes as $key => $attribute) {
-                if (!in_array($key, $this->fillable)) {
+                if (!in_array($key, $this->getFillable())) {
                     throw new \Exception("Attribute assigned that is not fillable.");
                 }
             }
@@ -31,7 +31,7 @@ class BaseModel extends Model
 
     public function testAttributesMatchFillable(): bool
     {
-        foreach ($this->attributes as $key => $attribute) {
+        foreach ($this->getAttributes() as $key => $attribute) {
             if ($key !== 'id' && !in_array($key, $this->fillable)) {
                 return false;
             }
