@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elastic;
 
-
 use Elasticsearch\ClientBuilder;
 
 class Client

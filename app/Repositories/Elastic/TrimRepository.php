@@ -29,23 +29,44 @@ class TrimRepository extends BaseRepository
      */
     public function findTrimsOfTop(FilterTopForm $form, int $minNumVotes, int $lengthTopTable, int $offset=null): Collection
     {
-        $queryObj = $this->queryAspects($form);
+        $params = $this->queryAspects($form);
         if ($form->hasRequest) {
             foreach (CarSpecs::specsChoice() as $key => $spec) {
-                $queryObj = $this->queryChoice($spec['choices'], $key, $queryObj, $form);
+                $queryObj = $this->queryChoice($spec['choices'], $key, $params, $form);
             }
 
             foreach (CarSpecs::specsRange() as $key => $spec) {
-                $queryObj = $this->queryRange($spec, $key, $queryObj, $form);
+                $queryObj = $this->queryRange($spec, $key, $params, $form);
             }
         }
 
-        $queryObj->where('votes', '>', $minNumVotes)->take($lengthTopTable)->orderBy('rating', 'desc');
+        $params = [
+            'index' => $this->index,
+            'size' => $lengthTopTable,
+            'body' => [
+                'query' => [
+                    'match_all' => new \stdClass(),
+                ],
+                "script_fields" => [
+                    "rating" => [
+                        "script" => [
+                            "lang" =>   "expression",
+                            "source" => "doc['design'] * factor1 + doc['comfort'] * factor2",
+                            "params" => [
+                                "factor1" => 1.3,
+                                "factor2" => 2,
+                            ]
+                        ]
+                    ]
+                ],
+            ]
+        ];
+
         if (!is_null($offset)) {
-            $queryObj->offset($offset)->limit($lengthTopTable - $offset);
+            $params['from'] = $offset;
         }
 
-        $trims = $queryObj->get();
+        $trims = Trim::search($params);
         foreach ($trims as $key => $trim) {
             $trims[$key]->setRatingFiltering($trim->rating);
         }
@@ -54,19 +75,16 @@ class TrimRepository extends BaseRepository
     }
 
     /** Filter the trims for the user settings in the aspect ranges of the filter top form. */
-    private function queryAspects(FilterTopForm $form): Builder
+    private function queryAspects(FilterTopForm $form): array
     {
-        $selectAspects = "*, (";
+        $params = [];
         $total = 0;
         $formAspects = $form->aspects;
         foreach (Aspect::getAspects() as $aspect) {
             $total += $formAspects[$aspect];
-            $selectAspects .= "? * " . strtolower($aspect) . " + ";
         }
-        $selectAspects = substr($selectAspects, 0, -3);
-        $selectAspects .= ") / $total as rating";
 
-        return Trim::selectRaw($selectAspects, $formAspects);
+        return $params;
     }
 
     /** Filter the trims for the user settings in the dropdowns of the filter top form. */

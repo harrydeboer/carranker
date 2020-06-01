@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 abstract class BaseRepository
 {
-    protected $client;
     protected $model;
     protected $modelClassName;
     protected $modelClassNameEloquent;
@@ -18,8 +17,6 @@ abstract class BaseRepository
     /** The child of this base repository has a model. The modelname is stored in the property modelClassName. */
     public function __construct()
     {
-        $this->client = Client::getClient();
-
         $classNameArray = explode('\\', static::class);
         $this->modelClassName = 'App\Models\Elastic\\' . str_replace('Repository', '', end($classNameArray));
         $this->modelClassNameEloquent = 'App\Models\\' . str_replace('Repository', '', end($classNameArray));
@@ -43,9 +40,9 @@ abstract class BaseRepository
             'id' => $id,
         ];
 
-        $result = $this->client->get($params);
+        $result = $this->modelClassName::get($params);
 
-        return $this->arrayToModel($result);
+        return $result;
     }
 
     public function get(int $int): BaseModel
@@ -55,7 +52,7 @@ abstract class BaseRepository
             'id' => $int,
         ];
 
-        return $this->arrayToModel($this->client->get($params));
+        return $this->modelClassName::get($params);
     }
 
     public function getByName(string $name): Collection
@@ -71,7 +68,7 @@ abstract class BaseRepository
             ],
         ];
 
-        $makes = $this->arrayToModels($this->client->search($params));
+        $makes = $this->modelClassName::search($params);
 
         if (is_null($makes)) {
             abort(404, "The requested make does not exist.");
@@ -80,61 +77,9 @@ abstract class BaseRepository
         return $makes;
     }
 
-    public function hasMany(string $related, string $foreignKey, int $id): Collection
+    public function index(array $params)
     {
-        $classArray = explode('\\', $related);
-        $index = strtolower(end($classArray)) . 's';
-
-        $params = [
-            'index' => $index,
-            'size' => 1000,
-            'body'  => [
-                'query' => [
-                    'match' => [
-                        $foreignKey => $id,
-                    ],
-                ],
-            ],
-        ];
-
-        return $this->arrayToModels($this->client->search($params), $related);
-    }
-
-    public function hasOne(string $related, string $foreignKey, int $localId): BaseModel
-    {
-        $classArray = explode('\\', $related);
-        $index = strtolower(end($classArray)) . 's';
-
-        $params = [
-            'index' => $index,
-            'id' => $localId,
-        ];
-
-        return $this->arrayToModel($this->client->get($params), $related);
-    }
-
-    protected function arrayToModel(array $result, string $related=null): BaseModel
-    {
-        $className = $related ?? $this->modelClassName;
-        if (isset($result['hits']['hits'])) {
-            $result = $result['hits']['hits'];
-        }
-        $fillable = array_merge(['id' => (int) $result['_id']], $result['_source']);
-
-        return new $className($fillable);
-    }
-
-    protected function arrayToModels(array $results, string $related=null): Collection
-    {
-        $models = [];
-        $results = $results['hits']['hits'];
-        $className = $related ?? $this->modelClassName;
-        foreach ($results as $result) {
-            $fillable = array_merge(['id' => (int) $result['_id']], $result['_source']);
-            $models[] = new $className($fillable);
-        }
-
-        return new Collection($models);
+        return $this->modelClassName::index($params);
     }
 
     public function findForSearch(string $searchString): Collection
@@ -151,7 +96,7 @@ abstract class BaseRepository
             $params['body']['query']['bool']['should'][] = ['wildcard' => ['name' => '*' . $word . '*']];
         }
 
-        return $this->arrayToModels($this->client->search($params));
+        return $this->modelClassName::search($params);
     }
 
     public function createIndex()
@@ -164,7 +109,7 @@ abstract class BaseRepository
         ];
 
         // Create the index with mappings and settings now
-        $this->client->indices()->create($params);
+        $this->modelClassName::indicesCreate($params);
     }
 
     public function deleteIndex()
@@ -172,14 +117,14 @@ abstract class BaseRepository
         $deleteParams = [
             'index' => $this->index,
         ];
-        if ($this->client->indices()->exists($deleteParams)) {
-            $this->client->indices()->delete($deleteParams);
+        if ($this->modelClassName::indicesExists($deleteParams)) {
+            $this->modelClassName::indicesDelete($deleteParams);
         }
     }
 
     public function getMappings(): array
     {
-        return $this->client->indices()->getMapping(['index' => $this->index]);
+        return $this->modelClassName::indicesGetMapping(['index' => $this->index]);
     }
 
     protected function propertiesToParams(EloquentBaseModel $model)
@@ -228,14 +173,14 @@ abstract class BaseRepository
             $params['body'][] = $this->propertiesToParams($model);
 
             if ($key % 1000 === 0) {
-                $this->client->bulk($params);
+                $this->modelClassName::bulk($params);
                 unset($params);
             }
         }
 
         // Send the last batch if it exists
         if (!empty($params['body'])) {
-            $this->client->bulk($params);
+            $this->modelClassName::bulk($params);
         }
     }
 }

@@ -21,7 +21,7 @@ class ModelRepository extends BaseRepository
                 ],
             ],
         ];
-        $models = $this->arrayToModels($this->client->search($params));
+        $models = $this->modelClassName::search($params);
         $modelnames = [];
         foreach($models as $model) {
             $modelnames[] = $model->getMakename() . ';' . $model->getName();
@@ -46,7 +46,7 @@ class ModelRepository extends BaseRepository
                 ],
             ],
         ];
-        $model = $this->arrayToModels($this->client->search($params))[0];
+        $model = $this->modelClassName::search($params)[0];
 
         if (is_null($model)) {
             abort(404, "The requested model does not exist.");

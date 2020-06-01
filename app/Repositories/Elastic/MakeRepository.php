@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elastic;
 
+use App\Models\Elastic\Make;
+
 class MakeRepository extends BaseRepository
 {
     protected string $index = 'makes';
@@ -22,7 +24,7 @@ class MakeRepository extends BaseRepository
                 ],
             ],
         ];
-        $makes = $this->arrayToModels($this->client->search($params));
+        $makes = Make::search($params);
         $makenames = [];
         $makesASCII = array();
         foreach($makes as $make) {
