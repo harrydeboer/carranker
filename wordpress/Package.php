@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 class Package
 {
-    private $paths;
+    private $files;
 
     private function getDirContents(string $dir)
     {
-        $files = scandir($dir);
+        $filesOrDirs = scandir($dir);
 
-        foreach ($files as $key => $value) {
-            $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
-            if ($value != "." && $value != "..") {
-                if (is_dir($path)) {
-                    $this->getDirContents($path);
-                }
-                if (substr($path, -4, 4) === '.php') {
-                    $this->paths[] = $path;
+        foreach ($filesOrDirs as $fileOrDir) {
+            if ($fileOrDir != "." && $fileOrDir != "..") {
+                $fullPath = $dir . DIRECTORY_SEPARATOR . $fileOrDir;
+                if (is_dir($fullPath)) {
+                    $this->getDirContents($fullPath);
+                } elseif (substr($fullPath, -4, 4) === '.php') {
+                    $this->files[] = $fullPath;
                 }
             }
         }
@@ -26,25 +25,21 @@ class Package
     public function readPackage(string $path)
     {
         $this->getDirContents(dirname(__DIR__) . '/vendor/' . $path);
-        $classes = $this->paths;
-        $this->paths = [];
+        $files = $this->files;
+        $this->files = [];
 
-        if (isset($interfaces)) {
-            $this->tryLoad($interfaces);
-        }
-
-        if (isset($classes)) {
-            $this->tryLoad($classes);
+        if (isset($files)) {
+            $this->tryLoad($files);
         }
     }
 
-    private function tryLoad(array $paths)
+    private function tryLoad(array $files)
     {
-        foreach ($paths as $path) {
+        foreach ($files as $file) {
             try {
-                require $path;
+                require $file;
             } catch (Error $e) {
-                $requireLater[] = $path;
+                $requireLater[] = $file;
                 continue;
             }
         }
