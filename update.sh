@@ -15,6 +15,7 @@
   php artisan getcmsdata
   php artisan getfxrate
   php artisan flushredisdb
+  php artisan indexcars
   ./opcache_reset.sh
   varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret 'ban req.http.host ~ (^carranker.com$)'
   echo "Varnish cache cleared!"
