@@ -14,8 +14,8 @@ if (isset($_POST['carrankerAdminAction']) && $_POST['carrankerAdminAction'] == t
 }
 
 $urlArray = explode('/', $_SERVER['REQUEST_URI']);
-if ($urlArray[1] === 'wp-admin' && isset($urlArray[2])) {
-    $urlRaw = $urlArray[2];
+if ($urlArray[2] === 'wp-admin' && isset($urlArray[3])) {
+    $urlRaw = $urlArray[3];
     $urlRaw = str_replace('admin.php?',  '', $urlRaw);
     parse_str($urlRaw, $urlParams);
     $page = $urlParams['page'];
