@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-use App\Models\Trim;
+namespace Tests\Feature\Repositories\Elastic;
+
+use App\Models\Elastic\Trim;
 use App\Forms\FilterTopForm;
-use App\Repositories\TrimRepository;
+use App\Repositories\Elastic\TrimRepository;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class TrimRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
-
     private $trimRepository;
     private $trim;
 
@@ -19,36 +18,29 @@ class TrimRepositoryTest extends TestCase
     {
         parent::setUp();
         $this->trimRepository = new TrimRepository();
-        $this->trim = factory(Trim::class)->create(['votes' => 1]);
+        $this->trim = $this->trimRepository->get(1);
     }
 
     public function testFindSelectedGeneration()
     {
-        $trim = factory(Trim::class)->create();
-        $generation = $this->trimRepository->findSelectedGeneration($trim);
+        $generation = $this->trimRepository->findSelectedGeneration($this->trim);
 
-        $this->assertEquals($generation, $trim->getYearBegin() . '-' . $trim->getYearEnd());
+        $this->assertEquals($generation, $this->trim->getYearBegin() . '-' . $this->trim->getYearEnd());
     }
 
     public function testFindTrimsForSearch()
     {
-        $trimCollection = $this->trimRepository->findTrimsForSearch($this->trim->getName());
+        $trimCollection = $this->trimRepository->findForSearch($this->trim->getName());
 
-        foreach ($trimCollection as $trim) {
-            $this->assertEquals($trim->getName(), $this->trim->getName());
-            $this->assertEquals($trim->getId(), $this->trim->getId());
-        }
+        $trim = $trimCollection->first();
+        $this->assertEquals($trim->getName(), $this->trim->getName());
+        $this->assertEquals($trim->getId(), $this->trim->getId());
     }
 
     public function testFindTrimsOfTop()
     {
         $index = '0';
         $framework = \App\CarSpecs::specsChoice()['framework']['choices'][(int) $index];
-        factory(Trim::class)->create(['votes' => 31, 'framework' => $framework, 'price' => 6000]);
-        factory(Trim::class)->create(['votes' => 31, 'framework' => $framework, 'price' => 7000]);
-        factory(Trim::class)->create(['votes' => 31, 'framework' => $framework, 'price' => 11000]);
-        factory(Trim::class)->create(['votes' => 31, 'framework' => 'Van']);
-        factory(Trim::class)->create(['votes' => 25]);
 
         $form = new FilterTopForm();
         $form->hasRequest = true;

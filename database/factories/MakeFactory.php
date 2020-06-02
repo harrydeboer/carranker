@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Models\Make::class, function (Faker $faker): array {
 
     return [
-        'name' => $faker->unique()->name,
+        'name' => str_replace(' ', '', $faker->unique()->name),
         'content' => $faker->text(),
         'wiki_car_make' => $faker->unique()->name,
     ];

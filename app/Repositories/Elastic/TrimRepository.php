@@ -29,38 +29,36 @@ class TrimRepository extends BaseRepository
      */
     public function findTrimsOfTop(FilterTopForm $form, int $minNumVotes, int $lengthTopTable, int $offset=null): Collection
     {
-        $params = $this->queryAspects($form);
-        if ($form->hasRequest) {
-            foreach (CarSpecs::specsChoice() as $key => $spec) {
-                $queryObj = $this->queryChoice($spec['choices'], $key, $params, $form);
-            }
-
-            foreach (CarSpecs::specsRange() as $key => $spec) {
-                $queryObj = $this->queryRange($spec, $key, $params, $form);
-            }
-        }
-
         $params = [
             'index' => $this->index,
             'size' => $lengthTopTable,
             'body' => [
                 'query' => [
-                    'match_all' => new \stdClass(),
+                    'bool' => [
+                        'must' => [
+                            [
+                                "range" => [
+                                    "votes" => [
+                                        "gte" => $minNumVotes,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
-                "script_fields" => [
-                    "rating" => [
-                        "script" => [
-                            "lang" =>   "expression",
-                            "source" => "doc['design'] * factor1 + doc['comfort'] * factor2",
-                            "params" => [
-                                "factor1" => 1.3,
-                                "factor2" => 2,
-                            ]
-                        ]
-                    ]
-                ],
-            ]
+            ],
         ];
+
+        $params = $this->queryAspects($form, $params);
+        if ($form->hasRequest) {
+            foreach (CarSpecs::specsChoice() as $key => $spec) {
+                $params = $this->queryChoice($spec['choices'], $key, $params, $form);
+            }
+
+            foreach (CarSpecs::specsRange() as $key => $spec) {
+                $params = $this->queryRange($spec, $key, $params, $form);
+            }
+        }
 
         if (!is_null($offset)) {
             $params['from'] = $offset;
@@ -68,27 +66,44 @@ class TrimRepository extends BaseRepository
 
         $trims = Trim::search($params);
         foreach ($trims as $key => $trim) {
-            $trims[$key]->setRatingFiltering($trim->rating);
+            $rating = 0;
+            $total = 0;
+            foreach (Aspect::getAspects() as $aspect) {
+                $total += $form->aspects[$aspect];
+                $rating += $trim->$aspect * $form->aspects[$aspect];
+            }
+            $trims[$key]->setRatingFiltering($rating / $total);
         }
 
         return $trims;
     }
 
     /** Filter the trims for the user settings in the aspect ranges of the filter top form. */
-    private function queryAspects(FilterTopForm $form): array
+    private function queryAspects(FilterTopForm $form, array $params): array
     {
-        $params = [];
-        $total = 0;
+        $params['body']['sort']['_script'] = [
+            'type' => 'number',
+            'script' => [
+                'lang' => 'expression',
+            ],
+            'order' => 'desc',
+        ];
+
+        $source = '';
+        $factorArray = [];
         $formAspects = $form->aspects;
-        foreach (Aspect::getAspects() as $aspect) {
-            $total += $formAspects[$aspect];
+        foreach (Aspect::getAspects() as $key => $aspect) {
+            $source .= "doc['" . $aspect . "'] * factor" . $key . " + ";
+            $factorArray['factor' . $key] = (int) $formAspects[$aspect];
         }
+        $params['body']['sort']['_script']['script']['source'] = substr($source, 0, -3);
+        $params['body']['sort']['_script']['script']['params'] = $factorArray;
 
         return $params;
     }
 
     /** Filter the trims for the user settings in the dropdowns of the filter top form. */
-    private function queryChoice(array $choices, string $name, Builder $queryObj, FilterTopForm $form): Builder
+    private function queryChoice(array $choices, string $name, array $params, FilterTopForm $form): array
     {
         $queryArr = [];
         $formSpec = $form->specsChoice;
@@ -107,23 +122,31 @@ class TrimRepository extends BaseRepository
 
                 /** The fuel can be both Gasoline and Electric or Gasoline and CNG per trim. */
                 if ($name === 'fuel' && ($choice === 'Electric' || $choice === 'Gasoline')) {
-                    $queryArr[] = 'Gasoline,  Electric';
+                    if (!in_array('Gasoline,  Electric', $queryArr)) {
+                        $queryArr[] = 'Gasoline,  Electric';
+                    }
                 }
                 if ($name === 'fuel' && ($choice === 'CNG' || $choice === 'Gasoline')) {
-                    $queryArr[] = 'Gasoline,  CNG';
+                    if (!in_array('Gasoline,  CNG', $queryArr)) {
+                        $queryArr[] = 'Gasoline,  CNG';
+                    }
                 }
             }
         }
 
         if ($queryArr === [] || count($queryArr) === count($choices)) {
-            return $queryObj;
+            return $params;
         }
+        $array = [];
+        $array['terms'][$name] = $queryArr;
 
-        return $queryObj->whereIn($name, $queryArr);
+        $params['body']['query']['bool']['must'][] = $array;
+
+        return $params;
     }
 
     /** Filter the trims for the user settings in the min/max selects of the filter top form. */
-    private function queryRange(array $spec, string $name, Builder $queryObj, FilterTopForm $form): Builder
+    private function queryRange(array $spec, string $name, array $params, FilterTopForm $form): array
     {
         $formSpecs = $form->specsRange;
         $formMin = $formSpecs[$name . 'min'];
@@ -135,8 +158,10 @@ class TrimRepository extends BaseRepository
             if ($name === 'generation') {
                 $name = 'year_begin';
             }
+            $array = [];
+            $array['range'][$name] = ['gte' => (double) $formMin];
 
-            $queryObj->where($name, '>=', $formMin);
+            $params['body']['query']['bool']['must'][] = $array;
         }
 
         /** the max value in the select has to be cast to float or int. */
@@ -152,10 +177,12 @@ class TrimRepository extends BaseRepository
             if ($name === 'generation') {
                 $name = 'year_end';
             }
+            $array = [];
+            $array['range'][$name] = ['lte' => (double) $formMax];
 
-            $queryObj->where($name, '<=', $formMax);
+            $params['body']['query']['bool']['must'][] = $array;
         }
 
-        return $queryObj;
+        return $params;
     }
 }

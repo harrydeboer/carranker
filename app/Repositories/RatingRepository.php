@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Forms\RatingForm;
+use App\Models\Model as ModelEloquent;
 use App\Models\Elastic\Model;
 use App\Models\Rating;
 use App\Models\Trim;
@@ -17,7 +18,7 @@ class RatingRepository extends BaseRepository
         return Rating::whereNotNull('content')->take($limit)->orderBy('time', 'desc')->get();
     }
 
-    public function createRating(Authenticatable $user, Model $model, Trim $trim, RatingForm $form): Rating
+    public function createRating(Authenticatable $user, ModelEloquent $model, Trim $trim, RatingForm $form): Rating
     {
         $createArray = [
             'user_id' => $user->getId(),

@@ -2,21 +2,23 @@
 
 declare(strict_types=1);
 
+namespace Tests\Feature\Repositories;
+
 use App\Models\Menu;
 use App\Repositories\MenuRepository;
+use App\Repositories\PageRepository;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class MenuRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
-
     private $menuRepository;
+    private $pageRepository;
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
         $this->menuRepository = new MenuRepository();
+        $this->pageRepository = new PageRepository();
     }
 
     public function testGetByName()
@@ -29,17 +31,17 @@ class MenuRepositoryTest extends TestCase
 
     public function testSyncMenusWithCMS()
     {
-        $pageHome = factory(\App\Models\Page::class)->create(['title' => 'Home', 'name' => 'home']);
-        $pageContact = factory(\App\Models\Page::class)->create(['title' => 'Contact', 'name' => 'contact']);
+        $pageHome = $this->pageRepository->getByName('home');
+        $pageContact = $this->pageRepository->getByName('contact');
 
         $menu = factory(Menu::class)->create();
 
-        $menusCMS = new stdClass();
-        $itemHome = new stdClass();
+        $menusCMS = new \stdClass();
+        $itemHome = new \stdClass();
         $itemHome->title = $pageHome->getName();
         $menusCMS->navigationHeader = [$itemHome];
 
-        $itemContact = new stdClass();
+        $itemContact = new \stdClass();
         $itemContact->title = $pageContact->getName();
         $menusCMS->navigationFooter = [$itemContact];
 
@@ -67,8 +69,8 @@ class MenuRepositoryTest extends TestCase
 
     public function testSyncMenusWithCMSException()
     {
-        $menusCMS = new stdClass();
-        $itemHome = new stdClass();
+        $menusCMS = new \stdClass();
+        $itemHome = new \stdClass();
         $itemHome->title = '';
         $menusCMS->navigationHeader = [$itemHome];
 

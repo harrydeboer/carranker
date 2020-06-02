@@ -16,6 +16,14 @@ class Make extends BaseModel
     protected $wiki_car_make;
     protected $content;
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        if (isset($attributes['id'])) {
+            $this->setAttribute('id', $attributes['id']);
+        }
+    }
+
     public function getName(): string
     {
         return $this->name;

@@ -46,7 +46,7 @@ class MakeRepository extends BaseRepository
             return null;
         }
 
-        $models = $this->getByName($makename)[0]->getModels();
+        $models = $this->getByName($makename)->getModels();
         $modelnames = [];
         $modelsASCII = [];
         foreach($models as $model) {

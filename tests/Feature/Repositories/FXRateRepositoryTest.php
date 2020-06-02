@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-use App\Models\FXRate;
+namespace Tests\Feature\Repositories;
+
 use App\Repositories\FXRateRepository;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class FXRateRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
-
     private $fxrateRepository;
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
@@ -21,7 +19,7 @@ class FXRateRepositoryTest extends TestCase
 
     public function testGetByName()
     {
-        $fxrate = factory(FXRate::class)->create();
+        $fxrate = $this->fxrateRepository->get(1);
         $fxrateFromDb = $this->fxrateRepository->getByName($fxrate->getName());
 
         $this->assertEquals($fxrate->getId(), $fxrateFromDb->getId());

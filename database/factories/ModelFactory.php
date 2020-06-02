@@ -10,7 +10,7 @@ $factory->define(App\Models\Model::class, function (Faker $faker): array {
     $make = factory('App\Models\Make')->create();
 
     $array =  [
-        'name' => $faker->unique()->name,
+        'name' => str_replace(' ', '', $faker->unique()->name),
         'make_id' => $make->getId(),
         'make' => $make->getName(),
         'content' => $faker->text(),

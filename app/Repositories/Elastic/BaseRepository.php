@@ -55,10 +55,11 @@ abstract class BaseRepository
         return $this->modelClassName::get($params);
     }
 
-    public function getByName(string $name): Collection
+    public function getByName(string $name): BaseModel
     {
         $params = [
             'index' => $this->index,
+            'size' => 1,
             'body'  => [
                 'query' => [
                     'match' => [
@@ -68,13 +69,13 @@ abstract class BaseRepository
             ],
         ];
 
-        $makes = $this->modelClassName::search($params);
+        $model = $this->modelClassName::searchOne($params);
 
-        if (is_null($makes)) {
+        if (is_null($model)) {
             abort(404, "The requested make does not exist.");
         }
 
-        return $makes;
+        return $model;
     }
 
     public function index(array $params)

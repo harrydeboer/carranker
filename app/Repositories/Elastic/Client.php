@@ -16,7 +16,9 @@ class Client
             $hosts = [
                 env('ELASTIC_HOST') . ':' . env('ELASTIC_PORT')
             ];
-            self::$client = ClientBuilder::create()->setHosts($hosts)->build();
+            if ($hosts !== [':']) {
+                self::$client = ClientBuilder::create()->setHosts($hosts)->build();
+            }
         }
 
         return self::$client;

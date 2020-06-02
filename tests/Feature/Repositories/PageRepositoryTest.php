@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
+namespace Tests\Feature\Repositories;
+
 use App\Models\Page;
 use App\Repositories\PageRepository;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class PageRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
-
     private $pageRepository;
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
@@ -62,11 +61,11 @@ class PageRepositoryTest extends TestCase
 
     private function makePageCMS(string $slug, string $title, string $content)
     {
-        $pageCMS = new stdClass();
+        $pageCMS = new \stdClass();
         $pageCMS->slug = $slug;
-        $pageCMS->title = new stdClass();
+        $pageCMS->title = new \stdClass();
         $pageCMS->title->rendered = $title;
-        $pageCMS->content = new stdClass();
+        $pageCMS->content = new \stdClass();
         $pageCMS->content->rendered = $content;
 
         return $pageCMS;

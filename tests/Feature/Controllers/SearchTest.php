@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use App\Models\Trim;
+use App\Repositories\Elastic\TrimRepository;
 use Tests\TestCase;
 
 class SearchTest extends TestCase
 {
     public function testSearch()
     {
-        $trim = factory(Trim::class)->create();
+        $trimRepository = new TrimRepository();
+        $trim = $trimRepository->get(1);
         $model = $trim->getModel();
         $make = $model->getMake();
 

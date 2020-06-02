@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Models\Elastic;
 
 use App\Models\Aspect;
-use App\Models\Model;
-use Illuminate\Database\Eloquent\Collection;
 
 class Trim extends BaseModel
 {
@@ -17,6 +15,8 @@ class Trim extends BaseModel
         'year_end', 'fueltank_capacity', 'engine_power', 'max_trunk_capacity', 'max_speed', 'full_weight'];
     public $doubles = ['price', 'engine_capacity', 'acceleration', 'fuel_consumption'];
 
+    private $rating;
+
     public function __construct(array $attributes = [])
     {
         foreach (Aspect::getAspects() as $aspect) {
@@ -24,6 +24,15 @@ class Trim extends BaseModel
         }
         $this->fillable = array_merge(self::$aspects, $this->fillable);
         parent::__construct($attributes);
+    }
+
+    public function getMappings(): array
+    {
+        $mappings = parent::getMappings();
+
+        $mappings['properties']['rating'] = ['type' => 'double', "index" => false];
+
+        return $mappings;
     }
 
     public function getName(): ?string
@@ -74,7 +83,7 @@ class Trim extends BaseModel
         $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
                 "$1", htmlentities($this->model))) . '.jpg';
 
-        $root = dirname(__DIR__, 2);
+        $root = dirname(__DIR__, 3);
         if (!file_exists($root . '/public/' . $image)) {
             $image = '';
         }

@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-use App\Models\Make;
-use App\Models\Model;
-use App\Repositories\MakeRepository;
+namespace Tests\Feature\Repositories\Elastic;
+
+use App\Repositories\Elastic\MakeRepository;
+use App\Repositories\Elastic\ModelRepository;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class MakeRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
-
     private $makeRepository;
     private $make;
     private $model;
@@ -20,7 +18,8 @@ class MakeRepositoryTest extends TestCase
     {
         parent::setUp();
         $this->makeRepository = new MakeRepository();
-        $this->model = factory(Model::class)->create();
+        $modelRepository = new ModelRepository();
+        $this->model = $modelRepository->get(1);
         $this->make = $this->model->getMake();
     }
 
@@ -44,16 +43,15 @@ class MakeRepositoryTest extends TestCase
     {
         $makeNames = $this->makeRepository->getMakenames();
 
-        $this->assertEquals([$this->make->getName() => $this->make->getName()], $makeNames);
+        $this->assertTrue(in_array($this->make->getName(), $makeNames));
     }
 
     public function testFindMakesForSearch()
     {
-        $makeCollection = $this->makeRepository->findMakesForSearch($this->make->getName());
+        $makeCollection = $this->makeRepository->findForSearch($this->make->getName());
 
-        foreach ($makeCollection as $make) {
-            $this->assertEquals($make->getName(), $this->make->getName());
-            $this->assertEquals($make->getId(), $this->make->getId());
-        }
+        $make = $makeCollection->first();
+        $this->assertEquals($make->getName(), $this->make->getName());
+        $this->assertEquals($make->getId(), $this->make->getId());
     }
 }

@@ -9,7 +9,7 @@ use App\Models\BaseModel;
 use App\Models\Rating;
 
 /** Both Model and Trim can update their rating. Their repositories extend this class. */
-abstract class CarRepository extends BaseRepository
+class CarRepository extends BaseRepository
 {
     /** When a user rates a trim the model and trim rating are updated.
      * The update depends on whether a user has rated the car earlier or not. */

@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
+namespace Tests\Feature\Repositories;
+
 use App\User;
 use App\Repositories\UserRepository;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class UserRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
-
     private $userRepository;
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')

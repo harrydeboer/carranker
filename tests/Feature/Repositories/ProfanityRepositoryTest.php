@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-use App\Models\Profanity;
+namespace Tests\Feature\Repositories;
+
 use App\Repositories\ProfanityRepository;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ProfanityRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
-
     private $profanityRepository;
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
@@ -21,9 +19,10 @@ class ProfanityRepositoryTest extends TestCase
 
     public function testGetProfanityNames()
     {
-        $profanity = factory(Profanity::class)->create();
+        $profanity = $this->profanityRepository->get(1);
 
-        $this->assertEquals($this->profanityRepository->getProfanityNames(), $profanity->getName());
+        $profanities = explode(',', $this->profanityRepository->getProfanityNames());
+        $this->assertTrue(in_array($profanity->getName(), $profanities));
     }
 
     public function testValidate()

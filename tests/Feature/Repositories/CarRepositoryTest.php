@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests\Feature\Repositories;
+
 use App\Repositories\ModelRepository;
 use App\Repositories\TrimRepository;
 use Tests\TestCase;
@@ -9,8 +11,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CarRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
-
     private $modelRepository;
     private $trimRepository;
     private $trim;

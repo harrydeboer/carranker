@@ -7,15 +7,15 @@ namespace App\Http\Controllers;
 use App\CarSpecs;
 use App\Forms\RatingForm;
 use App\Models\Aspect;
-use App\Models\Elastic\Model;
+use App\Repositories\CarRepository;
 use App\Repositories\FXRateRepository;
 use App\Repositories\Elastic\MakeRepository;
-use App\Repositories\Elastic\ModelRepository as ModelRepositoryElastic;
-use App\Repositories\ModelRepository;
+use App\Repositories\Elastic\ModelRepository;
+use App\Repositories\ModelRepository as ModelRepositoryEloquent;
 use App\Repositories\ProfanityRepository;
 use App\Repositories\RatingRepository;
-use App\Repositories\TrimRepository;
-use App\Repositories\Elastic\TrimRepository as TrimRepositoryElastic;
+use App\Repositories\Elastic\TrimRepository;
+use App\Repositories\TrimRepository as TrimRepositoryEloquent;
 use App\Repositories\UserRepository;
 use App\Services\TrimService;
 use Illuminate\Http\Request;
@@ -31,9 +31,8 @@ class ModelpageController extends BaseController
     private $userRepository;
     private $makeRepository;
     private $modelRepository;
-    private $modelRepositoryElastic;
+    private $carRepository;
     private $trimRepository;
-    private $trimRepositoryElastic;
 
     public function __construct()
     {
@@ -45,9 +44,8 @@ class ModelpageController extends BaseController
         $this->userRepository = new UserRepository();
         $this->makeRepository = new MakeRepository();
         $this->modelRepository = new ModelRepository();
-        $this->modelRepositoryElastic = new ModelRepositoryElastic();
+        $this->carRepository = new CarRepository();
         $this->trimRepository = new TrimRepository();
-        $this->trimRepositoryElastic = new TrimRepositoryElastic();
     }
 
     public function view(string $makename, string $modelname, Request $request): Response
@@ -60,14 +58,14 @@ class ModelpageController extends BaseController
         $request->getMethod();
         $trimId = (int) $trimId;
 
-        $model = $this->modelRepositoryElastic->getByMakeModelName($makename, $modelname);
+        $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
         $model->getMake();
         $form = new RatingForm($request->all());
 
         $isThankYou = false;
 
         if ($form->validateFull($request, $form->reCaptchaToken)) {
-            $isThankYou = $this->rate($form, $model);
+            $isThankYou = $this->rate($form);
         }
         $trims = $model->getTrims();
 
@@ -76,7 +74,7 @@ class ModelpageController extends BaseController
         /** The links of the pagination get extra html classes to make them centered on the modelpage. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
             $reviews->onEachSide(1)->links());
-        $trim = $this->trimRepositoryElastic->find($trimId);
+        $trim = $this->trimRepository->find($trimId);
 
         $data = [
             'title' => $makename . ' ' . $modelname,
@@ -90,7 +88,7 @@ class ModelpageController extends BaseController
             'isThankYou' => $isThankYou,
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
-            'selectedGeneration' => $this->trimRepositoryElastic->findSelectedGeneration($trim),
+            'selectedGeneration' => $this->trimRepository->findSelectedGeneration($trim),
             'reviews' => $reviews,
             'reCaptchaKey' => env('reCaptchaKey'),
             'links' => $links,
@@ -107,18 +105,21 @@ class ModelpageController extends BaseController
     }
 
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
-    public function rate(RatingForm $form, Model $model): bool
+    public function rate(RatingForm $form): bool
     {
+        $trimRepository = new TrimRepositoryEloquent();
+        $modelRepository = new ModelRepositoryEloquent();
         $trimArray = explode(';', $form->trimId);
         $trimId = (int) end($trimArray);
-        $trim = $this->trimRepository->get($trimId);
+        $trim = $trimRepository->get($trimId);
+        $model = $trim->getModel();
         $user = $this->guard->user();
         if (is_null($user)) {
             return false;
         }
         $rating = $this->userRepository->getRatingsTrim($user, $trimId);
-        $this->modelRepository->updateCarRating($model, $form->star, $rating);
-        $this->trimRepository->updateCarRating($trim, $form->star, $rating);
+        $modelRepository->updateCarRating($model, $form->star, $rating);
+        $trimRepository->updateCarRating($trim, $form->star, $rating);
         if (is_null($rating)) {
             $this->ratingRepository->createRating($user, $model, $trim, $form);
         } else {

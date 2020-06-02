@@ -13,7 +13,7 @@ class MakeController extends BaseController
     {
         $makename = rawurldecode($makename);
         $makeRepository = new MakeRepository();
-        $make = $makeRepository->getByName($makename)[0];
+        $make = $makeRepository->getByName($makename);
 
         $models = $make->getModels();
         $data = [

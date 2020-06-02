@@ -30,12 +30,10 @@ abstract class BaseModel extends Model
             }
         }
 
-        $this->fillable = array_merge($this->keywords, $this->texts, $this->integers, $this->doubles);
+        $this->fillable = array_merge($this->keywords, $this->texts, $this->integers,
+            $this->doubles, $this->timestamps, $this->booleans);
 
-        $classNameArray = explode('\\', static::class);
-        $this->repoClassName = 'App\Repositories\Elastic\\' . end($classNameArray) . 'Repository';
-
-        parent::__construct();
+        parent::__construct($attributes);
     }
 
     public function getId()
@@ -46,6 +44,17 @@ abstract class BaseModel extends Model
     public static function get(array $params, string $related=null): BaseModel
     {
         return self::arrayToModel(self::$client->get($params), $related);
+    }
+
+    public static function searchOne(array $params, string $related=null): BaseModel
+    {
+        $result = self::$client->search($params);
+        if (isset($result['hits']['hits'][0])) {
+            $array = $result['hits']['hits'][0];
+            $result['hits']['hits'] = $array;
+        }
+
+        return self::arrayToModel($result, $related);
     }
 
     public static function search(array $params, string $related=null): Collection
@@ -112,6 +121,12 @@ abstract class BaseModel extends Model
         $classArray = explode('\\', $related);
         $index = strtolower(end($classArray)) . 's';
 
+        if (env('APP_ENV') === 'acceptance') {
+            $index = 'accept' . $index;
+        } elseif (env('APP_ENV') === 'testing') {
+            $index = 'test' . $index;
+        }
+
         $params = [
             'index' => $index,
             'size' => 1000,
@@ -131,6 +146,11 @@ abstract class BaseModel extends Model
     {
         $classArray = explode('\\', $related);
         $index = strtolower(end($classArray)) . 's';
+        if (env('APP_ENV') === 'acceptance') {
+            $index = 'accept' . $index;
+        } elseif (env('APP_ENV') === 'testing') {
+            $index = 'test' . $index;
+        }
 
         $params = [
             'index' => $index,

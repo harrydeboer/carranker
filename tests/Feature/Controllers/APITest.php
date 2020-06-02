@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Controllers;
 
-use App\Repositories\MakeRepository;
-use App\Repositories\TrimRepository;
+use App\Repositories\Elastic\MakeRepository;
+use App\Repositories\Elastic\TrimRepository;
 use App\Repositories\UserRepository;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
