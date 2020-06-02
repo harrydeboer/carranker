@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class Make extends BaseModel
 {
     use MakeTrait;
-    
+
     protected $table = 'makes';
     public $timestamps = false;
 

@@ -7,7 +7,6 @@ namespace App\Http\Controllers;
 use App\CarSpecs;
 use App\Forms\RatingForm;
 use App\Models\Aspect;
-use App\Repositories\CarRepository;
 use App\Repositories\FXRateRepository;
 use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\ModelRepository;
@@ -31,7 +30,6 @@ class ModelpageController extends BaseController
     private $userRepository;
     private $makeRepository;
     private $modelRepository;
-    private $carRepository;
     private $trimRepository;
 
     public function __construct()
@@ -44,7 +42,6 @@ class ModelpageController extends BaseController
         $this->userRepository = new UserRepository();
         $this->makeRepository = new MakeRepository();
         $this->modelRepository = new ModelRepository();
-        $this->carRepository = new CarRepository();
         $this->trimRepository = new TrimRepository();
     }
 
