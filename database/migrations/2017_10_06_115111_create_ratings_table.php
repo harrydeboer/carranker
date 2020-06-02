@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Models\Aspect;
 
 class CreateRatingsTable extends Migration
 {
@@ -19,9 +18,11 @@ class CreateRatingsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('model_id')->unsigned();
             $table->integer('trim_id')->unsigned();
-            foreach (Aspect::getAspects() as $aspect) {
-                $table->double($aspect)->nullable();
-            }
+            $table->double('comfort')->nullable();
+            $table->double('design')->nullable();
+            $table->double('performance')->nullable();
+            $table->double('reliability')->nullable();
+            $table->double('costs')->nullable();
             $table->integer('time');
             $table->text('content')->nullable();
 
