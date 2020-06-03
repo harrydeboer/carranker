@@ -40,13 +40,13 @@ class FlushRedisDB extends Command
             $this->redis->flushDB();
             $this->redis->select((int) env('TEST_REDIS_DB'));
             $this->redis->flushDB();
-
+            
             $this->info('Redis dbs flushed!');
         } else {
             $this->redis->select((int)env('REDIS_DB'));
             $this->redis->flushDB();
             
             $this->info('Redis db flushed!');
-        }
+        }		
 	}
 }
