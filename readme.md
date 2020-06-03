@@ -9,7 +9,8 @@
 Or prepend Git Bash docker commands with winpty .</li>
 <li>Clone git repository in sitefolder.</li>
 <li>Ask site owner for recaptcha key, recaptcha secret and fixer api key.</li>
-<li>Cp .env.example to .env file in sitefolder folder and fill in the blanks except APP_KEY. Do not use passwords with "" around them. 
+<li>Cp .env.example to .env file in sitefolder folder and fill in the blanks except APP_KEY. 
+Do not use passwords with "" around them. 
 REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docker-compose.yml.</li>
 <li>Execute the command ’docker-compose build’</li>
 <li>Execute the command ’docker-compose up -d’</li>
@@ -19,10 +20,12 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 <li>Run command ‘docker exec -it carranker php artisan migrate’ in sitefolder.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
 <li>Add pages Home, Auth, Register, About, Contact and PHPinfo.</li>
-<li>Add menus navigationHeader with page Home as primary menu and navigationFooter with About and Contact as footer menu.</li>
+<li>Add menus navigationHeader with page Home as primary menu and navigationFooter with About and Contact as footer 
+menu.</li>
 <li>Activate the Carranker Theme and set the permalinks on ’Post name’.</li>
 <li>Activate the plugins.</li>
-<li>Add permissions to the role editor: create_users, delete_users, edit_theme_options, edit_themes, edit_users, list_users and remove_users.</li>
+<li>Add permissions to the role editor: create_users, delete_users, edit_theme_options, edit_themes, edit_users, 
+list_users and remove_users.</li>
 <li>Run command ‘docker exec -it carranker php artisan getcmsdata’ in sitefolder.</li>
 <li>Run command ‘docker exec -it carranker php artisan getfxrate’ in sitefolder.</li>
 <li>Run command ‘docker exec -it carranker php artisan indexcars’ in sitefolder.</li>
@@ -39,8 +42,10 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 
 <ol>
 <li>Create the carranker database.</li>
-<li>Sudo mkdir sitefolder in /var/www. The sitefolder must have the same name as the site name (domain name) in /etc/apache2/sites-available (without the .conf).</li>
-<li>Execute command ‘sudo chown {youruser}:{yourusergroup} {sitefolder}’ in /var/www. The owner of the sitefolder cannot be root.</li>
+<li>Sudo mkdir sitefolder in /var/www. The sitefolder must have the same name as the site name (domain name) in 
+/etc/apache2/sites-available (without the .conf).</li>
+<li>Execute command ‘sudo chown {youruser}:{yourusergroup} {sitefolder}’ in /var/www. The owner of the sitefolder 
+cannot be root.</li>
 <li>Execute command ‘git init’ in sitefolder.</li>
 <li>Execute command ‘git remote add origin {ssh-origin}’.</li>
 <li>Execute command ‘git pull origin master’.</li>
@@ -60,12 +65,15 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 <li>Run command ‘php artisan migrate’ in sitefolder.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
 <li>Add pages Home, Auth, Register, About, Contact and PHPinfo.</li>
-<li>Add menus navigationHeader with page Home as primary menu and navigationFooter with About and Contact as footer menu.</li>
+<li>Add menus navigationHeader with page Home as primary menu and navigationFooter with About and Contact as footer 
+menu.</li>
 <li>Activate the Carranker Theme and set the permalinks on ’Post name’.</li>
 <li>Activate the plugins.</li>
-<li>Add permissions to the role editor: create_users, delete_users, edit_theme_options, edit_themes, edit_users, list_users and remove_users.</li>
+<li>Add permissions to the role editor: create_users, delete_users, edit_theme_options, edit_themes, edit_users, 
+list_users and remove_users.</li>
 <li>Enable cronjob with crontab -e: * * * * * (cd path/to/sitefolder && php artisan getcmsdata).</li>
 <li>Enable cronjob with crontab -e: 0 * * * * (cd path/to/sitefolder && php artisan getfxrate).</li>
+<li>Enable cronjob with crontab -e: */5 * * * * (cd path/to/sitefolder && php artisan processqueue).</li>
 <li>Run command ‘php artisan getcmsdata’ in sitefolder.</li>
 <li>Run command ‘php artisan getfxrate’ in sitefolder.</li>
 <li>Install elasticsearch (version number can be found in docker-compose).</li>
@@ -74,8 +82,10 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 <li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
 <li>Install varnish for acceptance and production.</li>
 <li>Install redis.</li>
-<li>Repeat all the steps for the acceptance site with allowance for certain ips only (and the server ip) in the main apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
+<li>Repeat all the steps for the acceptance site with allowance for certain ips only (and the server ip) in the main 
+apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
 <li>In production: install postfix, dovecot, opendkim, opendmarc, postsrsd and spamassassin.</li>
-<li>In production: add <yourdevuser>@carranker.com, info@carranker.com, postmaster@carranker.com and root@carranker.com in Mail Users in the admin panel. Forward info@carranker.com to carranker@gmail.com.</li>
+<li>In production: add <yourdevuser>@carranker.com, info@carranker.com, postmaster@carranker.com and root@carranker.com 
+in Mail Users in the admin panel. Forward info@carranker.com to carranker@gmail.com.</li>
 <li>An update in production or acceptance can be retrieved with the command ’./update.sh’</li>
 </ol>
