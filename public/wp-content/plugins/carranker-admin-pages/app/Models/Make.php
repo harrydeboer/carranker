@@ -18,7 +18,6 @@ class Make extends BaseModel
         return $this->name;
     }
 
-
     public function getContent()
     {
         $content = mb_convert_encoding($this->content, 'ISO-8859-1', 'HTML-ENTITIES');

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CarrankerAdmin\App;
 
 use CarrankerAdmin\App\Forms\ModelForm;
+use CarrankerAdmin\App\Models\ElasticJob;
 use CarrankerAdmin\App\Models\Model;
 use CarrankerAdmin\App\Models\Make;
 
@@ -14,6 +15,7 @@ class ModelController extends Controller
     {
         parent::__construct($controller, $action);
         require_once dirname(__DIR__) . '/Forms/ModelForm.php';
+        require_once dirname(__DIR__) . '/Models/ElasticJob.php';
     }
 
     public function view(array $urlParams)
@@ -43,6 +45,11 @@ class ModelController extends Controller
             $request->id = $model->getId();
             $this->set('model', $model);
             $form = new ModelForm('update', $request);
+            $object= new \stdClass();
+            $object->model_id = $model->getId();
+            $object->action = 'create';
+            $job = new ElasticJob($object);
+            $job->create();
         }
         $this->set('form', $form);
         $this->_template->_action = 'view';
@@ -59,6 +66,11 @@ class ModelController extends Controller
             $model->setMakeId($make->getId());
             $model->update();
             $this->set('model', $model);
+            $object= new \stdClass();
+            $object->model_id = $model->getId();
+            $object->action = 'update';
+            $job = new ElasticJob($object);
+            $job->create();
         }
         $this->set('form', $form);
         $this->_template->_action = 'view';
@@ -69,5 +81,10 @@ class ModelController extends Controller
         Model::delete((int) $request->deleteModelId);
         $this->set('form', new ModelForm('create'));
         $this->_template->_action = 'view';
+        $object= new \stdClass();
+        $object->model_id = (int) $request->deleteModelId;
+        $object->action = 'delete';
+        $job = new ElasticJob($object);
+        $job->create();
     }
 }

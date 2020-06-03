@@ -24,6 +24,8 @@ class TeardownTest extends TestCase
         $modelRepository->deleteIndex();
         $trimRepository->deleteIndex();
 
+        $this->artisan('flushredisdb')->execute();
+
         $this->assertTrue(true);
     }
 }

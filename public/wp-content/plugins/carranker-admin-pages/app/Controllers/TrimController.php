@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CarrankerAdmin\App;
 
+use CarrankerAdmin\App\Models\ElasticJob;
 use CarrankerAdmin\App\Models\Model;
 use CarrankerAdmin\App\Models\Trim;
 use CarrankerAdmin\App\Forms\TrimForm;
@@ -15,6 +16,7 @@ class TrimController extends Controller
         parent::__construct($controller, $action);
         require_once dirname(__DIR__) . '/Models/Trim.php';
         require_once dirname(__DIR__) . '/Forms/TrimForm.php';
+        require_once dirname(__DIR__) . '/Models/ElasticJob.php';
     }
 
     public function view(array $urlParams)
@@ -61,6 +63,11 @@ class TrimController extends Controller
             $this->set('generationTrim', $trim->getYearBegin() . "-" . $trim->getYearEnd());
             $this->decorateView($model);
             $form = new TrimForm('update', $request);
+            $object= new \stdClass();
+            $object->trim_id = $trim->getId();
+            $object->action = 'create';
+            $job = new ElasticJob($object);
+            $job->create();
         }
         $this->set('form', $form);
 
@@ -79,6 +86,11 @@ class TrimController extends Controller
             $trim->update();
             $this->set('trim', $trim);
             $this->decorateView($model);
+            $object= new \stdClass();
+            $object->trim_id = $trim->getId();
+            $object->action = 'update';
+            $job = new ElasticJob($object);
+            $job->create();
         }
         $this->set('form', $form);
         $this->set('hasTrimTypes', Trim::$hasTrimTypes);
@@ -94,6 +106,11 @@ class TrimController extends Controller
         $this->set('form', new TrimForm('create'));
         $this->decorateView($model);
         $this->_template->_action = 'view';
+        $object= new \stdClass();
+        $object->trim_id = $trim->getId();
+        $object->action = 'delete';
+        $job = new ElasticJob($object);
+        $job->create();
     }
 
     private function decorateView(Model $model)

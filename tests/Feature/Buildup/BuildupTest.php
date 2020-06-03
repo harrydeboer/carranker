@@ -25,6 +25,7 @@ class BuildupTest extends TestCase
         $this->artisan('getcmsdata')->execute();
         $this->artisan('getfxrate')->execute();
         $this->artisan('indexcars')->execute();
+        $this->artisan('processqueue')->execute();
     }
 
     public function testDummy()
