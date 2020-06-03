@@ -159,9 +159,11 @@ abstract class BaseRepository
         return $params;
     }
 
-    public function addAllToIndex(): void
+    public function addAllToIndex(Collection $models=null): void
     {
-        $models = $this->modelClassNameEloquent::all();
+        if (is_null($models)) {
+            $models = $this->modelClassNameEloquent::all();
+        }
 
         foreach ($models as $key => $model) {
             $params['body'][] = [
@@ -182,6 +184,32 @@ abstract class BaseRepository
         // Send the last batch if it exists
         if (!empty($params['body'])) {
             $this->modelClassName::bulk($params);
+        }
+    }
+
+    public function updateAllInIndex(Collection $models): void
+    {
+        foreach ($models as $key => $model) {
+            $params = [
+                'index' => $this->index,
+                'id' => $model->getId(),
+            ];
+
+            $params['body']['doc'] = $this->propertiesToParams($model);
+
+            $this->modelClassName::updateInIndex($params);
+        }
+    }
+
+    public function deleteAllFromIndex(Collection $models): void
+    {
+        foreach ($models as $key => $model) {
+            $params = [
+                'index' => $this->index,
+                'id' => $model->getId(),
+            ];
+
+            $this->modelClassName::deleteFromIndex($params);
         }
     }
 }

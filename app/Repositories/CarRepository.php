@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Models\Aspect;
 use App\Models\BaseModel;
 use App\Models\Rating;
+use App\Models\ElasticJob;
 
 /** Both Model and Trim can update their rating. Their repositories extend this class. */
 abstract class CarRepository extends BaseRepository
@@ -36,6 +37,20 @@ abstract class CarRepository extends BaseRepository
         }
 
         $this->update($car);
+
+        $classNameArray = explode('\\', $this->modelClassName);
+        $model = end($classNameArray);
+
+        $modelId = null;
+        $trimId = null;
+        if ($model === 'Model') {
+            $modelId = $car->getId();
+        } elseif ($model === 'Trim') {
+            $trimId = $car->getId();
+        }
+
+        $job = new ElasticJob(['make_id' => null, 'model_id' => $modelId, 'trim_id' => $trimId, 'action' => 'update']);
+        $job->save();
 
         return $car;
     }

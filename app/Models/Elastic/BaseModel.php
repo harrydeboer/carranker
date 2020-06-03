@@ -67,6 +67,16 @@ abstract class BaseModel extends Model
         self::$client->index($params);
     }
 
+    public static function updateInIndex(array $params)
+    {
+        self::$client->update($params);
+    }
+
+    public static function deleteFromIndex(array $params)
+    {
+        self::$client->delete($params);
+    }
+
     public static function indicesCreate(array $params)
     {
         self::$client->indices()->create($params);
