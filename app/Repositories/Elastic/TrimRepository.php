@@ -27,11 +27,11 @@ class TrimRepository extends BaseRepository
      * There is an aspectfilter, specs choice filter and specs range filter. The minimum number of votes is also a
      * filter and the number of trims to be retrieved and the offset if present. The ratings are sorted from hight to low.
      */
-    public function findTrimsOfTop(FilterTopForm $form, int $minNumVotes, int $lengthTopTable, int $offset=null): Collection
+    public function findTrimsOfTop(FilterTopForm $form, int $minNumVotes, int $lengthTopTable, int $offset=0): Collection
     {
         $params = [
             'index' => $this->index,
-            'size' => $lengthTopTable,
+            'size' => $lengthTopTable - $offset,
             'body' => [
                 'query' => [
                     'bool' => [
@@ -60,7 +60,7 @@ class TrimRepository extends BaseRepository
             }
         }
 
-        if (!is_null($offset)) {
+        if (!$offset !== 0) {
             $params['from'] = $offset;
         }
 
