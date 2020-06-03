@@ -437,6 +437,38 @@ INSERT INTO `dksow31_wf_sn_tests` VALUES (457,'ver_check','2020-05-24 11:20:03',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `elastic_jobs`
+--
+
+DROP TABLE IF EXISTS `elastic_jobs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `elastic_jobs` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `make_id` int unsigned DEFAULT NULL,
+  `model_id` int unsigned DEFAULT NULL,
+  `trim_id` int unsigned DEFAULT NULL,
+  `action` enum('create','update','delete') COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `elastic_jobs_make_id_foreign` (`make_id`),
+  KEY `elastic_jobs_model_id_foreign` (`model_id`),
+  KEY `elastic_jobs_trim_id_foreign` (`trim_id`),
+  CONSTRAINT `elastic_jobs_make_id_foreign` FOREIGN KEY (`make_id`) REFERENCES `makes` (`id`),
+  CONSTRAINT `elastic_jobs_model_id_foreign` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`),
+  CONSTRAINT `elastic_jobs_trim_id_foreign` FOREIGN KEY (`trim_id`) REFERENCES `trims` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `elastic_jobs`
+--
+
+LOCK TABLES `elastic_jobs` WRITE;
+/*!40000 ALTER TABLE `elastic_jobs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `elastic_jobs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -445,10 +477,10 @@ DROP TABLE IF EXISTS `failed_jobs`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `failed_jobs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -606,7 +638,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -615,7 +647,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_100000_create_password_resets_table',1),(2,'2016_06_01_000001_create_oauth_auth_codes_table',1),(3,'2016_06_01_000002_create_oauth_access_tokens_table',1),(4,'2016_06_01_000003_create_oauth_refresh_tokens_table',1),(5,'2016_06_01_000004_create_oauth_clients_table',1),(6,'2016_06_01_000005_create_oauth_personal_access_clients_table',1),(7,'2017_10_06_000001_create_makes_table',1),(8,'2017_10_06_000002_create_models_table',1),(9,'2017_10_06_000003_create_wordpress_tables',1),(10,'2017_10_06_000004_alter_wordpress_users_table',2),(11,'2017_10_06_114924_create_trims_table',2),(13,'2018_10_02_172726_create_pages_table',2),(14,'2018_10_02_173232_create_menus_table',2),(15,'2018_12_13_130755_create_fxrates_table',2),(16,'2018_12_20_223220_create_profanities_table',2),(17,'2019_01_11_175255_create_menus_pages_table',2),(18,'2020_04_29_172531_create_mail_users_table',2),(20,'2019_08_19_000000_create_failed_jobs_table',3),(22,'2017_10_06_115111_create_ratings_table',4);
+INSERT INTO `migrations` VALUES (1,'2014_10_12_100000_create_password_resets_table',1),(2,'2016_06_01_000001_create_oauth_auth_codes_table',1),(3,'2016_06_01_000002_create_oauth_access_tokens_table',1),(4,'2016_06_01_000003_create_oauth_refresh_tokens_table',1),(5,'2016_06_01_000004_create_oauth_clients_table',1),(6,'2016_06_01_000005_create_oauth_personal_access_clients_table',1),(7,'2017_10_06_000001_create_makes_table',1),(8,'2017_10_06_000002_create_models_table',1),(9,'2017_10_06_000003_create_wordpress_tables',1),(10,'2017_10_06_000004_alter_wordpress_users_table',2),(11,'2017_10_06_114924_create_trims_table',2),(13,'2018_10_02_172726_create_pages_table',2),(14,'2018_10_02_173232_create_menus_table',2),(15,'2018_12_13_130755_create_fxrates_table',2),(16,'2018_12_20_223220_create_profanities_table',2),(17,'2019_01_11_175255_create_menus_pages_table',2),(18,'2020_04_29_172531_create_mail_users_table',2),(20,'2019_08_19_000000_create_failed_jobs_table',3),(22,'2017_10_06_115111_create_ratings_table',4),(23,'2020_06_03_094427_create_elastic_jobs_table',5);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -974,4 +1006,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-24 13:38:20
+-- Dump completed on 2020-06-03 14:48:20
