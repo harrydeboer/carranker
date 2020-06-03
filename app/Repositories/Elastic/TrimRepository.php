@@ -64,15 +64,9 @@ class TrimRepository extends BaseRepository
             $params['from'] = $offset;
         }
 
-        $trims = Trim::search($params);
+        $trims = Trim::search($params, null, 'rating');
         foreach ($trims as $key => $trim) {
-            $rating = 0;
-            $total = 0;
-            foreach (Aspect::getAspects() as $aspect) {
-                $total += $form->aspects[$aspect];
-                $rating += $trim->$aspect * $form->aspects[$aspect];
-            }
-            $trims[$key]->setRatingFiltering($rating / $total);
+            $trims[$key]->setRatingFiltering($trim->rating);
         }
 
         return $trims;
@@ -89,14 +83,16 @@ class TrimRepository extends BaseRepository
             'order' => 'desc',
         ];
 
-        $source = '';
+        $source = '(';
         $factorArray = [];
+        $total = 0;
         $formAspects = $form->aspects;
         foreach (Aspect::getAspects() as $key => $aspect) {
             $source .= "doc['" . $aspect . "'] * factor" . $key . " + ";
             $factorArray['factor' . $key] = (int) $formAspects[$aspect];
+            $total += (int) $formAspects[$aspect];
         }
-        $params['body']['sort']['_script']['script']['source'] = substr($source, 0, -3);
+        $params['body']['sort']['_script']['script']['source'] = substr($source, 0, -3) . ")/ $total";
         $params['body']['sort']['_script']['script']['params'] = $factorArray;
 
         return $params;

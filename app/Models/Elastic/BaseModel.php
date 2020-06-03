@@ -57,9 +57,9 @@ abstract class BaseModel extends Model
         return self::arrayToModel($result, $related);
     }
 
-    public static function search(array $params, string $related=null): Collection
+    public static function search(array $params, string $related=null, string $sortField=null): Collection
     {
-        return self::arrayToModels(self::$client->search($params), $related);
+        return self::arrayToModels(self::$client->search($params), $related, $sortField);
     }
 
     public static function index(array $params)
@@ -113,13 +113,16 @@ abstract class BaseModel extends Model
         return new $className($fillable);
     }
 
-    protected static function arrayToModels(array $results, string $related=null): Collection
+    protected static function arrayToModels(array $results, ?string $related, ?string $sortField): Collection
     {
         $models = [];
         $results = $results['hits']['hits'];
         $className = $related ?? static::class;
         foreach ($results as $result) {
             $fillable = array_merge(['id' => (int)$result['_id']], $result['_source']);
+            if (!is_null($sortField)) {
+                $fillable[$sortField] = $result['sort'][0];
+            }
             $models[] = new $className($fillable);
         }
 
