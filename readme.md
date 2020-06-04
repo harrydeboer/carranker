@@ -19,7 +19,8 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 <li>Browse to the cms at http://cms.carranker:8080 and install wordpress.</li>
 <li>Run command ‘docker exec -it carranker php artisan migrate’ in sitefolder.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
-<li>Add pages Home, Auth, Register, About, Contact and PHPinfo.</li>
+<li>Add pages Home, Auth, Register, About, Contact and PHPinfo. Fill in the pages content.</li>
+<li>Make Home the front page.</li>
 <li>Add menus navigationHeader with page Home as primary menu and navigationFooter with About and Contact as footer 
 menu.</li>
 <li>Activate the Carranker Theme and set the permalinks on ’Post name’.</li>
@@ -64,7 +65,8 @@ cannot be root.</li>
 <li>Execute command ‘git reset –hard’ in sitefolder. </li>
 <li>Run command ‘php artisan migrate’ in sitefolder.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
-<li>Add pages Home, Auth, Register, About, Contact and PHPinfo.</li>
+<li>Add pages Home, Auth, Register, About, Contact and PHPinfo. Fill in the pages content.</li>
+<li>Make Home the front page.</li>
 <li>Add menus navigationHeader with page Home as primary menu and navigationFooter with About and Contact as footer 
 menu.</li>
 <li>Activate the Carranker Theme and set the permalinks on ’Post name’.</li>
