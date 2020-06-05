@@ -1,6 +1,8 @@
 FROM ubuntu:20.04
 
-ARG php=7.4
+ARG phpversion
+ARG uid
+ARG upass
 
 RUN apt-get update
 
@@ -16,17 +18,17 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
     unzip \
     libzip-dev \
     apache2=2.4.41-4ubuntu3 \
-    php${php} \
-    php${php}-mysql \
+    php${phpversion} \
+    php${phpversion}-mysql \
     libxml2 \
     libxslt1.1 \
     libc6 \
     libonig5 \
     libgd3 \
     php-imagick=3.4.4-4 \
-    libapache2-mod-php${php}
+    libapache2-mod-php${phpversion}
 
-RUN a2enmod php${php}
+RUN a2enmod php${phpversion}
 
 RUN a2enmod headers proxy rewrite proxy_balancer proxy_http slotmem_shm ssl
 
@@ -46,8 +48,8 @@ EXPOSE 80
 EXPOSE 8080
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install \
-    php${php}-sqlite php${php}-xml php${php}-bcmath php${php}-curl php${php}-gd \
-    php${php}-mbstring php${php}-igbinary php${php}-redis php${php}-xdebug php${php}-zip \
+    php${phpversion}-sqlite php${phpversion}-xml php${phpversion}-bcmath php${phpversion}-curl php${phpversion}-gd \
+    php${phpversion}-mbstring php${phpversion}-igbinary php${phpversion}-redis php${phpversion}-xdebug php${phpversion}-zip \
     && phpenmod xml imagick bcmath curl gd mbstring igbinary redis xdebug zip \
     && phpdismod ffi gettext shmop xsl
 
@@ -57,10 +59,8 @@ CMD /usr/sbin/apache2ctl -D FOREGROUND
 # 5. composer
 COPY --from=composer:1.10.6 /usr/bin/composer /usr/bin/composer
 
-ARG uid
 RUN useradd -G www-data,root -u ${uid} -d /home/devuser devuser
 RUN mkdir -p /home/devuser/.composer && \
     chown -R devuser:devuser /home/devuser
 
-ARG upass
 RUN echo devuser:${upass} | chpasswd && echo root:${upass} | chpasswd && usermod -aG sudo devuser

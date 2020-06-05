@@ -17,6 +17,7 @@ class ComposerTest extends TestCase
         $jsonObject = json_decode($string);
         $requirements = $jsonObject->require;
         $this->assertEquals($requirements->{'johnpbloch/wordpress'}, $jsonObject->{'require-dev'}->{'wp-phpunit/wp-phpunit'});
+        $this->assertEquals($requirements->{'elasticsearch/elasticsearch'}, env('ELASTIC_VERSION'));
 
         $extensions = get_loaded_extensions();
         foreach ($extensions as $extension) {

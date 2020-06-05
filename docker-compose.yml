@@ -8,14 +8,15 @@ services:
       args:
         uid: ${UID}
         upass: ${UPASS}
+        phpversion: ${PHP_VERSION}
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html
       - ./config/apache2.conf:/etc/apache2/apache2.conf
       - ./config/ports.conf:/etc/apache2/ports.conf
       - ./config/000-default.conf:/etc/apache2/sites-available/000-default.conf
-      - ./config/php-apache2.ini:/etc/php/7.4/apache2/conf.d/php-apache2.ini
-      - ./config/php-cli.ini:/etc/php/7.4/cli/conf.d/php-cli.ini
+      - ./config/php-apache2.ini:/etc/php/${PHP_VERSION}/apache2/conf.d/php-apache2.ini
+      - ./config/php-cli.ini:/etc/php/${PHP_VERSION}/cli/conf.d/php-cli.ini
     networks:
       carranker:
     container_name: carranker
@@ -35,7 +36,7 @@ services:
       carranker:
         ipv4_address: ${REDIS_HOST}
   elastic:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
     container_name: carranker-elastic
     environment:
       - node.name=carranker-elastic
