@@ -19,7 +19,7 @@ $(document).ready(function ()
     });
 
     if (sessionStorage.isThankYou === 'true') {
-        sessionStorage.isThankYou = 'false';
+        sessionStorage.removeItem('isThankYou');
         $('#thankYou').modal('show');
     }
 
