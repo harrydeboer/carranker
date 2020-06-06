@@ -26,7 +26,7 @@ class ModelpageTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testRate()
+    public function testRatecar()
     {
         $trimRepository = new TrimRepository();
         $trim = $trimRepository->get(1);
@@ -44,9 +44,8 @@ class ModelpageTest extends TestCase
             $postArrayFirst['star'][$aspect] = '10';
         }
 
-        $response = $this->actingAs($user)->post('/model/' . $trim->getModel()->getMakename() . '/' .
-            $trim->getModel()->getName(), $postArrayFirst);
-        $response->assertSee('showThankYou', false);
+        $response = $this->actingAs($user)->post('/ratecar/', $postArrayFirst);
+        $response->assertSee('true', false);
         $response->assertStatus(200);
 
         $trimDBFirst = $trimRepository->get(1);
@@ -62,9 +61,8 @@ class ModelpageTest extends TestCase
             $postArraySecond['star'][$aspect] = '8';
         }
 
-        $response = $this->actingAs($user)->post('/model/' . $trim->getModel()->getMakename() . '/' .
-            $trim->getModel()->getName(), $postArraySecond);
-        $response->assertSee('showThankYou', false);
+        $response = $this->actingAs($user)->post('/ratecar/', $postArraySecond);
+        $response->assertSee('true', false);
         $response->assertStatus(200);
 
         $trimDBSecond = $trimRepository->get(1);

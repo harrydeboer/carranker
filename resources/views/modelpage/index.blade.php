@@ -84,7 +84,7 @@
             </div>
         </div>
     @endforeach
-    <div class="modal {{ $isThankYou === true ? 'showThankYou' : ''}}" id="thankYou">
+    <div class="modal" id="thankYou">
         <div class="modal-dialog" id="thankYouDialog">
             <div class="modal-content">
                 <div class="modal-header" id="thankYouHeader">

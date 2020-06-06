@@ -51,19 +51,14 @@ class ModelpageController extends BaseController
         $modelname = rawurldecode($modelname);
         $user = $this->guard->user();
         $trimId = $request->query('trimId');
+        $isThankYou = $request->query('isThankYou') === 'true';
 
         $request->getMethod();
         $trimId = (int) $trimId;
 
         $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
         $model->getMake();
-        $form = new RatingForm($request->all());
-
-        $isThankYou = false;
-
-        if ($form->validateFull($request, $form->reCaptchaToken)) {
-            $isThankYou = $this->rate($form);
-        }
+        $form = new RatingForm();
         $trims = $model->getTrims();
 
         $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelpage);
@@ -102,27 +97,32 @@ class ModelpageController extends BaseController
     }
 
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
-    public function rate(RatingForm $form): bool
+    public function ratecar(Request $request): Response
     {
-        $trimRepository = new TrimRepositoryEloquent();
-        $modelRepository = new ModelRepositoryEloquent();
-        $trimArray = explode(';', $form->trimId);
-        $trimId = (int) end($trimArray);
-        $trim = $trimRepository->get($trimId);
-        $model = $trim->getModel();
+        $form = new RatingForm($request->all());
         $user = $this->guard->user();
-        if (is_null($user)) {
-            return false;
-        }
-        $rating = $this->userRepository->getRatingsTrim($user, $trimId);
-        $modelRepository->updateCarRating($model, $form->star, $rating);
-        $trimRepository->updateCarRating($trim, $form->star, $rating);
-        if (is_null($rating)) {
-            $this->ratingRepository->createRating($user, $model, $trim, $form);
-        } else {
-            $this->ratingRepository->updateRating($rating, $form);
+        $data['success'] = 'false';
+
+        if ($form->validateFull($request, $form->reCaptchaToken) && !is_null($user)) {
+
+            $trimRepository = new TrimRepositoryEloquent();
+            $modelRepository = new ModelRepositoryEloquent();
+            $trimArray = explode(';', $form->trimId);
+            $trimId = (int) end($trimArray);
+            $trim = $trimRepository->get($trimId);
+            $model = $trim->getModel();
+
+            $rating = $this->userRepository->getRatingsTrim($user, $trimId);
+            $modelRepository->updateCarRating($model, $form->star, $rating);
+            $trimRepository->updateCarRating($trim, $form->star, $rating);
+            if (is_null($rating)) {
+                $this->ratingRepository->createRating($user, $model, $trim, $form);
+            } else {
+                $this->ratingRepository->updateRating($rating, $form);
+            }
+            $data['success'] = 'true';
         }
 
-        return true;
+        return response()->view('modelpage.ratecar', $data, 200);
     }
 }

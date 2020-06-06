@@ -5,7 +5,7 @@ declare(strict_types=1);
 Route::post('contact', ['as' => 'contact.view', 'uses' => 'ContactController@view']);
 Route::post('login', ['as' => 'login', 'uses' => 'Auth\LoginController@login']);
 Route::post('register', ['as' => 'register', 'uses' => 'Auth\RegisterController@register']);
-Route::post('model/{make}/{model}', ['as' => 'make.model', 'uses' => 'ModelpageController@view'])->where('model', '.*');
+Route::post('ratecar', ['as' => 'ratecar', 'uses' => 'ModelpageController@ratecar']);
 Route::get('auth', ['as' => 'auth', 'uses' => 'Auth\LoginController@view']);
 Route::get('register', 'Auth\RegisterController@showRegistrationForm');
 Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
