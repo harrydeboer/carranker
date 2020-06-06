@@ -51,7 +51,6 @@ class ModelpageController extends BaseController
         $modelname = rawurldecode($modelname);
         $user = $this->guard->user();
         $trimId = $request->query('trimId');
-        $isThankYou = $request->query('isThankYou') === 'true';
 
         $request->getMethod();
         $trimId = (int) $trimId;
@@ -77,7 +76,6 @@ class ModelpageController extends BaseController
             'ratingform' => $form,
             'trims' => $trims,
             'isLoggedIn' => is_null($user) ? false : true,
-            'isThankYou' => $isThankYou,
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
             'selectedGeneration' => $this->trimRepository->findSelectedGeneration($trim),
