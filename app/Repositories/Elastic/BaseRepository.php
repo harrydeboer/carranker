@@ -105,6 +105,7 @@ abstract class BaseRepository
         $params = [
             'index' => $this->index,
             'body' => [
+                'settings' => $this->model->getSettings(),
                 'mappings' => $this->model->getMappings(),
             ],
         ];

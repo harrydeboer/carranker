@@ -173,6 +173,21 @@ abstract class BaseModel extends Model
         return self::get($params, $related);
     }
 
+    public function getSettings(): array
+    {
+        return [
+            'analysis' => [
+                'normalizer' => [
+                    'normalizer_lowercase' => [
+                        'type' => 'custom',
+                        'char_filter' => [],
+                        'filter' => ['lowercase'],
+                    ]
+                ]
+            ]
+        ];
+    }
+
     public function getMappings(): array
     {
         $mappings = [
@@ -183,6 +198,9 @@ abstract class BaseModel extends Model
 
         foreach ($this->keywords as $keyword) {
             $mappings['properties'][$keyword] = ['type' => 'keyword'];
+            if ($keyword === 'name' || $keyword === 'make' || $keyword === 'model') {
+                $mappings['properties'][$keyword]['normalizer'] = 'normalizer_lowercase';
+            }
         }
 
         foreach ($this->texts as $text) {
