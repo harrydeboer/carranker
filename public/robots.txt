@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-
-Sitemap: https://carranker.com/api/sitemap
