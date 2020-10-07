@@ -12,6 +12,9 @@ Or prepend Git Bash docker commands with winpty .</li>
 <li>Cp .env.example to .env file in sitefolder folder and fill in the blanks except APP_KEY. 
 Do not use passwords with "" around them. 
 REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docker-compose.yml.</li>
+<li>On Windows: Place the config/.wslconfig file in the user folder</li>
+<li>On Windows: Execute ’wsl -d docker-desktop’ and ’echo 262144 >> /proc/sys/vm/max_map_count’ 
+and ’echo "vm.max_map_count = 262144" > /etc/sysctl.d/99-docker-desktop.conf’</li>
 <li>Execute the command ’docker-compose build’</li>
 <li>Execute the command ’docker-compose up -d’</li>
 <li>Execute ’docker exec --user devuser -it carranker composer install’ in sitefolder.</li>

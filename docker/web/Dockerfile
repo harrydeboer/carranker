@@ -17,7 +17,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
     sudo \
     unzip \
     libzip-dev \
-    apache2=2.4.41-4ubuntu3 \
+    apache2 \
     php${phpversion} \
     php${phpversion}-mysql \
     libxml2 \
