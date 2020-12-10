@@ -39,8 +39,8 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 ENV APACHE_RUN_USER=www-data
 ENV APACHE_RUN_GROUP=www-data
 ENV PHP_XDEBUG_ENABLED=1
-ENV PHP_INI_XDEBUG__REMOTE_PORT=9777
-ENV XDEBUG_CONFIG="remote_host=host.docker.internal"
+ENV PHP_INI_XDEBUG__CLIENT_PORT=9003
+ENV XDEBUG_CONFIG="client_host=host.docker.internal"
 ENV PHP_IDE_CONFIG="serverName=carranker"
 
 # Expose apache.
@@ -57,7 +57,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
 CMD /usr/sbin/apache2ctl -D FOREGROUND
 
 # 5. composer
-COPY --from=composer:1.10.6 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.0.7 /usr/bin/composer /usr/bin/composer
 
 RUN useradd -G www-data,root -u ${uid} -d /home/devuser devuser
 RUN mkdir -p /home/devuser/.composer && \
