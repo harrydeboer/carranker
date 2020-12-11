@@ -6,6 +6,7 @@ namespace Tests\Feature\Repositories;
 
 use App\Models\Aspect;
 use App\Models\Trim;
+use App\Models\User;
 use App\Models\Rating;
 use App\Repositories\RatingRepository;
 use App\Repositories\Elastic\TrimRepository;
@@ -25,7 +26,7 @@ class RatingRepositoryTest extends TestCase
 
     public function testFindRecentReviews()
     {
-        $rating = factory(Rating::class)->create(['content' => 'notnull']);
+        $rating = Rating::factory()->create(['content' => 'notnull']);
 
         $reviews = $this->ratingRepository->findRecentReviews(1);
 
@@ -38,8 +39,8 @@ class RatingRepositoryTest extends TestCase
 
     public function testCreateRating()
     {
-        $user = factory(\App\User::class)->create();
-        $trim = factory(Trim::class)->create();
+        $user = User::factory()->create();
+        $trim = Trim::factory()->create();
         $content = 'content';
         $createArray = ['content' => $content];
         foreach (Aspect::getAspects() as $aspect) {
@@ -61,7 +62,7 @@ class RatingRepositoryTest extends TestCase
 
     public function testUpdateRating()
     {
-        $rating = factory(Rating::class)->create(['content' => 'content']);
+        $rating = Rating::factory()->create(['content' => 'content']);
 
         $content = 'newcontent';
         $createArray = ['content' => $content];
@@ -81,7 +82,7 @@ class RatingRepositoryTest extends TestCase
     public function testGetReviews()
     {
         $trim = $this->trimRepository->get(1);
-        $reviewFactory = factory(Rating::class)->create([
+        $reviewFactory = Rating::factory()->create([
             'content' => 'notnull',
             'trim_id' => $trim->getId(),
             'model_id' => $trim->getModel()->getId(),

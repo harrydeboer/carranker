@@ -23,7 +23,7 @@ class MenuRepositoryTest extends TestCase
 
     public function testGetByName()
     {
-        $menu = factory(Menu::class)->create();
+        $menu = Menu::factory()->create();
         $menuFromDb = $this->menuRepository->getByName($menu->getName());
 
         $this->assertEquals($menu->getId(), $menuFromDb->getId());
@@ -34,7 +34,7 @@ class MenuRepositoryTest extends TestCase
         $pageHome = $this->pageRepository->getByName('home');
         $pageContact = $this->pageRepository->getByName('contact');
 
-        $menu = factory(Menu::class)->create();
+        $menu = Menu::factory()->create();
 
         $menusCMS = new \stdClass();
         $itemHome = new \stdClass();

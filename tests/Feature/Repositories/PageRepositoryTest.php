@@ -20,7 +20,7 @@ class PageRepositoryTest extends TestCase
 
     public function testGetByName()
     {
-        $page = factory(Page::class)->create();
+        $page = Page::factory()->create();
         $pageFromDb = $this->pageRepository->getByName($page->getName());
 
         $this->assertEquals($page->getId(), $pageFromDb->getId());
@@ -29,7 +29,7 @@ class PageRepositoryTest extends TestCase
     /** The phpinfo page is in the cms, but must not be in the laravel pages table. */
     public function testSyncPagesWithCMS()
     {
-        $page = factory(Page::class)->create();
+        $page = Page::factory()->create();
         $pagesCMS = [];
         $pagesCMS[] = $this->makePageCMS('home', 'Home', 'Content');
         $pagesCMS[] = $this->makePageCMS('contact', 'Contact', 'Content');
@@ -52,7 +52,7 @@ class PageRepositoryTest extends TestCase
 
     public function testSyncPagesWithCMSException()
     {
-        factory(Page::class)->create();
+        Page::factory()->create();
         $pagesCMS = [];
         $pagesCMS[] = $this->makePageCMS('home', 'Home', 'Content');
         $this->expectException(\Exception::class);

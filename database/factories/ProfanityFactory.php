@@ -24,9 +24,11 @@ class ProfanityFactory extends Factory
     public function definition()
     {
         $name = $this->faker->unique()->name;
+        $name = strtolower(str_replace(' ', '', $name));
+        $name = str_replace(',', '', $name);
 
         return [
-            'name' => strtolower(str_replace(' ', '', $name)),
+            'name' => $name,
         ];
     }
 }

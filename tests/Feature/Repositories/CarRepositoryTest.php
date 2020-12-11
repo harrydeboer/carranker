@@ -7,7 +7,9 @@ namespace Tests\Feature\Repositories;
 use App\Repositories\ModelRepository;
 use App\Repositories\TrimRepository;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Models\Model;
+use App\Models\Trim;
+use App\Models\Rating;
 
 class CarRepositoryTest extends TestCase
 {
@@ -21,8 +23,8 @@ class CarRepositoryTest extends TestCase
         parent::setUp();
         $this->modelRepository = new ModelRepository();
         $this->trimRepository = new TrimRepository();
-        $this->model = factory(\App\Models\Model::class)->create();
-        $this->trim = factory(\App\Models\Trim::class)->create([
+        $this->model = Model::factory()->create();
+        $this->trim = Trim::factory()->create([
             'model_id' => $this->model->getId(),
             'model' => $this->model->getName(),
             'make' => $this->model->getMakename(),
@@ -31,7 +33,7 @@ class CarRepositoryTest extends TestCase
 
     public function testUpdateCarRating()
     {
-        $rating = factory(\App\Models\Rating::class)->create(['model_id' => $this->model->getId(), 'trim_id' => $this->trim->getId()]);
+        $rating = Rating::factory()->create(['model_id' => $this->model->getId(), 'trim_id' => $this->trim->getId()]);
 
         $ratingArray = [];
         $modelRatingBeforeUpdate = [];

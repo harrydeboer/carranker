@@ -6,6 +6,7 @@ namespace Tests\Feature\Repositories;
 
 use App\Repositories\ProfanityRepository;
 use Tests\TestCase;
+use App\Models\Profanity;
 
 class ProfanityRepositoryTest extends TestCase
 {
@@ -27,7 +28,7 @@ class ProfanityRepositoryTest extends TestCase
 
     public function testValidate()
     {
-        $badWord = factory(\App\Models\Profanity::class)->create();
+        $badWord = Profanity::factory()->create();
 
         $this->assertFalse($this->profanityRepository->validate($badWord->getName()));
 

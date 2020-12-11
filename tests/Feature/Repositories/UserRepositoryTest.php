@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Repositories;
 
 use App\Models\User;
+use App\Models\Rating;
 use App\Repositories\UserRepository;
 use Tests\TestCase;
 
@@ -20,7 +21,7 @@ class UserRepositoryTest extends TestCase
 
     public function testGetByName()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $userFromDb = $this->userRepository->getByName($user->getUsername());
 
         $this->assertEquals($user->getId(), $userFromDb->getId());
@@ -28,7 +29,7 @@ class UserRepositoryTest extends TestCase
 
     public function testGetByEmail()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $userFromDb = $this->userRepository->getByEmail($user->getEmail());
 
         $this->assertEquals($user->getId(), $userFromDb->getId());
@@ -36,7 +37,7 @@ class UserRepositoryTest extends TestCase
 
     public function getRatingsTrim()
     {
-        $rating = factory(\App\Models\Rating::class)->create();
+        $rating = Rating::factory()->create();
         $this->assertNull($this->userRepository->getRatingsTrim(null, $rating->getTrim()->getId()));
 
         $ratingDB = $this->userRepository->getRatingsTrim($rating->getUser(), $rating->getTrim()->getId());
@@ -50,7 +51,7 @@ class UserRepositoryTest extends TestCase
 
     public function getRatingsModel()
     {
-        $rating = factory(\App\Models\Rating::class)->create();
+        $rating = Rating::factory()->create();
         $this->assertTrue(count($this->userRepository->getRatingsModel(null, $rating->getTrim()->getId())) === 0);
 
         $ratingsDB = $this->userRepository->getRatingsModel($rating->getUser(), $rating->getModel()->getId());

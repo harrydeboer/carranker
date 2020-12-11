@@ -15,7 +15,7 @@ class LoginLogoutTest extends TestCase
         $hasher = new WPHasher(app());
 
         $password = 'secret';
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'user_pass' => $hasher->make($password),
         ]);
 

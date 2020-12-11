@@ -5,7 +5,7 @@ namespace Tests\Browser;
 use App\Providers\WPHasher;
 use App\Repositories\UserRepository;
 use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
+use App\Models\User;
 
 class LoginTest extends DuskTestCase
 {
@@ -14,7 +14,7 @@ class LoginTest extends DuskTestCase
         $hasher = new WPHasher(app());
 
         $password = 'secret';
-        $user = factory('App\User')->create([
+        $user = User::factory()->create([
             'user_pass' => $hasher->make($password)
         ]);
 

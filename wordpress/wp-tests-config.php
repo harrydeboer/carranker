@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Env;
+
 /* Path to the WordPress codebase you'd like to test. Add a forward slash in the end. */
 define( 'ABSPATH', __DIR__ . '/wp/' );
 
