@@ -33,15 +33,15 @@ define( 'WP_DEBUG', true );
 // These tests will DROP ALL TABLES in the database with the prefix named below.
 // DO NOT use a production database or one that is shared with something else.
 
-define('DB_NAME', getenv('TEST_DATABASE'));
-define('DB_USER', getenv('DB_USERNAME'));
-define('DB_PASSWORD', getenv('DB_PASSWORD'));
-define('DB_HOST', getenv('DB_HOST'));
+define('DB_NAME', Env::get('TEST_DATABASE'));
+define('DB_USER', Env::get('DB_USERNAME'));
+define('DB_PASSWORD', Env::get('DB_PASSWORD'));
+define('DB_HOST', Env::get('DB_HOST'));
 define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' );
 define('APP_ENV', 'testing');
-define('JWT_AUTH_SECRET_KEY', getenv('JWT_AUTH_SECRET_KEY'));
-define( 'WP_CONTENT_URL', getenv('WP_CONTENT_URL' ));
+define('JWT_AUTH_SECRET_KEY', Env::get('JWT_AUTH_SECRET_KEY'));
+define( 'WP_CONTENT_URL', Env::get('WP_CONTENT_URL' ));
 
 /**#@+
  * Authentication Unique Keys and Salts.
@@ -58,10 +58,10 @@ define('SECURE_AUTH_SALT', 'put your unique phrase here');
 define('LOGGED_IN_SALT',   'put your unique phrase here');
 define('NONCE_SALT',       'put your unique phrase here');
 
-$table_prefix  = getenv('WP_DB_PREFIX');   // Only numbers, letters, and underscores please!
+$table_prefix  = Env::get('WP_DB_PREFIX');   // Only numbers, letters, and underscores please!
 
 define( 'WP_TESTS_DOMAIN', 'cms.carranker' );
-define( 'WP_TESTS_EMAIL', getenv('TEST_EMAIL') );
+define( 'WP_TESTS_EMAIL', Env::get('TEST_EMAIL') );
 define( 'WP_TESTS_TITLE', 'Test Blog' );
 
 /** WP_PHP_BINARY is not set to php if the install of wordpress in the test database is already executed.

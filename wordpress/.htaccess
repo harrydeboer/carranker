@@ -31,9 +31,7 @@
     RewriteCond %{HTTP:Authorization} ^(.*)
     RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
     RedirectMatch 403 ^/wp-admin/install.php?$
-    RedirectMatch 403 ^/wp-admin/upgrade.php?$
     RedirectMatch 403 ^/wp/wp-admin/install.php?$
-    RedirectMatch 403 ^/wp/wp-admin/upgrade.php?$
     RewriteCond %{QUERY_STRING} ^author=([0-9]*)
     RewriteRule .* /? [L,R=302]
 </IfModule>
@@ -66,11 +64,12 @@
 </IfModule>
 
 # BEGIN WordPress
-# The directives (lines) between `BEGIN WordPress` and `END WordPress` are
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
 # dynamically generated, and should only be modified via WordPress filters.
 # Any changes to the directives between these markers will be overwritten.
 <IfModule mod_rewrite.c>
 RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
