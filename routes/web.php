@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Route;
+
 Route::post('contact', ['as' => 'contact.view', 'uses' => 'ContactController@view']);
 Route::post('login', ['as' => 'login', 'uses' => 'Auth\LoginController@login']);
 Route::post('register', ['as' => 'register', 'uses' => 'Auth\RegisterController@register']);

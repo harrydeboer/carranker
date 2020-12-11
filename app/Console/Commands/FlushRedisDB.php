@@ -5,7 +5,6 @@ declare( strict_types=1 );
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Redis;
 
 class FlushRedisDB extends Command
 {
@@ -40,13 +39,13 @@ class FlushRedisDB extends Command
             $this->redis->flushDB();
             $this->redis->select((int) env('TEST_REDIS_DB'));
             $this->redis->flushDB();
-            
+
             $this->info('Redis dbs flushed!');
         } else {
             $this->redis->select((int)env('REDIS_DB'));
             $this->redis->flushDB();
-            
+
             $this->info('Redis db flushed!');
-        }		
+        }
 	}
 }

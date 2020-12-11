@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class UserTest extends TestCase

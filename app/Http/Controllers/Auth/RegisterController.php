@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Providers\WPHasher;
 use App\Http\Controllers\BaseController;
 use App\Repositories\UserRepository;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Contracts\Validation\Validator;

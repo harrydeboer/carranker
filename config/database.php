@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Str;
+
 return [
 
 	/*
@@ -65,7 +67,7 @@ return [
 				],
 		],
 
-		'test_mysql' => [
+		'mysql_testing' => [
 			'driver' => 'mysql',
 			'host' => env('DB_HOST'),
 			'port' => env('DB_PORT'),
@@ -141,6 +143,11 @@ return [
 	'redis' => [
 
 		'client' => 'phpredis',
+
+        'options' => [
+            'cluster' => env('REDIS_CLUSTER', 'redis'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+        ],
 
 		'default' => [
 			'host'     => env('REDIS_HOST'),

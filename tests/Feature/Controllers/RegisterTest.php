@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers;
 
 use App\Repositories\UserRepository;
-use App\User;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase

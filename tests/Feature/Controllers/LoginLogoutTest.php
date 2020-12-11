@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers;
 
 use App\Providers\WPHasher;
-use App\User;
+use App\Models\User;
 use Tests\TestCase;
 
 class LoginLogoutTest extends TestCase

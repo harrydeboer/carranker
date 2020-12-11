@@ -10,7 +10,7 @@ use App\Repositories\ProfanityRepository;
 
 class RatingForm extends BaseForm
 {
-    public $fillable = ['star', 'generation', 'serie', 'trimId', 'content', 'reCaptchaToken'];
+    protected $fillable = ['star', 'generation', 'serie', 'trimId', 'content', 'reCaptchaToken'];
 
     public function rules(): array
     {

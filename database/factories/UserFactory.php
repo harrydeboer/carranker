@@ -2,25 +2,43 @@
 
 declare(strict_types=1);
 
+namespace Database\Factories;
+
+use App\Models\User;
 use App\Providers\WPHasher;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-$factory->define(App\User::class, function (Faker $faker): array
+class UserFactory extends Factory
 {
-    $hasher = new WPHasher(app());
-    $userName = $faker->name;
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = User::class;
 
-    return [
-        'user_login' => $userName,
-        'user_email' => $faker->unique()->safeEmail,
-        'user_pass' => $hasher->make($faker->name),
-        'user_nicename' => $userName,
-        'user_url' => "",
-        'user_activation_key' => "",
-        'user_status' => 0,
-        'display_name' => $userName,
-        'user_registered' => $faker->time('Y-m-d H:i:s'),
-        'remember_token' => Str::random(10),
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $hasher = new WPHasher(app());
+        $userName = $this->faker->name;
+
+        return [
+            'user_login' => $userName,
+            'user_email' => $this->faker->unique()->safeEmail,
+            'user_pass' => $hasher->make($this->faker->name),
+            'user_nicename' => $userName,
+            'user_url' => "",
+            'user_activation_key' => "",
+            'user_status' => 0,
+            'display_name' => $userName,
+            'user_registered' => $this->faker->time('Y-m-d H:i:s'),
+            'remember_token' => Str::random(10),
+        ];
+    }
+}

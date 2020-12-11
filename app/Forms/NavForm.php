@@ -6,7 +6,7 @@ namespace App\Forms;
 
 class NavForm extends BaseForm
 {
-    public $fillable = ['query'];
+    protected $fillable = ['query'];
 
     public function rules(): array
     {

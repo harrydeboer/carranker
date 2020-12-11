@@ -9,7 +9,7 @@ use App\Repositories\ProfanityRepository;
 
 class ContactForm extends BaseForm
 {
-    public $fillable = ['email', 'subject', 'name', 'message', 'reCaptchaToken'];
+    protected $fillable = ['email', 'subject', 'name', 'message', 'reCaptchaToken'];
 
     public function rules(): array
     {

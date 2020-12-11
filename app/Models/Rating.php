@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\User;
+use App\Models\User;
 
 class Rating extends BaseModel
 {
@@ -38,7 +38,7 @@ class Rating extends BaseModel
 
     public function getUser(): User
     {
-        return $this->hasOne('\App\User', 'ID', 'user_id')->first();
+        return $this->hasOne('\App\Models\User', 'ID', 'user_id')->first();
     }
 
     public function getTime(): int
