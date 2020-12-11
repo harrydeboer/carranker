@@ -2,13 +2,31 @@
 
 declare(strict_types=1);
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Make::class, function (Faker $faker): array {
+use App\Models\Make;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-    return [
-        'name' => str_replace(' ', '', $faker->unique()->name),
-        'content' => $faker->text(),
-        'wiki_car_make' => $faker->unique()->name,
-    ];
-});
+class MakeFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Make::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => str_replace(' ', '', $this->faker->unique()->name),
+            'content' => $this->faker->text(),
+            'wiki_car_make' => $this->faker->unique()->name,
+        ];
+    }
+}

@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Rating extends BaseModel
 {
+    use HasFactory;
     use Aspect;
     protected $table = 'ratings';
     public $timestamps = false;

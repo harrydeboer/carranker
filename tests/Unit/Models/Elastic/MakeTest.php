@@ -14,7 +14,7 @@ class MakeTest extends TestCase
 
     public function testElasticModelSyncEloquent()
     {
-        $makeEloquent = factory(Make::class)->create();
+        $makeEloquent = Make::factory()->create();
         $makeElastic = new \App\Models\Elastic\Make();
 
         $propertiesElastic = array_merge($makeElastic->keywords, $makeElastic->texts);

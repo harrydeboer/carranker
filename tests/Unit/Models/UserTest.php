@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Models;
 
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
@@ -13,7 +13,7 @@ class UserTest extends TestCase
 
     public function testUserInDB()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->assertDatabaseHas(env('WP_DB_PREFIX') . 'users', [
             'user_login' => $user->getUsername(),

@@ -13,7 +13,7 @@ class TrimTest extends TestCase
 
     public function testTrimInDB()
     {
-        $trim = factory('App\Models\Trim')->create();
+        $trim = Trim::factory()->create();
 
         $assertArray = [
             'name' => $trim->getName(),

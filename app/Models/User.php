@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
@@ -15,7 +16,7 @@ class User extends Authenticatable
     protected $table;
     public $timestamps = false;
 
-    use Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens;
 
     protected $fillable = [
         'user_login', 'user_email', 'user_pass', 'user_nicename', 'user_url',

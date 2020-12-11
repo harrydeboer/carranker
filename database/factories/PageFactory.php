@@ -2,13 +2,32 @@
 
 declare(strict_types=1);
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Page::class, function (Faker $faker): array {
+use App\Models\Page;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-    return [
-        'name' => $faker->unique()->name,
-        'title' => $faker->unique()->name,
-        'content' => $faker->text(),
-    ];
-});
+class PageFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Page::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+
+        return [
+            'name' => $this->faker->unique()->name,
+            'title' => $this->faker->unique()->name,
+            'content' => $this->faker->text(),
+        ];
+    }
+}

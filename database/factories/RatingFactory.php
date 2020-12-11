@@ -2,25 +2,45 @@
 
 declare(strict_types=1);
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Rating;
 use App\Models\Aspect;
+use App\Models\User;
+use App\Models\Trim;
 
-$factory->define(App\Models\Rating::class, function (Faker $faker): array
+class RatingFactory extends Factory
 {
-    $user = factory('App\User')->create();
-    $trim = factory('App\Models\Trim')->create();
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Rating::class;
 
-    $array = [
-        'user_id' => $user->getId(),
-        'model_id' => $trim->getModel()->getId(),
-        'trim_id' => $trim->getId(),
-        'time' => time(),
-        'content' => $faker->text(),
-    ];
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $user = User::factory()->create();
+        $trim = Trim::factory()->create();
 
-    foreach (Aspect::getAspects() as $aspect) {
-        $array[$aspect] = $faker->randomNumber(1) + 1;
+        $array = [
+            'user_id' => $user->getId(),
+            'model_id' => $trim->getModel()->getId(),
+            'trim_id' => $trim->getId(),
+            'time' => time(),
+            'content' => $this->faker->text(),
+        ];
+
+        foreach (Aspect::getAspects() as $aspect) {
+            $array[$aspect] = $this->faker->randomNumber(1) + 1;
+        }
+
+        return $array;
     }
-
-    return $array;
-});
+}

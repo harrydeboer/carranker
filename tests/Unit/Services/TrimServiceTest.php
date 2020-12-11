@@ -17,7 +17,7 @@ class TrimServiceTest extends TestCase
 
     public function testGetGenerationsSeriesTrims()
     {
-        $trim = factory(Trim::class)->create(['name' => null]);
+        $trim = Trim::factory()->create(['name' => null]);
 
         $collection = new Collection();
 
@@ -27,7 +27,7 @@ class TrimServiceTest extends TestCase
         $generationSeriesTrims = $trimService->getGenerationsSeriesTrims($collection);
         $this->assertEquals($generationSeriesTrims[$trim->getYearBegin() . '-' . $trim->getYearEnd()][$trim->getFramework()][0], $trim->getId());
 
-        $trim = factory(Trim::class)->create(['name' => 'notnull']);
+        $trim = Trim::factory()->create(['name' => 'notnull']);
 
         $collection = new Collection();
 
@@ -39,7 +39,7 @@ class TrimServiceTest extends TestCase
 
     public function testHasTrimTypes()
     {
-        $trim = factory(Trim::class)->create(['name' => null]);
+        $trim = Trim::factory()->create(['name' => null]);
 
         $collection = new Collection();
 
@@ -48,7 +48,7 @@ class TrimServiceTest extends TestCase
         $trimService = new TrimService();
         $this->assertFalse($trimService->hasTrimTypes($collection));
 
-        $trim = factory(Trim::class)->create(['name' => 'notnull']);
+        $trim = Trim::factory()->create(['name' => 'notnull']);
 
         $collection = new Collection();
 

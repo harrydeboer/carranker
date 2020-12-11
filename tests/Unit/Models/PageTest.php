@@ -12,7 +12,7 @@ class PageTest extends TestCase
 
     public function testPageInDB()
     {
-        $page = factory(Page::class)->create();
+        $page = Page::factory()->create();
 
         $this->assertDatabaseHas('pages', [
             'name' => $page->getName(),

@@ -15,10 +15,10 @@ class EnvTest extends TestCase
     public function testEnvLaravel()
     {
 	    $contents = Reader::read([base_path() . "/.env.example"], true);
-	    $envExampleNames = explode("\r\n", $contents[base_path() . "/.env.example"]);
+	    $envExampleNames = explode(PHP_EOL, $contents[base_path() . "/.env.example"]);
 
 	    $contents = Reader::read([base_path() . "/.env"], true);
-        $envNames = explode("\r\n", $contents[base_path() . "/.env"]);
+        $envNames = explode(PHP_EOL, $contents[base_path() . "/.env"]);
 
         $this->assertEquals(count($envNames), count($envExampleNames));
 

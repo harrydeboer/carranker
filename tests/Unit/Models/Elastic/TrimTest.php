@@ -14,7 +14,7 @@ class TrimTest extends TestCase
 
     public function testElasticModelSyncEloquent()
     {
-        $trimEloquent = factory(Trim::class)->create();
+        $trimEloquent = Trim::factory()->create();
         $trimElastic = new \App\Models\Elastic\Trim();
 
         $propertiesElastic = array_merge($trimElastic->keywords, $trimElastic->doubles, $trimElastic->integers);

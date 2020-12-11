@@ -6,12 +6,14 @@ namespace App\Models;
 
 use App\CarSpecs;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Trim extends BaseModel
 {
     use TrimTrait;
     use Aspect;
     use Spec;
+    use HasFactory;
 
     protected $table = 'trims';
     public static $hasTrimVersions = 0;

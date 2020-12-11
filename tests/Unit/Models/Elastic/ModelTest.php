@@ -14,7 +14,7 @@ class ModelTest extends TestCase
 
     public function testElasticModelSyncEloquent()
     {
-        $modelEloquent = factory(Model::class)->create();
+        $modelEloquent = Model::factory()->create();
         $modelElastic = new \App\Models\Elastic\Model();
 
         $propertiesElastic = array_merge($modelElastic->keywords, $modelElastic->texts,

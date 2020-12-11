@@ -14,7 +14,7 @@ class FXRateTest extends TestCase
 
     public function testGetByName()
     {
-        $fxrate = factory('App\Models\FXRate')->create();
+        $fxrate = FXRate::factory()->create();
 
         $this->assertDatabaseHas('fxrates', [
             'name' => $fxrate->getName(),

@@ -2,14 +2,32 @@
 
 declare(strict_types=1);
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\MailUser::class, function (Faker $faker): array {
+use App\Models\MailUser;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-    return [
-        'domain' => 'carranker.com',
-        'password' => $faker->password,
-        'email' => $faker->unique()->name,
-        'forward' => $faker->unique()->name,
-    ];
-});
+class MailUserFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = MailUser::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'domain' => 'carranker.com',
+            'password' => $this->faker->password,
+            'email' => $this->faker->unique()->name,
+            'forward' => $this->faker->unique()->name,
+        ];
+    }
+}

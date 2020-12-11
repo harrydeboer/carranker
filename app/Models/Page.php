@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Page extends BaseModel
 {
+    use HasFactory;
+
     protected $table = 'pages';
     public $timestamps = false;
 

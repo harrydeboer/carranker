@@ -2,12 +2,30 @@
 
 declare(strict_types=1);
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\FXRate::class, function (Faker $faker): array {
+use App\Models\FXRate;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-    return [
-        'name' => 'euro/dollar',
-        'value' => $faker->randomFloat(4),
-    ];
-});
+class FXRateFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = FXRate::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => 'euro/dollar',
+            'value' => $this->faker->randomFloat(4),
+        ];
+    }
+}

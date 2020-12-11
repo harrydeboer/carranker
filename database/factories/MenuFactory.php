@@ -2,11 +2,29 @@
 
 declare(strict_types=1);
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Menu::class, function (Faker $faker): array {
+use App\Models\Menu;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-    return [
-        'name' => $faker->unique()->name,
-    ];
-});
+class MenuFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Menu::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->unique()->name,
+        ];
+    }
+}

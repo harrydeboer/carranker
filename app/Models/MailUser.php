@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace App\Models;
 
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class MailUser extends BaseModel
 {
+    use HasFactory;
+
     protected $table = 'mail_users';
     public $timestamps = false;
 

@@ -13,7 +13,7 @@ class ModelTest extends TestCase
 
     public function testModelInDB()
     {
-        $model = factory(Model::class)->create();
+        $model = Model::factory()->create();
         $modelDB = Model::find($model->getId());
 
         $this->assertEquals($model->getWikiCarModel(), $modelDB->getWikiCarModel());

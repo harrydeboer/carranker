@@ -4,6 +4,8 @@ namespace Tests\Unit\Models;
 
 use App\Models\Aspect;
 use App\Models\Rating;
+use App\Models\User;
+use App\Models\Trim;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -13,9 +15,9 @@ class RatingTest extends TestCase
 
     public function testRatingInDB()
     {
-        $user = factory('App\User')->create();
-        $trim = factory('App\Models\Trim')->create();
-        $rating = factory(Rating::class)->create([
+        $user = User::factory()->create();
+        $trim = Trim::factory()->create();
+        $rating = Rating::factory()->create([
             'user_id' => $user->getid(),
             'model_id' => $trim->getModel()->getId(),
             'trim_id' => $trim->getid(),

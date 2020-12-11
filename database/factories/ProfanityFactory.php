@@ -2,13 +2,31 @@
 
 declare(strict_types=1);
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Profanity::class, function (Faker $faker): array {
+use App\Models\Profanity;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-    $name = $faker->unique()->name;
+class ProfanityFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Profanity::class;
 
-    return [
-        'name' => strtolower(str_replace(' ', '', $name)),
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $name = $this->faker->unique()->name;
+
+        return [
+            'name' => strtolower(str_replace(' ', '', $name)),
+        ];
+    }
+}

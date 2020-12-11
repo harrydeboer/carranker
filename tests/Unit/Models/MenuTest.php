@@ -12,7 +12,7 @@ class MenuTest extends TestCase
 
     public function testMenuNameInDB()
     {
-        $menu = factory(Menu::class)->create();
+        $menu = Menu::factory()->create();
 
         $this->assertDatabaseHas('menus', [
             'name' => $menu->getName(),

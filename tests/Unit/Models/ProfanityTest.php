@@ -14,7 +14,7 @@ class ProfanityTest extends TestCase
 
     public function testProfanityInDB()
     {
-        $profanity = factory(Profanity::class)->create();
+        $profanity = Profanity::factory()->create();
 
         $this->assertDatabaseHas('profanities', [
             'name' => $profanity->getName(),

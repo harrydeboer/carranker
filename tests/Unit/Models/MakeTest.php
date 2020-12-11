@@ -12,7 +12,7 @@ class MakeTest extends TestCase
 
     public function testMakeInDB()
     {
-        $make = factory(Make::class)->create();
+        $make = Make::factory()->create();
 
         $this->assertDatabaseHas('makes', [
             'id' => $make->getId(),

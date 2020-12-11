@@ -12,7 +12,7 @@ class MailUser extends TestCase
 
     public function testMailUserInDB()
     {
-        $mailUser = factory(MailUser::class)->create();
+        $mailUser = MailUser::factory()->create();
 
         $this->assertDatabaseHas('mail_users', [
             'id' => $mailUser->getId(),

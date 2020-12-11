@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Make extends BaseModel
 {
+    use HasFactory;
     use MakeTrait;
 
     protected $table = 'makes';
