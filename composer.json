@@ -71,7 +71,6 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "3.1.0",
         "laravelcollective/html": "6.2.0",
-        "spatie/laravel-varnish": "^2.8",
         "wpackagist-plugin/jwt-auth": "1.4.2",
         "wpackagist-plugin/security-ninja": "5.111",
         "wpackagist-plugin/user-role-editor": "4.57.1"
