@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10f270c898fb743aeaac068e9b7fa196",
+    "content-hash": "01ed66f165fe5321d7ad0bae4a1ba000",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4191,6 +4191,72 @@
                 "source": "https://github.com/reactphp/promise/tree/v2.8.0"
             },
             "time": "2020-05-12T15:16:56+00:00"
+        },
+        {
+            "name": "spatie/laravel-varnish",
+            "version": "2.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-varnish.git",
+                "reference": "082b56e2dc40a520e99d423fde9bccc06dc24247"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-varnish/zipball/082b56e2dc40a520e99d423fde9bccc06dc24247",
+                "reference": "082b56e2dc40a520e99d423fde9bccc06dc24247",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "~5.8.0|^6.0|^7.0|^8.0",
+                "illuminate/http": "~5.8.0|^6.0|^7.0|^8.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.8.0|^4.0|^5.0|^6.0",
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Varnish\\VarnishServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Varnish\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Making Varnish and Laravel play nice together",
+            "homepage": "https://github.com/spatie/laravel-varnish",
+            "keywords": [
+                "laravel-varnish",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-varnish/issues",
+                "source": "https://github.com/spatie/laravel-varnish/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-09-09T09:58:58+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -9454,6 +9520,12 @@
     "prefer-lowest": false,
     "platform": {
         "php": "7.4 - 8.0",
+        "ext-pdo": "*",
+        "ext-phar": "*",
+        "ext-reflection": "*",
+        "ext-spl": "*",
+        "ext-simplexml": "*",
+        "ext-zend-opcache": "*",
         "ext-bcmath": "*",
         "ext-calendar": "*",
         "ext-ctype": "*",
@@ -9477,18 +9549,13 @@
         "ext-openssl": "*",
         "ext-pcntl": "*",
         "ext-pcre": "*",
-        "ext-pdo": "*",
         "ext-pdo_mysql": "*",
-        "ext-phar": "*",
         "ext-posix": "*",
         "ext-readline": "*",
         "ext-redis": "*",
-        "ext-reflection": "*",
         "ext-session": "*",
-        "ext-simplexml": "*",
         "ext-sockets": "*",
         "ext-sodium": "*",
-        "ext-spl": "*",
         "ext-sysvmsg": "*",
         "ext-sysvsem": "*",
         "ext-sysvshm": "*",
@@ -9497,7 +9564,6 @@
         "ext-xmlreader": "*",
         "ext-xmlwriter": "*",
         "ext-zip": "*",
-        "ext-zend-opcache": "*",
         "ext-zlib": "*"
     },
     "platform-dev": [],
