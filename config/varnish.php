@@ -28,4 +28,4 @@ return [
      * The name of the header that triggers Varnish to cache the response.
      */
     'cacheable_header_name' => 'X-Cacheable',
-]; 
+];
