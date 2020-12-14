@@ -20,7 +20,7 @@ use App\Services\TrimService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ModelpageController extends BaseController
+class ModelpageController extends Controller
 {
     private const numReviewsPerModelpage = 3;
     private $ratingRepository;
@@ -31,10 +31,10 @@ class ModelpageController extends BaseController
     private $makeRepository;
     private $modelRepository;
     private $trimRepository;
+    private $user;
 
     public function __construct()
     {
-        parent::__construct();
         $this->profanityRepository = new ProfanityRepository();
         $this->ratingRepository = new RatingRepository();
         $this->fXRateRepository = new FXRateRepository();
@@ -43,13 +43,14 @@ class ModelpageController extends BaseController
         $this->makeRepository = new MakeRepository();
         $this->modelRepository = new ModelRepository();
         $this->trimRepository = new TrimRepository();
+        $guard = app('Illuminate\Contracts\Auth\Guard');
+        $this->user = $guard->user();
     }
 
     public function view(string $makename, string $modelname, Request $request): Response
     {
         $makename = rawurldecode($makename);
         $modelname = rawurldecode($modelname);
-        $user = $this->guard->user();
         $trimId = $request->query('trimId');
 
         $request->getMethod();
@@ -75,7 +76,7 @@ class ModelpageController extends BaseController
             'model' => $model,
             'ratingform' => $form,
             'trims' => $trims,
-            'isLoggedIn' => is_null($user) ? false : true,
+            'isLoggedIn' => is_null($this->user) ? false : true,
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
             'selectedGeneration' => $this->trimRepository->findSelectedGeneration($trim),
@@ -84,12 +85,13 @@ class ModelpageController extends BaseController
             'links' => $links,
             'hasTrimTypes' => $this->trimService->hasTrimTypes($trims),
             'FXRate' => $this->fXRateRepository->getByName('euro/dollar')->getValue(),
-            'ratings' => $this->userRepository->getRatingsModel($this->guard->user(), $model->getId()),
+            'ratings' => $this->userRepository->getRatingsModel($this->user, $model->getId()),
         ];
 
-        $this->viewFactory->share('makenameRoute', $makename);
-        $this->viewFactory->share('modelnameRoute', $modelname);
-        $this->viewFactory->share('modelnames', $this->makeRepository->getModelNames($makename));
+        $viewFactory = app('Illuminate\Contracts\View\Factory');
+        $viewFactory->share('makenameRoute', $makename);
+        $viewFactory->share('modelnameRoute', $modelname);
+        $viewFactory->share('modelnames', $this->makeRepository->getModelNames($makename));
 
         return response()->view('modelpage.index', $data, 200);
     }
@@ -98,7 +100,7 @@ class ModelpageController extends BaseController
     public function ratecar(Request $request): Response
     {
         $form = new RatingForm($request->all());
-        $user = $this->guard->user();
+        $user = $this->user;
         $data['success'] = 'false';
 
         if ($form->validateFull($request, $form->reCaptchaToken) && !is_null($user)) {

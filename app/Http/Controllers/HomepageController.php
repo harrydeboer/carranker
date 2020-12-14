@@ -7,25 +7,28 @@ namespace App\Http\Controllers;
 use App\CarSpecs;
 use App\Forms\FilterTopForm;
 use App\Models\Aspect;
+use App\Repositories\PageRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class HomepageController extends BaseController
+class HomepageController extends Controller
 {
+    protected const topLength = 10;
     private const minNumVotes = 30;
     private const topSliderNumber = 10;
     private const numShowMoreLess = 10;
     private const homepageNumReviews = 3;
     private $ratingRepository;
     private $trimRepository;
+    private $pageRepository;
 
     public function __construct()
     {
-        parent::__construct();
         $this->ratingRepository = new RatingRepository();
         $this->trimRepository = new TrimRepository();
+        $this->pageRepository = new PageRepository();
     }
 
     public function view(): Response

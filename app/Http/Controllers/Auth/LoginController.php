@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\BaseController;
+use App\Repositories\PageRepository;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends BaseController
+class LoginController extends Controller
 {
     protected $maxAttempts = 3;
     protected $decayMinutes = 5;
@@ -24,6 +25,13 @@ class LoginController extends BaseController
     */
 
     use AuthenticatesUsers;
+
+    private $pageRepository;
+
+    public function __construct()
+    {
+        $this->pageRepository = new PageRepository();
+    }
 
     /**
      * Where to redirect users after login.

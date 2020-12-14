@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Providers\WPHasher;
-use App\Http\Controllers\BaseController;
+use App\Repositories\PageRepository;
+use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
 use App\Models\User;
 use Illuminate\Http\Response;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\Factory;
 
-class RegisterController extends BaseController
+class RegisterController extends Controller
 {
 	/*
 	|--------------------------------------------------------------------------
@@ -29,11 +30,12 @@ class RegisterController extends BaseController
 	protected $redirectTo = '/';
 	private $userRepository;
 	private $validatorFactory;
+	private $pageRepository;
 
 	public function __construct(Factory $validatorFactory)
 	{
-		parent::__construct();
 		$this->userRepository = new UserRepository();
+		$this->pageRepository = new PageRepository();
 		$this->validatorFactory = $validatorFactory;
 		$this->middleware('guest');
 	}

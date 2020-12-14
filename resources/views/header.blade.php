@@ -11,7 +11,7 @@
     </div>
     <div class="navbar-collapse collapse" id="navbarCollapse">
         {!! Form::model($navform, [
-        'route' => ['base.search'],
+        'route' => ['navigation.search'],
         'method' => 'get',
         'class' => 'nav navbar-nav ml-auto navbar-right',
         'id' => 'search-form'
