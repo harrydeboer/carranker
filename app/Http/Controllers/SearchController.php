@@ -11,9 +11,9 @@ use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class NavigationController extends Controller
+class SearchController extends Controller
 {
-    public function search(Request $request): Response
+    public function view(Request $request): Response
     {
         $form = new NavForm($request->all());
         $makeRepository = new MakeRepository();
@@ -28,7 +28,7 @@ class NavigationController extends Controller
                 'trims' => $trimRepository->findForSearch($form->query),
             ];
 
-            return response()->view('navigation.search', $data, 200);
+            return response()->view('search.index', $data, 200);
         }
 
         $data = [
@@ -38,6 +38,6 @@ class NavigationController extends Controller
             'trims' => [],
         ];
 
-        return response()->view('navigation.search', $data, 200);
+        return response()->view('search.index', $data, 200);
     }
 }

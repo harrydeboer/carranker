@@ -24,7 +24,7 @@ Route::get('home', function ()
 
 Route::group(['middleware' => 'cacheable'], function ()
 {
-	Route::get('search', ['as' => 'navigation.search', 'uses' => 'NavigationController@search']);
+	Route::get('search', ['as' => 'search.view', 'uses' => 'SearchController@view']);
 	Route::get('', ['as' => 'Home', 'uses' => 'HomepageController@view']);
 	Route::get('make/{make}', 'MakeController@view');
 

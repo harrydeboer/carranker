@@ -19,6 +19,7 @@ use App\Repositories\UserRepository;
 use App\Services\TrimService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Contracts\Auth\Guard;
 
 class ModelpageController extends Controller
 {
@@ -33,7 +34,7 @@ class ModelpageController extends Controller
     private $trimRepository;
     private $user;
 
-    public function __construct()
+    public function __construct(Guard $guard)
     {
         $this->profanityRepository = new ProfanityRepository();
         $this->ratingRepository = new RatingRepository();
@@ -43,7 +44,6 @@ class ModelpageController extends Controller
         $this->makeRepository = new MakeRepository();
         $this->modelRepository = new ModelRepository();
         $this->trimRepository = new TrimRepository();
-        $guard = app('Illuminate\Contracts\Auth\Guard');
         $this->user = $guard->user();
     }
 
