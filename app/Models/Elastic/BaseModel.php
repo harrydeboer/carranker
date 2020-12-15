@@ -108,6 +108,11 @@ abstract class BaseModel extends Model
         if (isset($result['hits']['hits'])) {
             $result = $result['hits']['hits'];
         }
+        if ($result === []) {
+            $classNameArray = explode('\\', $className);
+            $model = strtolower(end($classNameArray));
+            abort(404, "Could not find $model.");
+        }
         $fillable = array_merge(['id' => (int) $result['_id']], $result['_source']);
 
         return new $className($fillable);

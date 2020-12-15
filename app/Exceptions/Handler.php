@@ -4,11 +4,21 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Contracts\View\Factory;
 
 class Handler extends ExceptionHandler
 {
+    private $viewFactory;
+
+    public function __construct(Container $container, Factory $viewFactory)
+    {
+        parent::__construct($container);
+        $this->viewFactory = $viewFactory;
+    }
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -37,18 +47,17 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
-        $viewFactory = app('Illuminate\Contracts\View\Factory');
-        $viewFactory->share('message', $e->getMessage());
-        $viewFactory->share('controller', 'error');
+        $this->viewFactory->share('message', $e->getMessage());
+        $this->viewFactory->share('controller', 'error');
 
         try {
             if ($e->getStatusCode() === 404) {
-                $viewFactory->share('title', 'Not Found');
+                $this->viewFactory->share('title', 'Not Found');
             }  else {
-                $viewFactory->share('title', 'Error');
+                $this->viewFactory->share('title', 'Error');
             }
         } catch (Throwable $exceptionNot404) {
-            $viewFactory->share('title', 'Error');
+            $this->viewFactory->share('title', 'Error');
         }
 
         return parent::render($request, $e);

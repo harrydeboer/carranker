@@ -1,5 +1,5 @@
-@extends('layout')
+@extends('errors.layout')
 
 @section('content')
-    <h2>Something went wrong, try again later.</h2>
+    Something went wrong.
 @endsection

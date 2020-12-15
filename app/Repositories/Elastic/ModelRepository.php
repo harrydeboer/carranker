@@ -46,7 +46,14 @@ class ModelRepository extends BaseRepository
                 ],
             ],
         ];
-        $model = $this->modelClassName::search($params)[0];
+
+        $models = $this->modelClassName::search($params);
+
+        if (isset($models[0])) {
+            $model = $models[0];
+        } else {
+            abort(404, "The requested model does not exist.");
+        }
 
         if (is_null($model)) {
             abort(404, "The requested model does not exist.");
