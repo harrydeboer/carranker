@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Interfaces\IElasticJobRepository;
 use App\Models\ElasticJob;
 use Illuminate\Database\Eloquent\Collection;
 
-class ElasticJobRepository extends BaseRepository implements IElasticJobRepository
+class ElasticJobRepository extends BaseRepository
 {
     public function getAllMakesByAction(string $action): Collection
     {

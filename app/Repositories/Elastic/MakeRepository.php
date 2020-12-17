@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elastic;
 
-use App\Interfaces\Elastic\IMakeRepository;
 use App\Models\Elastic\Make;
 
-class MakeRepository extends BaseRepository implements IMakeRepository
+class MakeRepository extends BaseRepository
 {
     protected string $index = 'makes';
 

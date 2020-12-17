@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Interfaces\Elastic\IMakeRepository;
-use App\Interfaces\Elastic\IModelRepository;
-use App\Interfaces\Elastic\ITrimRepository;
+use App\Repositories\Elastic\MakeRepository;
+use App\Repositories\Elastic\ModelRepository;
+use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use App\Services\SitemapService;
@@ -19,13 +19,11 @@ class APIController extends BaseController
     private $modelRepository;
     private $trimRepository;
 
-    public function __construct(IMakeRepository $makeRepository,
-                                IModelRepository $modelRepository,
-                                ITrimRepository $trimRepository)
+    public function __construct()
     {
-        $this->makeRepository = $makeRepository;
-        $this->modelRepository = $modelRepository;
-        $this->trimRepository = $trimRepository;
+        $this->makeRepository = new MakeRepository();
+        $this->modelRepository = new ModelRepository();
+        $this->trimRepository = new TrimRepository();
     }
 
     public function viewMake(string $makeId): JsonResponse
@@ -60,7 +58,9 @@ class APIController extends BaseController
     public function makeSitemap(): Response
     {
         $sitemap = new SitemapService();
-        $sitemap = $sitemap->makeSitemap($this->makeRepository->getMakeNames(), $this->modelRepository->getModelNames());
+        $makeRepository = new MakeRepository();
+        $modelRepository = new ModelRepository();
+        $sitemap = $sitemap->makeSitemap($makeRepository->getMakeNames(), $modelRepository->getModelNames());
 
         return response($sitemap)->header('Content-Type', 'application/xml');
     }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories;
 
-use App\Interfaces\IMenuRepository;
-use App\Interfaces\IPageRepository;
 use App\Models\Menu;
+use App\Repositories\MenuRepository;
+use App\Repositories\PageRepository;
 use Tests\TestCase;
 
 class MenuRepositoryTest extends TestCase
@@ -14,11 +14,11 @@ class MenuRepositoryTest extends TestCase
     private $menuRepository;
     private $pageRepository;
 
-    public function setUp(): void
+    public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
-        parent::setUp();
-        $this->menuRepository = $this->app->make(IMenuRepository::class);
-        $this->pageRepository = $this->app->make(IPageRepository::class);
+        parent::__construct($name, $data, $dataName);
+        $this->menuRepository = new MenuRepository();
+        $this->pageRepository = new PageRepository();
     }
 
     public function testGetByName()

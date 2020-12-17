@@ -2,10 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\IPageRepository;
 use App\Models\Page;
 
-class PageRepository extends BaseRepository implements IPageRepository
+class PageRepository extends BaseRepository
 {
     public function getByName(string $name): Page
     {

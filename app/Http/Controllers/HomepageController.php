@@ -6,10 +6,10 @@ namespace App\Http\Controllers;
 
 use App\CarSpecs;
 use App\Forms\FilterTopForm;
-use App\Interfaces\IPageRepository;
-use App\Interfaces\IRatingRepository;
-use App\Interfaces\Elastic\ITrimRepository;
 use App\Models\Aspect;
+use App\Repositories\PageRepository;
+use App\Repositories\RatingRepository;
+use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -24,13 +24,11 @@ class HomepageController extends Controller
     private $trimRepository;
     private $pageRepository;
 
-    public function __construct(IRatingRepository $ratingRepository,
-                                ITrimRepository $trimRepository,
-                                IPageRepository $pageRepository)
+    public function __construct()
     {
-        $this->ratingRepository = $ratingRepository;
-        $this->trimRepository = $trimRepository;
-        $this->pageRepository = $pageRepository;
+        $this->ratingRepository = new RatingRepository();
+        $this->trimRepository = new TrimRepository();
+        $this->pageRepository = new PageRepository();
     }
 
     public function view(): Response

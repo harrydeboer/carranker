@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories;
 
-use App\Interfaces\IProfanityRepository;
+use App\Repositories\ProfanityRepository;
 use Tests\TestCase;
 use App\Models\Profanity;
 
@@ -12,10 +12,10 @@ class ProfanityRepositoryTest extends TestCase
 {
     private $profanityRepository;
 
-    public function setUp(): void
+    public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
-        parent::setUp();
-        $this->profanityRepository = $this->app->make(IProfanityRepository::class);
+        parent::__construct($name, $data, $dataName);
+        $this->profanityRepository = new ProfanityRepository();
     }
 
     public function testGetProfanityNames()

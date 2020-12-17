@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Forms\RatingForm;
-use App\Interfaces\IRatingRepository;
 use App\Models\Model as ModelEloquent;
 use App\Models\Elastic\Model;
 use App\Models\Rating;
@@ -12,7 +11,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
-class RatingRepository extends BaseRepository implements IRatingRepository
+class RatingRepository extends BaseRepository
 {
     public function findRecentReviews($limit): Collection
     {

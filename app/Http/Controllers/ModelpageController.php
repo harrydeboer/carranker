@@ -6,14 +6,16 @@ namespace App\Http\Controllers;
 
 use App\CarSpecs;
 use App\Forms\RatingForm;
-use App\Interfaces\Elastic\IModelRepository;
-use App\Interfaces\Elastic\ITrimRepository;
-use App\Interfaces\IFXRateRepository;
-use App\Interfaces\Elastic\IMakeRepository;
-use App\Interfaces\IProfanityRepository;
-use App\Interfaces\IRatingRepository;
-use App\Interfaces\IUserRepository;
 use App\Models\Aspect;
+use App\Repositories\FXRateRepository;
+use App\Repositories\Elastic\MakeRepository;
+use App\Repositories\Elastic\ModelRepository;
+use App\Repositories\ModelRepository as ModelRepositoryEloquent;
+use App\Repositories\ProfanityRepository;
+use App\Repositories\RatingRepository;
+use App\Repositories\Elastic\TrimRepository;
+use App\Repositories\TrimRepository as TrimRepositoryEloquent;
+use App\Repositories\UserRepository;
 use App\Services\TrimService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -30,27 +32,18 @@ class ModelpageController extends Controller
     private $makeRepository;
     private $modelRepository;
     private $trimRepository;
-    private $modelRepositoryEloquent;
-    private $trimRepositoryEloquent;
     private $user;
 
-    public function __construct(Guard $guard, IProfanityRepository $profanityRepository,
-                                IRatingRepository $ratingRepository, IFXRateRepository $fXRateRepository,
-                                IUserRepository $userRepository, IMakeRepository $makeRepository,
-                                IModelRepository $modelRepository, ITrimRepository $trimRepository,
-                                \App\Interfaces\IModelRepository $modelRepositoryEloquent,
-                                \App\Interfaces\ITrimRepository $trimRepositoryEloquent)
+    public function __construct(Guard $guard)
     {
-        $this->profanityRepository = $profanityRepository;
-        $this->ratingRepository = $ratingRepository;
-        $this->fXRateRepository = $fXRateRepository;
+        $this->profanityRepository = new ProfanityRepository();
+        $this->ratingRepository = new RatingRepository();
+        $this->fXRateRepository = new FXRateRepository();
         $this->trimService = new TrimService();
-        $this->userRepository = $userRepository;
-        $this->makeRepository = $makeRepository;
-        $this->modelRepository = $modelRepository;
-        $this->trimRepository = $trimRepository;
-        $this->modelRepositoryEloquent = $modelRepositoryEloquent;
-        $this->trimRepositoryEloquent = $trimRepositoryEloquent;
+        $this->userRepository = new UserRepository();
+        $this->makeRepository = new MakeRepository();
+        $this->modelRepository = new ModelRepository();
+        $this->trimRepository = new TrimRepository();
         $this->user = $guard->user();
     }
 
@@ -112,14 +105,16 @@ class ModelpageController extends Controller
 
         if ($form->validateFull($request, $form->reCaptchaToken) && !is_null($user)) {
 
+            $trimRepository = new TrimRepositoryEloquent();
+            $modelRepository = new ModelRepositoryEloquent();
             $trimArray = explode(';', $form->trimId);
             $trimId = (int) end($trimArray);
-            $trim = $this->trimRepositoryEloquent->get($trimId);
+            $trim = $trimRepository->get($trimId);
             $model = $trim->getModel();
 
             $rating = $this->userRepository->getRatingsTrim($user, $trimId);
-            $this->modelRepositoryEloquent->updateCarRating($model, $form->star, $rating);
-            $this->trimRepositoryEloquent->updateCarRating($trim, $form->star, $rating);
+            $modelRepository->updateCarRating($model, $form->star, $rating);
+            $trimRepository->updateCarRating($trim, $form->star, $rating);
             if (is_null($rating)) {
                 $this->ratingRepository->createRating($user, $model, $trim, $form);
             } else {

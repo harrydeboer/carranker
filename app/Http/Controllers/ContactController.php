@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Forms\ContactForm;
-use App\Interfaces\IPageRepository;
-use App\Interfaces\IProfanityRepository;
+use App\Repositories\PageRepository;
+use App\Repositories\ProfanityRepository;
 use Illuminate\Http\Response;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
@@ -19,12 +19,11 @@ class ContactController extends Controller
     private $profanityRepository;
     private $pageRepository;
 
-    public function __construct(Mailer $mailer, IProfanityRepository $profanityRepository,
-                                IPageRepository $pageRepository)
+    public function __construct(Mailer $mailer)
     {
         $this->mailer = $mailer;
-        $this->profanityRepository = $profanityRepository;
-        $this->pageRepository = $pageRepository;
+        $this->profanityRepository = new ProfanityRepository();
+        $this->pageRepository = new PageRepository();
     }
 
     public function view(Request $request): Response

@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elastic;
 
-use App\Interfaces\Elastic\ITrimRepository;
 use App\Models\Aspect;
 use App\Models\Elastic\Trim;
 use App\Forms\FilterTopForm;
 use App\CarSpecs;
 use Illuminate\Database\Eloquent\Collection;
 
-class TrimRepository extends BaseRepository implements ITrimRepository
+class TrimRepository extends BaseRepository
 {
     protected string $index = 'trims';
 

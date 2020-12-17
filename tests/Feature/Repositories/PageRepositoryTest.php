@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories;
 
-use App\Interfaces\IPageRepository;
 use App\Models\Page;
+use App\Repositories\PageRepository;
 use Tests\TestCase;
 
 class PageRepositoryTest extends TestCase
 {
     private $pageRepository;
 
-    public function setUp(): void
+    public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
-        parent::setUp();
-        $this->pageRepository = $this->app->make(IPageRepository::class);
+        parent::__construct($name, $data, $dataName);
+        $this->pageRepository = new PageRepository();
     }
 
     public function testGetByName()

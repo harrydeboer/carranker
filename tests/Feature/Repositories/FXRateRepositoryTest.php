@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories;
 
-use App\Interfaces\IFXRateRepository;
+use App\Repositories\FXRateRepository;
 use Tests\TestCase;
 
 class FXRateRepositoryTest extends TestCase
 {
     private $fxrateRepository;
 
-    public function setUp(): void
+    public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
-        parent::setUp();
-        $this->fxrateRepository = $this->app->make(IFXRateRepository::class);
+        parent::__construct($name, $data, $dataName);
+        $this->fxrateRepository = new FXRateRepository();
     }
 
     public function testGetByName()

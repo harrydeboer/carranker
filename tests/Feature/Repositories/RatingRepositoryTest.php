@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories;
 
-use App\Interfaces\Elastic\ITrimRepository;
-use App\Interfaces\IRatingRepository;
 use App\Models\Aspect;
 use App\Models\Trim;
 use App\Models\User;
 use App\Models\Rating;
+use App\Repositories\RatingRepository;
+use App\Repositories\Elastic\TrimRepository;
 use Tests\TestCase;
 
 class RatingRepositoryTest extends TestCase
@@ -17,11 +17,11 @@ class RatingRepositoryTest extends TestCase
     private $ratingRepository;
     private $trimRepository;
 
-    public function setUp(): void
+    public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
-        parent::setUp();
-        $this->ratingRepository = $this->app->make(IRatingRepository::class);
-        $this->trimRepository = $this->app->make(ITrimRepository::class);
+        parent::__construct($name, $data, $dataName);
+        $this->ratingRepository = new RatingRepository();
+        $this->trimRepository = new TrimRepository();
     }
 
     public function testFindRecentReviews()

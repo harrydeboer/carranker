@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Interfaces\Elastic\IMakeRepository;
+use App\Repositories\Elastic\MakeRepository;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\View\Factory;
 
@@ -13,10 +13,10 @@ class MakeController extends Controller
     private $viewFactory;
     private $makeRepository;
 
-    public function __construct(Factory $viewFactory, IMakeRepository $makeRepository)
+    public function __construct(Factory $viewFactory)
     {
         $this->viewFactory = $viewFactory;
-        $this->makeRepository = $makeRepository;
+        $this->makeRepository = new MakeRepository();
     }
 
     public function view(string $makename): Response

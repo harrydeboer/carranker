@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Interfaces\IPageRepository;
+use App\Repositories\PageRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Response;
@@ -28,9 +28,9 @@ class LoginController extends Controller
 
     private $pageRepository;
 
-    public function __construct(IPageRepository $pageRepository)
+    public function __construct()
     {
-        $this->pageRepository = $pageRepository;
+        $this->pageRepository = new PageRepository();
     }
 
     /**
