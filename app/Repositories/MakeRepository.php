@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-class MakeRepository extends BaseRepository
+use App\Interfaces\IMakeRepository;
+
+class MakeRepository extends BaseRepository implements IMakeRepository
 {
 }

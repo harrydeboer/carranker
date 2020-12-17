@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\IMenuRepository;
 use App\Models\Menu;
 
-class MenuRepository extends BaseRepository
+class MenuRepository extends BaseRepository implements IMenuRepository
 {
     public function getByName(string $name): Menu
     {

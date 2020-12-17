@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\IFXRateRepository;
 use App\Models\FXRate;
 
-class FXRateRepository extends BaseRepository
+class FXRateRepository extends BaseRepository implements IFXRateRepository
 {
     public function getByName(string $fxIndex): ?FXRate
     {

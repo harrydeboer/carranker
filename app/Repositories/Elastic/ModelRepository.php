@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elastic;
 
+use App\Interfaces\Elastic\IModelRepository;
 use App\Models\Elastic\Model;
 
-class ModelRepository extends BaseRepository
+class ModelRepository extends BaseRepository implements IModelRepository
 {
     protected string $index = 'models';
 

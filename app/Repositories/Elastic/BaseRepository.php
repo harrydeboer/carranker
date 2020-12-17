@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elastic;
 
+use App\Interfaces\Elastic\IBaseRepository;
 use App\Models\BaseModel as EloquentBaseModel;
 use App\Models\Elastic\BaseModel;
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class BaseRepository
+abstract class BaseRepository implements IBaseRepository
 {
     protected $model;
     protected $modelClassName;

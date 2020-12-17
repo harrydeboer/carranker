@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Interfaces\IBaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class BaseRepository
+abstract class BaseRepository implements IBaseRepository
 {
     protected $modelClassName;
 

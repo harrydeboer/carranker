@@ -4,16 +4,25 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Elastic\MakeRepository;
+use App\Interfaces\Elastic\IMakeRepository;
 use Illuminate\Http\Response;
+use Illuminate\Contracts\View\Factory;
 
 class MakeController extends Controller
 {
+    private $viewFactory;
+    private $makeRepository;
+
+    public function __construct(Factory $viewFactory, IMakeRepository $makeRepository)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->makeRepository = $makeRepository;
+    }
+
     public function view(string $makename): Response
     {
         $makename = rawurldecode($makename);
-        $makeRepository = new MakeRepository();
-        $make = $makeRepository->getByName($makename);
+        $make = $this->makeRepository->getByName($makename);
 
         $models = $make->getModels();
         $data = [
@@ -22,9 +31,8 @@ class MakeController extends Controller
             'models' => $models,
         ];
 
-        $viewFactory = app('Illuminate\Contracts\View\Factory');
-        $viewFactory->share('makenameRoute', $makename);
-        $viewFactory->share('modelnames', $makeRepository->getModelNames($makename));
+        $this->viewFactory->share('makenameRoute', $makename);
+        $this->viewFactory->share('modelnames', $this->makeRepository->getModelNames($makename));
 
         return response()->view('make.index', $data, 200);
     }

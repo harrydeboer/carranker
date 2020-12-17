@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories\Elastic;
 
-use App\Repositories\Elastic\MakeRepository;
-use App\Repositories\Elastic\ModelRepository;
+use App\Interfaces\Elastic\IMakeRepository;
+use App\Interfaces\Elastic\IModelRepository;
 use Tests\TestCase;
 
 class MakeRepositoryTest extends TestCase
@@ -17,8 +17,8 @@ class MakeRepositoryTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->makeRepository = new MakeRepository();
-        $modelRepository = new ModelRepository();
+        $this->makeRepository = $this->app->make(IMakeRepository::class);
+        $modelRepository = $this->app->make(IModelRepository::class);
         $this->model = $modelRepository->get(1);
         $this->make = $this->model->getMake();
     }

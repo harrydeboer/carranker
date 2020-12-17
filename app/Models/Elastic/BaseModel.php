@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Elastic;
 
-use App\Repositories\Elastic\Client;
+use App\ElasticClient;
 use Illuminate\Database\Eloquent\Collection;
 use \Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +22,7 @@ abstract class BaseModel extends Model
 
     public function __construct(array $attributes = [])
     {
-        self::$client = Client::getClient();
+        self::$client = ElasticClient::getClient();
 
         if ($attributes !== []) {
             foreach ($attributes as $key => $attribute) {

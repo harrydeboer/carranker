@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Repositories\PageRepository;
+use App\Interfaces\IPageRepository;
 use Illuminate\Http\Response;
 
 class CmsController extends Controller
 {
     private $pageRepository;
 
-    public function __construct()
+    public function __construct(IPageRepository $pageRepository)
     {
-        $this->pageRepository = new PageRepository();
+        $this->pageRepository = $pageRepository;
     }
 
     public function view(string $url): Response

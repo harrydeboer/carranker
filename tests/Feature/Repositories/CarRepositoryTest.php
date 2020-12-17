@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories;
 
+use App\Interfaces\IModelRepository;
+use App\Interfaces\ITrimRepository;
 use App\Repositories\ModelRepository;
 use App\Repositories\TrimRepository;
 use Tests\TestCase;
@@ -21,8 +23,8 @@ class CarRepositoryTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->modelRepository = new ModelRepository();
-        $this->trimRepository = new TrimRepository();
+        $this->modelRepository = $this->app->make(IModelRepository::class);
+        $this->trimRepository = $this->app->make(ITrimRepository::class);
         $this->model = Model::factory()->create();
         $this->trim = Trim::factory()->create([
             'model_id' => $this->model->getId(),

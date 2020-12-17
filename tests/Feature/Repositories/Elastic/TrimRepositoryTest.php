@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories\Elastic;
 
+use App\Interfaces\Elastic\ITrimRepository;
 use App\Models\Elastic\Trim;
 use App\Forms\FilterTopForm;
 use App\Repositories\Elastic\TrimRepository;
@@ -17,7 +18,7 @@ class TrimRepositoryTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->trimRepository = new TrimRepository();
+        $this->trimRepository = $this->app->make(ITrimRepository::class);
         $this->trim = $this->trimRepository->get(1);
     }
 
@@ -44,7 +45,7 @@ class TrimRepositoryTest extends TestCase
 
         $form = new FilterTopForm();
         $form->hasRequest = true;
-        
+
         $aspects = [];
         foreach (\App\Models\Aspect::getAspects() as $aspect) {
             $aspects[$aspect] = '1';

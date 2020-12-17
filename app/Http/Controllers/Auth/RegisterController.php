@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Interfaces\IPageRepository;
+use App\Interfaces\IUserRepository;
 use App\Providers\WPHasher;
-use App\Repositories\PageRepository;
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -32,10 +32,12 @@ class RegisterController extends Controller
 	private $validatorFactory;
 	private $pageRepository;
 
-	public function __construct(Factory $validatorFactory)
+	public function __construct(Factory $validatorFactory,
+                                IUserRepository $userRepository,
+                                IPageRepository $pageRepository)
 	{
-		$this->userRepository = new UserRepository();
-		$this->pageRepository = new PageRepository();
+		$this->userRepository = $userRepository;
+		$this->pageRepository = $pageRepository;
 		$this->validatorFactory = $validatorFactory;
 		$this->middleware('guest');
 	}

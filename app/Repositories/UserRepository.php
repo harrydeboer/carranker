@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Interfaces\IUserRepository;
 use App\Models\Rating;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
 
-class UserRepository extends BaseRepository
+class UserRepository extends BaseRepository implements IUserRepository
 {
     protected $modelClassName;
 

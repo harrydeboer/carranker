@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Elastic;
+namespace App;
 
 use Elasticsearch\ClientBuilder;
 
-class Client
+class ElasticClient
 {
     private static $client;
 

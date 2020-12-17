@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories;
 
+use App\Interfaces\IUserRepository;
 use App\Models\User;
 use App\Models\Rating;
-use App\Repositories\UserRepository;
 use Tests\TestCase;
 
 class UserRepositoryTest extends TestCase
 {
     private $userRepository;
 
-    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
-        $this->userRepository = new UserRepository();
+        parent::setUp();
+        $this->userRepository = $this->app->make(IUserRepository::class);
     }
 
     public function testGetByName()

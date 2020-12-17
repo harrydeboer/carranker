@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
-class ProfanityRepository extends BaseRepository
+use App\Interfaces\IProfanityRepository;
+
+class ProfanityRepository extends BaseRepository implements IProfanityRepository
 {
     public function getProfanityNames(): string
     {
