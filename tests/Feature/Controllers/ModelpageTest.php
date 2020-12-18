@@ -12,10 +12,19 @@ use Tests\TestCase;
 
 class ModelpageTest extends TestCase
 {
+    private TrimRepository $trimRepository;
+    private UserRepository $userRepository;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->trimRepository = $this->app->make(TrimRepository::class);
+        $this->userRepository = $this->app->make(UserRepository::class);
+    }
+
     public function testModelpage()
     {
-        $trimRepository = new TrimRepository();
-        $trim = $trimRepository->get(1);
+        $trim = $this->trimRepository->get(1);
         $response = $this->get('/model/' . $trim->getModel()->getMakename() . '/' . $trim->getModel()->getName());
 
         $response->assertStatus(200);
@@ -28,10 +37,8 @@ class ModelpageTest extends TestCase
 
     public function testRatecar()
     {
-        $trimRepository = new TrimRepository();
-        $trim = $trimRepository->get(1);
-        $userRepository = new UserRepository();
-        $user = $userRepository->get(1);
+        $trim = $this->trimRepository->get(1);
+        $user = $this->userRepository->get(1);
 
         $postArrayFirst = [
             'generation' => $trim->getYearBegin() . '-' . $trim->getYearEnd(),
@@ -48,7 +55,7 @@ class ModelpageTest extends TestCase
         $response->assertSee('true', false);
         $response->assertStatus(200);
 
-        $trimDBFirst = $trimRepository->get(1);
+        $trimDBFirst = $this->trimRepository->get(1);
 
         foreach (Aspect::getAspects() as $aspect) {
             $rating = ($trim->getAspect($aspect) * $trim->getVotes() + $postArrayFirst['star'][$aspect]) /
@@ -65,7 +72,7 @@ class ModelpageTest extends TestCase
         $response->assertSee('true', false);
         $response->assertStatus(200);
 
-        $trimDBSecond = $trimRepository->get(1);
+        $trimDBSecond = $this->trimRepository->get(1);
 
         foreach (Aspect::getAspects() as $aspect) {
             $rating = ($trimDBFirst->getAspect($aspect) * $trimDBFirst->getVotes() + $postArraySecond['star'][$aspect] -

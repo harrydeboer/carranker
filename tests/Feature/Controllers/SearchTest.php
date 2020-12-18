@@ -9,10 +9,17 @@ use Tests\TestCase;
 
 class SearchTest extends TestCase
 {
+    private TrimRepository $trimRepository;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->trimRepository = $this->app->make(TrimRepository::class);
+    }
+
     public function testSearch()
     {
-        $trimRepository = new TrimRepository();
-        $trim = $trimRepository->get(1);
+        $trim = $this->trimRepository->get(1);
         $model = $trim->getModel();
         $make = $model->getMake();
 

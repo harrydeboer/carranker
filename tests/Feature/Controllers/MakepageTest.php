@@ -9,10 +9,17 @@ use Tests\TestCase;
 
 class MakepageTest extends TestCase
 {
+    private MakeRepository $makeRepository;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->makeRepository = $this->app->make(MakeRepository::class);
+    }
+
     public function testMakepage()
     {
-        $makeRepository = new MakeRepository();
-        $make = $makeRepository->get(1);
+        $make = $this->makeRepository->get(1);
         $response = $this->get('/make/' . $make->getName());
 
         $response->assertStatus(200);

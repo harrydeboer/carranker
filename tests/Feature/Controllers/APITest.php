@@ -11,12 +11,17 @@ use Illuminate\Support\Facades\DB;
 class APITest extends TestCase
 {
     private $user;
+    private UserRepository $userRepository;
+    private MakeRepository $makeRepository;
+    private TrimRepository $trimRepository;
 
     public function setUp(): void
     {
         parent::setUp();
-        $userRepository = new UserRepository();
-        $this->user = $userRepository->get(1);
+        $this->userRepository = $this->app->make(UserRepository::class);
+        $this->makeRepository = $this->app->make(MakeRepository::class);
+        $this->trimRepository = $this->app->make(TrimRepository::class);
+        $this->user = $this->userRepository->get(1);
         $this->artisan('passport:install')->execute();
         DB::table('oauth_clients')->where(['id' => 2])->update(['user_id' => $this->user->getId()]);
         DB::table('oauth_clients')->select('*')->where(['id' => 2])->first();
@@ -47,8 +52,7 @@ class APITest extends TestCase
             'scope' => '*'
         ];
 
-        $trimRepository = new TrimRepository();
-        $trim = $trimRepository->get(1);
+        $trim = $this->trimRepository->get(1);
         $model = $trim->getModel();
         $make = $model->getMake();
 
@@ -92,8 +96,7 @@ class APITest extends TestCase
 
     public function testGetModelnames()
     {
-        $repo = new MakeRepository();
-        $make = $repo->get(1);
+        $make = $this->makeRepository->get(1);
         $models = $make->getModels();
 
         $response = $this->get('/api/getModelNames/' . $make->getName());

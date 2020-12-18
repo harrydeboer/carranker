@@ -3,16 +3,49 @@
 namespace App\Repositories;
 
 use App\Forms\RatingForm;
+use App\Models\Rating;
 use App\Models\Model as ModelEloquent;
 use App\Models\Elastic\Model;
-use App\Models\Rating;
 use App\Models\Trim;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
-class RatingRepository extends BaseRepository
+class RatingRepository implements IRepository
 {
+    public function all(): Collection
+    {
+        return Rating::all();
+    }
+
+    public function find(int $id): ?Rating
+    {
+        return Rating::find($id);
+    }
+
+    public function get(int $id): Rating
+    {
+        return Rating::findOrFail($id);
+    }
+
+    public function create(array $createArray): Rating
+    {
+        $model = new Rating($createArray);
+        $model->save();
+
+        return $model;
+    }
+
+    public function update(\Illuminate\Database\Eloquent\Model $model): void
+    {
+        $model->save();
+    }
+
+    public function delete(int $id): void
+    {
+        Rating::destroy($id);
+    }
+
     public function findRecentReviews($limit): Collection
     {
         return Rating::whereNotNull('content')->take($limit)->orderBy('time', 'desc')->get();

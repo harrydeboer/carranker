@@ -34,9 +34,8 @@ class ModelpageController extends Controller
     private TrimRepository $trimRepository;
     private ModelRepositoryEloquent $modelRepositoryEloquent;
     private TrimRepositoryEloquent $trimRepositoryEloquent;
-    private ?\Illuminate\Contracts\Auth\Authenticatable $user;
 
-    public function __construct(Guard $guard, ProfanityRepository $profanityRepository,
+    public function __construct(ProfanityRepository $profanityRepository,
                                 RatingRepository $ratingRepository, FXRateRepository $fXRateRepository,
                                 UserRepository $userRepository, MakeRepository $makeRepository,
                                 ModelRepository $modelRepository, TrimRepository $trimRepository,
@@ -53,14 +52,14 @@ class ModelpageController extends Controller
         $this->trimRepository = $trimRepository;
         $this->modelRepositoryEloquent = $modelRepositoryEloquent;
         $this->trimRepositoryEloquent = $trimRepositoryEloquent;
-        $this->user = $guard->user();
     }
 
-    public function view(string $makename, string $modelname, Request $request): Response
+    public function view(string $makename, string $modelname, Request $request, Guard $guard): Response
     {
         $makename = rawurldecode($makename);
         $modelname = rawurldecode($modelname);
         $trimId = $request->query('trimId');
+        $user = $guard->user();
 
         $request->getMethod();
         $trimId = (int) $trimId;
@@ -85,7 +84,7 @@ class ModelpageController extends Controller
             'model' => $model,
             'ratingform' => $form,
             'trims' => $trims,
-            'isLoggedIn' => is_null($this->user) ? false : true,
+            'isLoggedIn' => is_null($user) ? false : true,
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
             'selectedGeneration' => $this->trimRepository->findSelectedGeneration($trim),
@@ -94,7 +93,7 @@ class ModelpageController extends Controller
             'links' => $links,
             'hasTrimTypes' => $this->trimService->hasTrimTypes($trims),
             'FXRate' => $this->fXRateRepository->getByName('euro/dollar')->getValue(),
-            'ratings' => $this->userRepository->getRatingsModel($this->user, $model->getId()),
+            'ratings' => $this->userRepository->getRatingsModel($user, $model->getId()),
         ];
 
         $viewFactory = app('Illuminate\Contracts\View\Factory');
@@ -106,10 +105,10 @@ class ModelpageController extends Controller
     }
 
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
-    public function ratecar(Request $request): Response
+    public function ratecar(Request $request, Guard $guard): Response
     {
         $form = new RatingForm($this->profanityRepository, $request->all());
-        $user = $this->user;
+        $user = $guard->user();
         $data['success'] = 'false';
 
         if ($form->validateFull($request, $form->reCaptchaToken) && !is_null($user)) {
@@ -120,8 +119,8 @@ class ModelpageController extends Controller
             $model = $trim->getModel();
 
             $rating = $this->userRepository->getRatingsTrim($user, $trimId);
-            $this->modelRepositoryEloquent->updateCarRating($model, $form->star, $rating);
-            $this->trimRepositoryEloquent->updateCarRating($trim, $form->star, $rating);
+            $this->modelRepositoryEloquent->updateRating($model, $form->star, $rating);
+            $this->trimRepositoryEloquent->updateRating($trim, $form->star, $rating);
             if (is_null($rating)) {
                 $this->ratingRepository->createRating($user, $model, $trim, $form);
             } else {

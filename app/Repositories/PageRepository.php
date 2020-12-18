@@ -3,15 +3,42 @@
 namespace App\Repositories;
 
 use App\Models\Page;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
-class PageRepository extends BaseRepository
+class PageRepository implements IRepository
 {
-    private Page $page;
-
-    public function __construct(Page $page)
+    public function all(): Collection
     {
-        parent::__construct();
-        $this->page = $page;
+        return Page::all();
+    }
+
+    public function find(int $id): ?Page
+    {
+        return Page::find($id);
+    }
+
+    public function get(int $id): Page
+    {
+        return Page::findOrFail($id);
+    }
+
+    public function create(array $createArray): Page
+    {
+        $model = new Page($createArray);
+        $model->save();
+
+        return $model;
+    }
+
+    public function update(Model $model): void
+    {
+        $model->save();
+    }
+
+    public function delete(int $id): void
+    {
+        Page::destroy($id);
     }
 
     public function getByName(string $name): Page

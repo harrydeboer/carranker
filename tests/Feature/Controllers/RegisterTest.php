@@ -9,10 +9,16 @@ use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
+    private UserRepository $userRepository;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->userRepository = $this->app->make(UserRepository::class);
+    }
+
     public function testRegister()
     {
-        $repository = new UserRepository();
-
         $useremail = 'test@test.com';
         $response = $this->post('/register', [
             'user_login' => 'Test',
@@ -23,7 +29,7 @@ class RegisterTest extends TestCase
 
         $response->assertRedirect('/');
 
-        $user = $repository->getByEmail($useremail);
+        $user = $this->userRepository->getByEmail($useremail);
         $this->assertAuthenticatedAs($user);
     }
 }

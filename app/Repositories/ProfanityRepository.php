@@ -4,15 +4,41 @@ namespace App\Repositories;
 
 use App\Models\Profanity;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
-class ProfanityRepository extends BaseRepository
+class ProfanityRepository implements IRepository
 {
-    private Profanity $profanity;
-
-    public function __construct(Profanity $profanity)
+    public function all(): Collection
     {
-        parent::__construct();
-        $this->profanity = $profanity;
+        return Profanity::all();
+    }
+
+    public function find(int $id): ?Profanity
+    {
+        return Profanity::find($id);
+    }
+
+    public function get(int $id): Profanity
+    {
+        return Profanity::findOrFail($id);
+    }
+
+    public function create(array $createArray): Profanity
+    {
+        $model = new Profanity($createArray);
+        $model->save();
+
+        return $model;
+    }
+
+    public function update(Model $model): void
+    {
+        $model->save();
+    }
+
+    public function delete(int $id): void
+    {
+        Profanity::destroy($id);
     }
 
     public function getProfanityNames(): string

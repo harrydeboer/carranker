@@ -4,13 +4,47 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Models\Rating;
 use App\Models\User;
+use App\Models\Rating;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
-class UserRepository extends BaseRepository
+class UserRepository implements IRepository
 {
+    public function all(): Collection
+    {
+        return User::all();
+    }
+
+    public function find(int $id): ?User
+    {
+        return User::find($id);
+    }
+
+    public function get(int $id): User
+    {
+        return User::findOrFail($id);
+    }
+
+    public function create(array $createArray): User
+    {
+        $model = new User($createArray);
+        $model->save();
+
+        return $model;
+    }
+
+    public function update(Model $model): void
+    {
+        $model->save();
+    }
+
+    public function delete(int $id): void
+    {
+        User::destroy($id);
+    }
+
     public function getByName(string $username): ?User
     {
         return User::where('user_login', $username)->first();

@@ -48,13 +48,13 @@ class CarRepositoryTest extends TestCase
                     $ratingArray[$aspect] - $rating->getAspect($aspect)) / ($this->trim->getVotes());
         }
 
-        $trim = $this->trimRepository->updateCarRating($this->trim, $ratingArray, $rating);
+        $trim = $this->trimRepository->updateRating($this->trim, $ratingArray, $rating);
 
         foreach (\App\Models\Aspect::getAspects() as $aspect) {
             $this->assertEquals((float) $trim->$aspect, $newRatingWithEarlier[$aspect]);
         }
 
-        $model = $this->modelRepository->updateCarRating($this->model, $ratingArray, null);
+        $model = $this->modelRepository->updateRating($this->model, $ratingArray, null);
 
         foreach (\App\Models\Aspect::getAspects() as $aspect) {
             $this->assertEquals((float) $model->$aspect, $newRating[$aspect]);
