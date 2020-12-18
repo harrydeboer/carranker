@@ -12,9 +12,9 @@ use Illuminate\Mail\Message;
 
 class GetCMSData extends Command
 {
-    private $mailer;
-    private $pageRepository;
-    private $menuRepository;
+    private Mailer $mailer;
+    private PageRepository $pageRepository;
+    private MenuRepository $menuRepository;
 
     /**
      * The name and signature of the console command.
@@ -35,12 +35,12 @@ class GetCMSData extends Command
      *
      * @return void
      */
-    public function __construct(Mailer $mailer)
+    public function __construct(Mailer $mailer, PageRepository $pageRepository, MenuRepository $menuRepository)
     {
         parent::__construct();
         $this->mailer = $mailer;
-        $this->pageRepository = new PageRepository();
-        $this->menuRepository = new MenuRepository();
+        $this->pageRepository = $pageRepository;
+        $this->menuRepository = $menuRepository;
     }
 
     public function handle(): void

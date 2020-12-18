@@ -27,15 +27,17 @@ class RegisterController extends Controller
 
 	use RegistersUsers;
 
-	protected $redirectTo = '/';
-	private $userRepository;
-	private $validatorFactory;
-	private $pageRepository;
+	protected string $redirectTo = '/';
+	private UserRepository $userRepository;
+	private Factory $validatorFactory;
+	private PageRepository $pageRepository;
 
-	public function __construct(Factory $validatorFactory)
+	public function __construct(Factory $validatorFactory,
+                                UserRepository $userRepository,
+                                PageRepository $pageRepository)
 	{
-		$this->userRepository = new UserRepository();
-		$this->pageRepository = new PageRepository();
+		$this->userRepository = $userRepository;
+		$this->pageRepository = $pageRepository;
 		$this->validatorFactory = $validatorFactory;
 		$this->middleware('guest');
 	}

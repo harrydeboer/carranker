@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories\Elastic;
 
+use App\Models\Elastic\Model;
 use App\Repositories\Elastic\ModelRepository;
 use Tests\TestCase;
 
 class ModelRepositoryTest extends TestCase
 {
-    private $modelRepository;
-    private $model;
+    private ModelRepository $modelRepository;
+    private Model $model;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->modelRepository = new ModelRepository();
+        $this->modelRepository = $this->app->make(ModelRepository::class);
         $this->model = $this->modelRepository->get(1);
     }
 

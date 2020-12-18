@@ -13,16 +13,16 @@ use App\Models\Rating;
 
 class CarRepositoryTest extends TestCase
 {
-    private $modelRepository;
-    private $trimRepository;
+    private ModelRepository $modelRepository;
+    private TrimRepository $trimRepository;
     private $trim;
     private $model;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->modelRepository = new ModelRepository();
-        $this->trimRepository = new TrimRepository();
+        $this->modelRepository = $this->app->make(ModelRepository::class);
+        $this->trimRepository = $this->app->make(TrimRepository::class);
         $this->model = Model::factory()->create();
         $this->trim = Trim::factory()->create([
             'model_id' => $this->model->getId(),

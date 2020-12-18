@@ -29,21 +29,21 @@ class FlushRedisDB extends Command
 
 	public function handle(): void
 	{
-		$this->redis = new \Redis();
-		$this->redis->connect(env('REDIS_HOST'), (int) env('REDIS_PORT'));
-		$this->redis->auth(env('REDIS_PASSWORD'));
+		$redis = new \Redis();
+		$redis->connect(env('REDIS_HOST'), (int) env('REDIS_PORT'));
+		$redis->auth(env('REDIS_PASSWORD'));
 		if (env('APP_ENV') === 'testing') {
-            $this->redis->select((int) env('TEST_REDIS_DB_SESSION'));
-            $this->redis->flushDB();
-            $this->redis->select((int) env('TEST_REDIS_DB_CACHE'));
-            $this->redis->flushDB();
-            $this->redis->select((int) env('TEST_REDIS_DB'));
-            $this->redis->flushDB();
+            $redis->select((int) env('TEST_REDIS_DB_SESSION'));
+            $redis->flushDB();
+            $redis->select((int) env('TEST_REDIS_DB_CACHE'));
+            $redis->flushDB();
+            $redis->select((int) env('TEST_REDIS_DB'));
+            $redis->flushDB();
 
             $this->info('Redis dbs flushed!');
         } else {
-            $this->redis->select((int)env('REDIS_DB'));
-            $this->redis->flushDB();
+            $redis->select((int)env('REDIS_DB'));
+            $redis->flushDB();
 
             $this->info('Redis db flushed!');
         }

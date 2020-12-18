@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    protected $maxAttempts = 3;
-    protected $decayMinutes = 5;
+    protected int $maxAttempts = 3;
+    protected int $decayMinutes = 5;
 
     /*
     |--------------------------------------------------------------------------
@@ -26,11 +26,11 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    private $pageRepository;
+    private PageRepository $pageRepository;
 
-    public function __construct()
+    public function __construct(PageRepository $pageRepository)
     {
-        $this->pageRepository = new PageRepository();
+        $this->pageRepository = $pageRepository;
     }
 
     /**

@@ -20,15 +20,17 @@ class HomepageController extends Controller
     private const topSliderNumber = 10;
     private const numShowMoreLess = 10;
     private const homepageNumReviews = 3;
-    private $ratingRepository;
-    private $trimRepository;
-    private $pageRepository;
+    private RatingRepository $ratingRepository;
+    private TrimRepository $trimRepository;
+    private PageRepository $pageRepository;
 
-    public function __construct()
+    public function __construct(RatingRepository $ratingRepository,
+                                TrimRepository $trimRepository,
+                                PageRepository $pageRepository)
     {
-        $this->ratingRepository = new RatingRepository();
-        $this->trimRepository = new TrimRepository();
-        $this->pageRepository = new PageRepository();
+        $this->ratingRepository = $ratingRepository;
+        $this->trimRepository = $trimRepository;
+        $this->pageRepository = $pageRepository;
     }
 
     public function view(): Response

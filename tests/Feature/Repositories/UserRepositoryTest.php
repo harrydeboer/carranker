@@ -11,12 +11,12 @@ use Tests\TestCase;
 
 class UserRepositoryTest extends TestCase
 {
-    private $userRepository;
+    private UserRepository $userRepository;
 
-    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
-        $this->userRepository = new UserRepository();
+        parent::setUp();
+        $this->userRepository = $this->app->make(UserRepository::class);
     }
 
     public function testGetByName()

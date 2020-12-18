@@ -9,18 +9,18 @@ use Tests\TestCase;
 
 class FXRateRepositoryTest extends TestCase
 {
-    private $fxrateRepository;
+    private FXRateRepository $fXRateRepository;
 
-    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
-        $this->fxrateRepository = new FXRateRepository();
+        parent::setUp();
+        $this->fXRateRepository = $this->app->make(FXRateRepository::class);
     }
 
     public function testGetByName()
     {
-        $fxrate = $this->fxrateRepository->get(1);
-        $fxrateFromDb = $this->fxrateRepository->getByName($fxrate->getName());
+        $fxrate = $this->fXRateRepository->get(1);
+        $fxrateFromDb = $this->fXRateRepository->getByName($fxrate->getName());
 
         $this->assertEquals($fxrate->getId(), $fxrateFromDb->getId());
     }

@@ -10,12 +10,12 @@ use App\Models\Profanity;
 
 class ProfanityRepositoryTest extends TestCase
 {
-    private $profanityRepository;
+    private ProfanityRepository $profanityRepository;
 
-    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
-        $this->profanityRepository = new ProfanityRepository();
+        parent::setUp();
+        $this->profanityRepository = $this->app->make(ProfanityRepository::class);
     }
 
     public function testGetProfanityNames()

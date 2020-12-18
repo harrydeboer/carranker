@@ -11,14 +11,14 @@ use Tests\TestCase;
 
 class MenuRepositoryTest extends TestCase
 {
-    private $menuRepository;
-    private $pageRepository;
+    private MenuRepository $menuRepository;
+    private PageRepository $pageRepository;
 
-    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
-        $this->menuRepository = new MenuRepository();
-        $this->pageRepository = new PageRepository();
+        parent::setUp();
+        $this->menuRepository = $this->app->make(MenuRepository::class);
+        $this->pageRepository = $this->app->make(PageRepository::class);
     }
 
     public function testGetByName()

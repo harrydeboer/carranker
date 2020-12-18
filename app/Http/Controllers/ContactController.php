@@ -15,20 +15,22 @@ use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
-    private $mailer;
-    private $profanityRepository;
-    private $pageRepository;
+    private Mailer $mailer;
+    private ProfanityRepository $profanityRepository;
+    private PageRepository $pageRepository;
 
-    public function __construct(Mailer $mailer)
+    public function __construct(Mailer $mailer,
+                                ProfanityRepository $profanityRepository,
+                                PageRepository $pageRepository)
     {
         $this->mailer = $mailer;
-        $this->profanityRepository = new ProfanityRepository();
-        $this->pageRepository = new PageRepository();
+        $this->profanityRepository = $profanityRepository;
+        $this->pageRepository = $pageRepository;
     }
 
     public function view(Request $request): Response
     {
-        $form = new ContactForm($request->all());
+        $form = new ContactForm($this->profanityRepository, $request->all());
         $data = [
             'title' => 'Contact',
             'profanities' => $this->profanityRepository->getProfanityNames(),

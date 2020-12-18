@@ -24,26 +24,35 @@ use Illuminate\Contracts\Auth\Guard;
 class ModelpageController extends Controller
 {
     private const numReviewsPerModelpage = 3;
-    private $ratingRepository;
-    private $fXRateRepository;
-    private $trimService;
-    private $profanityRepository;
-    private $userRepository;
-    private $makeRepository;
-    private $modelRepository;
-    private $trimRepository;
-    private $user;
+    private RatingRepository $ratingRepository;
+    private FXRateRepository $fXRateRepository;
+    private TrimService $trimService;
+    private ProfanityRepository $profanityRepository;
+    private UserRepository $userRepository;
+    private MakeRepository $makeRepository;
+    private ModelRepository $modelRepository;
+    private TrimRepository $trimRepository;
+    private ModelRepositoryEloquent $modelRepositoryEloquent;
+    private TrimRepositoryEloquent $trimRepositoryEloquent;
+    private ?\Illuminate\Contracts\Auth\Authenticatable $user;
 
-    public function __construct(Guard $guard)
+    public function __construct(Guard $guard, ProfanityRepository $profanityRepository,
+                                RatingRepository $ratingRepository, FXRateRepository $fXRateRepository,
+                                UserRepository $userRepository, MakeRepository $makeRepository,
+                                ModelRepository $modelRepository, TrimRepository $trimRepository,
+                                ModelRepositoryEloquent $modelRepositoryEloquent,
+                                TrimRepositoryEloquent $trimRepositoryEloquent, TrimService $trimService)
     {
-        $this->profanityRepository = new ProfanityRepository();
-        $this->ratingRepository = new RatingRepository();
-        $this->fXRateRepository = new FXRateRepository();
-        $this->trimService = new TrimService();
-        $this->userRepository = new UserRepository();
-        $this->makeRepository = new MakeRepository();
-        $this->modelRepository = new ModelRepository();
-        $this->trimRepository = new TrimRepository();
+        $this->profanityRepository = $profanityRepository;
+        $this->ratingRepository = $ratingRepository;
+        $this->fXRateRepository = $fXRateRepository;
+        $this->trimService = $trimService;
+        $this->userRepository = $userRepository;
+        $this->makeRepository = $makeRepository;
+        $this->modelRepository = $modelRepository;
+        $this->trimRepository = $trimRepository;
+        $this->modelRepositoryEloquent = $modelRepositoryEloquent;
+        $this->trimRepositoryEloquent = $trimRepositoryEloquent;
         $this->user = $guard->user();
     }
 
@@ -58,7 +67,7 @@ class ModelpageController extends Controller
 
         $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
         $model->getMake();
-        $form = new RatingForm();
+        $form = new RatingForm($this->profanityRepository);
         $trims = $model->getTrims();
 
         $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelpage);
@@ -99,22 +108,20 @@ class ModelpageController extends Controller
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
     public function ratecar(Request $request): Response
     {
-        $form = new RatingForm($request->all());
+        $form = new RatingForm($this->profanityRepository, $request->all());
         $user = $this->user;
         $data['success'] = 'false';
 
         if ($form->validateFull($request, $form->reCaptchaToken) && !is_null($user)) {
 
-            $trimRepository = new TrimRepositoryEloquent();
-            $modelRepository = new ModelRepositoryEloquent();
             $trimArray = explode(';', $form->trimId);
             $trimId = (int) end($trimArray);
-            $trim = $trimRepository->get($trimId);
+            $trim = $this->trimRepositoryEloquent->get($trimId);
             $model = $trim->getModel();
 
             $rating = $this->userRepository->getRatingsTrim($user, $trimId);
-            $modelRepository->updateCarRating($model, $form->star, $rating);
-            $trimRepository->updateCarRating($trim, $form->star, $rating);
+            $this->modelRepositoryEloquent->updateCarRating($model, $form->star, $rating);
+            $this->trimRepositoryEloquent->updateCarRating($trim, $form->star, $rating);
             if (is_null($rating)) {
                 $this->ratingRepository->createRating($user, $model, $trim, $form);
             } else {

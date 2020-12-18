@@ -10,13 +10,13 @@ use Illuminate\Contracts\View\Factory;
 
 class MakeController extends Controller
 {
-    private $viewFactory;
-    private $makeRepository;
+    private Factory $viewFactory;
+    private MakeRepository $makeRepository;
 
-    public function __construct(Factory $viewFactory)
+    public function __construct(Factory $viewFactory, MakeRepository $makeRepository)
     {
         $this->viewFactory = $viewFactory;
-        $this->makeRepository = new MakeRepository();
+        $this->makeRepository = $makeRepository;
     }
 
     public function view(string $makename): Response

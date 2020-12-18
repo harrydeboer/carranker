@@ -9,11 +9,11 @@ use Illuminate\Http\Response;
 
 class CmsController extends Controller
 {
-    private $pageRepository;
+    private PageRepository $pageRepository;
 
-    public function __construct()
+    public function __construct(PageRepository $pageRepository)
     {
-        $this->pageRepository = new PageRepository();
+        $this->pageRepository = $pageRepository;
     }
 
     public function view(string $url): Response

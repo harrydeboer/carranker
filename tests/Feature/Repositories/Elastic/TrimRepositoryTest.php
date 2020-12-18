@@ -11,13 +11,13 @@ use Tests\TestCase;
 
 class TrimRepositoryTest extends TestCase
 {
-    private $trimRepository;
-    private $trim;
+    private TrimRepository $trimRepository;
+    private Trim $trim;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->trimRepository = new TrimRepository();
+        $this->trimRepository = $this->app->make(TrimRepository::class);
         $this->trim = $this->trimRepository->get(1);
     }
 
@@ -44,7 +44,7 @@ class TrimRepositoryTest extends TestCase
 
         $form = new FilterTopForm();
         $form->hasRequest = true;
-        
+
         $aspects = [];
         foreach (\App\Models\Aspect::getAspects() as $aspect) {
             $aspects[$aspect] = '1';

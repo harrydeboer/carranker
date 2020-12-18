@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Services;
 
+use App\Repositories\PageRepository;
 use App\Services\SitemapService;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -16,7 +17,7 @@ class SitemapServiceTest extends TestCase
     {
         $xmlReader = new \XMLReader();
 
-        $sitemapService = new SitemapService();
+        $sitemapService = new SitemapService($this->app->make(PageRepository::class));
 
         $result = $xmlReader->XML($sitemapService->makeSitemap(['Ford'], ['Ford;Fiesta']), NULL, LIBXML_DTDVALID);
 

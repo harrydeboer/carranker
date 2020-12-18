@@ -6,6 +6,14 @@ use App\Models\Page;
 
 class PageRepository extends BaseRepository
 {
+    private Page $page;
+
+    public function __construct(Page $page)
+    {
+        parent::__construct();
+        $this->page = $page;
+    }
+
     public function getByName(string $name): Page
     {
         $result = Page::where('name', $name)->first();

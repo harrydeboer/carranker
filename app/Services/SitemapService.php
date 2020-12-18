@@ -9,14 +9,20 @@ use SimpleXMLElement;
 
 class SitemapService
 {
+    private $pageRepository;
+
+    public function __construct(PageRepository $pageRepository)
+    {
+        $this->pageRepository = $pageRepository;
+    }
+
     public function makeSitemap(array $makenames, array $modelnames): string
     {
         $sitemap = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
                 <?xml-stylesheet type="text/xsl" href="' . fileUrl('/css/sitemap.xsl') . '"?>
                 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"/>');
 
-        $pageRepository = new PageRepository();
-        $pages = $pageRepository->all();
+        $pages = $this->pageRepository->all();
 
         $env = env('APP_ENV');
 

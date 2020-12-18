@@ -6,6 +6,7 @@ namespace Tests\Unit\Forms;
 
 use App\Forms\RatingForm;
 use App\Models\Aspect;
+use App\Repositories\ProfanityRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -15,7 +16,7 @@ class RatingFormTest extends TestCase
 
     public function testRatingForm()
     {
-        $form = new RatingForm();
+        $form = new RatingForm($this->app->make(ProfanityRepository::class));
 
         $request = request();
         $request->setMethod('POST');

@@ -11,8 +11,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository extends BaseRepository
 {
-    protected $modelClassName;
-
     public function getByName(string $username): ?User
     {
         return User::where('user_login', $username)->first();

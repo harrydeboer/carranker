@@ -2,8 +2,19 @@
 
 namespace App\Repositories;
 
+use App\Models\Profanity;
+use Illuminate\Database\Eloquent\Collection;
+
 class ProfanityRepository extends BaseRepository
 {
+    private Profanity $profanity;
+
+    public function __construct(Profanity $profanity)
+    {
+        parent::__construct();
+        $this->profanity = $profanity;
+    }
+
     public function getProfanityNames(): string
     {
         $profanitiesObjects = $this->all();

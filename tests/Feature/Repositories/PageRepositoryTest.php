@@ -12,10 +12,10 @@ class PageRepositoryTest extends TestCase
 {
     private $pageRepository;
 
-    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
-        $this->pageRepository = new PageRepository();
+        parent::setUp();
+        $this->pageRepository = $this->app->make(PageRepository::class);
     }
 
     public function testGetByName()

@@ -12,10 +12,10 @@ use Illuminate\Console\Command;
 
 class ProcessQueue extends Command
 {
-    private $elasticJobRepository;
-    private $makeRepository;
-    private $modelRepository;
-    private $trimRepository;
+    private ElasticJobRepository $elasticJobRepository;
+    private MakeRepository $makeRepository;
+    private ModelRepository $modelRepository;
+    private TrimRepository $trimRepository;
 
     /**
      * The name and signature of the console command.
@@ -31,18 +31,14 @@ class ProcessQueue extends Command
      */
     protected $description = 'Process the elasticsearch queue';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function __construct(ElasticJobRepository $elasticJobRepository, MakeRepository $makeRepository,
+                                ModelRepository $modelRepository, TrimRepository $trimRepository)
     {
         parent::__construct();
-        $this->elasticJobRepository = new ElasticJobRepository();
-        $this->makeRepository = new MakeRepository();
-        $this->modelRepository = new ModelRepository();
-        $this->trimRepository = new TrimRepository();
+        $this->elasticJobRepository = $elasticJobRepository;
+        $this->makeRepository = $makeRepository;
+        $this->modelRepository = $modelRepository;
+        $this->trimRepository = $trimRepository;
     }
 
     public function handle()

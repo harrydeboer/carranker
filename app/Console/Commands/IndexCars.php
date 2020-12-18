@@ -11,9 +11,9 @@ use Illuminate\Console\Command;
 
 class IndexCars extends Command
 {
-    private $makeRepository;
-    private $modelRepository;
-    private $trimRepository;
+    private MakeRepository $makeRepository;
+    private ModelRepository $modelRepository;
+    private TrimRepository $trimRepository;
 
     /**
      * The name and signature of the console command.
@@ -34,12 +34,14 @@ class IndexCars extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(MakeRepository $makeRepository,
+                                ModelRepository $modelRepository,
+                                TrimRepository $trimRepository)
     {
         parent::__construct();
-        $this->makeRepository = new MakeRepository();
-        $this->modelRepository = new ModelRepository();
-        $this->trimRepository = new TrimRepository();
+        $this->makeRepository = $makeRepository;
+        $this->modelRepository = $modelRepository;
+        $this->trimRepository = $trimRepository;
     }
 
     public function handle()

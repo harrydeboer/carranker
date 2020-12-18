@@ -15,15 +15,18 @@ use Illuminate\Http\Response;
 /** When Oauth authenticated a user can get any make, model or trim as json. */
 class APIController extends BaseController
 {
-    private $makeRepository;
-    private $modelRepository;
-    private $trimRepository;
+    private MakeRepository $makeRepository;
+    private ModelRepository $modelRepository;
+    private TrimRepository $trimRepository;
+    private SitemapService $sitemapService;
 
-    public function __construct()
+    public function __construct(MakeRepository $makeRepository, ModelRepository $modelRepository,
+                                TrimRepository $trimRepository, SitemapService $sitemapService)
     {
-        $this->makeRepository = new MakeRepository();
-        $this->modelRepository = new ModelRepository();
-        $this->trimRepository = new TrimRepository();
+        $this->makeRepository = $makeRepository;
+        $this->modelRepository = $modelRepository;
+        $this->trimRepository = $trimRepository;
+        $this->sitemapService = $sitemapService;
     }
 
     public function viewMake(string $makeId): JsonResponse
@@ -57,10 +60,8 @@ class APIController extends BaseController
 
     public function makeSitemap(): Response
     {
-        $sitemap = new SitemapService();
-        $makeRepository = new MakeRepository();
-        $modelRepository = new ModelRepository();
-        $sitemap = $sitemap->makeSitemap($makeRepository->getMakeNames(), $modelRepository->getModelNames());
+        $sitemap = $this->sitemapService->makeSitemap($this->makeRepository->getMakeNames(),
+            $this->modelRepository->getModelNames());
 
         return response($sitemap)->header('Content-Type', 'application/xml');
     }

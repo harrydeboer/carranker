@@ -8,20 +8,23 @@ use App\Models\Aspect;
 use App\Models\Trim;
 use App\Models\User;
 use App\Models\Rating;
+use App\Repositories\ProfanityRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\Elastic\TrimRepository;
 use Tests\TestCase;
 
 class RatingRepositoryTest extends TestCase
 {
-    private $ratingRepository;
-    private $trimRepository;
+    private RatingRepository $ratingRepository;
+    private TrimRepository $trimRepository;
+    private ProfanityRepository $profanityRepository;
 
-    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
-        $this->ratingRepository = new RatingRepository();
-        $this->trimRepository = new TrimRepository();
+        parent::setUp();
+        $this->ratingRepository = $this->app->make(RatingRepository::class);
+        $this->trimRepository = $this->app->make(TrimRepository::class);
+        $this->profanityRepository = $this->app->make(ProfanityRepository::class);
     }
 
     public function testFindRecentReviews()
@@ -46,7 +49,7 @@ class RatingRepositoryTest extends TestCase
         foreach (Aspect::getAspects() as $aspect) {
             $createArray['star'][$aspect] = '8';
         }
-        $form = new \App\Forms\RatingForm($createArray);
+        $form = new \App\Forms\RatingForm($this->profanityRepository, $createArray);
 
         $rating = $this->ratingRepository->createRating($user, $trim->getModel(), $trim, $form);
 
@@ -69,7 +72,7 @@ class RatingRepositoryTest extends TestCase
         foreach (Aspect::getAspects() as $aspect) {
             $createArray['star'][$aspect] = '8';
         }
-        $form = new \App\Forms\RatingForm($createArray);
+        $form = new \App\Forms\RatingForm($this->profanityRepository, $createArray);
 
         $rating = $this->ratingRepository->updateRating($rating, $form);
 

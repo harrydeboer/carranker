@@ -6,6 +6,14 @@ use App\Models\Menu;
 
 class MenuRepository extends BaseRepository
 {
+    private PageRepository $pageRepository;
+
+    public function __construct(PageRepository $pageRepository)
+    {
+        parent::__construct();
+        $this->pageRepository = $pageRepository;
+    }
+
     public function getByName(string $name): Menu
     {
         return Menu::where('name', $name)->first();
@@ -23,7 +31,6 @@ class MenuRepository extends BaseRepository
             throw new \Exception("Error: Necessary menu(s)/menuitem(s) deleted.");
         }
 
-        $pageRepository = new PageRepository();
         $menusDB = $this->all();
 
         $namesDB = [];
@@ -44,7 +51,7 @@ class MenuRepository extends BaseRepository
             $namesCMS[] = $menuName;
             $ids = [];
             foreach ($menuCMS as $item) {
-                $ids[] = $pageRepository->getByName($item->title)->getId();
+                $ids[] = $this->pageRepository->getByName($item->title)->getId();
             }
             $changes = $this->getByName($menuName)->getPages()->sync($ids);
             if ($changes['attached'] !== [] || $changes['detached'] !== [] || $changes['updated'] !== []) {

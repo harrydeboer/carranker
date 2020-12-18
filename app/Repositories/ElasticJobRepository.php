@@ -7,7 +7,7 @@ namespace App\Repositories;
 use App\Models\ElasticJob;
 use Illuminate\Database\Eloquent\Collection;
 
-class ElasticJobRepository extends BaseRepository
+class ElasticJobRepository
 {
     public function getAllMakesByAction(string $action): Collection
     {
