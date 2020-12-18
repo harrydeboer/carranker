@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Aspect;
+use App\Models\Model;
 use App\Models\Rating;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Trim;
 
 /** Both Model and Trim can update their rating. Their repositories extend this class. */
 abstract class CarRepository implements IRepository
@@ -18,9 +19,7 @@ abstract class CarRepository implements IRepository
         $this->elasticJobRepository = $elasticJobRepository;
     }
 
-    abstract public function updateRating(Model $car, array $rating, ?Rating $earlierRating): Model;
-
-    protected function setVotesAndRating(Model $car, array $rating, ?Rating $earlierRating): Model
+    protected function setVotesAndRating(Model|Trim $car, array $rating, ?Rating $earlierRating): Model|Trim
     {
         $votes = $car->getVotes();
         if (is_null($earlierRating)) {
@@ -37,6 +36,8 @@ abstract class CarRepository implements IRepository
             }
             $car->setAspect($aspect, $ratingModel);
         }
+
+        $this->update($car);
 
         return $car;
     }

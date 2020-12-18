@@ -46,10 +46,9 @@ class ModelRepository extends CarRepository
         Model::destroy($id);
     }
 
-    public function updateRating(EloquentModel $model, array $rating, ?Rating $earlierRating): Model
+    public function updateRating(Model $model, array $rating, ?Rating $earlierRating): Model
     {
-        $model = $this->setVotesAndRating($model, $rating, $earlierRating);
-        $this->update($model);
+        $this->setVotesAndRating($model, $rating, $earlierRating);
 
         $createArray = ['make_id' => null, 'model_id' => $model->getId(), 'trim_id' => null, 'action' => 'update'];
         $job = $this->elasticJobRepository->create($createArray);

@@ -8,7 +8,7 @@ use App\Models\Model as ModelEloquent;
 use App\Models\Elastic\Model;
 use App\Models\Trim;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class RatingRepository implements IRepository

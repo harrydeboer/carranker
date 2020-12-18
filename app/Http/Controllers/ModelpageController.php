@@ -23,7 +23,7 @@ use Illuminate\Contracts\Auth\Guard;
 
 class ModelpageController extends Controller
 {
-    private const numReviewsPerModelpage = 3;
+    private const numReviewsPerModelpage = 1;
     private RatingRepository $ratingRepository;
     private FXRateRepository $fXRateRepository;
     private TrimService $trimService;
@@ -70,11 +70,11 @@ class ModelpageController extends Controller
         $trims = $model->getTrims();
 
         $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelpage);
-
+        $trim = $this->trimRepository->find($trimId);
+        
         /** The links of the pagination get extra html classes to make them centered on the modelpage. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
-            $reviews->onEachSide(1)->links());
-        $trim = $this->trimRepository->find($trimId);
+            $reviews->onEachSide(1)->links()->toHtml());
 
         $data = [
             'title' => $makename . ' ' . $modelname,

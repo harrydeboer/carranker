@@ -10,7 +10,7 @@
     "repositories": [
         {
             "type": "composer",
-            "url" : "https://wpackagist.org"
+            "url": "https://wpackagist.org"
         }
     ],
     "require": {
@@ -35,7 +35,6 @@
         "ext-hash": "*",
         "ext-iconv": "*",
         "ext-igbinary": "*",
-        "ext-imagick": "*",
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
@@ -61,7 +60,7 @@
         "ext-zip": "*",
         "ext-zlib": "*",
         "doctrine/dbal": "3.0.0",
-        "elasticsearch/elasticsearch": "7.7.0",
+        "elasticsearch/elasticsearch": "~7.10",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -94,8 +93,10 @@
             "dont-discover": []
         },
         "wordpress-install-dir": "wordpress/wp",
-        "installer-paths"      : {
-            "public/wp-content/plugins/{$name}"   : ["type:wordpress-plugin"]
+        "installer-paths": {
+            "public/wp-content/plugins/{$name}": [
+                "type:wordpress-plugin"
+            ]
         }
     },
     "autoload": {

@@ -33,6 +33,13 @@ trait Aspect
         $this->$aspectName = $aspect;
     }
 
+    public function setAspects(array $aspects): void
+    {
+        foreach(self::getAspects() as $aspectName) {
+            $this->$aspectName = $aspects[$aspectName];
+        }
+    }
+
     public static function getAspects(): array
     {
         return self::$aspects;

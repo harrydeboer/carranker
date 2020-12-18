@@ -25,7 +25,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
     libc6 \
     libonig5 \
     libgd3 \
-    php-imagick=3.4.4-4 \
     libapache2-mod-php${phpversion}
 
 RUN a2enmod php${phpversion}
@@ -50,7 +49,7 @@ EXPOSE 8080
 RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     php${phpversion}-sqlite php${phpversion}-xml php${phpversion}-bcmath php${phpversion}-curl php${phpversion}-gd \
     php${phpversion}-mbstring php${phpversion}-igbinary php${phpversion}-redis php${phpversion}-xdebug php${phpversion}-zip \
-    && phpenmod xml imagick bcmath curl gd mbstring igbinary redis xdebug zip \
+    && phpenmod xml bcmath curl gd mbstring igbinary redis xdebug zip \
     && phpdismod ffi gettext shmop xsl
 
 # By default start up apache in the foreground, override with /bin/bash for interative.
