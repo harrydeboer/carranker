@@ -31,7 +31,7 @@ class CarRepositoryTest extends TestCase
             ]);
     }
 
-    public function testUpdateCarRating()
+    public function testUpdateVotesAndRating()
     {
         $rating = Rating::factory()->create(['model_id' => $this->model->getId(), 'trim_id' => $this->trim->getId()]);
 
@@ -48,13 +48,13 @@ class CarRepositoryTest extends TestCase
                     $ratingArray[$aspect] - $rating->getAspect($aspect)) / ($this->trim->getVotes());
         }
 
-        $trim = $this->trimRepository->updateRating($this->trim, $ratingArray, $rating);
+        $trim = $this->trimRepository->updateVotesAndRating($this->trim, $ratingArray, $rating);
 
         foreach (\App\Models\Aspect::getAspects() as $aspect) {
             $this->assertEquals((float) $trim->$aspect, $newRatingWithEarlier[$aspect]);
         }
 
-        $model = $this->modelRepository->updateRating($this->model, $ratingArray, null);
+        $model = $this->modelRepository->updateVotesAndRating($this->model, $ratingArray, null);
 
         foreach (\App\Models\Aspect::getAspects() as $aspect) {
             $this->assertEquals((float) $model->$aspect, $newRating[$aspect]);

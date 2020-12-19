@@ -71,7 +71,7 @@ class ModelpageController extends Controller
 
         $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelpage);
         $trim = $this->trimRepository->find($trimId);
-        
+
         /** The links of the pagination get extra html classes to make them centered on the modelpage. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
             $reviews->onEachSide(1)->links()->toHtml());
@@ -119,8 +119,8 @@ class ModelpageController extends Controller
             $model = $trim->getModel();
 
             $rating = $this->userRepository->getRatingsTrim($user, $trimId);
-            $this->modelRepositoryEloquent->updateRating($model, $form->star, $rating);
-            $this->trimRepositoryEloquent->updateRating($trim, $form->star, $rating);
+            $this->modelRepositoryEloquent->updateVotesAndRating($model, $form->star, $rating);
+            $this->trimRepositoryEloquent->updateVotesAndRating($trim, $form->star, $rating);
             if (is_null($rating)) {
                 $this->ratingRepository->createRating($user, $model, $trim, $form);
             } else {
