@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories;
 
+use App\Models\Aspect;
 use App\Repositories\ModelRepository;
 use App\Repositories\TrimRepository;
 use Tests\TestCase;
@@ -38,7 +39,7 @@ class CarRepositoryTest extends TestCase
         $ratingArray = [];
         $modelRatingBeforeUpdate = [];
         $newRating = [];
-        foreach (\App\Models\Aspect::getAspects() as $aspect) {
+        foreach (Aspect::getAspects() as $aspect) {
             $ratingArray[$aspect] = 8;
             $modelRatingBeforeUpdate[$aspect] = $this->model->getAspect($aspect);
             $newRating[$aspect] = ($modelRatingBeforeUpdate[$aspect] * $this->model->getVotes() + $ratingArray[$aspect]) /
@@ -48,15 +49,15 @@ class CarRepositoryTest extends TestCase
                     $ratingArray[$aspect] - $rating->getAspect($aspect)) / ($this->trim->getVotes());
         }
 
-        $trim = $this->trimRepository->updateVotesAndRating($this->trim, $ratingArray, $rating);
-
-        foreach (\App\Models\Aspect::getAspects() as $aspect) {
+        $this->trimRepository->updateVotesAndRating($this->trim, $ratingArray, $rating);
+        $trim = $this->trimRepository->get($this->trim->getId());
+        foreach (Aspect::getAspects() as $aspect) {
             $this->assertEquals((float) $trim->$aspect, $newRatingWithEarlier[$aspect]);
         }
 
-        $model = $this->modelRepository->updateVotesAndRating($this->model, $ratingArray, null);
-
-        foreach (\App\Models\Aspect::getAspects() as $aspect) {
+        $this->modelRepository->updateVotesAndRating($this->model, $ratingArray, null);
+        $model = $this->modelRepository->get($this->model->getId());
+        foreach (Aspect::getAspects() as $aspect) {
             $this->assertEquals((float) $model->$aspect, $newRating[$aspect]);
         }
     }

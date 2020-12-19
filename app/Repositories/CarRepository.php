@@ -19,7 +19,7 @@ abstract class CarRepository implements IRepository
         $this->elasticJobRepository = $elasticJobRepository;
     }
 
-    public function updateVotesAndRating(Model|Trim $car, array $rating, ?Rating $earlierRating): Model|Trim
+    public function updateVotesAndRating(Model|Trim $car, array $rating, ?Rating $earlierRating): void
     {
         $votes = $car->getVotes();
         if (is_null($earlierRating)) {
@@ -47,7 +47,5 @@ abstract class CarRepository implements IRepository
         }
         $job = $this->elasticJobRepository->create($createArray);
         $job->save();
-
-        return $car;
     }
 }
