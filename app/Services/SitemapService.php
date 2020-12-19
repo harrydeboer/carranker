@@ -9,12 +9,7 @@ use SimpleXMLElement;
 
 class SitemapService
 {
-    private $pageRepository;
-
-    public function __construct(PageRepository $pageRepository)
-    {
-        $this->pageRepository = $pageRepository;
-    }
+    public function __construct(private PageRepository $pageRepository){}
 
     public function makeSitemap(array $makenames, array $modelnames): string
     {

@@ -10,13 +10,11 @@ use App\Repositories\ProfanityRepository;
 
 class RatingForm extends BaseForm
 {
-    private $profanityRepository;
     protected $fillable = ['star', 'generation', 'serie', 'trimId', 'content', 'reCaptchaToken'];
 
-    public function __construct(ProfanityRepository $profanityRepository, array $attributes = [])
+    public function __construct(private ProfanityRepository $profanityRepository, array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->profanityRepository = $profanityRepository;
     }
 
     public function rules(): array

@@ -15,18 +15,9 @@ use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
-    private Mailer $mailer;
-    private ProfanityRepository $profanityRepository;
-    private PageRepository $pageRepository;
-
-    public function __construct(Mailer $mailer,
-                                ProfanityRepository $profanityRepository,
-                                PageRepository $pageRepository)
-    {
-        $this->mailer = $mailer;
-        $this->profanityRepository = $profanityRepository;
-        $this->pageRepository = $pageRepository;
-    }
+    public function __construct(private Mailer $mailer,
+                                private ProfanityRepository $profanityRepository,
+                                private PageRepository $pageRepository){}
 
     public function view(Request $request): Response
     {

@@ -13,18 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends Controller
 {
-    private MakeRepository $makeRepository;
-    private ModelRepository $modelRepository;
-    private TrimRepository $trimRepository;
-
-    public function __construct(MakeRepository $makeRepository,
-                                ModelRepository $modelRepository,
-                                TrimRepository $trimRepository)
-    {
-        $this->makeRepository = $makeRepository;
-        $this->modelRepository = $modelRepository;
-        $this->trimRepository = $trimRepository;
-    }
+    public function __construct(private MakeRepository $makeRepository,
+                                private ModelRepository $modelRepository,
+                                private TrimRepository $trimRepository){}
 
     public function view(Request $request): Response
     {

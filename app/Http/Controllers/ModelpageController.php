@@ -24,35 +24,17 @@ use Illuminate\Contracts\Auth\Guard;
 class ModelpageController extends Controller
 {
     private const numReviewsPerModelpage = 1;
-    private RatingRepository $ratingRepository;
-    private FXRateRepository $fXRateRepository;
-    private TrimService $trimService;
-    private ProfanityRepository $profanityRepository;
-    private UserRepository $userRepository;
-    private MakeRepository $makeRepository;
-    private ModelRepository $modelRepository;
-    private TrimRepository $trimRepository;
-    private ModelRepositoryEloquent $modelRepositoryEloquent;
-    private TrimRepositoryEloquent $trimRepositoryEloquent;
 
-    public function __construct(ProfanityRepository $profanityRepository,
-                                RatingRepository $ratingRepository, FXRateRepository $fXRateRepository,
-                                UserRepository $userRepository, MakeRepository $makeRepository,
-                                ModelRepository $modelRepository, TrimRepository $trimRepository,
-                                ModelRepositoryEloquent $modelRepositoryEloquent,
-                                TrimRepositoryEloquent $trimRepositoryEloquent, TrimService $trimService)
-    {
-        $this->profanityRepository = $profanityRepository;
-        $this->ratingRepository = $ratingRepository;
-        $this->fXRateRepository = $fXRateRepository;
-        $this->trimService = $trimService;
-        $this->userRepository = $userRepository;
-        $this->makeRepository = $makeRepository;
-        $this->modelRepository = $modelRepository;
-        $this->trimRepository = $trimRepository;
-        $this->modelRepositoryEloquent = $modelRepositoryEloquent;
-        $this->trimRepositoryEloquent = $trimRepositoryEloquent;
-    }
+    public function __construct(private ProfanityRepository $profanityRepository,
+                                private RatingRepository $ratingRepository,
+                                private FXRateRepository $fXRateRepository,
+                                private UserRepository $userRepository,
+                                private MakeRepository $makeRepository,
+                                private ModelRepository $modelRepository,
+                                private TrimRepository $trimRepository,
+                                private ModelRepositoryEloquent $modelRepositoryEloquent,
+                                private TrimRepositoryEloquent $trimRepositoryEloquent,
+                                private TrimService $trimService){}
 
     public function view(string $makename, string $modelname, Request $request, Guard $guard): Response
     {

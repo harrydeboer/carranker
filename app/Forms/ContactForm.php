@@ -9,13 +9,11 @@ use App\Repositories\ProfanityRepository;
 
 class ContactForm extends BaseForm
 {
-    private $profanityRepository;
     protected $fillable = ['email', 'subject', 'name', 'message', 'reCaptchaToken'];
 
-    public function __construct(ProfanityRepository $profanityRepository, array $attributes = [])
+    public function __construct(private ProfanityRepository $profanityRepository, array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->profanityRepository = $profanityRepository;
     }
 
     public function rules(): array

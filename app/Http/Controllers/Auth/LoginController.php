@@ -26,12 +26,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    private PageRepository $pageRepository;
-
-    public function __construct(PageRepository $pageRepository)
-    {
-        $this->pageRepository = $pageRepository;
-    }
+    public function __construct(private PageRepository $pageRepository){}
 
     /**
      * Where to redirect users after login.

@@ -12,12 +12,7 @@ use App\Models\Trim;
 /** Both Model and Trim can update their rating. Their repositories extend this class. */
 abstract class CarRepository implements IRepository
 {
-    protected ElasticJobRepository $elasticJobRepository;
-
-    public function __construct(ElasticJobRepository $elasticJobRepository)
-    {
-        $this->elasticJobRepository = $elasticJobRepository;
-    }
+    public function __construct(protected ElasticJobRepository $elasticJobRepository){}
 
     public function updateVotesAndRating(Model|Trim $car, array $rating, ?Rating $earlierRating): void
     {

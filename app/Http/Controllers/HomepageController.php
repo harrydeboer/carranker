@@ -20,18 +20,10 @@ class HomepageController extends Controller
     private const topSliderNumber = 10;
     private const numShowMoreLess = 10;
     private const homepageNumReviews = 3;
-    private RatingRepository $ratingRepository;
-    private TrimRepository $trimRepository;
-    private PageRepository $pageRepository;
 
-    public function __construct(RatingRepository $ratingRepository,
-                                TrimRepository $trimRepository,
-                                PageRepository $pageRepository)
-    {
-        $this->ratingRepository = $ratingRepository;
-        $this->trimRepository = $trimRepository;
-        $this->pageRepository = $pageRepository;
-    }
+    public function __construct(private RatingRepository $ratingRepository,
+                                private TrimRepository $trimRepository,
+                                private PageRepository $pageRepository){}
 
     public function view(): Response
     {
