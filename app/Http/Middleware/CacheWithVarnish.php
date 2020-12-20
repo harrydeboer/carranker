@@ -13,7 +13,7 @@ class CacheWithVarnish
     {
         $response = $next($request);
 
-        if (env('APP_ENV') === 'production') {
+        if (env('APP_ENV') === 'production' || env('APP_ENV') === 'acceptance') {
             return $response->withHeaders([
                 config('varnish.cacheable_header_name') => '1',
                 'Cache-Control' => 'public, max-age=' . 60 *
