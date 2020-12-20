@@ -9,8 +9,6 @@ use Illuminate\Console\Command;
 
 class GetFXRateEuroDollar extends Command
 {
-    private FXRateRepository $fXRateRepository;
-
     /**
      * The name and signature of the console command.
      *
@@ -25,10 +23,9 @@ class GetFXRateEuroDollar extends Command
      */
     protected $description = 'Get FXRate Euro/Dollar';
 
-    public function __construct(FXRateRepository $fXRateRepository)
+    public function __construct(private FXRateRepository $fXRateRepository)
     {
         parent::__construct();
-        $this->fXRateRepository = $fXRateRepository;
     }
 
     public function handle(): void

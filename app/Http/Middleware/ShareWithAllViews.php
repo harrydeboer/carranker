@@ -9,21 +9,15 @@ use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\MenuRepository;
 use Closure;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Request;
 
 class ShareWithAllViews
 {
-    private $viewFactory;
-    private MakeRepository $makeRepository;
-    private MenuRepository $menuRepository;
+    public function __construct(private Factory $viewFactory,
+                                private MakeRepository $makeRepository,
+                                private MenuRepository $menuRepository){}
 
-    public function __construct(Factory $viewFactory, MakeRepository $makeRepository, MenuRepository $menuRepository)
-    {
-        $this->viewFactory = $viewFactory;
-        $this->makeRepository = $makeRepository;
-        $this->menuRepository = $menuRepository;
-    }
-
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         $action = app('request')->route()->getAction();
         $controllerAndAction = class_basename($action['controller']);

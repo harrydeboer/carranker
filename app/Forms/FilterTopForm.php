@@ -9,7 +9,7 @@ use App\CarSpecs;
 
 class FilterTopForm extends BaseForm
 {
-    public $hasRequest = false;
+    public bool $hasRequest = false;
     protected $fillable = ['minNumVotes', 'aspects', 'specsChoice', 'specsRange', 'numberOfRows'];
 
     /** This form has default values for the filtering of the top. */

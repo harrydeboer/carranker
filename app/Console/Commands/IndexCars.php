@@ -11,10 +11,6 @@ use Illuminate\Console\Command;
 
 class IndexCars extends Command
 {
-    private MakeRepository $makeRepository;
-    private ModelRepository $modelRepository;
-    private TrimRepository $trimRepository;
-
     /**
      * The name and signature of the console command.
      *
@@ -29,19 +25,11 @@ class IndexCars extends Command
      */
     protected $description = 'Index makes, models and trims in elasticsearch';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct(MakeRepository $makeRepository,
-                                ModelRepository $modelRepository,
-                                TrimRepository $trimRepository)
+    public function __construct(private MakeRepository $makeRepository,
+                                private ModelRepository $modelRepository,
+                                private TrimRepository $trimRepository)
     {
         parent::__construct();
-        $this->makeRepository = $makeRepository;
-        $this->modelRepository = $modelRepository;
-        $this->trimRepository = $trimRepository;
     }
 
     public function handle()

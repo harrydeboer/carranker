@@ -12,10 +12,6 @@ use Illuminate\Mail\Message;
 
 class GetCMSData extends Command
 {
-    private Mailer $mailer;
-    private PageRepository $pageRepository;
-    private MenuRepository $menuRepository;
-
     /**
      * The name and signature of the console command.
      *
@@ -30,17 +26,11 @@ class GetCMSData extends Command
      */
     protected $description = 'Get CMS data';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct(Mailer $mailer, PageRepository $pageRepository, MenuRepository $menuRepository)
+    public function __construct(private Mailer $mailer,
+                                private PageRepository $pageRepository,
+                                private MenuRepository $menuRepository)
     {
         parent::__construct();
-        $this->mailer = $mailer;
-        $this->pageRepository = $pageRepository;
-        $this->menuRepository = $menuRepository;
     }
 
     public function handle(): void

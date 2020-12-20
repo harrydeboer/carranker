@@ -22,11 +22,6 @@ class FlushRedisDB extends Command
 	 */
 	protected $description = 'Flush Redis db';
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
 	public function handle(): void
 	{
 		$redis = new \Redis();
