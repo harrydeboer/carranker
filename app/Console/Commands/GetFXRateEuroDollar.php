@@ -45,7 +45,7 @@ class GetFXRateEuroDollar extends Command
                 $this->fXRateRepository->create(['name' => 'euro/dollar', 'value' => (float) $jsonObj->rates->USD]);
             } else {
                 $fxrate->setValue((float) $jsonObj->rates->USD);
-                $this->fXRateRepository->update($fxrate);
+                $fxrate->save();
             }
 
             $this->info('FX rate updated!');

@@ -36,11 +36,6 @@ class RatingRepository implements IRepository
         return $model;
     }
 
-    public function update(\Illuminate\Database\Eloquent\Model $model): void
-    {
-        $model->save();
-    }
-
     public function delete(int $id): void
     {
         Rating::destroy($id);
@@ -81,7 +76,7 @@ class RatingRepository implements IRepository
         } else {
             $rating->setContent($form->content);
         }
-        $this->update($rating);
+        $rating->save();
 
         return $rating;
     }

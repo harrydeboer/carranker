@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\Rating;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 class UserRepository implements IRepository
 {
@@ -33,11 +32,6 @@ class UserRepository implements IRepository
         $model->save();
 
         return $model;
-    }
-
-    public function update(Model $model): void
-    {
-        $model->save();
     }
 
     public function delete(int $id): void

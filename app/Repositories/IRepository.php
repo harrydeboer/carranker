@@ -17,7 +17,5 @@ interface IRepository
 
     public function create(array $createArray): Model;
 
-    public function update(Model $model): void;
-
     public function delete(int $id): void;
 }

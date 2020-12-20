@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Models\BaseModel;
-use App\Models\ElasticJob;
 use App\Models\Model;
-use App\Models\Rating;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class ModelRepository extends CarRepository
 {
@@ -34,11 +30,6 @@ class ModelRepository extends CarRepository
         $model->save();
 
         return $model;
-    }
-
-    public function update(EloquentModel $model): void
-    {
-        $model->save();
     }
 
     public function delete(int $id): void

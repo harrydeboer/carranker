@@ -31,8 +31,7 @@ abstract class CarRepository implements IRepository
             }
             $car->setAspect($aspect, $ratingModel);
         }
-
-        $this->update($car);
+        $car->save();
 
         $createArray = ['action' => 'update'];
         if (get_class($car) === Model::class) {

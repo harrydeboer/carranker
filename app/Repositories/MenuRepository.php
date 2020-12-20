@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Models\Menu;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 class MenuRepository implements IRepository
 {
@@ -37,11 +36,6 @@ class MenuRepository implements IRepository
         $model->save();
 
         return $model;
-    }
-
-    public function update(Model $model): void
-    {
-        $model->save();
     }
 
     public function delete(int $id): void

@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\FXRate;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 
 class FXRateRepository implements IRepository
@@ -29,11 +28,6 @@ class FXRateRepository implements IRepository
         $model->save();
 
         return $model;
-    }
-
-    public function update(Model $model): void
-    {
-        $model->save();
     }
 
     public function delete(int $id): void
