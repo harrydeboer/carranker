@@ -36,7 +36,11 @@ class GetCMSData extends Command
 
     public function handle(): void
     {
-        $baseUrl = env('WP_CMS_URL') . ':' .  env('WP_CMS_PORT');
+        if (env('WP_CMS_PORT') === '80') {
+            $baseUrl = env('WP_CMS_URL');
+        } else {
+            $baseUrl = env('WP_CMS_URL') . ':' .  env('WP_CMS_PORT');
+        }
 
         /** The token for the wordpress admin user is retrieved with the help of the JWT Authentication plugin. */
         $ch = curl_init();
