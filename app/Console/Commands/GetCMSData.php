@@ -9,6 +9,7 @@ use App\Repositories\PageRepository;
 use Illuminate\Console\Command;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
+use \Exception;
 
 class GetCMSData extends Command
 {
@@ -35,26 +36,10 @@ class GetCMSData extends Command
 
     public function handle(): void
     {
-        $ch = curl_init();
-
-        $env = env('APP_ENV');
-
-        switch ($env) {
-            case 'local':
-                $baseUrl = "http://cms.carranker:8080";
-                break;
-            case 'testing':
-                $baseUrl = "http://cms.carranker:8080";
-                break;
-            case 'production':
-                $baseUrl = "https://cms.carranker.com";
-                break;
-            case 'acceptance':
-                $baseUrl = "https://accept.cms.carranker.com";
-                break;
-        }
+        $baseUrl = env('WP_CMS_URL') . ':' .  env('WP_CMS_PORT');
 
         /** The token for the wordpress admin user is retrieved with the help of the JWT Authentication plugin. */
+        $ch = curl_init();
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_URL, $baseUrl . "/wp-json/jwt-auth/v1/token");
         curl_setopt($ch, CURLOPT_POSTFIELDS,"username=" . env('WP_ADMIN_USERNAME') . "&password=" . env('WP_ADMIN_PASSWORD'));
@@ -85,14 +70,14 @@ class GetCMSData extends Command
         }
 
         try {
-            $flushPages = $this->pageRepository->syncPagesWithCMS($pagesCMS);
-        } catch (\Exception $exception) {
+            $this->pageRepository->syncPagesWithCMS($pagesCMS);
+        } catch (Exception $exception) {
             $errors .= $exception->getMessage();
         }
 
         try {
-            $flushMenus = $this->menuRepository->syncMenusWithCMS($menus);
-        } catch (\Exception $exception) {
+            $this->menuRepository->syncMenusWithCMS($menus);
+        } catch (Exception $exception) {
             $errors .= $exception->getMessage();
         }
 

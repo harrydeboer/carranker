@@ -45,8 +45,7 @@ class MenuRepositoryTest extends TestCase
         $itemContact->title = $pageContact->getName();
         $menusCMS->navigationFooter = [$itemContact];
 
-        $result = $this->menuRepository->syncMenusWithCMS($menusCMS);
-        $this->assertTrue($result);
+        $this->menuRepository->syncMenusWithCMS($menusCMS);
 
         $this->assertNull($this->menuRepository->find($menu->getId()));
 

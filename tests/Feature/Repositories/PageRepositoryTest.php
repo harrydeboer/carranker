@@ -37,9 +37,8 @@ class PageRepositoryTest extends TestCase
         $pagesCMS[] = $this->makePageCMS('register', 'Register', 'Content');
         $pagesCMS[] = $this->makePageCMS('phpinfo', 'PHPInfo', 'Content');
 
-        $result = $this->pageRepository->syncPagesWithCMS($pagesCMS);
+        $this->pageRepository->syncPagesWithCMS($pagesCMS);
 
-        $this->assertTrue($result);
         $this->assertNull($this->pageRepository->find($page->getId()));
 
         foreach ($pagesCMS as $pageCMS) {
