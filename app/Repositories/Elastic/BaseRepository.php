@@ -28,7 +28,7 @@ abstract class BaseRepository
             $params['body']['query']['bool']['should'][] = ['wildcard' => ['name' => '*' . $word . '*']];
         }
 
-        return $this->model::search($params);
+        return $this->model::searchMany($params);
     }
 
     public function createIndex()

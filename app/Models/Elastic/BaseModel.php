@@ -69,18 +69,20 @@ abstract class BaseModel
         return self::arrayToModel(self::$client->get($params));
     }
 
-    public static function searchOne(array $params): BaseModel
+    public static function searchOne(array $params): ?BaseModel
     {
         $result = self::$client->search($params);
         if (isset($result['hits']['hits'][0])) {
             $array = $result['hits']['hits'][0];
             $result['hits']['hits'] = $array;
+        } else {
+            return null;
         }
 
         return self::arrayToModel($result);
     }
 
-    public static function search(array $params, string $sortField=null): Collection
+    public static function searchMany(array $params, string $sortField=null): Collection
     {
         return self::arrayToModels(self::$client->search($params), $sortField);
     }
@@ -126,11 +128,7 @@ abstract class BaseModel
         if (isset($result['hits']['hits'])) {
             $result = $result['hits']['hits'];
         }
-        if ($result === []) {
-            $classNameArray = explode('\\', $className);
-            $model = strtolower(end($classNameArray));
-            abort(404, "Could not find $model.");
-        }
+
         $fillable = array_merge(['id' => (int) $result['_id']], $result['_source']);
 
         return new $className($fillable);
@@ -166,7 +164,7 @@ abstract class BaseModel
             ],
         ];
 
-        return $related::search($params);
+        return $related::searchMany($params);
     }
 
     public function hasOne($related, $foreignKey = null, $localKey = null): BaseModel

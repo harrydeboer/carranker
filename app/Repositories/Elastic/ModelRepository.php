@@ -30,7 +30,7 @@ class ModelRepository extends BaseRepository
                 ],
             ],
         ];
-        $models = Model::search($params);
+        $models = Model::searchMany($params);
         $modelnames = [];
         foreach($models as $model) {
             $modelnames[] = $model->getMakename() . ';' . $model->getName();
@@ -56,13 +56,7 @@ class ModelRepository extends BaseRepository
             ],
         ];
 
-        $models = Model::search($params);
-
-        if (isset($models[0])) {
-            $model = $models[0];
-        } else {
-            abort(404, "The requested model does not exist.");
-        }
+        $model = Model::searchOne($params);
 
         if (is_null($model)) {
             abort(404, "The requested model does not exist.");

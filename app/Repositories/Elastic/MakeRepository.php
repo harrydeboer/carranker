@@ -56,7 +56,7 @@ class MakeRepository extends BaseRepository
                 ],
             ],
         ];
-        $makes = Make::search($params);
+        $makes = Make::searchMany($params);
         $makenames = [];
         $makesASCII = array();
         foreach($makes as $make) {
