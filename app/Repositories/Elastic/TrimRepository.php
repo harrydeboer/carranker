@@ -17,21 +17,18 @@ class TrimRepository extends BaseRepository
         $this->model = $trim;
     }
 
-    public function find(int $id): ?Trim
-    {
-        return Trim::find($id);
-    }
-
     public function get(int $id): Trim
     {
         return Trim::get($id);
     }
 
-    public function findSelectedGeneration(?Trim $trim): ?string
+    public function findSelectedGeneration(?string $id): ?string
     {
-        if (is_null($trim)) {
+        if (is_null($id)) {
             return null;
         }
+
+        $trim = $this->get((int) $id);
 
         return $trim->getYearBegin() . '-' . $trim->getYearEnd();
     }

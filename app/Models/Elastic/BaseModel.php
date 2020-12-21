@@ -54,20 +54,6 @@ abstract class BaseModel extends Model
         return $index;
     }
 
-    public static function find(int $id): ?BaseModel
-    {
-        if ($id === 0) {
-            return null;
-        }
-
-        $params = [
-            'index' => static::getIndex(),
-            'id' => $id,
-        ];
-
-        return self::arrayToModel(self::$client->get($params));
-    }
-
     public static function get(int $id): BaseModel
     {
         $params = [

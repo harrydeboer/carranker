@@ -44,7 +44,6 @@ class ModelpageController extends Controller
         $user = $guard->user();
 
         $request->getMethod();
-        $trimId = (int) $trimId;
 
         $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
         $model->getMake();
@@ -52,7 +51,6 @@ class ModelpageController extends Controller
         $trims = $model->getTrims();
 
         $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelpage);
-        $trim = $this->trimRepository->find($trimId);
 
         /** The links of the pagination get extra html classes to make them centered on the modelpage. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
@@ -69,7 +67,7 @@ class ModelpageController extends Controller
             'isLoggedIn' => is_null($user) ? false : true,
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
-            'selectedGeneration' => $this->trimRepository->findSelectedGeneration($trim),
+            'selectedGeneration' => $this->trimRepository->findSelectedGeneration($trimId),
             'reviews' => $reviews,
             'reCaptchaKey' => env('reCaptchaKey'),
             'links' => $links,
