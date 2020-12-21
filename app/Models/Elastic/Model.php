@@ -12,10 +12,12 @@ class Model extends BaseModel
 {
     use ModelTrait;
     use Aspect;
-    public $keywords = ['name', 'make', 'wiki_car_model'];
-    public $texts = ['content'];
-    public $integers = ['make_id', 'votes'];
-    public $doubles = ['price'];
+
+    protected static string $index = 'models';
+    public array $keywords = ['name', 'make', 'wiki_car_model'];
+    public array $texts = ['content'];
+    public array $integers = ['make_id', 'votes'];
+    public array $doubles = ['price'];
 
     public function __construct(array $attributes = [])
     {

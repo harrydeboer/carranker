@@ -11,14 +11,15 @@ use \Illuminate\Database\Eloquent\Model;
 abstract class BaseModel extends Model
 {
     protected static $client;
+    protected static string $index;
 
     protected $fillable = [];
-    public $keywords = [];
-    public $texts = [];
-    public $integers = [];
-    public $doubles = [];
     public $timestamps = [];
-    public $booleans = [];
+    public array $keywords = [];
+    public array $texts = [];
+    public array $integers = [];
+    public array $doubles = [];
+    public array $booleans = [];
 
     public function __construct(array $attributes = [])
     {
@@ -36,17 +37,48 @@ abstract class BaseModel extends Model
         parent::__construct($attributes);
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public static function get(array $params, string $related=null): BaseModel
+    public static function getIndex(): string
     {
-        return self::arrayToModel(self::$client->get($params), $related);
+        $index = static::$index;
+        if (env('APP_ENV') === 'acceptance') {
+            $index = 'accept' . $index;
+        } elseif (env('APP_ENV') === 'testing') {
+            $index = 'test' . $index;
+        }
+
+        return $index;
     }
 
-    public static function searchOne(array $params, string $related=null): BaseModel
+    public static function find(int $id): ?BaseModel
+    {
+        if ($id === 0) {
+            return null;
+        }
+
+        $params = [
+            'index' => static::getIndex(),
+            'id' => $id,
+        ];
+
+        return self::arrayToModel(self::$client->get($params));
+    }
+
+    public static function get(int $id): BaseModel
+    {
+        $params = [
+            'index' => static::getIndex(),
+            'id' => $id,
+        ];
+
+        return self::arrayToModel(self::$client->get($params));
+    }
+
+    public static function searchOne(array $params): BaseModel
     {
         $result = self::$client->search($params);
         if (isset($result['hits']['hits'][0])) {
@@ -54,17 +86,12 @@ abstract class BaseModel extends Model
             $result['hits']['hits'] = $array;
         }
 
-        return self::arrayToModel($result, $related);
+        return self::arrayToModel($result);
     }
 
-    public static function search(array $params, string $related=null, string $sortField=null): Collection
+    public static function search(array $params, string $sortField=null): Collection
     {
-        return self::arrayToModels(self::$client->search($params), $related, $sortField);
-    }
-
-    public static function index(array $params)
-    {
-        self::$client->index($params);
+        return self::arrayToModels(self::$client->search($params), $sortField);
     }
 
     public static function updateInIndex(array $params)
@@ -77,34 +104,34 @@ abstract class BaseModel extends Model
         self::$client->delete($params);
     }
 
-    public static function indicesCreate(array $params)
+    public static function indicesCreate(array $params): void
     {
         self::$client->indices()->create($params);
     }
 
-    public static function indicesExists(array $params)
+    public static function indicesExists(array $params): bool
     {
         return self::$client->indices()->exists($params);
     }
 
-    public static function indicesDelete(array $params)
+    public static function indicesDelete(array $params): void
     {
         self::$client->indices()->delete($params);
     }
 
-    public static function indicesGetMapping(array $params)
+    public static function indicesGetMapping(array $params): array
     {
         return self::$client->indices()->getMapping($params);
     }
 
-    public static function bulk(array $params)
+    public static function bulk(array $params): void
     {
         self::$client->bulk($params);
     }
 
-    protected static function arrayToModel(array $result, string $related=null): BaseModel
+    protected static function arrayToModel(array $result): BaseModel
     {
-        $className = $related ?? static::class;
+        $className = static::class;
         if (isset($result['hits']['hits'])) {
             $result = $result['hits']['hits'];
         }
@@ -118,11 +145,11 @@ abstract class BaseModel extends Model
         return new $className($fillable);
     }
 
-    protected static function arrayToModels(array $results, ?string $related, ?string $sortField): Collection
+    protected static function arrayToModels(array $results, ?string $sortField): Collection
     {
         $models = [];
         $results = $results['hits']['hits'];
-        $className = $related ?? static::class;
+        $className = static::class;
         foreach ($results as $result) {
             $fillable = array_merge(['id' => (int)$result['_id']], $result['_source']);
             if (!is_null($sortField)) {
@@ -134,48 +161,31 @@ abstract class BaseModel extends Model
         return new Collection($models);
     }
 
-    public function hasMany($related, $foreignKey = null, $localKey = null)
+    public function hasMany($related, $foreignKey = null, $localKey = null): Collection
     {
-        $classArray = explode('\\', $related);
-        $index = strtolower(end($classArray)) . 's';
-
-        if (env('APP_ENV') === 'acceptance') {
-            $index = 'accept' . $index;
-        } elseif (env('APP_ENV') === 'testing') {
-            $index = 'test' . $index;
-        }
-
         $params = [
-            'index' => $index,
+            'index' => $related::getIndex(),
             'size' => 1000,
             'body'  => [
                 'query' => [
                     'match' => [
-                        $foreignKey => $this->id,
+                        $foreignKey => $this->getId(),
                     ],
                 ],
             ],
         ];
 
-        return self::search($params, $related);
+        return $related::search($params);
     }
 
-    public function hasOne($related, $foreignKey = null, $localKey = null)
+    public function hasOne($related, $foreignKey = null, $localKey = null): BaseModel
     {
-        $classArray = explode('\\', $related);
-        $index = strtolower(end($classArray)) . 's';
-        if (env('APP_ENV') === 'acceptance') {
-            $index = 'accept' . $index;
-        } elseif (env('APP_ENV') === 'testing') {
-            $index = 'test' . $index;
-        }
-
         $params = [
-            'index' => $index,
+            'index' => $related::getIndex(),
             'id' => $this->$localKey,
         ];
 
-        return self::get($params, $related);
+        return $related::arrayToModel(self::$client->get($params));
     }
 
     public function getSettings(): array

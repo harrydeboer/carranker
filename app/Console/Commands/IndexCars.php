@@ -27,7 +27,10 @@ class IndexCars extends Command
 
     public function __construct(private MakeRepository $makeRepository,
                                 private ModelRepository $modelRepository,
-                                private TrimRepository $trimRepository)
+                                private TrimRepository $trimRepository,
+                                private \App\Repositories\MakeRepository $makeRepositoryEloquent,
+                                private \App\Repositories\ModelRepository $modelRepositoryEloquent,
+                                private \App\Repositories\TrimRepository $trimRepositoryEloquent)
     {
         parent::__construct();
     }
@@ -42,9 +45,12 @@ class IndexCars extends Command
         $this->modelRepository->createIndex();
         $this->trimRepository->createIndex();
 
-        $this->makeRepository->addAllToIndex();
-        $this->modelRepository->addAllToIndex();
-        $this->trimRepository->addAllToIndex();
+        $tmp = $this->makeRepositoryEloquent->all();
+        $tmp2 = $this->modelRepositoryEloquent->all();
+        $tmp3 = $this->trimRepositoryEloquent->all();
+        $this->makeRepository->addAllToIndex($this->makeRepositoryEloquent->all());
+        $this->modelRepository->addAllToIndex($this->modelRepositoryEloquent->all());
+        $this->trimRepository->addAllToIndex($this->trimRepositoryEloquent->all());
 
         $this->info('Cars indexed!');
     }

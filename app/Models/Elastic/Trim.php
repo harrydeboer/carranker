@@ -12,12 +12,11 @@ class Trim extends BaseModel
     use TrimTrait;
     use Aspect;
 
-    public $keywords = ['name', 'make', 'model', 'framework', 'fuel', 'gearbox_type'];
-    public $integers = ['model_id', 'votes', 'number_of_doors', 'number_of_seats', 'number_of_gears', 'year_begin',
+    protected static string $index = 'trims';
+    public array $keywords = ['name', 'make', 'model', 'framework', 'fuel', 'gearbox_type'];
+    public array $integers = ['model_id', 'votes', 'number_of_doors', 'number_of_seats', 'number_of_gears', 'year_begin',
         'year_end', 'fueltank_capacity', 'engine_power', 'max_trunk_capacity', 'max_speed', 'full_weight'];
-    public $doubles = ['price', 'engine_capacity', 'acceleration', 'fuel_consumption'];
-
-    private $rating;
+    public array $doubles = ['price', 'engine_capacity', 'acceleration', 'fuel_consumption'];
 
     public function __construct(array $attributes = [])
     {

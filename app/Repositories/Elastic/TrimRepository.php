@@ -12,7 +12,20 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TrimRepository extends BaseRepository
 {
-    protected string $index = 'trims';
+    public function __construct(Trim $trim)
+    {
+        $this->model = $trim;
+    }
+
+    public function find(int $id): ?Trim
+    {
+        return Trim::find($id);
+    }
+
+    public function get(int $id): Trim
+    {
+        return Trim::get($id);
+    }
 
     public function findSelectedGeneration(?Trim $trim): ?string
     {
@@ -25,12 +38,14 @@ class TrimRepository extends BaseRepository
 
     /** The trims for the top on the homepage are retrieved. The filtering options are used when present.
      * There is an aspectfilter, specs choice filter and specs range filter. The minimum number of votes is also a
-     * filter and the number of trims to be retrieved and the offset if present. The ratings are sorted from hight to low.
+     * filter and the number of trims to be retrieved and the offset if present.
+     * The ratings are sorted from hight to low.
      */
-    public function findTrimsOfTop(FilterTopForm $form, int $minNumVotes, int $lengthTopTable, int $offset=0): Collection
+    public function findTrimsOfTop(FilterTopForm $form, int $minNumVotes,
+                                   int $lengthTopTable, int $offset=0): Collection
     {
         $params = [
-            'index' => $this->index,
+            'index' => $this->model->getIndex(),
             'size' => $lengthTopTable - $offset,
             'body' => [
                 'query' => [
@@ -64,7 +79,7 @@ class TrimRepository extends BaseRepository
             $params['from'] = $offset;
         }
 
-        $trims = Trim::search($params, null, 'rating');
+        $trims = Trim::search($params, 'rating');
         foreach ($trims as $key => $trim) {
             $trims[$key]->setRatingFiltering($trim->rating);
         }

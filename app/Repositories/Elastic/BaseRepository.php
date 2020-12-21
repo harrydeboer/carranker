@@ -10,85 +10,16 @@ use Illuminate\Database\Eloquent\Collection;
 
 abstract class BaseRepository
 {
-    protected $model;
-    protected $modelClassName;
-    protected $modelClassNameEloquent;
+    protected BaseModel $model;
 
-    /** The child of this base repository has a model. The modelname is stored in the property modelClassName. */
-    public function __construct()
-    {
-        $classNameArray = explode('\\', static::class);
-        $this->modelClassName = 'App\Models\Elastic\\' . str_replace('Repository', '', end($classNameArray));
-        $this->modelClassNameEloquent = 'App\Models\\' . str_replace('Repository', '', end($classNameArray));
-        $this->model = new $this->modelClassName();
-
-        if (env('APP_ENV') === 'acceptance') {
-            $this->index = 'accept' . $this->index;
-        } elseif (env('APP_ENV') === 'testing') {
-            $this->index = 'test' . $this->index;
-        }
-    }
-
-    public function find(int $id): ?BaseModel
-    {
-        if ($id === 0) {
-            return null;
-        }
-
-        $params = [
-            'index' => $this->index,
-            'id' => $id,
-        ];
-
-        $result = $this->modelClassName::get($params);
-
-        return $result;
-    }
-
-    public function get(int $int): BaseModel
-    {
-        $params = [
-            'index' => $this->index,
-            'id' => $int,
-        ];
-
-        return $this->modelClassName::get($params);
-    }
-
-    public function getByName(string $name): BaseModel
-    {
-        $params = [
-            'index' => $this->index,
-            'size' => 1,
-            'body'  => [
-                'query' => [
-                    'match' => [
-                        'name' => $name,
-                    ],
-                ],
-            ],
-        ];
-
-        $model = $this->modelClassName::searchOne($params);
-
-        if (is_null($model)) {
-            abort(404, "The requested make does not exist.");
-        }
-
-        return $model;
-    }
-
-    public function index(array $params)
-    {
-        return $this->modelClassName::index($params);
-    }
+    abstract public function get(int $id): BaseModel;
 
     public function findForSearch(string $searchString): Collection
     {
         $words = explode(' ', $searchString);
 
         $params = [
-            'index' => $this->index,
+            'index' => $this->model->getIndex(),
             'size' => 100,
             'sort' => ['name:asc'],
         ];
@@ -97,13 +28,13 @@ abstract class BaseRepository
             $params['body']['query']['bool']['should'][] = ['wildcard' => ['name' => '*' . $word . '*']];
         }
 
-        return $this->modelClassName::search($params);
+        return $this->model::search($params);
     }
 
     public function createIndex()
     {
         $params = [
-            'index' => $this->index,
+            'index' => $this->model->getIndex(),
             'body' => [
                 'settings' => $this->model->getSettings(),
                 'mappings' => $this->model->getMappings(),
@@ -111,25 +42,25 @@ abstract class BaseRepository
         ];
 
         // Create the index with mappings and settings now
-        $this->modelClassName::indicesCreate($params);
+        BaseModel::indicesCreate($params);
     }
 
     public function deleteIndex()
     {
         $deleteParams = [
-            'index' => $this->index,
+            'index' => $this->model->getIndex(),
         ];
-        if ($this->modelClassName::indicesExists($deleteParams)) {
-            $this->modelClassName::indicesDelete($deleteParams);
+        if (BaseModel::indicesExists($deleteParams)) {
+            BaseModel::indicesDelete($deleteParams);
         }
     }
 
     public function getMappings(): array
     {
-        return $this->modelClassName::indicesGetMapping(['index' => $this->index]);
+        return BaseModel::indicesGetMapping(['index' => $this->model->getIndex()]);
     }
 
-    protected function propertiesToParams(EloquentBaseModel $model)
+    protected function propertiesToParams(EloquentBaseModel $model): array
     {
         $params = [];
 
@@ -160,16 +91,12 @@ abstract class BaseRepository
         return $params;
     }
 
-    public function addAllToIndex(Collection $models=null): void
+    public function addAllToIndex(Collection $models): void
     {
-        if (is_null($models)) {
-            $models = $this->modelClassNameEloquent::all();
-        }
-
         foreach ($models as $key => $model) {
             $params['body'][] = [
                 'index' => [
-                    '_index' => $this->index,
+                    '_index' => $this->model->getIndex(),
                     '_id' => $model->getId(),
                 ]
             ];
@@ -177,14 +104,14 @@ abstract class BaseRepository
             $params['body'][] = $this->propertiesToParams($model);
 
             if ($key % 1000 === 0) {
-                $this->modelClassName::bulk($params);
+                BaseModel::bulk($params);
                 unset($params);
             }
         }
 
         // Send the last batch if it exists
         if (!empty($params['body'])) {
-            $this->modelClassName::bulk($params);
+            BaseModel::bulk($params);
         }
     }
 
@@ -192,13 +119,13 @@ abstract class BaseRepository
     {
         foreach ($models as $key => $model) {
             $params = [
-                'index' => $this->index,
+                'index' => $this->model->getIndex(),
                 'id' => $model->getId(),
             ];
 
             $params['body']['doc'] = $this->propertiesToParams($model);
 
-            $this->modelClassName::updateInIndex($params);
+            BaseModel::updateInIndex($params);
         }
     }
 
@@ -206,11 +133,11 @@ abstract class BaseRepository
     {
         foreach ($models as $key => $model) {
             $params = [
-                'index' => $this->index,
+                'index' => $this->model->getIndex(),
                 'id' => $model->getId(),
             ];
 
-            $this->modelClassName::deleteFromIndex($params);
+            BaseModel::deleteFromIndex($params);
         }
     }
 }

@@ -11,8 +11,9 @@ class Make extends BaseModel
 {
     use MakeTrait;
 
-    public $keywords = ['name', 'wiki_car_make'];
-    public $texts = ['content'];
+    protected static string $index = 'makes';
+    public array $keywords = ['name', 'wiki_car_make'];
+    public array $texts = ['content'];
 
     public function getModels(): Collection
     {

@@ -4,11 +4,43 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elastic;
 
+use App\Models\Elastic\BaseModel;
 use App\Models\Elastic\Make;
 
 class MakeRepository extends BaseRepository
 {
-    protected string $index = 'makes';
+    public function __construct(Make $make)
+    {
+        $this->model = $make;
+    }
+
+    public function get(int $id): Make
+    {
+        return Make::get($id);
+    }
+
+    public function getByName(string $name): BaseModel
+    {
+        $params = [
+            'index' => $this->model->getIndex(),
+            'size' => 1,
+            'body'  => [
+                'query' => [
+                    'match' => [
+                        'name' => $name,
+                    ],
+                ],
+            ],
+        ];
+
+        $model = Make::searchOne($params);
+
+        if (is_null($model)) {
+            abort(404, "The requested make does not exist.");
+        }
+
+        return $model;
+    }
 
     /** The make names are retrieved and sorted on ascii value.
      * This is needed for makes with special characters in their name to be sorted properly.
@@ -16,7 +48,7 @@ class MakeRepository extends BaseRepository
     public function getMakeNames(): array
     {
         $params = [
-            'index' => $this->index,
+            'index' => $this->model->getIndex(),
             'size' => 1000,
             'body'  => [
                 'query' => [

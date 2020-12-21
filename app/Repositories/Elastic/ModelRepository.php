@@ -5,23 +5,32 @@ declare(strict_types=1);
 namespace App\Repositories\Elastic;
 
 use App\Models\Elastic\Model;
+use stdClass;
 
 class ModelRepository extends BaseRepository
 {
-    protected string $index = 'models';
+    public function __construct(Model $model)
+    {
+        $this->model = $model;
+    }
+
+    public function get(int $id): Model
+    {
+        return Model::get($id);
+    }
 
     public function getModelNames(): array
     {
         $params = [
-            'index' => $this->index,
+            'index' => $this->model->getIndex(),
             'size' => 2000,
             'body'  => [
                 'query' => [
-                    'match_all' => new \stdClass(),
+                    'match_all' => new stdClass(),
                 ],
             ],
         ];
-        $models = $this->modelClassName::search($params);
+        $models = Model::search($params);
         $modelnames = [];
         foreach($models as $model) {
             $modelnames[] = $model->getMakename() . ';' . $model->getName();
@@ -33,7 +42,7 @@ class ModelRepository extends BaseRepository
     public function getByMakeModelName(string $makename, string $modelname): Model
     {
         $params = [
-            'index' => $this->index,
+            'index' => $this->model->getIndex(),
             'size' => 2000,
             'body'  => [
                 'query' => [
@@ -47,7 +56,7 @@ class ModelRepository extends BaseRepository
             ],
         ];
 
-        $models = $this->modelClassName::search($params);
+        $models = Model::search($params);
 
         if (isset($models[0])) {
             $model = $models[0];
