@@ -23,7 +23,7 @@ class TrimRepositoryTest extends TestCase
 
     public function testFindSelectedGeneration()
     {
-        $generation = $this->trimRepository->findSelectedGeneration($this->trim);
+        $generation = $this->trimRepository->findSelectedGeneration((string) $this->trim->getId());
 
         $this->assertEquals($generation, $this->trim->getYearBegin() . '-' . $this->trim->getYearEnd());
     }
