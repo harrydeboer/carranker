@@ -22,9 +22,9 @@ class TrimRepository extends BaseRepository
         return Trim::get($id);
     }
 
-    public function findSelectedGeneration(?string $id): ?string
+    public function findSelectedGeneration(int $id): ?string
     {
-        if (is_null($id)) {
+        if ($id === 0) {
             return null;
         }
 

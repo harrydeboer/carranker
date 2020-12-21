@@ -67,7 +67,7 @@ class ModelpageController extends Controller
             'isLoggedIn' => is_null($user) ? false : true,
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
-            'selectedGeneration' => $this->trimRepository->findSelectedGeneration($trimId),
+            'selectedGeneration' => $this->trimRepository->findSelectedGeneration((int) $trimId),
             'reviews' => $reviews,
             'reCaptchaKey' => env('reCaptchaKey'),
             'links' => $links,
