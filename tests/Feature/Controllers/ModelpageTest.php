@@ -35,6 +35,13 @@ class ModelpageTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test404()
+    {
+        $response = $this->get('/model/doesnotexist/doesnotexist');
+
+        $response->assertStatus(404);
+    }
+
     public function testRatecar()
     {
         $trim = $this->trimRepository->get(1);

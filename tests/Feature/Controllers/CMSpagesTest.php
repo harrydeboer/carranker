@@ -15,6 +15,13 @@ class CMSpagesTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test404()
+    {
+        $response = $this->get('/doesnotexist');
+
+        $response->assertStatus(404);
+    }
+
 	public function testAuth()
 	{
 		$response = $this->get('/auth');

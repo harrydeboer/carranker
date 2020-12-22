@@ -24,4 +24,11 @@ class MakepageTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test404()
+    {
+        $response = $this->get('/make/doesnotexist');
+
+        $response->assertStatus(404);
+    }
 }
