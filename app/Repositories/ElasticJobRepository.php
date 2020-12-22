@@ -14,11 +14,6 @@ class ElasticJobRepository implements IRepository
         return ElasticJob::all();
     }
 
-    public function find(int $id): ?ElasticJob
-    {
-        return ElasticJob::find($id);
-    }
-
     public function get(int $id): ElasticJob
     {
         return ElasticJob::findOrFail($id);

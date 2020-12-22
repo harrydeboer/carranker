@@ -12,11 +12,6 @@ class FXRateRepository implements IRepository
         return FXRate::all();
     }
 
-    public function find(int $id): ?FXRate
-    {
-        return FXRate::find($id);
-    }
-
     public function get(int $id): FXRate
     {
         return FXRate::findOrFail($id);

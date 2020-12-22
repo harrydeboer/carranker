@@ -16,11 +16,6 @@ class UserRepository implements IRepository
         return User::all();
     }
 
-    public function find(int $id): ?User
-    {
-        return User::find($id);
-    }
-
     public function get(int $id): User
     {
         return User::findOrFail($id);

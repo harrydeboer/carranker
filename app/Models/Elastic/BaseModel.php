@@ -73,8 +73,7 @@ abstract class BaseModel
     {
         $result = self::$client->search($params);
         if (isset($result['hits']['hits'][0])) {
-            $array = $result['hits']['hits'][0];
-            $result['hits']['hits'] = $array;
+            $result = $result['hits']['hits'][0];
         } else {
             return null;
         }
@@ -84,7 +83,8 @@ abstract class BaseModel
 
     public static function searchMany(array $params, string $sortField=null): Collection
     {
-        return self::arrayToModels(self::$client->search($params), $sortField);
+        $result = self::$client->search($params);
+        return self::arrayToModels($result['hits']['hits'], $sortField);
     }
 
     public static function updateInIndex(array $params)
@@ -124,27 +124,20 @@ abstract class BaseModel
 
     protected static function arrayToModel(array $result): BaseModel
     {
-        $className = static::class;
-        if (isset($result['hits']['hits'])) {
-            $result = $result['hits']['hits'];
-        }
-
         $fillable = array_merge(['id' => (int) $result['_id']], $result['_source']);
 
-        return new $className($fillable);
+        return new static($fillable);
     }
 
     protected static function arrayToModels(array $results, ?string $sortField): Collection
     {
         $models = [];
-        $results = $results['hits']['hits'];
-        $className = static::class;
         foreach ($results as $result) {
-            $fillable = array_merge(['id' => (int)$result['_id']], $result['_source']);
+            $fillable = array_merge(['id' => (int) $result['_id']], $result['_source']);
             if (!is_null($sortField)) {
                 $fillable[$sortField] = $result['sort'][0];
             }
-            $models[] = new $className($fillable);
+            $models[] = new static($fillable);
         }
 
         return new Collection($models);

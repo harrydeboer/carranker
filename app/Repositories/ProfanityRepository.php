@@ -12,11 +12,6 @@ class ProfanityRepository implements IRepository
         return Profanity::all();
     }
 
-    public function find(int $id): ?Profanity
-    {
-        return Profanity::find($id);
-    }
-
     public function get(int $id): Profanity
     {
         return Profanity::findOrFail($id);

@@ -14,11 +14,6 @@ class ModelRepository extends CarRepository
         return Model::all();
     }
 
-    public function find(int $id): ?Model
-    {
-        return Model::find($id);
-    }
-
     public function get(int $id): Model
     {
         return Model::findOrFail($id);

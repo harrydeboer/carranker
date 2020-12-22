@@ -18,11 +18,6 @@ class RatingRepository implements IRepository
         return Rating::all();
     }
 
-    public function find(int $id): ?Rating
-    {
-        return Rating::find($id);
-    }
-
     public function get(int $id): Rating
     {
         return Rating::findOrFail($id);

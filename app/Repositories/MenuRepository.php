@@ -20,11 +20,6 @@ class MenuRepository implements IRepository
         return Menu::all();
     }
 
-    public function find(int $id): ?Menu
-    {
-        return Menu::find($id);
-    }
-
     public function get(int $id): Menu
     {
         return Menu::findOrFail($id);

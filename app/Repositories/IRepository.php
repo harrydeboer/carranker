@@ -11,8 +11,6 @@ interface IRepository
 {
     public function all(): Collection;
 
-    public function find(int $id): ?Model;
-
     public function get(int $id): Model;
 
     public function create(array $createArray): Model;

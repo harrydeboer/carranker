@@ -7,6 +7,7 @@ namespace Tests\Feature\Repositories;
 use App\Models\Menu;
 use App\Repositories\MenuRepository;
 use App\Repositories\PageRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\TestCase;
 
 class MenuRepositoryTest extends TestCase
@@ -47,8 +48,6 @@ class MenuRepositoryTest extends TestCase
 
         $this->menuRepository->syncMenusWithCMS($menusCMS);
 
-        $this->assertNull($this->menuRepository->find($menu->getId()));
-
         $menuDB = $this->menuRepository->getByName('navigationHeader');
         foreach ($menuDB->getPages()->get() as $page) {
             $this->assertEquals($page->getName(), $pageHome->getName());
@@ -64,6 +63,10 @@ class MenuRepositoryTest extends TestCase
             $this->assertEquals($page->getContent(), $pageContact->getContent());
             $this->assertEquals($page->getTitle(), $pageContact->getTitle());
         }
+
+        $this->expectException(ModelNotFoundException::class);
+
+        $this->menuRepository->get($menu->getId());
     }
 
     public function testSyncMenusWithCMSException()

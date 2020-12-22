@@ -14,11 +14,6 @@ class TrimRepository extends CarRepository
         return Trim::all();
     }
 
-    public function find(int $id): ?Trim
-    {
-        return Trim::find($id);
-    }
-
     public function get(int $id): Trim
     {
         return Trim::findOrFail($id);

@@ -6,6 +6,7 @@ namespace Tests\Feature\Repositories;
 
 use App\Models\Page;
 use App\Repositories\PageRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\TestCase;
 
 class PageRepositoryTest extends TestCase
@@ -39,14 +40,16 @@ class PageRepositoryTest extends TestCase
 
         $this->pageRepository->syncPagesWithCMS($pagesCMS);
 
-        $this->assertNull($this->pageRepository->find($page->getId()));
-
         foreach ($pagesCMS as $pageCMS) {
         	if ($pageCMS->slug !== 'phpinfo') {
 		        $pageDB = $this->pageRepository->getByName( $pageCMS->slug );
 		        $this->assertEquals( $pageDB->getName(), $pageCMS->slug );
 	        }
         }
+
+        $this->expectException(ModelNotFoundException::class);
+
+        $this->pageRepository->get($page->getId());
     }
 
     public function testSyncPagesWithCMSException()

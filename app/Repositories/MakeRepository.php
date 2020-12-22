@@ -14,11 +14,6 @@ class MakeRepository implements IRepository
         return Make::all();
     }
 
-    public function find(int $id): ?Make
-    {
-        return Make::find($id);
-    }
-
     public function get(int $id): Make
     {
         return Make::findOrFail($id);

@@ -13,11 +13,6 @@ class PageRepository implements IRepository
         return Page::all();
     }
 
-    public function find(int $id): ?Page
-    {
-        return Page::find($id);
-    }
-
     public function get(int $id): Page
     {
         return Page::findOrFail($id);
