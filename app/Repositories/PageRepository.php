@@ -47,7 +47,7 @@ class PageRepository implements IRepository
      * When data there is an update or delete the cache must be flushed.
      * @throws Exception
      */
-    public function syncPagesWithCMS(array $pagesCMS)
+    public function syncPagesWithCMS(array $pagesCMS): void
     {
         $pagesDB = $this->all();
 

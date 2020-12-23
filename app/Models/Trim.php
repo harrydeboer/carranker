@@ -18,7 +18,7 @@ class Trim extends BaseModel
     protected $table = 'trims';
     public static $hasTrimVersions = 0;
     public $timestamps = false;
-    private $rating;
+    private float $rating;
 
     /**
      * The attributes that are mass assignable.

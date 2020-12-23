@@ -78,7 +78,7 @@ class TrimRepository extends BaseRepository
 
         $trims = Trim::searchMany($params, 'rating');
         foreach ($trims as $key => $trim) {
-            $trims[$key]->setRatingFiltering($trim->rating);
+            $trims[$key]->setRatingFiltering($trim->getRatingFiltering());
         }
 
         return $trims;

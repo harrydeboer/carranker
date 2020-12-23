@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elastic;
 
-use App\Models\Elastic\BaseModel;
 use App\Models\Elastic\Make;
 
 class MakeRepository extends BaseRepository
@@ -19,7 +18,7 @@ class MakeRepository extends BaseRepository
         return Make::get($id);
     }
 
-    public function getByName(string $name): BaseModel
+    public function getByName(string $name): Make
     {
         $params = [
             'index' => $this->model->getIndex(),

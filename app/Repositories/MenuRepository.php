@@ -49,7 +49,7 @@ class MenuRepository implements IRepository
      * When there is an update or delete the cache must be flushed.
      * @throws Exception
      */
-    public function syncMenusWithCMS(object $menusCMS)
+    public function syncMenusWithCMS(object $menusCMS): void
     {
         if (!isset($menusCMS->navigationHeader) || empty($menusCMS->navigationHeader) ||
             !isset($menusCMS->navigationFooter) || empty($menusCMS->navigationFooter)) {

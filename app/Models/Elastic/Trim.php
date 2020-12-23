@@ -12,6 +12,7 @@ class Trim extends BaseModel
     use TrimTrait;
     use Aspect;
 
+    protected float $rating;
     protected static string $index = 'trims';
     public array $keywords = ['name', 'make', 'model', 'framework', 'fuel', 'gearbox_type'];
     public array $integers = ['model_id', 'votes', 'number_of_doors', 'number_of_seats', 'number_of_gears', 'year_begin',
@@ -23,7 +24,13 @@ class Trim extends BaseModel
         foreach (Aspect::getAspects() as $aspect) {
             $this->doubles[] =$aspect;
         }
+
+        if (isset($attributes['rating'])) {
+            $this->rating = $attributes['rating'];
+        }
+
         $this->fillable = array_merge(self::$aspects, $this->fillable);
+
         parent::__construct($attributes);
     }
 

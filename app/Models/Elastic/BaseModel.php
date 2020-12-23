@@ -6,13 +6,12 @@ namespace App\Models\Elastic;
 
 use App\ElasticClient;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Concerns\HasAttributes;
+use Illuminate\Database\Eloquent\Model;
+use Elasticsearch\Client;
 
-abstract class BaseModel
+abstract class BaseModel extends Model
 {
-    use HasAttributes;
-
-    protected static $client;
+    protected static Client $client;
     protected static string $index;
 
     protected $fillable = [];
@@ -27,19 +26,14 @@ abstract class BaseModel
     {
         self::$client = ElasticClient::getClient();
 
-        if ($attributes !== []) {
-            foreach ($attributes as $key => $attribute) {
-                $this->$key = $attribute;
-            }
+        if (isset($attributes['id'])) {
+            $this->id = $attributes['id'];
         }
 
         $this->fillable = array_merge($this->keywords, $this->texts, $this->integers,
             $this->doubles, $this->timestamps, $this->booleans);
-    }
 
-    public function __get($key)
-    {
-        return $this->getAttribute($key);
+        parent::__construct($attributes);
     }
 
     public function getId(): int
