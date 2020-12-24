@@ -35,6 +35,8 @@ list_users and remove_users.</li>
 <li>Run command ‘docker exec -it carranker php artisan passport:install’ in sitefolder.</li>
 <li>Use phploc and phpcpd phars to count the lines of code and detect copy pasts in the code.</li>
 <li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
+<li>Execute npm install.</li>
+<li>Enable scss and uglifyjs filewatchers with node_modules/.bin binaries.</li>
 <li>Execute ’./unittests.sh’ for unit tests.</li>
 <li>Execute ’./featuretests.sh’ for feature tests.</li>
 <li>Execute ’./wordpresstests.sh’ for feature tests.</li>
