@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'OpenSans';
   font-style: normal;
-  src: url('https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3ZBw1xU1rKptJj_0jans920.woff2');
+  src: url('/../fonts/OpenSans.ttf');
 }
 
 #hideAll {
@@ -124,6 +124,10 @@ header {
 .navbar, .navbar-header {
   background-color: $housecolor-blue;
   font-size: 20px;
+}
+
+.navbar-nav {
+    margin-bottom: 3px;
 }
 
 #nav_select_make, #nav_select_model, #search_form_submit {

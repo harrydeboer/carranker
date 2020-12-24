@@ -15,20 +15,12 @@
      alt="No 1 2 3"
      class="{{ $controller === 'homepage' ? 'lazy' : '' }} img-thumbnail col-md-12 d-none d-lg-block">
 <BR>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+<script src="{{ fileUrl('/js/app.min.js') }}"></script>
 @if (env('APP_ENV') === 'local')
-    <script src="{{ fileUrl('/js/fallbackAndLazyLoad.js') }}"></script>
+    <script src="{{ fileUrl('/js/lazyLoad.js') }}"></script>
 @else
-    <script src="{{ fileUrl('/js/fallbackAndLazyLoad.min.js') }}"></script>
+    <script src="{{ fileUrl('/js/lazyLoad.min.js') }}"></script>
 @endif
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-        crossorigin="anonymous"></script>
 @if (env('APP_ENV') === 'local')
     <script src="{{ fileUrl('/js/main.js') }}"></script>
     <script src="{{ fileUrl('/js/' . $controller . '.js') }}"></script>

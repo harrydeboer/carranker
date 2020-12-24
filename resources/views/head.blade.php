@@ -10,6 +10,5 @@
 <link rel="icon" type="image/png" href="{{ fileUrl('/img/favicon-16x16.png') }}" sizes="16x16">
 <link rel="manifest" href="{{ fileUrl('/img/manifest.json') }}">
 <link rel="mask-icon" href="{{ fileUrl('/img/safari-pinned-tab.svg') }}">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{ fileUrl('/css/app.css') }}">
 <link rel="stylesheet" href="{{ fileUrl('/css/' . $controller . '.css') }}">

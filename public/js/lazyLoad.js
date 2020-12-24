@@ -1,5 +1,3 @@
-window.jQuery || document.write('<script src="/js/jquery-3.3.1.min.js"><\/script>');
-
 document.addEventListener("DOMContentLoaded", function ()
 {
     var lazyloadImages = document.querySelectorAll("img.lazy");
