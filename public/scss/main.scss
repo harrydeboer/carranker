@@ -1,8 +1,4 @@
-@font-face {
-  font-family: 'OpenSans';
-  font-style: normal;
-  src: url('/../fonts/OpenSans.ttf');
-}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 #hideAll {
   position: fixed;
@@ -22,7 +18,7 @@
   margin:auto;
 }
 
-$font-stack: 'OpenSans', sans-serif;
+$font-stack: 'Open Sans', sans-serif;
 $housecolor-blue: #336699;
 $housecolor-blue-r: 51;
 $housecolor-blue-g: 102;
