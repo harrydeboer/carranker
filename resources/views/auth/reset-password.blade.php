@@ -15,6 +15,7 @@
             @if (isset($status))
                 {{ $status }}
             @endif
+            <h3>Reset your password</h3>
             <form method="post" action="{{ route('password.update') }}">
                 @csrf
                 <input type="hidden" name="token" value="{{ $token }}">

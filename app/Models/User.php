@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Mail\Message;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Log;
 use Laravel\Passport\HasApiTokens;
 
 /** The user has the same table as wordpress. One column is added to the wordpress table: remember_token. */
@@ -87,5 +89,23 @@ class User extends Authenticatable
     public function getEmailForPasswordReset()
     {
         return $this->user_email;
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $mailer = app()->make('Illuminate\Mail\Mailer');
+        try {
+            $mailer->send('auth.message', ['token' => $token, 'url' => env('APP_URL')],
+                function (Message $message)
+            {
+                $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
+                $message->replyTo('noreply@carranker.com', 'No Reply');
+                $message->subject('Password Reset Link');
+                $message->to(env('MAIL_USERNAME'));
+            });
+
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage());
+        }
     }
 }

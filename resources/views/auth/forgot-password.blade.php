@@ -15,9 +15,10 @@
             @if (isset($status))
                 {{ $status }}
             @endif
+            <h3>Provide an email address to get a password reset link</h3>
             <form method="post" action="{{ route('password.email') }}">
                 @csrf
-                <input type="email" name="email">
+                <input type="email" name="email" placeholder="email">
                 <input type="submit" value="Send">
             </form>
         </div>
