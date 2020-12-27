@@ -13,9 +13,16 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm');
 Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 Route::get('model/{make}/{model}', 'ModelpageController@view')->where('model', '.*');
 Route::get('contact', 'ContactController@view');
-
 Route::get('filterTop', ['as' => 'filterTop', 'uses' => 'HomepageController@filterTop']);
 Route::get('showMoreTopTable/{numberOfRows}/{offset}', ['as' => 'showMoreTopTable', 'uses' => 'HomepageController@showMoreTopTable']);
+Route::get('/forgot-password', ['uses' => 'Auth\ForgotPasswordController@view'])
+    ->middleware('guest')->name('password.request');
+Route::post('/forgot-password', ['uses' => 'Auth\ForgotPasswordController@email'])
+    ->middleware('guest')->name('password.email');
+Route::get('/reset-password/{token}', ['uses' => 'Auth\ResetPasswordController@view'])
+    ->middleware('guest')->name('password.reset');
+Route::post('/reset-password', ['uses' => 'Auth\ResetPasswordController@update'])
+    ->middleware('guest')->name('password.update');
 
 Route::get('home', function ()
 {

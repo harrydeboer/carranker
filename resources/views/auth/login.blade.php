@@ -10,6 +10,9 @@
                 </ul>
             </div>
         @endif
+        @if (isset($status))
+            {{ $status }}
+        @endif
         {!! Form::open(['route' => 'login', 'id' => 'login-form']) !!}
         {!! Form::label('user_email', 'Email', ['class' => 'control-label']) !!}
         {!! Form::email('user_email', null, ['class' => 'form-control', 'required']) !!}
@@ -18,7 +21,8 @@
         <div class="form-group">
             <input type="submit" class="btn btn-success" value="Login">
         </div>
-        Not registered yet? Go to <a href="/register">this</a> link.
+        Not registered yet? Go to <a href="/register">this</a> link. <br>
+        Forgot password? Go to <a href="/forgot-password">this</a> link
         {!! Form::close() !!}
     </div>
 </div>

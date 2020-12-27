@@ -63,6 +63,7 @@ class RegisterController extends Controller
 	{
 		$data = [
 			'title' => 'Register',
+            'controller' => 'auth',
 			'page' => $this->pageRepository->getByName('register'),
 		];
 

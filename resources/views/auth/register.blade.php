@@ -13,6 +13,9 @@
                     </ul>
                 </div>
             @endif
+            @if (isset($status))
+                {{ $status }}
+            @endif
             {!! Form::open(['route' => 'register', 'id' => 'register-form']) !!}
             {!! Form::label('user_login', 'Name', ['class' => 'control-label']) !!}
             {!! Form::text('user_login', null, ['class' => 'form-control', 'required']) !!}

@@ -27,7 +27,6 @@ class WPHasher extends HashManager implements HasherContract
      *
      * @param  string  $value
      * @param  array   $options
-     * @return string
      *
      * @throws \RuntimeException
      */

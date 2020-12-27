@@ -39,6 +39,7 @@ class LoginController extends Controller
     {
         return response()->view('auth.base', [
             'title' => 'Authentication',
+            'controller' => 'auth',
             'isLoggedIn' => is_null(Auth::user()) ? false : true,
             'page' => $this->pageRepository->getByName('auth'),
         ], 200);

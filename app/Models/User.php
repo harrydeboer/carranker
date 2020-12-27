@@ -83,4 +83,9 @@ class User extends Authenticatable
     {
         return User::where('user_email', $useremail)->first();
     }
+
+    public function getEmailForPasswordReset()
+    {
+        return $this->user_email;
+    }
 }
