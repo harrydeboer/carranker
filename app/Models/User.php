@@ -101,7 +101,7 @@ class User extends Authenticatable
                 $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
                 $message->replyTo('noreply@carranker.com', 'No Reply');
                 $message->subject('Password Reset Link');
-                $message->to(env('MAIL_USERNAME'));
+                $message->to($this->getEmail());
             });
 
         } catch (\Exception $e) {
