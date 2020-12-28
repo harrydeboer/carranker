@@ -125,27 +125,27 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
-    public function sendEmailVerificationNotification()
-    {
-        $mailer = app()->make('Illuminate\Mail\Mailer');
-        try {
-            $mailer->send('auth.verifyMessage', [
-                'url' => env('APP_URL'),
-                'id' => (string) $this->getId(),
-                'hash' => sha1($this->getEmailForVerification()),
-            ],
-                function (Message $message)
-                {
-                    $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
-                    $message->replyTo('noreply@carranker.com', 'No Reply');
-                    $message->subject('Email Verification Link');
-                    $message->to($this->getEmail());
-                });
-
-        } catch (\Exception $e) {
-            Log::debug($e->getMessage());
-        }
-    }
+//    public function sendEmailVerificationNotification()
+//    {
+//        $mailer = app()->make('Illuminate\Mail\Mailer');
+//        try {
+//            $mailer->send('auth.verifyMessage', [
+//                'url' => env('APP_URL'),
+//                'id' => (string) $this->getId(),
+//                'hash' => sha1($this->getEmailForVerification()),
+//            ],
+//                function (Message $message)
+//                {
+//                    $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
+//                    $message->replyTo('noreply@carranker.com', 'No Reply');
+//                    $message->subject('Email Verification Link');
+//                    $message->to($this->getEmail());
+//                });
+//
+//        } catch (\Exception $e) {
+//            Log::debug($e->getMessage());
+//        }
+//    }
 
     public function getEmailForVerification()
     {
