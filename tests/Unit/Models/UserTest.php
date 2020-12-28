@@ -26,6 +26,7 @@ class UserTest extends TestCase
             'display_name' => $user->getUsername(),
             'user_registered' => $user->getUserRegistered(),
             'remember_token' => $user->getRememberToken(),
+            'email_verified_at' => $user->getEmailVerifiedAt(),
         ]);
 
         $user = User::find($user->getId());

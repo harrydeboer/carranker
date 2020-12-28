@@ -39,6 +39,7 @@ class UserFactory extends Factory
             'display_name' => $userName,
             'user_registered' => $this->faker->time('Y-m-d H:i:s'),
             'remember_token' => Str::random(10),
+            'email_verified_at' => $this->faker->time('Y-m-d H:i:s'),
         ];
     }
 }

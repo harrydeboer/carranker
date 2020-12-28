@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Mail\Message;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Laravel\Passport\HasApiTokens;
 
@@ -24,7 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $fillable = [
         'user_login', 'user_email', 'user_pass', 'user_nicename', 'user_url',
-        'user_activation_key', 'user_status', 'display_name', 'user_registered', ''
+        'user_activation_key', 'user_status', 'display_name', 'user_registered', 'email_verified_at',
     ];
 
     protected $hidden = [
@@ -49,6 +49,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getId(): int
     {
         return $this->ID;
+    }
+
+    public function getEmailVerifiedAt(): ?Carbon
+    {
+        return $this->email_verified_at;
     }
 
     public function getUsername(): string

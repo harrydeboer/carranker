@@ -27,7 +27,7 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'testtest',
         ]);
 
-        $response->assertRedirect('/');
+        $response->assertRedirect('/email/verify');
 
         $user = $this->userRepository->getByEmail($useremail);
         $this->assertAuthenticatedAs($user);

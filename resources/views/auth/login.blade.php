@@ -1,6 +1,25 @@
 @extends('layout')
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if (session('verified'))
+    <div class="alert alert-success">
+        You email address has been verified!
+    </div>
+    @endif
     @if ( $isLoggedIn === true )
         <div class="text-center">
             <a href="{{ route('logout') }}">Logout</a>
@@ -9,20 +28,6 @@
         <div class="row justify-content-center">
             <div class="col-md-8 col-md-offset-2">
                 {!! $page->getContent() ?? '' !!}
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
                 {!! Form::open(['route' => 'login', 'id' => 'login-form']) !!}
                 {!! Form::label('user_email', 'Email', ['class' => 'control-label']) !!}
                 {!! Form::email('user_email', null, ['class' => 'form-control', 'required']) !!}
