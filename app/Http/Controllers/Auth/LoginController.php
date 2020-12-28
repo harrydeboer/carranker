@@ -33,11 +33,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected string $redirectTo = '/';
 
     public function view(): Response
     {
-        return response()->view('auth.base', [
+        return response()->view('auth.auth', [
             'title' => 'Authentication',
             'controller' => 'auth',
             'isLoggedIn' => is_null(Auth::user()) ? false : true,

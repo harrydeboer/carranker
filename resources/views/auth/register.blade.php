@@ -13,8 +13,10 @@
                     </ul>
                 </div>
             @endif
-            @if (isset($status))
-                {{ $status }}
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
             @endif
             {!! Form::open(['route' => 'register', 'id' => 'register-form']) !!}
             {!! Form::label('user_login', 'Name', ['class' => 'control-label']) !!}

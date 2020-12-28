@@ -12,8 +12,10 @@
                     </ul>
                 </div>
             @endif
-            @if (isset($status))
-                {{ $status }}
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
             @endif
             <h3>Provide an email address to get a password reset link</h3>
             <form method="post" action="{{ route('password.email') }}">

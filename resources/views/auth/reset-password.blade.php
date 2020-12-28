@@ -12,8 +12,10 @@
                     </ul>
                 </div>
             @endif
-            @if (isset($status))
-                {{ $status }}
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
             @endif
             <h3>Reset your password</h3>
             <form method="post" action="{{ route('password.update') }}">

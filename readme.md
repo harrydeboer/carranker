@@ -92,7 +92,7 @@ list_users and remove_users.</li>
 <li>Repeat all the steps for the acceptance site with allowance for certain ips only (and the server ip) in the main 
 apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
 <li>In production: install postfix, dovecot, opendkim, opendmarc, postsrsd and spamassassin.</li>
-<li>In production: add <yourdevuser>@carranker.com, info@carranker.com, postmaster@carranker.com and root@carranker.com 
-in Mail Users in the admin panel. Forward info@carranker.com to carranker@gmail.com.</li>
+<li>In production: add <yourdevuser>@carranker.com, info@carranker.com, noreply@carranker.com, postmaster@carranker.com and root@carranker.com 
+in Mail Users in the admin panel. <yourdevuser>@carranker.com and info@carranker.com to carranker@gmail.com.</li>
 <li>An update in production or acceptance can be retrieved with the command ’./update.sh’</li>
 </ol>

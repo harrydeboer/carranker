@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Mail\Message;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Laravel\Passport\HasApiTokens;
 
 /** The user has the same table as wordpress. One column is added to the wordpress table: remember_token. */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     protected $primaryKey = 'ID';
     protected $table;
