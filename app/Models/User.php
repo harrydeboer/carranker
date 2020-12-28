@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Mail\Message;
@@ -23,11 +24,20 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $fillable = [
         'user_login', 'user_email', 'user_pass', 'user_nicename', 'user_url',
-        'user_activation_key', 'user_status', 'display_name', 'user_registered',
+        'user_activation_key', 'user_status', 'display_name', 'user_registered', ''
     ];
 
     protected $hidden = [
         'user_pass', 'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
     ];
 
     public function __construct(array $attributes = [])
@@ -89,7 +99,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getEmailForPasswordReset()
     {
-        return $this->user_email;
+        return $this->getEmail();
     }
 
     public function sendPasswordResetNotification($token)
@@ -108,5 +118,32 @@ class User extends Authenticatable implements MustVerifyEmail
         } catch (\Exception $e) {
             Log::debug($e->getMessage());
         }
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $mailer = app()->make('Illuminate\Mail\Mailer');
+        try {
+            $mailer->send('auth.verifyMessage', [
+                'url' => env('APP_URL'),
+                'id' => (string) $this->getId(),
+                'hash' => sha1($this->getEmailForVerification()),
+            ],
+                function (Message $message)
+                {
+                    $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
+                    $message->replyTo('noreply@carranker.com', 'No Reply');
+                    $message->subject('Password Reset Link');
+                    $message->to($this->getEmail());
+                });
+
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
+    public function getEmailForVerification()
+    {
+        return $this->getEmail();
     }
 }

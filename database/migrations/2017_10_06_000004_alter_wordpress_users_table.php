@@ -17,6 +17,7 @@ class AlterWordpressUsersTable extends Migration
             $table->string('remember_token')->default('');
             $table->dateTime('user_registered')->nullable()->default(Null)->change();
             $table->increments('ID')->change();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('user_login')->unique()->change();
             $table->string('user_email')->unique()->change();
         });
@@ -32,6 +33,7 @@ class AlterWordpressUsersTable extends Migration
         Schema::table(env('WP_DB_PREFIX') . 'users', function (Blueprint $table) {
             $table->dropColumn('remember_token');
             $table->dateTime('user_registered')->default(0)->change();
+            $table->dropColumn('email_verified_at');
             $table->bigIncrements('ID')->change();
         });
     }

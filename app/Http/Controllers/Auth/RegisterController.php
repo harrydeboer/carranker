@@ -27,7 +27,7 @@ class RegisterController extends Controller
 
 	use RegistersUsers;
 
-	protected string $redirectTo = '/';
+	protected string $redirectTo = '/email/verify';
 
 	public function __construct(private Factory $validatorFactory,
                                 private UserRepository $userRepository,
@@ -49,7 +49,7 @@ class RegisterController extends Controller
 	{
 		$hasher = new WPHasher(app());
 
-		return $this->userRepository->create([
+		$user = $this->userRepository->create([
 			'user_login' => $data['user_login'],
 			'user_nicename' => $data['user_login'],
 			'display_name' => $data['user_login'],
@@ -57,6 +57,10 @@ class RegisterController extends Controller
 			'user_pass' => $hasher->make($data['password']),
 			'user_registered' => date('Y-m-d H:i:s', time()),
 		]);
+
+		$user->sendEmailVerificationNotification();
+
+		return $user;
 	}
 
 	public function showRegistrationForm(): Response

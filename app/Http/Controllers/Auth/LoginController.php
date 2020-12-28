@@ -37,7 +37,7 @@ class LoginController extends Controller
 
     public function view(): Response
     {
-        return response()->view('auth.auth', [
+        return response()->view('auth.login', [
             'title' => 'Authentication',
             'controller' => 'auth',
             'isLoggedIn' => is_null(Auth::user()) ? false : true,
