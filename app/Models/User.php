@@ -138,7 +138,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 {
                     $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
                     $message->replyTo('noreply@carranker.com', 'No Reply');
-                    $message->subject('Password Reset Link');
+                    $message->subject('Email Verification Link');
                     $message->to($this->getEmail());
                 });
 
