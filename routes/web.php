@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::post('contact', ['as' => 'contact.view', 'uses' => 'ContactController@view']);
@@ -24,6 +25,7 @@ Route::get('/reset-password/{token}', ['as' => 'reset-password', 'uses' => 'Auth
     ->middleware('guest');
 Route::post('/reset-password', ['as' => 'password-update', 'uses' => 'Auth\ResetPasswordController@update'])
     ->middleware('guest');
+Auth::routes(['verify' => true]);
 
 Route::get('home', function ()
 {
