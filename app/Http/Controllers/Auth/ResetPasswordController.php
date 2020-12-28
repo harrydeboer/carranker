@@ -35,7 +35,7 @@ class ResetPasswordController extends Controller
 
     public function view(string $token)
     {
-        return response()->view('auth.reset-password', [
+        return response()->view('auth.passwords.reset', [
             'title'=> 'Reset password', 'controller' => 'auth', 'token' => $token]);
     }
 

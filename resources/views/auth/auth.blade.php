@@ -32,7 +32,7 @@
                     <input type="submit" class="btn btn-success" value="Login">
                 </div>
                 Not registered yet? Go to <a href="{{ route('register') }}">this</a> link. <br>
-                Forgot password? Go to <a href="{{ route('password.request') }}">this</a> link
+                Forgot password? Go to <a href="{{ route('forgot-password') }}">this</a> link
                 {!! Form::close() !!}
             </div>
         </div>

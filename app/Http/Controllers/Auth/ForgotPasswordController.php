@@ -24,7 +24,7 @@ class ForgotPasswordController extends Controller
 
     public function view()
     {
-        return response()->view('auth.forgot-password', [
+        return response()->view('auth.passwords.email', [
             'title' => 'Forgot password?', 'controller' => 'auth']);
     }
 

@@ -16,15 +16,14 @@ Route::get('contact', 'ContactController@view');
 Route::get('filterTop', ['as' => 'filterTop', 'uses' => 'HomepageController@filterTop']);
 Route::get('showMoreTopTable/{numberOfRows}/{offset}', ['as' => 'showMoreTopTable',
     'uses' => 'HomepageController@showMoreTopTable']);
-Route::get('/forgot-password', ['uses' => 'Auth\ForgotPasswordController@view'])
-    ->middleware('guest')->name('password.request');
-Route::post('/forgot-password', ['uses' => 'Auth\ForgotPasswordController@email'])
-    ->middleware('guest')->name('password.email');
-Route::get('/reset-password/{token}', ['uses' => 'Auth\ResetPasswordController@view'])
-    ->middleware('guest')->name('password.reset');
-Route::post('/reset-password', ['uses' => 'Auth\ResetPasswordController@update'])
-    ->middleware('guest')->name('password.update');
-Auth::routes(['verify' => true]);
+Route::get('/forgot-password', ['as' => 'forgot-password', 'uses' => 'Auth\ForgotPasswordController@view'])
+    ->middleware('guest');
+Route::post('/forgot-password', ['as' => 'forgot-password-email', 'uses' => 'Auth\ForgotPasswordController@email'])
+    ->middleware('guest');
+Route::get('/reset-password/{token}', ['as' => 'reset-password', 'uses' => 'Auth\ResetPasswordController@view'])
+    ->middleware('guest');
+Route::post('/reset-password', ['as' => 'password-update', 'uses' => 'Auth\ResetPasswordController@update'])
+    ->middleware('guest');
 
 Route::get('home', function ()
 {
