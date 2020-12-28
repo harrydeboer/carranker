@@ -21,7 +21,7 @@ Route::get('forgot-password', ['as' => 'forgot-password', 'uses' => 'Auth\Forgot
     ->middleware('guest');
 Route::post('forgot-password', ['as' => 'forgot-password-email', 'uses' => 'Auth\ForgotPasswordController@email'])
     ->middleware('guest');
-Route::get('reset-password/{token}', ['as' => 'reset-password', 'uses' => 'Auth\ResetPasswordController@view'])
+Route::get('reset-password/{token}', ['as' => 'password.reset', 'uses' => 'Auth\ResetPasswordController@view'])
     ->middleware('guest');
 Route::post('reset-password', ['as' => 'password-update', 'uses' => 'Auth\ResetPasswordController@update'])
     ->middleware('guest');

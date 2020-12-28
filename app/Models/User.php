@@ -6,11 +6,10 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Mail\Message;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
 
 /** The user has the same table as wordpress. One column is added to the wordpress table: remember_token. */
@@ -49,6 +48,27 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getId(): int
     {
         return $this->ID;
+    }
+
+    /**
+     * Get the notification routing information for the given driver.
+     *
+     * @param  string  $driver
+     * @param  \Illuminate\Notifications\Notification|null  $notification
+     * @return mixed
+     */
+    public function routeNotificationFor($driver, $notification = null)
+    {
+        if (method_exists($this, $method = 'routeNotificationFor'.Str::studly($driver))) {
+            return $this->{$method}($notification);
+        }
+
+        switch ($driver) {
+            case 'database':
+                return $this->notifications();
+            case 'mail':
+                return $this->getEmail();
+        }
     }
 
     public function getEmailVerifiedAt(): ?Carbon
@@ -106,46 +126,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->getEmail();
     }
-
-    public function sendPasswordResetNotification($token)
-    {
-        $mailer = app()->make('Illuminate\Mail\Mailer');
-        try {
-            $mailer->send('auth.message', ['token' => $token, 'url' => env('APP_URL')],
-                function (Message $message)
-            {
-                $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
-                $message->replyTo('noreply@carranker.com', 'No Reply');
-                $message->subject('Password Reset Link');
-                $message->to($this->getEmail());
-            });
-
-        } catch (\Exception $e) {
-            Log::debug($e->getMessage());
-        }
-    }
-
-//    public function sendEmailVerificationNotification()
-//    {
-//        $mailer = app()->make('Illuminate\Mail\Mailer');
-//        try {
-//            $mailer->send('auth.verifyMessage', [
-//                'url' => env('APP_URL'),
-//                'id' => (string) $this->getId(),
-//                'hash' => sha1($this->getEmailForVerification()),
-//            ],
-//                function (Message $message)
-//                {
-//                    $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
-//                    $message->replyTo('noreply@carranker.com', 'No Reply');
-//                    $message->subject('Email Verification Link');
-//                    $message->to($this->getEmail());
-//                });
-//
-//        } catch (\Exception $e) {
-//            Log::debug($e->getMessage());
-//        }
-//    }
 
     public function getEmailForVerification()
     {
