@@ -22,13 +22,13 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
-    public function view()
+    public function showLinkRequestForm()
     {
         return response()->view('auth.passwords.email', [
             'title' => 'Forgot password?', 'controller' => 'auth']);
     }
 
-    public function email(Request $request)
+    public function sendResetLinkEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
 

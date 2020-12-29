@@ -27,7 +27,7 @@ class LoginLogoutTest extends TestCase
         $response->assertRedirect('/');
         $this->assertAuthenticated();
 
-        $response = $this->get('/logout');
+        $response = $this->post('/logout');
         $response->assertRedirect('/');
 
         $this->assertGuest();

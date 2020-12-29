@@ -33,13 +33,13 @@ class ResetPasswordController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    public function view(string $token)
+    public function showResetForm(string $token)
     {
         return response()->view('auth.passwords.reset', [
             'title'=> 'Reset password', 'controller' => 'auth', 'token' => $token]);
     }
 
-    public function update(Request $request)
+    public function reset(Request $request)
     {
         $request->validate([
             'token' => 'required',
@@ -67,7 +67,7 @@ class ResetPasswordController extends Controller
         );
 
         return $status == Password::PASSWORD_RESET
-            ? redirect()->route('auth')->with('status', __($status))
+            ? redirect()->route('login')->with('status', __($status))
             : back()->withErrors(['email' => [__($status)]]);
     }
 }

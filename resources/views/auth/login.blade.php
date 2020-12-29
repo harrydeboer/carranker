@@ -22,7 +22,9 @@
     @endif
     @if ( $isLoggedIn === true )
         <div class="text-center">
-            <a href="{{ route('logout') }}">Logout</a>
+            <form method="post" action="{{ route('logout') }}">
+                <input type="submit" value="logout">
+            </form>
         </div>
     @else
         <div class="row justify-content-center">
@@ -37,7 +39,7 @@
                     <input type="submit" class="btn btn-success" value="Login">
                 </div>
                 Not registered yet? Go to <a href="{{ route('register') }}">this</a> link. <br>
-                Forgot password? Go to <a href="{{ route('forgot-password') }}">this</a> link
+                Forgot password? Go to <a href="{{ route('password.request') }}">this</a> link
                 {!! Form::close() !!}
             </div>
         </div>

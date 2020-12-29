@@ -1,1 +1,0 @@
-{{ $url }}/reset-password/{{ $token }}

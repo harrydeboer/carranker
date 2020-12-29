@@ -35,7 +35,7 @@ class LoginController extends Controller
      */
     protected string $redirectTo = '/';
 
-    public function view(): Response
+    public function showLoginForm(): Response
     {
         return response()->view('auth.login', [
             'title' => 'Authentication',
