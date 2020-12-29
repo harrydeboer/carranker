@@ -58,7 +58,7 @@ class RegisterController extends Controller
 			'user_registered' => date('Y-m-d H:i:s', time()),
 		]);
 
-		$user->sendEmailVerificationNotification();
+//		$user->sendEmailVerificationNotification();
 
 		return $user;
 	}
