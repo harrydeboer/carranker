@@ -111,7 +111,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->user_registered;
     }
 
-    public function getRememberToken(): string
+    public function getRememberToken(): ?string
     {
         return $this->remember_token;
     }
