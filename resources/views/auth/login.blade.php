@@ -23,6 +23,7 @@
     @if ( $isLoggedIn === true )
         <div class="text-center">
             <form method="post" action="{{ route('logout') }}">
+                @csrf
                 <input type="submit" value="logout">
             </form>
         </div>
