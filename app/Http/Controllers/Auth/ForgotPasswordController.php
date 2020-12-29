@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Passwords\PasswordBroker;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends Controller
 {
@@ -22,6 +22,8 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
+    public function __construct(private PasswordBroker $passwordBroker){}
+
     public function showLinkRequestForm()
     {
         return response()->view('auth.passwords.email', [
@@ -32,9 +34,9 @@ class ForgotPasswordController extends Controller
     {
         $request->validate(['email' => 'required|email']);
 
-        $status = Password::sendResetLink(['user_email' => $request->get('email')]);
+        $status = $this->passwordBroker->sendResetLink(['user_email' => $request->get('email')]);
 
-        return $status === Password::RESET_LINK_SENT
+        return $status === $this->passwordBroker::RESET_LINK_SENT
             ? back()->with(['status' => __($status)])
             : back()->withErrors(['email' => __($status)]);
     }

@@ -49,7 +49,6 @@ class ModelpageController extends Controller
         $model->getMake();
         $form = new RatingForm($this->profanityRepository);
         $trims = $model->getTrims();
-
         $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelpage);
 
         /** The links of the pagination get extra html classes to make them centered on the modelpage. */
@@ -64,7 +63,7 @@ class ModelpageController extends Controller
             'model' => $model,
             'ratingform' => $form,
             'trims' => $trims,
-            'isLoggedIn' => is_null($user) ? false : true,
+            'isLoggedIn' => $user?->hasVerifiedEmail(),
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
             'selectedGeneration' => $this->trimRepository->findSelectedGeneration((int) $trimId),
@@ -91,7 +90,7 @@ class ModelpageController extends Controller
         $user = $guard->user();
         $data['success'] = 'false';
 
-        if ($form->validateFull($request, $form->reCaptchaToken) && !is_null($user)) {
+        if ($form->validateFull($request, $form->reCaptchaToken) && $user?->hasVerifiedEmail()) {
 
             $trimArray = explode(';', $form->trimId);
             $trimId = (int) end($trimArray);

@@ -52,4 +52,18 @@ class VerificationController extends Controller
             ? redirect($this->redirectPath())
             : view('auth.verify')->with(['title' => 'Verify Email', 'controller' => 'auth']);
     }
+
+    /**
+     * Show the email verification notice.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function showAndMail(Request $request)
+    {
+        $request->user()->sendEmailVerificationNotification();
+        return $request->user()->hasVerifiedEmail()
+            ? redirect($this->redirectPath())
+            : view('auth.verify')->with(['title' => 'Verify Email', 'controller' => 'auth', 'mailSent' => true]);
+    }
 }

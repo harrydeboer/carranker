@@ -43,6 +43,7 @@ class RatingRepositoryTest extends TestCase
     public function testCreateRating()
     {
         $user = User::factory()->create();
+        $user->setAttribute('email_verified_at', date('Y-m-d h:i:s'));
         $trim = Trim::factory()->create();
         $content = 'content';
         $createArray = ['content' => $content];

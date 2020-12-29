@@ -20,7 +20,17 @@
         You email address has been verified!
     </div>
     @endif
-    @if ( $isLoggedIn === true )
+    @if ( $isLoggedIn === true && $isEmailVerified === true)
+        <div class="text-center">
+            <form method="post" action="{{ route('logout') }}">
+                @csrf
+                <input type="submit" value="logout">
+            </form>
+        </div>
+    @elseif ($isEmailVerified === false)
+        <div class="text-center">
+            <a href="{{ route('verification.notice.with.mail') }}">You should verify your email before rating cars.</a>
+        </div>
         <div class="text-center">
             <form method="post" action="{{ route('logout') }}">
                 @csrf

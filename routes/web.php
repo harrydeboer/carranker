@@ -13,6 +13,8 @@ Route::get('filterTop', ['as' => 'filterTop', 'uses' => 'HomepageController@filt
 Route::get('showMoreTopTable/{numberOfRows}/{offset}', ['as' => 'showMoreTopTable',
     'uses' => 'HomepageController@showMoreTopTable']);
 
+Route::get('/email/verify/with/mail', ['as' => 'verification.notice.with.mail',
+    'uses' => 'Auth\VerificationController@showAndMail'])->middleware('auth');
 Auth::routes(['verify' => true]);
 
 Route::get('home', function ()

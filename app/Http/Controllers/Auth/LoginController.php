@@ -37,10 +37,12 @@ class LoginController extends Controller
 
     public function showLoginForm(): Response
     {
+        $user = Auth::user();
         return response()->view('auth.login', [
             'title' => 'Authentication',
             'controller' => 'auth',
-            'isLoggedIn' => is_null(Auth::user()) ? false : true,
+            'isLoggedIn' => !is_null(Auth::user()),
+            'isEmailVerified' => Auth::user()?->hasVerifiedEmail(),
             'page' => $this->pageRepository->getByName('auth'),
         ], 200);
     }

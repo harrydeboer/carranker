@@ -8,7 +8,7 @@ use App\Providers\WPHasher;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Passwords\PasswordBroker;
 use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
@@ -25,6 +25,8 @@ class ResetPasswordController extends Controller
     */
 
     use ResetsPasswords;
+
+    public function __construct(private PasswordBroker $passwordBroker){}
 
     /**
      * Where to redirect users after resetting their password.
@@ -49,7 +51,7 @@ class ResetPasswordController extends Controller
 
         $hasher = new WPHasher(app());
 
-        $status = Password::reset([
+        $status = $this->passwordBroker->reset([
             'user_email' => $request->get('email'),
             'password' => $request->get('password'),
             'password_confirmation' => $request->get('password_confirmation'),
@@ -66,7 +68,7 @@ class ResetPasswordController extends Controller
             }
         );
 
-        return $status == Password::PASSWORD_RESET
+        return $status == $this->passwordBroker::PASSWORD_RESET
             ? redirect()->route('login')->with('status', __($status))
             : back()->withErrors(['email' => [__($status)]]);
     }

@@ -46,6 +46,7 @@ class ModelpageTest extends TestCase
     {
         $trim = $this->trimRepository->get(1);
         $user = $this->userRepository->get(1);
+        $user->setAttribute('email_verified_at', date('Y-m-d h:i:s'));
 
         $postArrayFirst = [
             'generation' => $trim->getYearBegin() . '-' . $trim->getYearEnd(),
