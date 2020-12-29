@@ -37,30 +37,26 @@ class RegisterController extends Controller
 	}
 
 	protected function validator(array $data): Validator
-	{
-		return $this->validatorFactory->make($data, [
-			'user_login' => 'required|string|max:255',
-			'user_email' => 'required|string|email|max:255|unique:' . env('WP_DB_PREFIX') . 'users',
-			'password' => 'required|string|min:6|confirmed',
-		]);
-	}
+    {
+        return $this->validatorFactory->make($data, [
+            'user_login' => ['required', 'string', 'max:255'],
+            'user_email' => ['required', 'string', 'email', 'max:255', 'unique:' . env('WP_DB_PREFIX') . 'users'],
+            'user_pass' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
 
 	protected function create(array $data): User
 	{
 		$hasher = new WPHasher(app());
 
-		$user = $this->userRepository->create([
-			'user_login' => $data['user_login'],
-			'user_nicename' => $data['user_login'],
-			'display_name' => $data['user_login'],
-			'user_email' => $data['user_email'],
-			'user_pass' => $hasher->make($data['password']),
-			'user_registered' => date('Y-m-d H:i:s', time()),
-		]);
-
-//		$user->sendEmailVerificationNotification();
-
-		return $user;
+		return $this->userRepository->create([
+                'user_login' => $data['user_login'],
+                'user_nicename' => $data['user_login'],
+                'display_name' => $data['user_login'],
+                'user_email' => $data['user_email'],
+                'user_pass' => $hasher->make($data['password']),
+                'user_registered' => date('Y-m-d H:i:s', time()),
+            ]);
 	}
 
 	public function showRegistrationForm(): Response
