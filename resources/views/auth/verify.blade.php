@@ -13,11 +13,9 @@
                                 {{ __('A fresh verification link has been sent to your email address.') }}
                             </div>
                         @endif
-                        @if (isset($mailSent))
-                            <div class="alert alert-success" role="alert">
-                                {{ 'A verification link has been sent to your email address.' }}
-                            </div>
-                        @endif
+                        <div class="alert alert-success" role="alert">
+                            {{ 'A verification link has been sent to your email address.' }}
+                        </div>
 
                         {{ __('Before proceeding, please check your email for a verification link.') }}
                         {{ __('If you did not receive the email') }},
