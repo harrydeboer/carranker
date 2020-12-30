@@ -50,16 +50,24 @@
                     </table>
                     <BR>
                 </div>
-                @if ($isLoggedIn === true)
+                @if ($isVerified === true)
                     <div class="text-center">
-                        <a href="#dialog" data-toggle="modal" id="showModelDialog" class="btn btn-primary">Rate car!</a>
+                        <a href="#dialog" data-toggle="modal" id="showModelDialog"
+                           class="btn btn-primary">Rate car!</a>
                         <BR>
                         <BR>
-                        <a href="#dialog" data-toggle="modal" id="showReviewDialog" class="btn btn-primary">Write review!</a>
+                        <a href="#dialog" data-toggle="modal" id="showReviewDialog"
+                           class="btn btn-primary">Write review!</a>
+                    </div>
+                @elseif ($isLoggedIn === true)
+                    <div class="text-center">
+                        <a href="{{ route('verification.notice.with.mail') }}"
+                           class="btn btn-primary" id="loginLink">Verify your email to rate this car!</a>
                     </div>
                 @else
                     <div class="text-center">
-                        <a href="{{ route('login') }}" class="btn btn-primary" id="loginLink">Login to rate this car!</a>
+                        <a href="{{ route('login') }}" class="btn btn-primary"
+                           id="loginLink">Login to rate this car!</a>
                     </div>
                 @endif
                 <BR>

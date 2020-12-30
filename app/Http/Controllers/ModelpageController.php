@@ -63,7 +63,8 @@ class ModelpageController extends Controller
             'model' => $model,
             'ratingform' => $form,
             'trims' => $trims,
-            'isLoggedIn' => $user?->hasVerifiedEmail(),
+            'isLoggedIn' => !is_null($user),
+            'isVerified' => $user?->hasVerifiedEmail(),
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
             'selectedGeneration' => $this->trimRepository->findSelectedGeneration((int) $trimId),
@@ -87,11 +88,11 @@ class ModelpageController extends Controller
     public function ratecar(Request $request, Guard $guard): Response
     {
         $form = new RatingForm($this->profanityRepository, $request->all());
-        $user = $guard->user();
         $data['success'] = 'false';
 
-        if ($form->validateFull($request, $form->reCaptchaToken) && $user?->hasVerifiedEmail()) {
+        if ($form->validateFull($request, $form->reCaptchaToken)) {
 
+            $user = $guard->user();
             $trimArray = explode(';', $form->trimId);
             $trimId = (int) end($trimArray);
             $trim = $this->trimRepositoryEloquent->get($trimId);
