@@ -7,7 +7,9 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use \Closure;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use function GuzzleHttp\Psr7\str;
 
 class ValidateSignature
 {
@@ -45,7 +47,18 @@ class ValidateSignature
 
     private function hasCorrectSignature(Request $request, $absolute = true)
     {
-        $signature = $request->get('signature');
+        $url = $absolute ? $request->url() : '/'.$request->path();
+
+        if (env('APP_ENV') === 'acceptance' || env('APP_ENV') === 'production') {
+            $url = str_replace('https', 'http', $url);
+            $url = str_replace('http', 'https', $url);
+        }
+
+        $original = rtrim($url.'?'.Arr::query(
+                Arr::except($request->query(), 'signature')
+            ), '?');
+
+        $signature = hash_hmac('sha256', $original, env('APP_KEY'));
 
         return hash_equals($signature, (string) $request->query('signature', ''));
     }
