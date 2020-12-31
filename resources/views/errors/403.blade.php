@@ -1,5 +1,5 @@
 @extends('errors.layout')
 
 @section('content')
-    Forbidden.
+    {{ $message }}
 @endsection
