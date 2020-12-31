@@ -212,7 +212,7 @@ class CarSpecs
                 $range["{$i}"] = $i;
             }
 
-            /** The for loop does not always end at the maximum for float numbers.
+            /** The for loop does not always end at the maximum for floats.
              * When the maximum is not present it is added to the choices of the min and max select.
              */
             if ($specName === 'engine_capacity' && !isset($range["7"])) {
