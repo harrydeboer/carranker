@@ -27,7 +27,7 @@ class ValidateSignature
         $isSecure = $request->server->get('HTTPS');
 
         if (!$isSecure && (env('APP_ENV') === 'acceptance' || env('APP_ENV') === 'production')) {
-            $request->server->set('HTTPS', true);
+            $request->server->set('HTTPS', 'on');
         }
 
         if ($request->hasValidSignature($relative !== 'relative')) {
