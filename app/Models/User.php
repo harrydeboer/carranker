@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
@@ -120,6 +122,20 @@ class User extends Authenticatable implements MustVerifyEmail
     public function findForPassport(string $useremail): User
     {
         return User::where('user_email', $useremail)->first();
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        if (env('APP_ENV') === 'production') {
+            $this->notify(new ResetPasswordNotification($token));
+        }
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        if (env('APP_ENV') === 'production') {
+            $this->notify(new VerifyEmail);
+        }
     }
 
     public function getEmailForPasswordReset()

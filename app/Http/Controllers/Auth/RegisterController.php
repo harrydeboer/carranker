@@ -39,7 +39,7 @@ class RegisterController extends Controller
 	protected function validator(array $data): Validator
     {
         return $this->validatorFactory->make($data, [
-            'user_login' => ['required', 'string', 'max:255'],
+            'user_login' => ['required', 'string', 'max:255', 'unique:' . env('WP_DB_PREFIX') . 'users'],
             'user_email' => ['required', 'string', 'email', 'max:255', 'unique:' . env('WP_DB_PREFIX') . 'users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
