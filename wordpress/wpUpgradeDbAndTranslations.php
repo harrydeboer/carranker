@@ -10,9 +10,9 @@ declare( strict_types=1 );
 define('WP_INSTALLING', true);
 
 /** Load WordPress Bootstrap */
-require __DIR__ . "/wordpress/wp/wp-load.php";
+require __DIR__ . "/wp/wp-load.php";
 
-require_once(__DIR__ . "/wordpress/wp/wp-admin/includes/upgrade.php");
+require_once(__DIR__ . "/wp/wp-admin/includes/upgrade.php");
 
 /** If the database has not yet been installed this command does nothing. */
 if ( get_option( 'siteurl' ) !== false ) {
@@ -20,7 +20,7 @@ if ( get_option( 'siteurl' ) !== false ) {
     wp_upgrade();
 
     if (get_locale() !== 'en_US') {
-        require_once __DIR__ . '/wordpress/wp/wp-admin/includes/class-wp-upgrader.php';
+        require_once __DIR__ . '/wp/wp-admin/includes/class-wp-upgrader.php';
 
         $url = 'update-core.php?action=do-translation-upgrade';
         $nonce = 'upgrade-translations';
