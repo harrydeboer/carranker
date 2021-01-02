@@ -7,7 +7,7 @@ namespace Tests\Feature\Controllers;
 use App\Repositories\MakeRepository;
 use Tests\TestCase;
 
-class MakepageTest extends TestCase
+class MakePageTest extends TestCase
 {
     private MakeRepository $makeRepository;
 

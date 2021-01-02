@@ -71,14 +71,14 @@
                     </div>
                 @endif
                 <BR>
-                @include('modelpage.modelVersions')
+                @include('modelPage.modelVersions')
             </div>
         @endif
     </div>
     <div id="dialog" class="modal fade">
         <div class="modal-dialog" id="rateForm">
             <div class="modal-content">
-                @include('modelpage.ratingform')
+                @include('modelPage.ratingform')
             </div>
         </div>
     </div>
@@ -86,7 +86,7 @@
         <div class="modal fade typeInfo" id="typeInfo{{ $trim->getId() }}">
             <div class="modal-dialog typeInfoContent">
                 <div class="modal-content">
-                    @include('modelpage.indexTrim',
+                    @include('modelPage.indexTrim',
                     ['rating' => $ratings[$trim->getId()] ?? null, 'trim' => $trim, 'id' => $trim->getId()])
                 </div>
             </div>
@@ -104,5 +104,5 @@
             </div>
         </div>
     </div>
-    @include('modelpage.reviews')
+    @include('modelPage.reviews')
 @endsection

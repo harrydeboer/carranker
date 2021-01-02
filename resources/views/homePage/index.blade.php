@@ -6,7 +6,7 @@
             {!! $content !!}
         </section>
         <div id="slideshow" class="col-lg-3 d-none d-lg-block">
-            @include('homepage.slideshow')
+            @include('homePage.slideshow')
         </div>
     </div>
     <div id="topContainer" class="col-md-12">
@@ -21,7 +21,7 @@
                     <em>with at least {{ $minNumVotes }} votes</em>
                 </h2>
                 <div id="fillableTable">
-                    @include('homepage.tableTop')
+                    @include('homePage.tableTop')
                 </div>
                 <div class="row justify-content-center col-md-12">
                     <div class="col-md-3 text-center">

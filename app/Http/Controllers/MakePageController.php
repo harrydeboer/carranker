@@ -8,7 +8,7 @@ use App\Repositories\Elastic\MakeRepository;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\View\Factory;
 
-class MakeController extends Controller
+class MakePageController extends Controller
 {
     public function __construct(private Factory $viewFactory,
                                 private MakeRepository $makeRepository){}
@@ -28,6 +28,6 @@ class MakeController extends Controller
         $this->viewFactory->share('makenameRoute', $makename);
         $this->viewFactory->share('modelnames', $this->makeRepository->getModelNames($makename));
 
-        return response()->view('make.index', $data, 200);
+        return response()->view('makePage.index', $data, 200);
     }
 }

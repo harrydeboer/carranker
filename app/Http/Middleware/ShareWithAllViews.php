@@ -22,9 +22,9 @@ class ShareWithAllViews
         $action = app('request')->route()->getAction();
         $controllerAndAction = class_basename($action['controller']);
         $controllerArray = explode('@', $controllerAndAction);
-        $controller = strtolower(str_replace('Controller', '', $controllerArray[0]));
+        $controller = str_replace('Controller', '', $controllerArray[0]);
 
-        $this->viewFactory->share('controller', $controller);
+        $this->viewFactory->share('controller', lcfirst($controller));
         $this->viewFactory->share('makenames', $this->makeRepository->getMakeNames());
         $this->viewFactory->share('metaKeyWords', 'car, cars, ranker, rate, rank, ranking, rating, top');
         $this->viewFactory->share('metaDescription', 'Check out the top of all cars and rate your favorite cars!');

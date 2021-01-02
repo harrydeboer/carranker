@@ -9,7 +9,7 @@ use App\Repositories\TrimRepository;
 use App\Repositories\UserRepository;
 use Tests\TestCase;
 
-class ModelpageTest extends TestCase
+class ModelPageTest extends TestCase
 {
     private TrimRepository $trimRepository;
     private UserRepository $userRepository;

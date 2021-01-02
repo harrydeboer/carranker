@@ -6,7 +6,7 @@ namespace Tests\Feature\Controllers;
 
 use Tests\TestCase;
 
-class CMSpagesTest extends TestCase
+class CMSPagesTest extends TestCase
 {
     public function testAbout()
     {

@@ -13,7 +13,7 @@ use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class HomepageController extends Controller
+class HomePageController extends Controller
 {
     protected const topLength = 10;
     private const minNumVotes = 30;
@@ -46,7 +46,7 @@ class HomepageController extends Controller
             'content' => $this->pageRepository->getByName('home')->getContent(),
         ];
 
-        return response()->view('homepage.index', $data, 200);
+        return response()->view('homePage.index', $data, 200);
     }
 
     public function filterTop(Request $request): Response
@@ -64,7 +64,7 @@ class HomepageController extends Controller
                 'minNumVotes' => (int) $form->minNumVotes,
             ];
 
-            return response()->view('homepage.filterTop', $data, 200);
+            return response()->view('homePage.filterTop', $data, 200);
         }
 
         $data = [
@@ -73,7 +73,7 @@ class HomepageController extends Controller
             'minNumVotes' => 0,
         ];
 
-        return response()->view('homepage.filterTop', $data, 200);
+        return response()->view('homePage.filterTop', $data, 200);
     }
 
     /** When a user wants to see more trims in the top the extra trims are retrieved. */
@@ -82,6 +82,6 @@ class HomepageController extends Controller
         $form = new FilterTopForm($request->all());
         $trims = $this->trimRepository->findTrimsOfTop($form, (int) $form->minNumVotes, (int) $numberOfRows, (int) $offset);
 
-        return response()->view('homepage.showMoreTopTable', ['trims' => $trims, 'offset' => (int) $offset], 200);
+        return response()->view('homePage.showMoreTopTable', ['trims' => $trims, 'offset' => (int) $offset], 200);
     }
 }

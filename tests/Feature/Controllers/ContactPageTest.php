@@ -6,7 +6,7 @@ namespace Tests\Feature\Controllers;
 
 use Tests\TestCase;
 
-class ContactpageTest extends TestCase
+class ContactPageTest extends TestCase
 {
     public function testContactpage()
     {

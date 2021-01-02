@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\Auth\Guard;
 
-class ModelpageController extends Controller
+class ModelPageController extends Controller
 {
     private const numReviewsPerModelpage = 1;
 
@@ -81,7 +81,7 @@ class ModelpageController extends Controller
         $viewFactory->share('modelnameRoute', $modelname);
         $viewFactory->share('modelnames', $this->makeRepository->getModelNames($makename));
 
-        return response()->view('modelpage.index', $data, 200);
+        return response()->view('modelPage.index', $data, 200);
     }
 
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
@@ -109,6 +109,6 @@ class ModelpageController extends Controller
             $data['success'] = 'true';
         }
 
-        return response()->view('modelpage.rateCar', $data, 200);
+        return response()->view('modelPage.rateCar', $data, 200);
     }
 }

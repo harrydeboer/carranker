@@ -13,7 +13,7 @@ use Illuminate\Mail\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class ContactController extends Controller
+class ContactPageController extends Controller
 {
     public function __construct(private Mailer $mailer,
                                 private ProfanityRepository $profanityRepository,
@@ -47,6 +47,6 @@ class ContactController extends Controller
             }
         }
 
-        return response()->view('contact.index', $data, 200);
+        return response()->view('contactPage.index', $data, 200);
     }
 }

@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Repositories\PageRepository;
 use Illuminate\Http\Response;
 
-class CmsController extends Controller
+class CmsPageController extends Controller
 {
     public function __construct(private PageRepository $pageRepository){}
 
@@ -15,7 +15,7 @@ class CmsController extends Controller
     {
         $page = $this->pageRepository->getByName($url);
 
-        $response = response()->view('cms.index', [
+        $response = response()->view('cmsPage.index', [
             'title' => $page->title,
             'page' => $page,
         ],200);
