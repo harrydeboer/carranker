@@ -95,4 +95,5 @@ apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
 <li>In production: add <yourdevuser>@carranker.com, info@carranker.com, noreply@carranker.com, postmaster@carranker.com and root@carranker.com 
 in Mail Users in the admin panel. <yourdevuser>@carranker.com and info@carranker.com to carranker@gmail.com.</li>
 <li>An update in production or acceptance can be retrieved with the command ’./update.sh’</li>
+<li>To revert the update execute ’./rollback.sh’.</li>
 </ol>
