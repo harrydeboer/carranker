@@ -1,4 +1,4 @@
-{!! Form::model($ratingform, ['route' => 'ratecar', 'id' => 'rating-form']) !!}
+{!! Form::model($ratingform, ['route' => 'rateCar', 'id' => 'rating-form']) !!}
 <div class="modal-body" id="bodyModalRateForm">
     <div class="stars pop-up" id="stars">
         <table class="aspect text-center">

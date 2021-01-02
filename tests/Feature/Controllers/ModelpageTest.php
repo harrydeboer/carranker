@@ -58,7 +58,7 @@ class ModelpageTest extends TestCase
             $postArrayFirst['star'][$aspect] = '10';
         }
 
-        $response = $this->actingAs($user)->post('/ratecar/', $postArrayFirst);
+        $response = $this->actingAs($user)->post('/rateCar/', $postArrayFirst);
         $response->assertSee('true', false);
         $response->assertStatus(200);
 
@@ -75,7 +75,7 @@ class ModelpageTest extends TestCase
             $postArraySecond['star'][$aspect] = '8';
         }
 
-        $response = $this->actingAs($user)->post('/ratecar/', $postArraySecond);
+        $response = $this->actingAs($user)->post('/rateCar/', $postArraySecond);
         $response->assertSee('true', false);
         $response->assertStatus(200);
 

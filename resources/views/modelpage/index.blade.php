@@ -71,7 +71,7 @@
                     </div>
                 @endif
                 <BR>
-                @include('modelpage.modelversions')
+                @include('modelpage.modelVersions')
             </div>
         @endif
     </div>

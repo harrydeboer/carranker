@@ -85,7 +85,7 @@ class ModelpageController extends Controller
     }
 
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
-    public function ratecar(Request $request, Guard $guard): Response
+    public function rateCar(Request $request, Guard $guard): Response
     {
         $form = new RatingForm($this->profanityRepository, $request->all());
         $data['success'] = 'false';
@@ -109,6 +109,6 @@ class ModelpageController extends Controller
             $data['success'] = 'true';
         }
 
-        return response()->view('modelpage.ratecar', $data, 200);
+        return response()->view('modelpage.rateCar', $data, 200);
     }
 }

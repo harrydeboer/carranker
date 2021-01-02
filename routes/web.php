@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::post('contact', ['as' => 'contact.view', 'uses' => 'ContactController@view']);
-Route::post('ratecar', ['as' => 'ratecar', 'uses' => 'ModelpageController@ratecar'])->middleware('verified');
+Route::post('rateCar', ['as' => 'rateCar', 'uses' => 'ModelpageController@rateCar'])->middleware('verified');
 Route::get('model/{make}/{model}', 'ModelpageController@view')->where('model', '.*');
 Route::get('contact', 'ContactController@view');
 Route::get('filterTop', ['as' => 'filterTop', 'uses' => 'HomepageController@filterTop']);
