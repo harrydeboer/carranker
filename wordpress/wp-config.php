@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /** Read the database credentials and other parameters from an .env file. The .env file is not in the opcache because
  *  it is not a php file. Modifying the .env file does not need opcache_reset().
  */
@@ -66,7 +68,7 @@ define( 'WPLANG', '' );
 // ===========
 // Hide errors
 // ===========
-ini_set( 'display_errors', Env::get('APP_DEBUG') === 'true' ? 1 : 0 );
+ini_set( 'display_errors', Env::get('APP_DEBUG') === 'true' ? '1' : '0' );
 define( 'WP_DEBUG_DISPLAY', Env::get('APP_DEBUG') === 'true' ? true : false );
 
 // =================================================================
