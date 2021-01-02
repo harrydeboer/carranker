@@ -3,7 +3,7 @@
     echo "This script must NOT be run as root" 1>&2
     exit 1
   fi
-  git reset --soft HEAD@{1}
+  git reset --hard HEAD@{1}
   composer install --no-dev --no-progress --prefer-dist
   php artisan cache:clear
   php artisan route:clear
