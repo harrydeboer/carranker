@@ -32,7 +32,7 @@ class ContactPageController extends Controller
 
         if ($form->validateFull($request, $form->reCaptchaToken)) {
             try {
-                $this->mailer->send('contact.message', ['userMessage' => $form->message], function (Message $message) use ($form)
+                $this->mailer->send('contactPage.message', ['userMessage' => $form->message], function (Message $message) use ($form)
                 {
                     $message->from(env('MAIL_POSTMASTER_USERNAME'), $form->name);
                     $message->replyTo($form->email, $form->name);
