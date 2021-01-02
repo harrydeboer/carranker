@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Unit\Services;
 
 use App\Models\Trim;
-use App\Repositories\TrimRepository;
 use App\Services\TrimService;
 use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;

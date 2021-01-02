@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Models;
 
-use App\Models\Make;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 

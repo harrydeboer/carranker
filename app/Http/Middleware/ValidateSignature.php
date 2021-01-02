@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use \Closure;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Carbon;
 
 class ValidateSignature
 {
