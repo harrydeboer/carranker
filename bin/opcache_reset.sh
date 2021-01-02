@@ -1,9 +1,7 @@
 #!/bin/bash
 cd ..
-bin_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
-parent_path="$(dirname "$bin_path")"
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 parentname="$(basename "$parent_path")"
-
 WEBDIR=${parent_path}/public/
 RANDOM_NAME=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 100)
 echo "<?php opcache_reset(); ?>" > ${WEBDIR}${RANDOM_NAME}.php
