@@ -16,7 +16,9 @@ cd ..
   php artisan flushredisdb
   php artisan indexcars
   php artisan processqueue
-  bin/opcache_reset.sh
+  full_path=$(realpath $0)
+  dir_path=$(dirname $full_path)
+  sh "$dir_path/bin/opcache_reset.sh"
   varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret 'ban req.http.host ~ (^accept.carranker.com$)'
   varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret 'ban req.http.host ~ (^carranker.com$)'
   echo "Varnish cache cleared!"

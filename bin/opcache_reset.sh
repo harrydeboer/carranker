@@ -1,6 +1,7 @@
 #!/bin/bash
 cd ..
-parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+bin_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+parent_path="$(dirname "$bin_path")"
 parentname="$(basename "$parent_path")"
 
 WEBDIR=${parent_path}/public/
