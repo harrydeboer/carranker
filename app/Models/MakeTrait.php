@@ -31,6 +31,12 @@ trait MakeTrait
         return $this->image;
     }
 
+    public function getUrl(): string
+    {
+        return route('makePage', [
+            'make' => rawurlencode($this->getName())]);
+    }
+
     public function setContent(string $content): void
     {
         $this->content = $content;

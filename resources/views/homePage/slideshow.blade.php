@@ -9,12 +9,14 @@
         @for ($index = 0; $index < $topLengthSlider; $index++)
             <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                 <a href="{{ $topTrims[$index]->getUrl() }}">
-                    <img src="{{ $index !== 0 && !isset($lazyLoad) ? fileUrl('/img/favicon-16x16.png') : fileUrl($topTrims[$index]->getImage()) }}"
+                    <img src="{{ $index !== 0 && !isset($lazyLoad) ? fileUrl('/img/favicon-16x16.png') :
+                              fileUrl($topTrims[$index]->getImage()) }}"
                          data-src="{{ fileUrl($topTrims[$index]->getImage()) }}"
                          class="{{ $index !== 0 && !isset($lazyLoad) ? 'lazy' : '' }} carCarouselImg d-block img-fluid"
                          alt="{{ $topTrims[$index]->getMakename() . ' ' . $topTrims[$index]->getModelname() }}"></a>
                 <div class="carousel-caption {{ $index == 0 ? 'active' : '' }}">
-                    {{ ($index + 1) . '. ' . $topTrims[$index]->getMakename() . ' ' . $topTrims[$index]->getModelname() . ' ' .
+                    {{ ($index + 1) . '. ' . $topTrims[$index]->getMakename() . ' ' .
+                    $topTrims[$index]->getModelname() . ' ' .
                     number_format($topTrims[$index]->getRatingFiltering(), 1) }} <span class="fa fa-star"></span>
                 </div>
             </div>

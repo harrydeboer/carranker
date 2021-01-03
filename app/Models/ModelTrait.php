@@ -43,6 +43,13 @@ trait ModelTrait
         return $image;
     }
 
+    public function getUrl(): string
+    {
+        return route('modelPage', [
+                'make' => rawurlencode($this->getMakename()),
+                'model' => rawurlencode($this->getName())]);
+    }
+
     public function setContent(string $content): void
     {
         $this->content = $content;

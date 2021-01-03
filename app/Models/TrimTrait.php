@@ -54,7 +54,9 @@ trait TrimTrait
 
     public function getUrl(): string
     {
-        return '/model/' . rawurlencode($this->make) . '/' . rawurlencode($this->model) . '?trimId=' . $this->getId();
+        return route('modelPage', [
+            'make' => rawurlencode($this->getMakename()),
+            'model' => rawurlencode($this->getModelname())]) . '?trimId=' . $this->getId();
     }
 
     public function getMakename(): string
