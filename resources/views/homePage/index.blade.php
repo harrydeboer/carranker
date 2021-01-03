@@ -127,7 +127,7 @@
                 <div class="reviewItem justify-content-center col-md-7">
                     <h3>{{ $review->getUser()->getUsername() }} on
                         <a href="{{ $review->getTrim()->getUrl() }}">
-                            {{ $review->getTrim()->getFullName() }}</a> with {{ $review->getRating()|number_format(1) }}
+                            {{ $review->getTrim()->getFullName() }}</a> with {{ number_format($review->getRating(), 1) }}
                         <span class="fa fa-star"></span> on {{ $review->getDate() }}
                     </h3>
                     <BR>
