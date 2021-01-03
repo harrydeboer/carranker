@@ -16,7 +16,7 @@ class FXRateTest extends TestCase
     {
         $fxrate = FXRate::factory()->create();
 
-        $this->assertDatabaseHas('fxrates', [
+        $this->assertDatabaseHas('fx_rates', [
             'name' => $fxrate->getName(),
             'value' => $fxrate->getValue(),
         ]);

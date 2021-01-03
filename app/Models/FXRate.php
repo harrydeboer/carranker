@@ -10,9 +10,8 @@ class FXRate extends BaseModel
 {
     use HasFactory;
 
-    protected $table = 'fxrates';
+    protected $table = 'fx_rates';
     public $timestamps = false;
-
     protected $fillable = ['name', 'value'];
 
     public function getName(): string

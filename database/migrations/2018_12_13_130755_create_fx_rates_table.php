@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFxratesTable extends Migration
+class CreateFXRatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateFxratesTable extends Migration
      */
     public function up()
     {
-        Schema::create('fxrates', function (Blueprint $table) {
+        Schema::create('fx_rates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->double('value');
@@ -29,6 +29,6 @@ class CreateFxratesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fxrates');
+        Schema::dropIfExists('fx_rates');
     }
 }
