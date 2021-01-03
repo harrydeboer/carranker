@@ -21,22 +21,23 @@ class ContactPageController extends Controller
 
     public function view(Request $request): Response
     {
-        $form = new ContactForm($this->profanityRepository, $request->all());
+        $contactForm = new ContactForm($this->profanityRepository, $request->all());
         $data = [
             'title' => 'Contact',
             'profanities' => $this->profanityRepository->getProfanityNames(),
-            'form' => $form,
+            'contactForm' => $contactForm,
             'page' => $this->pageRepository->getByName('contact'),
             'reCaptchaKey' => env('reCaptchaKey'),
         ];
 
-        if ($form->validateFull($request, $form->reCaptchaToken)) {
+        if ($contactForm->validateFull($request, $contactForm->reCaptchaToken)) {
             try {
-                $this->mailer->send('contactPage.message', ['userMessage' => $form->message], function (Message $message) use ($form)
+                $this->mailer->send('contactPage.message', ['userMessage' => $contactForm->message],
+                    function (Message $message) use ($contactForm)
                 {
-                    $message->from(env('MAIL_POSTMASTER_USERNAME'), $form->name);
-                    $message->replyTo($form->email, $form->name);
-                    $message->subject($form->subject);
+                    $message->from(env('MAIL_POSTMASTER_USERNAME'), $contactForm->name);
+                    $message->replyTo($contactForm->email, $contactForm->name);
+                    $message->subject($contactForm->subject);
                     $message->to(env('MAIL_USERNAME'));
                 });
 

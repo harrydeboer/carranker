@@ -10,7 +10,7 @@
             @if (isset($error))
                 <span id="error">{{ $error }}</span>
             @endif
-            {!! Form::model($form, ['route' => ['contact.view'], 'id' => 'contact-form']) !!}
+            {!! Form::model($contactForm, ['route' => ['contact.view'], 'id' => 'contact-form']) !!}
             <div class="form-group">{!! Form::email('email', old('email'), ['class'=>'form-control',
                 'placeholder'=>'Enter your email', 'id' => 'contactform-email', 'required']) !!}</div>
             <div class="form-group">{!! Form::text('name', old('name'), ['class'=>'form-control',

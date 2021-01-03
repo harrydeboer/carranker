@@ -43,7 +43,7 @@
     </div>
     <div id="preferencesDialog" class="col-md-8 collapse mx-auto">
         <input type="hidden" value="{{ $minNumVotesDefault }}" id="minNumVotesDefault">
-        {!! Form::model($filterform, ['route' => ['filterTop'], 'id' => 'filterTopForm', 'method' => 'get']) !!}
+        {!! Form::model($filterForm, ['route' => ['filterTop'], 'id' => 'filterTopForm', 'method' => 'get']) !!}
         {!! Form::label('minNumVotes', 'Minimum number of votes:', ['class' => 'collapseChoice control-label']) !!}
         {!! Form::number('minNumVotes', old('minNumVotes'), ['class'=>'collapseChoice form-control',
         'step' => 1, 'id' => 'minNumVotes', 'required']) !!}
@@ -80,7 +80,7 @@
                         </td>
                         <td class="col-xl-1 col-lg-2 aspectMin">0</td>
                         <td class="col-xl-6 col-lg-4 aspectRange">
-                            <input value="{{ $filterform->aspects[$aspect] }}"
+                            <input value="{{ $filterForm->aspects[$aspect] }}"
                                    name="aspects[{{ $aspect }}]"
                                    id="filterTopForm{{ $aspect }}"
                                    type="range"

@@ -47,7 +47,7 @@ class ModelPageController extends Controller
 
         $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
         $model->getMake();
-        $form = new RatingForm($this->profanityRepository);
+        $ratingForm = new RatingForm($this->profanityRepository);
         $trims = $model->getTrims();
         $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelpage);
 
@@ -61,7 +61,7 @@ class ModelPageController extends Controller
             'specsChoice' => CarSpecs::specsChoice(),
             'specsRange' => CarSpecs::specsRange(),
             'model' => $model,
-            'ratingform' => $form,
+            'ratingForm' => $ratingForm,
             'trims' => $trims,
             'isLoggedIn' => !is_null($user),
             'isVerified' => $user?->hasVerifiedEmail(),
@@ -87,24 +87,24 @@ class ModelPageController extends Controller
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
     public function rateCar(Request $request, Guard $guard): Response
     {
-        $form = new RatingForm($this->profanityRepository, $request->all());
+        $ratingForm = new RatingForm($this->profanityRepository, $request->all());
         $data['success'] = 'false';
 
-        if ($form->validateFull($request, $form->reCaptchaToken)) {
+        if ($ratingForm->validateFull($request, $ratingForm->reCaptchaToken)) {
 
             $user = $guard->user();
-            $trimArray = explode(';', $form->trimId);
+            $trimArray = explode(';', $ratingForm->trimId);
             $trimId = (int) end($trimArray);
             $trim = $this->trimRepositoryEloquent->get($trimId);
             $model = $trim->getModel();
 
             $rating = $this->userRepository->getRatingsTrim($user, $trimId);
-            $this->modelRepositoryEloquent->updateVotesAndRating($model, $form->star, $rating);
-            $this->trimRepositoryEloquent->updateVotesAndRating($trim, $form->star, $rating);
+            $this->modelRepositoryEloquent->updateVotesAndRating($model, $ratingForm->star, $rating);
+            $this->trimRepositoryEloquent->updateVotesAndRating($trim, $ratingForm->star, $rating);
             if (is_null($rating)) {
-                $this->ratingRepository->createRating($user, $model, $trim, $form);
+                $this->ratingRepository->createRating($user, $model, $trim, $ratingForm);
             } else {
-                $this->ratingRepository->updateRating($rating, $form);
+                $this->ratingRepository->updateRating($rating, $ratingForm);
             }
             $data['success'] = 'true';
         }

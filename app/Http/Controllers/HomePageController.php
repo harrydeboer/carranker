@@ -42,11 +42,11 @@ class HomePageController extends Controller
             'topTrims' => $topTrims,
             'minNumVotes' => $minNumVotes,
             'minNumVotesDefault' => self::minNumVotes,
-            'filterform' => $form,
+            'filterForm' => $form,
             'content' => $this->pageRepository->getByName('home')->getContent(),
         ];
 
-        return response()->view('homePage.index', $data, 200);
+        return response()->view('homePage.index', $data);
     }
 
     public function filterTop(Request $request): Response
@@ -64,7 +64,7 @@ class HomePageController extends Controller
                 'minNumVotes' => (int) $form->minNumVotes,
             ];
 
-            return response()->view('homePage.filterTop', $data, 200);
+            return response()->view('homePage.filterTop', $data);
         }
 
         $data = [
@@ -73,7 +73,7 @@ class HomePageController extends Controller
             'minNumVotes' => 0,
         ];
 
-        return response()->view('homePage.filterTop', $data, 200);
+        return response()->view('homePage.filterTop', $data);
     }
 
     /** When a user wants to see more trims in the top the extra trims are retrieved. */
@@ -86,6 +86,6 @@ class HomePageController extends Controller
             (int) $form->offset);
 
         return response()->view('homePage.showMoreTopTable',
-            ['trims' => $trims, 'offset' => (int) $form->offset], 200);
+            ['trims' => $trims, 'offset' => (int) $form->offset]);
     }
 }

@@ -19,14 +19,14 @@ class SearchController extends Controller
 
     public function view(Request $request): Response
     {
-        $form = new NavForm($request->all());
+        $navForm = new NavForm($request->all());
 
-        if ($form->validateFull($request)) {
+        if ($navForm->validateFull($request)) {
             $data = [
                 'title' => 'Search results',
-                'makes' => $this->makeRepository->findForSearch($form->query),
-                'models' => $this->modelRepository->findForSearch($form->query),
-                'trims' => $this->trimRepository->findForSearch($form->query),
+                'makes' => $this->makeRepository->findForSearch($navForm->query),
+                'models' => $this->modelRepository->findForSearch($navForm->query),
+                'trims' => $this->trimRepository->findForSearch($navForm->query),
             ];
 
             return response()->view('search.index', $data, 200);
