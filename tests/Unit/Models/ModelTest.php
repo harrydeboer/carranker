@@ -23,7 +23,7 @@ class ModelTest extends TestCase
         $assertArray = [
             'name' => $model->getName(),
             'make_id' => $model->getMake()->getId(),
-            'make' => $model->getMakename(),
+            'make_name' => $model->getMakeName(),
             'content' => $model->getContent(),
             'price' =>  $model->getPrice(1),
             'votes' => $model->getVotes(),

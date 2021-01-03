@@ -19,8 +19,8 @@ class CreateTrimsTable extends Migration
             $table->increments('id');
             $table->integer('model_id')->unsigned();
             $table->string('name')->nullable();
-            $table->string('make');
-            $table->string('model');
+            $table->string('make_name');
+            $table->string('model_name');
             $table->double('price')->nullable();
             $table->integer('votes');
             $table->double('comfort')->nullable();

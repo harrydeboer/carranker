@@ -13,7 +13,7 @@ trait MakeTrait
 
     public function getWikiCarMake(): string
     {
-        return $this->wiki_car_make ?? str_replace(' ', '_', $this->name);
+        return $this->wiki_car_make ?? str_replace(' ', '_', $this->getName());
     }
 
     /** The image name of a make has no special characters so these are removed in the image url. */

@@ -27,8 +27,8 @@ class CarRepositoryTest extends TestCase
         $this->model = Model::factory()->create();
         $this->trim = Trim::factory()->create([
             'model_id' => $this->model->getId(),
-            'model' => $this->model->getName(),
-            'make' => $this->model->getMakename(),
+            'model_name' => $this->model->getName(),
+            'make_name' => $this->model->getMakeName(),
             ]);
     }
 

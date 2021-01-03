@@ -4,13 +4,13 @@
     <div class="row">
         <section class="col-md-8">
             <div class="page-header">
-                <h3 id="titleCarModel">{{ $model->getMakename() . ' ' . $model->getName() }}</h3>
+                <h3 id="titleCarModel">{{ $model->getMakeName() . ' ' . $model->getName() }}</h3>
             </div>
             <div class="col-md-12">
                 @if ($model->getImage() !== '')
                     <img src="{{ fileUrl($model->getImage()) }}"
                          id="carModelImg"
-                         alt="{{ $model->getMakename() . ' ' . $model->getName() }}"
+                         alt="{{ $model->getMakeName() . ' ' . $model->getName() }}"
                          class="pull-right img-thumbnail">
                 @endif
                 @if (!is_null($model->getContent()))

@@ -33,8 +33,8 @@ class TrimFactory extends Factory
         $array = [
             'name' => str_replace(' ', '', $this->faker->name),
             'model_id' => $model->getId(),
-            'make' => $model->getMakename(),
-            'model' => $model->getName(),
+            'make_name' => $model->getMakeName(),
+            'model_name' => $model->getName(),
             'framework' => $this->faker->randomElement(\App\CarSpecs::specsChoice()['framework']['choices']),
             'fuel' => $this->faker->randomElement(\App\CarSpecs::specsChoice()['fuel']['choices']),
             'number_of_doors' => $this->faker->randomElement(\App\CarSpecs::specsChoice()['number_of_doors']['choices']),

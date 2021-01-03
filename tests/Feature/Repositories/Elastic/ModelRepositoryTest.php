@@ -22,7 +22,7 @@ class ModelRepositoryTest extends TestCase
 
     public function testGetByMakeModelName()
     {
-        $modelFromDb = $this->modelRepository->getByMakeModelName($this->model->getMakename(), $this->model->getName());
+        $modelFromDb = $this->modelRepository->getByMakeModelName($this->model->getMakeName(), $this->model->getName());
 
         $this->assertEquals($this->model->getId(), $modelFromDb->getId());
     }
@@ -31,7 +31,7 @@ class ModelRepositoryTest extends TestCase
     {
         $modelNames = $this->modelRepository->getModelNames();
 
-        $this->assertTrue(in_array( $this->model->getMakename() . ';' . $this->model->getName(), $modelNames));
+        $this->assertTrue(in_array( $this->model->getMakeName() . ';' . $this->model->getName(), $modelNames));
     }
 
     public function testFindModelsForSearch()

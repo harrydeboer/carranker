@@ -19,7 +19,7 @@ class CreateModelsTable extends Migration
             $table->increments('id');
             $table->integer('make_id')->unsigned();
             $table->string('name');
-            $table->string('make');
+            $table->string('make_name');
             $table->text('content')->nullable();
             $table->double('comfort')->nullable();
             $table->double('design')->nullable();

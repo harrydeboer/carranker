@@ -14,7 +14,7 @@ class Trim extends BaseModel
 
     protected float $rating;
     protected static string $index = 'trims';
-    public array $keywords = ['name', 'make', 'model', 'framework', 'fuel', 'gearbox_type'];
+    public array $keywords = ['name', 'make_name', 'model_name', 'framework', 'fuel', 'gearbox_type'];
     public array $integers = ['model_id', 'votes', 'number_of_doors', 'number_of_seats', 'number_of_gears', 'year_begin',
         'year_end', 'fueltank_capacity', 'engine_power', 'max_trunk_capacity', 'max_speed', 'full_weight'];
     public array $doubles = ['price', 'engine_capacity', 'acceleration', 'fuel_consumption'];

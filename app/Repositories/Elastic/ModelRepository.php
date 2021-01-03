@@ -33,7 +33,7 @@ class ModelRepository extends BaseRepository
         $models = Model::searchMany($params);
         $modelnames = [];
         foreach($models as $model) {
-            $modelnames[] = $model->getMakename() . ';' . $model->getName();
+            $modelnames[] = $model->getMakeName() . ';' . $model->getName();
         }
 
         return $modelnames;
@@ -48,7 +48,7 @@ class ModelRepository extends BaseRepository
                 'query' => [
                     'bool' => [
                         'must' => [
-                            ['match' => [ 'make' => $makename ]],
+                            ['match' => [ 'make_name' => $makename ]],
                             ['match' => [ 'name' => $modelname ]],
                         ]
                     ],

@@ -14,7 +14,7 @@ class Model extends BaseModel
     use Aspect;
 
     protected static string $index = 'models';
-    public array $keywords = ['name', 'make', 'wiki_car_model'];
+    public array $keywords = ['name', 'make_name', 'wiki_car_model'];
     public array $texts = ['content'];
     public array $integers = ['make_id', 'votes'];
     public array $doubles = ['price'];

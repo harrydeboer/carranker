@@ -30,7 +30,7 @@ class ModelFactory extends Factory
         $array = [
             'name' => str_replace(' ', '', $this->faker->unique()->name),
             'make_id' => $make->getId(),
-            'make' => $make->getName(),
+            'make_name' => $make->getName(),
             'content' => $this->faker->text(),
             'wiki_car_model' => $this->faker->unique()->name,
             'price' => $this->faker->randomNumber(4),

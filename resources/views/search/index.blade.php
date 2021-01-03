@@ -8,7 +8,7 @@
             @foreach ($trims as $trim)
                 <div>
                     <a href="{{ $trim->getUrl() }}" class="searchLink">
-                        {{ $trim->getMakename() . ' ' . $trim->getModelname() . ' ' . $trim->getYearBegin() .
+                        {{ $trim->getMakeName() . ' ' . $trim->getModelName() . ' ' . $trim->getYearBegin() .
                         '-' . $trim->getYearEnd() . ' ' . $trim->getFramework() . ' ' . $trim->getName() }}
                     </a>
                 </div>

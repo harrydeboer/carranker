@@ -20,8 +20,8 @@ class TrimTest extends TestCase
         $assertArray = [
             'name' => $trim->getName(),
             'model_id' => $trim->getModel()->getId(),
-            'make' => $trim->getMakename(),
-            'model' => $trim->getModelname(),
+            'make_name' => $trim->getMakeName(),
+            'model_name' => $trim->getModelName(),
             'price' => $trim->getPrice(1),
             'votes' => $trim->getVotes(),
             'framework' => $trim->getFramework(),

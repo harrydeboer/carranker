@@ -13,8 +13,8 @@ trait TrimTrait
 
     public function getFullName(): string
     {
-        $name = $this->make . ' ' . $this->model . ' ' . $this->year_begin
-            . '-' . $this->year_end . ' ' . $this->framework;
+        $name = $this->getMakeName() . ' ' . $this->getModelName() . ' ' . $this->getYearBegin()
+            . '-' . $this->getYearEnd() . ' ' . $this->getFramework();
 
         return is_null($this->getName()) ? $name : $name . ' ' . $this->getName();
     }
@@ -35,9 +35,9 @@ trait TrimTrait
     {
         $image = '/img/models/';
         $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
-                "$1", htmlentities($this->make))) . '_';
+                "$1", htmlentities($this->getMakeName()))) . '_';
         $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
-                "$1", htmlentities($this->model))) . '.jpg';
+                "$1", htmlentities($this->getModelName()))) . '.jpg';
 
         $root = dirname(__DIR__, 2);
         if (!file_exists($root . '/public/' . $image)) {
@@ -55,18 +55,18 @@ trait TrimTrait
     public function getUrl(): string
     {
         return route('modelPage', [
-            'make' => rawurlencode($this->getMakename()),
-            'model' => rawurlencode($this->getModelname())]) . '?trimId=' . $this->getId();
+            'make' => rawurlencode($this->getMakeName()),
+            'model' => rawurlencode($this->getModelName())]) . '?trimId=' . $this->getId();
     }
 
-    public function getMakename(): string
+    public function getMakeName(): string
     {
-        return $this->make;
+        return $this->make_name;
     }
 
-    public function getModelname(): string
+    public function getModelName(): string
     {
-        return $this->model;
+        return $this->model_name;
     }
 
     public function getYearBegin(): int

@@ -10,9 +10,9 @@ trait ModelTrait
     {
         return $this->name;
     }
-    public function getMakename(): string
+    public function getMakeName(): string
     {
-        return $this->make;
+        return $this->make_name;
     }
 
     public function getPrice(float $FXRate): ?float
@@ -31,7 +31,7 @@ trait ModelTrait
     {
         $image = '/img/models/';
         $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
-                "$1", htmlentities(str_replace('/', '', $this->make)))) . '_';
+                "$1", htmlentities(str_replace('/', '', $this->getMakeName())))) . '_';
         $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
                 "$1", htmlentities(str_replace('/', '', $this->getName())))) . '.jpg';
 
@@ -46,7 +46,7 @@ trait ModelTrait
     public function getUrl(): string
     {
         return route('modelPage', [
-                'make' => rawurlencode($this->getMakename()),
+                'make' => rawurlencode($this->getMakeName()),
                 'model' => rawurlencode($this->getName())]);
     }
 
@@ -71,10 +71,10 @@ trait ModelTrait
     public function getWikiCarModel(): string
     {
         if (empty($this->wiki_car_model)) {
-            return str_replace(' ', '_', $this->getMakename() . '_' . $this->getName());
+            return str_replace(' ', '_', $this->getMakeName() . '_' . $this->getName());
         }
 
-        return str_replace(' ', '_', $this->getMakename()) . '_' . $this->wiki_car_model;
+        return str_replace(' ', '_', $this->getMakeName()) . '_' . $this->wiki_car_model;
     }
 
     public function setVotes(int $votes): void

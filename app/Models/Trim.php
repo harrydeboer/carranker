@@ -25,7 +25,7 @@ class Trim extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['model_id', 'name', 'make', 'model', 'price', 'votes', 'year_begin', 'year_end'];
+    protected $fillable = ['model_id', 'name', 'make_name', 'model_name', 'price', 'votes', 'year_begin', 'year_end'];
 
     /**
      * The aspects and specs choice and specs range are merged with the fillable property.
@@ -52,11 +52,11 @@ class Trim extends BaseModel
             }
 
             $model = Model::find($attributes['model_id']);
-            if ($model->getName() !== $attributes['model']) {
-                throw new \Exception("The model_id does not match the modelname.");
+            if ($model->getName() !== $attributes['model_name']) {
+                throw new \Exception("The model_id does not match the model name.");
             }
-            if ($model->getMakename() !== $attributes['make']) {
-                throw new \Exception("The model_id does not match the makename.");
+            if ($model->getMakeName() !== $attributes['make_name']) {
+                throw new \Exception("The model_id does not match the make name.");
             }
         }
     }

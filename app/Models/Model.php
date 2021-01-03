@@ -21,7 +21,7 @@ class Model extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['make_id', 'name', 'make', 'content',
+    protected $fillable = ['make_id', 'name', 'make_name', 'content',
         'price', 'votes', 'wiki_car_model'];
 
     /**
@@ -34,8 +34,8 @@ class Model extends BaseModel
 
         if ($attributes !== []) {
             $make = Make::find($attributes['make_id']);
-            if ($make->getName() !== $attributes['make']) {
-                throw new \Exception("The make_id does not match the makename.");
+            if ($make->getName() !== $attributes['make_name']) {
+                throw new \Exception("The make_id does not match the make name.");
             }
         }
     }
