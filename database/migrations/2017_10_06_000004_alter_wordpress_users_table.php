@@ -33,8 +33,12 @@ class AlterWordpressUsersTable extends Migration
     public function down()
     {
         Schema::table(env('WP_DB_PREFIX') . 'users', function (Blueprint $table) {
-            $table->dropColumn('remember_token');
-            $table->dateTime('user_registered')->default(0)->change();
+            $tableName = env('WP_DB_PREFIX') . 'users';
+            $table->dropColumn(['remember_token', 'email_verified_at']);
+            $table->dropUnique($tableName . '_user_login_unique');
+            $table->dropUnique($tableName . '_user_email_unique');
+            $table->dateTime('user_registered')->nullable(false)
+                ->default('0000-00-00 00:00:00')->change();
             $table->bigIncrements('ID')->change();
         });
     }
