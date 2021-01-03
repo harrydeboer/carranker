@@ -1,21 +1,5 @@
-if (typeof($.fn.modal) === 'undefined') {
-    document.write('<script src="/js/popper.min.js"></script>');
-    document.write('<script src="/js/bootstrap.min.js"></script>');
-}
-
 $(document).ready(function ()
 {
-    if ($('#hideAll').is(':visible') === true) {
-        $('head').prepend('<link href="/bootstrap-4.2.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />');
-    }
-
-    var $span = $('<span class="fa hidden"></span>').appendTo('body');
-    if ($span.css('fontFamily') !== 'FontAwesome' ) {
-        // Fallback Link
-        $('head').prepend('<link href="/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">');
-    }
-    $span.remove();
-
     var menuMake = $('#nav_select_make');
     var menuModel = $('#nav_select_model');
 
