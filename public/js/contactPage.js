@@ -47,7 +47,7 @@ $(document).ready(function ()
 
             $('#reCaptchaScript').on('load', function () {
                 grecaptcha.ready(function () {
-                    grecaptcha.execute($('#reCaptchaKey').val(), {action: 'rate'}).then(function (reCaptchaToken)
+                    grecaptcha.execute($('#reCaptchaKey').val()).then(function (reCaptchaToken)
                     {
                         $('#reCaptchaToken').val(reCaptchaToken);
 

@@ -99,7 +99,7 @@ $(document).ready(function ()
     showPartTopTable(sessionStorage.numberOfRows);
 
     /** When more or less trims are shown in the top table the scrolling makes that the button remains in the same place of the window. */
-    $('#showMore').on('click', function ()
+    $('#showMore').on('click', function (event)
     {
         var height = $(document).height();
         var y = $(window).scrollTop();
@@ -115,7 +115,9 @@ $(document).ready(function ()
                 sessionStorage.numberOfRows = $('.topRow:visible').length + numShowMoreLess - $('.topRow:visible').length % 10;
             }
 
-            $.get('showMoreTopTable/' + sessionStorage.numberOfRows + '/' + $('.topRow').length, $('#filterTopForm').serialize(), function (data)
+            var dataRequest = 'numberOfRows=' + sessionStorage.numberOfRows + '&offset=' + $('.topRow').length +
+                $('#filterTopForm').serialize();
+            $.get($(this).attr('href'), dataRequest, function (data)
             {
                 $('#tableTop').append(data);
 
@@ -133,9 +135,11 @@ $(document).ready(function ()
             var heightNew = $(document).height();
             $(window).scrollTop(y + heightNew - height);
         }
+
+        event.preventDefault();
     });
 
-    $('#showLess').on('click', function ()
+    $('#showLess').on('click', function (event)
     {
         if (sessionStorage.numberOfRows > numShowMoreLess) {
             var height = $(document).height();
@@ -153,6 +157,8 @@ $(document).ready(function ()
             var heightNew = $(document).height();
             $(window).scrollTop(y + heightNew - height);
         }
+
+        event.preventDefault();
     });
 
     $("#filterTopForm").on('submit', function (event)
@@ -171,7 +177,7 @@ $(document).ready(function ()
          * ajax callback data. The data has a splitpoint to split at the right point for the three pieces of html.
          * The number of rows that has to be shown is set with showPartTopTable, the loader is hidden and
          * the slider is activated. Then the window scrolls to the top of the table. */
-        $.get('filterTop', $(this).serialize() + "&numberOfRows=" + rows, function (data)
+        $.get($(this).attr('action'), $(this).serialize() + "&numberOfRows=" + rows, function (data)
         {
             var array = data.split(/splitPoint/);
             $('#fillableTable').html(array[0]);

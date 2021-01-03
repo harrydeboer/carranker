@@ -25,10 +25,10 @@
                 </div>
                 <div class="row justify-content-center col-md-12">
                     <div class="col-md-3 text-center">
-                        <button id="showLess" class="btn-lg btn-primary">Show less</button>
+                        <a href="{{ route('showMoreTopTable') }}" id="showLess" class="btn-lg btn-primary">Show less</a>
                     </div>
                     <div class="col-md-3 text-center">
-                        <button id="showMore" class="btn-lg btn-primary">Show more</button>
+                        <a href="{{ route('showMoreTopTable') }}" id="showMore" class="btn-lg btn-primary">Show more</a>
                     </div>
                 </div>
                 <input type="hidden" value="{{ $numShowMoreLess }}" id="numShowMoreLess">

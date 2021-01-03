@@ -24,7 +24,7 @@ class HomePageTest extends TestCase
 
     public function testShowMoreTopTable()
     {
-        $response = $this->get('/showMoreTopTable/20/10');
+        $response = $this->get('/showMoreTopTable');
 
         $response->assertStatus(200);
     }

@@ -77,11 +77,15 @@ class HomePageController extends Controller
     }
 
     /** When a user wants to see more trims in the top the extra trims are retrieved. */
-    public function showMoreTopTable(Request $request, string $numberOfRows, string $offset): Response
+    public function showMoreTopTable(Request $request): Response
     {
         $form = new FilterTopForm($request->all());
-        $trims = $this->trimRepository->findTrimsOfTop($form, (int) $form->minNumVotes, (int) $numberOfRows, (int) $offset);
+        $trims = $this->trimRepository->findTrimsOfTop($form,
+            (int) $form->minNumVotes,
+            (int) $form->numberOfRows,
+            (int) $form->offset);
 
-        return response()->view('homePage.showMoreTopTable', ['trims' => $trims, 'offset' => (int) $offset], 200);
+        return response()->view('homePage.showMoreTopTable',
+            ['trims' => $trims, 'offset' => (int) $form->offset], 200);
     }
 }

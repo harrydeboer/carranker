@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('filterTop', ['as' => 'filterTop', 'uses' => 'HomePageController@filterTop']);
-Route::get('showMoreTopTable/{numberOfRows}/{offset}', ['as' => 'showMoreTopTable',
+Route::get('showMoreTopTable', ['as' => 'showMoreTopTable',
     'uses' => 'HomePageController@showMoreTopTable']);
 Route::get('model/{make}/{model}', 'ModelPageController@view')->where('model', '.*');
 Route::post('rateCar', ['as' => 'rateCar', 'uses' => 'ModelPageController@rateCar'])
@@ -14,7 +14,7 @@ Route::post('rateCar', ['as' => 'rateCar', 'uses' => 'ModelPageController@rateCa
 Route::get('contact', 'ContactPageController@view');
 Route::post('contact', ['as' => 'contact.view', 'uses' => 'ContactPageController@view']);
 
-Route::get('/email/verify/with/mail', ['as' => 'verification.notice.with.mail',
+Route::get('email/verify/with/mail', ['as' => 'verification.notice.with.mail',
     'uses' => 'Auth\VerificationController@showAndMail'])->middleware('auth');
 Auth::routes(['verify' => true]);
 

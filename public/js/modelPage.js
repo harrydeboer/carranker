@@ -95,13 +95,14 @@ $(document).ready(function ()
             $('#reCaptchaScript').on('load', function ()
             {
                 grecaptcha.ready(function () {
-                    grecaptcha.execute($('#reCaptchaKey').val(), {action: 'rateCar'}).then(function (reCaptchaToken)
+                    grecaptcha.execute($('#reCaptchaKey').val()).then(
+                        function (reCaptchaToken)
                     {
                         $('#reCaptchaToken').val(reCaptchaToken);
 
                         /** The form is submitted which triggers the current function again but now the recaptcha element
                          * is loaded and the events default is not prevented so that the form will actually submit. */
-                        $.post('/rateCar', $('#rating-form').serialize(), function(data)
+                        $.post($('#rating-form').attr('action'), $('#rating-form').serialize(), function(data)
                         {
                             if (data === 'true') {
                                 sessionStorage.isThankYou = "true";
