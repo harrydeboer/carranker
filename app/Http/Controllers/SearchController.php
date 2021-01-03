@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Forms\NavForm;
+use App\Forms\SearchForm;
 use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\ModelRepository;
 use App\Repositories\Elastic\TrimRepository;
@@ -19,14 +19,14 @@ class SearchController extends Controller
 
     public function view(Request $request): Response
     {
-        $navForm = new NavForm($request->all());
+        $searchForm = new SearchForm($request->all());
 
-        if ($navForm->validateFull($request)) {
+        if ($searchForm->validateFull($request)) {
             $data = [
                 'title' => 'Search results',
-                'makes' => $this->makeRepository->findForSearch($navForm->query),
-                'models' => $this->modelRepository->findForSearch($navForm->query),
-                'trims' => $this->trimRepository->findForSearch($navForm->query),
+                'makes' => $this->makeRepository->findForSearch($searchForm->query),
+                'models' => $this->modelRepository->findForSearch($searchForm->query),
+                'trims' => $this->trimRepository->findForSearch($searchForm->query),
             ];
 
             return response()->view('search.index', $data, 200);

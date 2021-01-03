@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Forms;
 
-class NavForm extends BaseForm
+class SearchForm extends BaseForm
 {
     protected $fillable = ['query'];
 

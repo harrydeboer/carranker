@@ -33,6 +33,6 @@ class SearchTest extends TestCase
 
         $response = $this->get('/search?query=' . $trim->getName());
         $response->assertStatus(200);
-        $response->assertSee('<h3>Model Versions</h3>', false);
+        $response->assertSee('<h3>Trims</h3>', false);
     }
 }

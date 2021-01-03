@@ -10,7 +10,7 @@
         <img src="{{ fileUrl('/img/CarRanker.png') }}" alt="Car Ranker" id="carrankerLogo" class="img-thumbnail">
     </div>
     <div class="navbar-collapse collapse" id="navbarCollapse">
-        {!! Form::model($navform, [
+        {!! Form::model($searchForm, [
         'route' => ['search.view'],
         'method' => 'get',
         'class' => 'nav navbar-nav ml-auto navbar-right',

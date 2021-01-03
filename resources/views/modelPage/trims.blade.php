@@ -1,5 +1,5 @@
 <div class="text-center">
-    <div id="titleTypes">Model Versions</div>
+    <div id="titleTypes">Trims</div>
     Generation:
     <select id="generationSelect">
         @foreach ($generationsSeriesTrims as $keyGen => $generation)

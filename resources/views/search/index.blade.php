@@ -4,7 +4,7 @@
     <div class="text-center">
         <h2>Search results</h2>
         @if (count($trims) > 0)
-            <h3>Model Versions</h3>
+            <h3>Trims</h3>
             @foreach ($trims as $trim)
                 <div>
                     <a href="{{ $trim->getUrl() }}" class="searchLink">

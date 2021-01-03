@@ -71,7 +71,7 @@
                     </div>
                 @endif
                 <BR>
-                @include('modelPage.modelVersions')
+                @include('modelPage.trims')
             </div>
         @endif
     </div>

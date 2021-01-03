@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Forms;
 
-use App\Forms\NavForm;
+use App\Forms\SearchForm;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class NavFormTest extends TestCase
+class SearchFormTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testNavForm()
+    public function testSearchForm()
     {
-        $form = new NavForm();
+        $searchForm = new SearchForm();
 
         $request = request();
         $request->setMethod('GET');
         $request->query->set('query', 'Ford');
 
-        $this->assertTrue($form->validateFull($request));
+        $this->assertTrue($searchForm->validateFull($request));
     }
 }
