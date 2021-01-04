@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Tests\Feature\Repositories;
 
 use App\Models\Aspect;
+use App\Models\Model;
+use App\Models\Rating;
+use App\Models\Trim;
 use App\Repositories\ModelRepository;
 use App\Repositories\TrimRepository;
 use Tests\TestCase;
-use App\Models\Model;
-use App\Models\Trim;
-use App\Models\Rating;
 
 class CarRepositoryTest extends TestCase
 {
@@ -26,10 +26,10 @@ class CarRepositoryTest extends TestCase
         $this->trimRepository = $this->app->make(TrimRepository::class);
         $this->model = Model::factory()->create();
         $this->trim = Trim::factory()->create([
-            'model_id' => $this->model->getId(),
-            'model_name' => $this->model->getName(),
-            'make_name' => $this->model->getMakeName(),
-            ]);
+                                                  'model_id' => $this->model->getId(),
+                                                  'model_name' => $this->model->getName(),
+                                                  'make_name' => $this->model->getMakeName(),
+                                              ]);
     }
 
     public function testUpdateVotesAndRating()

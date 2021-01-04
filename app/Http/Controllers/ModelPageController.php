@@ -102,7 +102,7 @@ class ModelPageController extends Controller
             $this->modelRepositoryEloquent->updateVotesAndRating($model, $ratingForm->star, $rating);
             $this->trimRepositoryEloquent->updateVotesAndRating($trim, $ratingForm->star, $rating);
             if (is_null($rating)) {
-                $this->ratingRepository->createRating($user, $model, $trim, $ratingForm);
+                $this->ratingRepository->createRating($user, $model, $trim, $ratingForm, 1);
             } else {
                 $this->ratingRepository->updateRating($rating, $ratingForm);
             }

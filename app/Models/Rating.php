@@ -18,7 +18,7 @@ class Rating extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'model_id', 'trim_id', 'time', 'content'];
+    protected $fillable = ['user_id', 'model_id', 'trim_id', 'time', 'content', 'pending'];
 
     /** The aspects are merged with the fillable property. */
     public function __construct(array $attributes = [])
@@ -60,5 +60,10 @@ class Rating extends BaseModel
     public function setContent(string $content=null): void
     {
         $this->content = $content;
+    }
+
+    public function getPending(): int
+    {
+        return $this->pending;
     }
 }

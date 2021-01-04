@@ -29,7 +29,7 @@ class RatingRepositoryTest extends TestCase
 
     public function testFindRecentReviews()
     {
-        $rating = Rating::factory()->create(['content' => 'notnull']);
+        $rating = Rating::factory()->create(['content' => 'notnull', 'pending' => 0]);
 
         $reviews = $this->ratingRepository->findRecentReviews(1);
 
@@ -52,7 +52,7 @@ class RatingRepositoryTest extends TestCase
         }
         $form = new \App\Forms\RatingForm($this->profanityRepository, $createArray);
 
-        $rating = $this->ratingRepository->createRating($user, $trim->getModel(), $trim, $form);
+        $rating = $this->ratingRepository->createRating($user, $trim->getModel(), $trim, $form, 0);
 
         $this->assertEquals($rating->getContent(), $content);
         $this->assertEquals($rating->getModel()->getId(), $trim->getModel()->getId());
@@ -86,15 +86,16 @@ class RatingRepositoryTest extends TestCase
     public function testGetReviews()
     {
         $trim = $this->trimRepository->get(1);
-        $reviewFactory = Rating::factory()->create([
+        $reviewFromFactory = Rating::factory()->create([
             'content' => 'notnull',
             'trim_id' => $trim->getId(),
             'model_id' => $trim->getModel()->getId(),
+            'pending' => 0
             ]);
         $reviews = $this->ratingRepository->getReviews($trim->getModel(), 1);
 
         foreach ($reviews as $review) {
-            $this->assertEquals($reviewFactory->getId(), $review->getId());
+            $this->assertEquals($reviewFromFactory->getId(), $review->getId());
         }
     }
 
@@ -104,6 +105,6 @@ class RatingRepositoryTest extends TestCase
         $model = $trim->getModel();
         $number = $this->ratingRepository->getNumOfReviews($model);
 
-        $this->assertEquals($number, 2);
+        $this->assertEquals($number, 1);
     }
 }

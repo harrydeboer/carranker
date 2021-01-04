@@ -40,16 +40,18 @@ class RatingRepository implements IRepository
 
     public function findRecentReviews($limit): Collection
     {
-        return Rating::whereNotNull('content')->take($limit)->orderBy('time', 'desc')->get();
+        return Rating::whereNotNull('content')->where('pending', 0)->take($limit)->orderBy('time', 'desc')->get();
     }
 
-    public function createRating(Authenticatable $user, ModelEloquent $model, Trim $trim, RatingForm $form): Rating
+    public function createRating(Authenticatable $user, ModelEloquent $model,
+        Trim $trim, RatingForm $form, int $pending): Rating
     {
         $createArray = [
             'user_id' => $user->getId(),
             'model_id' => $model->getId(),
             'trim_id' => $trim->getId(),
             'time' => time(),
+            'pending' => $pending,
         ];
         if (is_null($form->content)) {
             $createArray['content'] = null;
@@ -83,12 +85,13 @@ class RatingRepository implements IRepository
     {
         return Rating::whereNotNull('content')
             ->where('model_id', $model->getId())
+            ->where('pending', 0)
             ->orderBy('time', 'desc')
             ->paginate($numReviewsPerModelpage);
     }
 
     public function getNumOfReviews(Model $model): int
     {
-        return count(Rating::whereNotNull('content')->where('model_id', $model->getId())->get());
+        return count(Rating::whereNotNull('content')->where('pending', 0)->where('model_id', $model->getId())->get());
     }
 }

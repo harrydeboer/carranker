@@ -31,13 +31,17 @@ class RatingTest extends TestCase
             'trim_id' => $rating->getTrim()->getId(),
             'time' => $rating->getTime(),
             'content' => $rating->getContent(),
+            'pending' => $rating->getPending(),
             ];
+
         foreach (Aspect::getAspects() as $aspect) {
             $assertArray[$aspect] = $rating->getAspect($aspect);
         }
+
         $this->assertDatabaseHas('ratings', $assertArray);
 
         $ratingDB = Rating::find($rating->getId());
+
         $this->assertTrue($ratingDB->testAttributesMatchFillable());
     }
 }

@@ -35,6 +35,7 @@ class RatingFactory extends Factory
             'trim_id' => $trim->getId(),
             'time' => time(),
             'content' => $this->faker->text(),
+            'pending' => 1,
         ];
 
         foreach (Aspect::getAspects() as $aspect) {

@@ -27,6 +27,7 @@ class CreateRatingsTable extends Migration
             $table->double('costs')->nullable();
             $table->integer('time');
             $table->text('content')->nullable();
+            $table->tinyInteger('pending')->default(1);
 
             $table->foreign('user_id')->references('ID')->on(env('WP_DB_PREFIX') . 'users');
             $table->foreign('model_id')->references('id')->on('models');
