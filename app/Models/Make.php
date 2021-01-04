@@ -26,4 +26,13 @@ class Make extends BaseModel
     {
         return $this->hasMany('\App\Models\Model', 'make_id', 'id')->get();
     }
+
+    public function save(array $options = [])
+    {
+        $job = new ElasticJob(['make_id' => $this->getId(), 'action' => 'update']);
+
+        $job->save();
+
+        return parent::save($options);
+    }
 }

@@ -49,4 +49,13 @@ class Model extends BaseModel
     {
         return $this->hasMany('\App\Models\Trim','model_id', 'id')->get();
     }
+
+    public function save(array $options = [])
+    {
+        $job = new ElasticJob(['model_id' => $this->getId(), 'action' => 'update']);
+
+        $job->save();
+
+        return parent::save($options);
+    }
 }

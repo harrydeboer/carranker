@@ -17,11 +17,13 @@ abstract class CarRepository implements IRepository
     public function updateVotesAndRating(Model|Trim $car, array $rating, ?Rating $earlierRating): void
     {
         $votes = $car->getVotes();
+
         if (is_null($earlierRating)) {
             $car->setVotes($votes + 1);
         }
 
         $votes = $car->getVotes();
+
         foreach (Aspect::getAspects() as $aspect) {
             $ratingModel = $car->getAspect($aspect);
             if (is_null($earlierRating)) {
@@ -31,15 +33,7 @@ abstract class CarRepository implements IRepository
             }
             $car->setAspect($aspect, $ratingModel);
         }
-        $car->save();
 
-        $createArray = ['action' => 'update'];
-        if (get_class($car) === Model::class) {
-            $createArray['model_id'] = $car->getId();
-        } elseif (get_class($car) === Trim::class) {
-            $createArray['trim_id'] = $car->getId();
-        }
-        $job = $this->elasticJobRepository->create($createArray);
-        $job->save();
+        $car->save();
     }
 }

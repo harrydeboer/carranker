@@ -70,4 +70,13 @@ class Trim extends BaseModel
     {
         return $this->hasOne('\App\Models\Model', 'id', 'model_id')->first();
     }
+
+    public function save(array $options = [])
+    {
+        $job = new ElasticJob(['trim_id' => $this->getId(), 'action' => 'update']);
+
+        $job->save();
+
+        return parent::save($options);
+    }
 }
