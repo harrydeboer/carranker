@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class BaseModel extends Model
 {
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

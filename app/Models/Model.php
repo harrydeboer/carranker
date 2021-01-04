@@ -52,10 +52,27 @@ class Model extends BaseModel
 
     public function save(array $options = [])
     {
-        $job = new ElasticJob(['model_id' => $this->getId(), 'action' => 'update']);
+        if (is_null($this->getId())) {
+            $action = 'create';
+        } else {
+            $action = 'update';
+        }
+
+        $hasSaved = parent::save($options);
+
+        $job = new ElasticJob(['model_id' => $this->getId(), 'action' => $action]);
 
         $job->save();
 
-        return parent::save($options);
+        return $hasSaved;
+    }
+
+    public static function destroy($ids)
+    {
+        $job = new ElasticJob(['model_id' => $ids, 'action' => 'delete']);
+
+        $job->save();
+
+        return parent::destroy($ids);
     }
 }
