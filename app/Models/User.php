@@ -8,6 +8,7 @@ use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Carbon;
@@ -69,6 +70,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getRememberToken(): ?string
     {
         return $this->remember_token;
+    }
+
+    /** The users have multiple roles and the roles have multiple users so these are many to many. */
+    public function getRoles(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Models\Role', 'users_roles');
     }
 
     public function sendPasswordResetNotification($token)

@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Repositories\PageRepository;
 use App\Http\Controllers\Controller;
+use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use App\Models\User;
 use Illuminate\Http\Response;
@@ -34,6 +35,7 @@ class RegisterController extends Controller
         private Factory $validatorFactory,
         private UserRepository $userRepository,
         private PageRepository $pageRepository,
+        private RoleRepository $roleRepository,
         private Hasher $hasher,
     )
     {
@@ -74,10 +76,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
                                 'name' => $data['name'],
                                 'email' => $data['email'],
                                 'password' => $this->hasher->make($data['password']),
                             ]);
+
+        $role = $this->roleRepository->getByName('member');
+        $user->getRoles()->attach($role->getId());
+
+        return $user;
     }
 }

@@ -181,13 +181,15 @@ DROP TABLE IF EXISTS `menus_pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `menus_pages` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `menu_id` int unsigned DEFAULT NULL,
   `page_id` int unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `menus_pages_menu_id_foreign` (`menu_id`),
   KEY `menus_pages_page_id_foreign` (`page_id`),
   CONSTRAINT `menus_pages_menu_id_foreign` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE CASCADE,
   CONSTRAINT `menus_pages_page_id_foreign` FOREIGN KEY (`page_id`) REFERENCES `pages` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,7 +198,7 @@ CREATE TABLE `menus_pages` (
 
 LOCK TABLES `menus_pages` WRITE;
 /*!40000 ALTER TABLE `menus_pages` DISABLE KEYS */;
-INSERT INTO `menus_pages` VALUES (2,3),(2,4),(19,6);
+INSERT INTO `menus_pages` VALUES (1,2,3),(2,2,4),(3,19,6);
 /*!40000 ALTER TABLE `menus_pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,7 +214,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +223,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2016_06_01_000001_create_oauth_auth_codes_table',1),(4,'2016_06_01_000002_create_oauth_access_tokens_table',1),(5,'2016_06_01_000003_create_oauth_refresh_tokens_table',1),(6,'2016_06_01_000004_create_oauth_clients_table',1),(7,'2016_06_01_000005_create_oauth_personal_access_clients_table',1),(8,'2017_10_06_000001_create_makes_table',1),(9,'2017_10_06_000002_create_models_table',1),(10,'2017_10_06_114924_create_trims_table',1),(12,'2018_10_02_172726_create_pages_table',1),(13,'2018_10_02_173232_create_menus_table',1),(14,'2018_12_13_130755_create_fx_rates_table',1),(15,'2018_12_20_223220_create_profanities_table',1),(16,'2019_01_11_175255_create_menus_pages_table',1),(17,'2019_08_19_000000_create_failed_jobs_table',1),(18,'2020_04_29_172531_create_mail_users_table',1),(19,'2020_06_03_094427_create_elastic_jobs_table',1),(20,'2017_10_06_115111_create_ratings_table',2);
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2016_06_01_000001_create_oauth_auth_codes_table',1),(4,'2016_06_01_000002_create_oauth_access_tokens_table',1),(5,'2016_06_01_000003_create_oauth_refresh_tokens_table',1),(6,'2016_06_01_000004_create_oauth_clients_table',1),(7,'2016_06_01_000005_create_oauth_personal_access_clients_table',1),(8,'2017_10_06_000001_create_makes_table',1),(9,'2017_10_06_000002_create_models_table',1),(10,'2017_10_06_114924_create_trims_table',1),(12,'2018_10_02_172726_create_pages_table',1),(13,'2018_10_02_173232_create_menus_table',1),(14,'2018_12_13_130755_create_fx_rates_table',1),(15,'2018_12_20_223220_create_profanities_table',1),(17,'2019_08_19_000000_create_failed_jobs_table',1),(18,'2020_04_29_172531_create_mail_users_table',1),(19,'2020_06_03_094427_create_elastic_jobs_table',1),(20,'2017_10_06_115111_create_ratings_table',2),(21,'2019_01_11_175255_create_menus_pages_table',3),(23,'2021_01_05_094427_create_roles_table',4),(24,'2021_01_05_175255_create_users_roles_table',4);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -523,6 +525,30 @@ INSERT INTO `ratings` VALUES (1,2,23,26,8,8,8,8,8,1609680762,'Cool car!',0),(2,3
 UNLOCK TABLES;
 
 --
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `roles` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roles`
+--
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'admin'),(2,'editor'),(3,'member');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `trims`
 --
 
@@ -592,7 +618,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -604,6 +630,35 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (1,'Harry','harry@carranker.com','2021-01-05 12:00:00','$2y$10$BrFf.15TbA0kllklI//R2e/GD0b6i87gx7XS.a065CKzhr4Edg08i',NULL,'2021-01-05 11:00:00','2021-01-05 11:00:00'),(2,'Eve Bush','eve@butler.com','2021-01-05 12:00:00','$2y$10$oFyUghFN1qTQwm5KXBTgC.m7Nxm.1fKaflvGZbWG2WV88GDi8R2oq',NULL,'2021-01-05 11:45:46','2021-01-05 11:45:46'),(3,'Jack Snow','jack@snow.com','2021-01-05 12:00:00','$2y$10$TOZtip7f62DJ5oslQZcsyOFAOyjvdarfb.RD47xdo.oKhham9gXXy',NULL,'2021-01-05 11:46:32','2021-01-05 11:46:32'),(4,'John Butler','john@butler.com','2021-01-05 12:00:00','$2y$10$tFCM13id/g.YoWwKsOUhSOSC9EKko2Mp/zvKGkndUoVkjUkj0tV0e',NULL,'2021-01-05 11:47:47','2021-01-05 11:47:47');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `users_roles`
+--
+
+DROP TABLE IF EXISTS `users_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users_roles` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned DEFAULT NULL,
+  `role_id` int unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `users_roles_user_id_foreign` (`user_id`),
+  KEY `users_roles_role_id_foreign` (`role_id`),
+  CONSTRAINT `users_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `users_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users_roles`
+--
+
+LOCK TABLES `users_roles` WRITE;
+/*!40000 ALTER TABLE `users_roles` DISABLE KEYS */;
+INSERT INTO `users_roles` VALUES (1,1,1),(2,2,2),(3,3,2),(4,4,2);
+/*!40000 ALTER TABLE `users_roles` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -614,4 +669,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-05 13:32:33
+-- Dump completed on 2021-01-05 16:24:14
