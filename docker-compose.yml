@@ -22,7 +22,6 @@ services:
     container_name: carranker
     ports:
       - 80:80
-      - ${WP_CMS_PORT}:${WP_CMS_PORT}
   redis:
     image: redis:5.0
     ports:
