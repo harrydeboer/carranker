@@ -22,7 +22,7 @@ class UserRepositoryTest extends TestCase
     public function testGetByName()
     {
         $user = User::factory()->create();
-        $userFromDb = $this->userRepository->getByName($user->getUsername());
+        $userFromDb = $this->userRepository->getByName($user->getName());
 
         $this->assertEquals($user->getId(), $userFromDb->getId());
     }

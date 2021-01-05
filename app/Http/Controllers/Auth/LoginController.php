@@ -43,10 +43,10 @@ class LoginController extends Controller
         return response()->view('auth.login', [
             'title' => 'Authentication',
             'controller' => 'auth',
-            'isLoggedIn' => !is_null(Auth::user()),
-            'isEmailVerified' => Auth::user()?->hasVerifiedEmail(),
+            'isLoggedIn' => !is_null($user),
+            'isEmailVerified' => $user?->hasVerifiedEmail(),
             'page' => $this->pageRepository->getByName('auth'),
-        ], 200);
+        ]);
     }
 
     /**
@@ -56,6 +56,6 @@ class LoginController extends Controller
      */
     public function username(): string
     {
-        return 'user_email';
+        return 'email';
     }
 }

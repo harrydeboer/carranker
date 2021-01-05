@@ -42,8 +42,8 @@
             <div class="col-md-8 col-md-offset-2">
                 {!! $page->getContent() ?? '' !!}
                 {!! Form::open(['route' => 'login', 'id' => 'login-form']) !!}
-                {!! Form::label('user_email', 'Email', ['class' => 'control-label']) !!}
-                {!! Form::email('user_email', null, ['class' => 'form-control', 'required']) !!}
+                {!! Form::label('email', 'Email', ['class' => 'control-label']) !!}
+                {!! Form::email('email', null, ['class' => 'form-control', 'required']) !!}
                 {!! Form::label('password', 'Password', ['class' => 'control-label']) !!}
                 {!! Form::password('password', ['class' => 'form-control', 'required']) !!}
                 <div class="form-group">

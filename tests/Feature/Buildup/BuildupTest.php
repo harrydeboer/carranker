@@ -7,6 +7,7 @@ namespace Tests\Feature\Buildup;
 use App\Models\Trim;
 use App\Models\Profanity;
 use App\Models\FXRate;
+use App\Models\User;
 use Tests\TestCase;
 
 class BuildupTest extends TestCase

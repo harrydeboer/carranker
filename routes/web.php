@@ -30,6 +30,6 @@ Route::group(['middleware' => 'cacheable'], function ()
 	Route::get('make/{make}', ['as' => 'makePage', 'uses' => 'MakePageController@view']);
 
 	/** Catch all remaining routes for the cms pages. */
-	Route::get('{url?}', ['as' => 'cmsPage', 'uses' => 'CmsPageController@view'])
+	Route::get('{url?}', ['as' => 'cMSPage', 'uses' => 'CMSPageController@view'])
         ->where('url', '.*');
 });

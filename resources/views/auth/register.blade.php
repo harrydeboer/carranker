@@ -16,11 +16,11 @@
                     <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                     <div class="col-md-6">
-                        <input id="name" type="text" class="form-control @error('user_login') is-invalid @enderror"
-                               name="user_login" value="{{ old('user_login') }}"
-                               required autocomplete="user_login" autofocus>
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                               name="name" value="{{ old('name') }}"
+                               required autocomplete="name" autofocus>
 
-                        @error('user_login')
+                        @error('name')
                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -32,10 +32,10 @@
                     <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                     <div class="col-md-6">
-                        <input id="email" type="email" class="form-control @error('user_email') is-invalid @enderror"
-                               name="user_email" value="{{ old('user_email') }}" required autocomplete="user_email">
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                               name="email" value="{{ old('email') }}" required autocomplete="email">
 
-                        @error('user_email')
+                        @error('email')
                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

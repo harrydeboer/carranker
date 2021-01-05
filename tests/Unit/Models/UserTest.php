@@ -17,35 +17,24 @@ class UserTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->assertDatabaseHas(env('WP_DB_PREFIX') . 'users', [
-            'user_login' => $user->getUsername(),
-            'user_email' => $user->getEmail(),
-            'user_pass' => $user->getAuthPassword(),
-            'user_nicename' => $user->getUsername(),
-            'user_url' => $user->getUserUrl(),
-            'user_activation_key' => $user->getUserActivationKey(),
-            'user_status' => $user->getUserStatus(),
-            'display_name' => $user->getUsername(),
-            'user_registered' => $user->getUserRegistered(),
+        $this->assertDatabaseHas('users', [
+            'name' => $user->getName(),
+            'email' => $user->getEmail(),
+            'password' => $user->getPassword(),
             'remember_token' => $user->getRememberToken(),
             'email_verified_at' => $user->getEmailVerifiedAt(),
         ]);
 
         $user = User::find($user->getId());
 
-        $properties = array_merge($user->getFillable(), $user->getHidden());
+        $properties = array_merge($user->getFillable(), $user->getHidden(), [
+                                      'email_verified_at',
+                                      'created_at',
+                                      'updated_at',
+                                      ]);
+
         foreach ($user->getAttributes() as $key => $attribute) {
-            if ($key !== 'ID') {
-                $this->assertTrue(in_array($key, $properties));
-            }
-        }
-
-        /** Test user table is in sync with laravel. The table can be altered by wordpress updates and these changes
-          have to be synchronised with Laravel. */
-        $result = DB::table(env('WP_DB_PREFIX') . 'users')->first();
-
-        foreach ($result as $key => $column) {
-            if ($key !== 'ID') {
+            if ($key !== 'id') {
                 $this->assertTrue(in_array($key, $properties));
             }
         }

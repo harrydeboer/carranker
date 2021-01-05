@@ -10,6 +10,7 @@ use Illuminate\Console\Command;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
 use \Exception;
+use Illuminate\Support\Facades\DB;
 
 class GetCMSData extends Command
 {
@@ -36,64 +37,8 @@ class GetCMSData extends Command
 
     public function handle(): void
     {
-        if (env('WP_CMS_PORT') === '80') {
-            $baseUrl = env('WP_CMS_URL');
-        } else {
-            $baseUrl = env('WP_CMS_URL') . ':' .  env('WP_CMS_PORT');
-        }
-
-        /** The token for the wordpress admin user is retrieved with the help of the JWT Authentication plugin. */
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_URL, $baseUrl . "/wp-json/jwt-auth/v1/token");
-        curl_setopt($ch, CURLOPT_POSTFIELDS,"username=" . env('WP_ADMIN_USERNAME') . "&password=" . env('WP_ADMIN_PASSWORD'));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        $token = json_decode($response);
-        curl_close($ch);
-
-        /** The JWT token is used for the retrieval of the cms pages. */
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $header = ["Authorization: Bearer " . $token->data->token];
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($ch, CURLOPT_URL, $baseUrl . "/wp-json/wp/v2/pages");
-        $output = curl_exec($ch);
-        $pagesCMS = json_decode($output);
-
-        /** The JWT token is used for the retrieval of the cms menus. */
-        curl_setopt($ch, CURLOPT_URL, $baseUrl . "/wp-json/myroutes/allmenus");
-        $output = curl_exec($ch);
-        $menus = json_decode($output);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        $errors = "";
-        if ($httpCode !== 200) {
-            $errors .= "Error: The Wordpress API is not available.";
-        }
-
-        try {
-            $this->pageRepository->syncPagesWithCMS($pagesCMS);
-        } catch (Exception $exception) {
-            $errors .= $exception->getMessage();
-        }
-
-        try {
-            $this->menuRepository->syncMenusWithCMS($menus);
-        } catch (Exception $exception) {
-            $errors .= $exception->getMessage();
-        }
-
-        /** When there are errors in the syncing or in the cms a mail is send to the contact form email address. */
-        if ($errors !== "") {
-            $this->mailer->send('contact.message', ['userMessage' => $errors], function (Message $message) {
-                $message->from(env('MAIL_POSTMASTER_USERNAME'), 'Postmaster');
-                $message->subject('Wordpress api error');
-                $message->to(env('MAIL_USERNAME'));
-            });
-        } else {
-            $this->info('CMS info synchronized with Laravel!');
-        }
+        DB::unprepared(file_get_contents(base_path() . '/database/sql-files/menus.sql'));
+        DB::unprepared(file_get_contents(base_path() . '/database/sql-files/pages.sql'));
+        DB::unprepared(file_get_contents(base_path() . '/database/sql-files/menus_pages.sql'));
     }
 }

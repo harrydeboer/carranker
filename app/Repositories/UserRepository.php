@@ -36,12 +36,12 @@ class UserRepository implements IRepository
 
     public function getByName(string $username): ?User
     {
-        return User::where('user_login', $username)->first();
+        return User::where('name', $username)->first();
     }
 
     public function getByEmail(string $useremail): ?User
     {
-        return User::where('user_email', $useremail)->first();
+        return User::where('email', $useremail)->first();
     }
 
     public function getRatingsTrim(?Authenticatable $user, int $trimId): ?Rating

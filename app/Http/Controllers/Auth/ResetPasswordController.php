@@ -40,38 +40,9 @@ class ResetPasswordController extends Controller
     public function showResetForm(string $token)
     {
         return response()->view('auth.passwords.reset', [
-            'title'=> 'Reset password', 'controller' => 'auth', 'token' => $token]);
-    }
-
-    public function reset(Request $request)
-    {
-        $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
+            'title'=> 'Reset password',
+            'controller' => 'auth',
+            'token' => $token,
         ]);
-
-        $hasher = new WPHasher(app());
-
-        $status = $this->passwordBroker->reset([
-            'user_email' => $request->get('email'),
-            'password' => $request->get('password'),
-            'password_confirmation' => $request->get('password_confirmation'),
-            'token' => $request->get('token')
-        ],
-            function ($user, $password) use ($request, $hasher) {
-                $user->forceFill([
-                    'user_pass' => $hasher->make($password)
-                ])->save();
-
-                $user->setRememberToken(Str::random(60));
-
-                event(new PasswordReset($user));
-            }
-        );
-
-        return $status == $this->passwordBroker::PASSWORD_RESET
-            ? redirect()->route('login')->with('status', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Browser;
 
-use App\Providers\WPHasher;
 use App\Repositories\UserRepository;
+use Illuminate\Contracts\Hashing\Hasher;
 use Tests\DuskTestCase;
 use App\Models\User;
 
@@ -13,17 +13,17 @@ class LoginTest extends DuskTestCase
 {
     public function testLogin()
     {
-        $hasher = new WPHasher(app());
+        $hasher = app()->make(Hasher::class);
 
         $password = 'secret';
         $user = User::factory()->create([
-            'user_pass' => $hasher->make($password)
+            'password' => $hasher->make($password)
         ]);
 
         $this->browse(function ($browser) use ($user)
         {
             $browser->visit('/login')
-                ->type('user_email', $user->user_email)
+                ->type('email', $user->email)
                 ->type('password', 'secret')
                 ->press('Login')
                 ->assertPathIs('/');

@@ -178,8 +178,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        App\Providers\CustomPassportServiceProvider::class,
-        App\Providers\HashServiceProvider::class,
     ],
 
     /*

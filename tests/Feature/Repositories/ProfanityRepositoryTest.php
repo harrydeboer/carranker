@@ -22,7 +22,7 @@ class ProfanityRepositoryTest extends TestCase
     {
         $profanity = $this->profanityRepository->get(1);
 
-        $profanities = explode(',', $this->profanityRepository->getProfanityNames());
+        $profanities = explode(' ', $this->profanityRepository->getProfanityNames());
         $this->assertTrue(in_array($profanity->getName(), $profanities));
     }
 

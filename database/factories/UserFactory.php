@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\User;
-use App\Providers\WPHasher;
+use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -25,21 +25,16 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $hasher = new WPHasher(app());
-        $userName = $this->faker->name;
+        $hasher = app()->make(Hasher::class);
 
         return [
-            'user_login' => $userName,
-            'user_email' => $this->faker->unique()->safeEmail,
-            'user_pass' => $hasher->make($this->faker->name),
-            'user_nicename' => $userName,
-            'user_url' => "",
-            'user_activation_key' => "",
-            'user_status' => 0,
-            'display_name' => $userName,
-            'user_registered' => $this->faker->time('Y-m-d H:i:s'),
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => $hasher->make($this->faker->password),
+            'email_verified_at' => now(),
             'remember_token' => Str::random(10),
-            'email_verified_at' => $this->faker->time('Y-m-d H:i:s'),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

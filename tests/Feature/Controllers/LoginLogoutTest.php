@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use App\Providers\WPHasher;
 use App\Models\User;
+use Illuminate\Contracts\Hashing\Hasher;
 use Tests\TestCase;
 
 class LoginLogoutTest extends TestCase
 {
     public function testLoginLogout()
     {
-        $hasher = new WPHasher(app());
+        $hasher = app()->make(Hasher::class);
 
         $password = 'secret';
         $user = User::factory()->create([
-            'user_pass' => $hasher->make($password),
+            'password' => $hasher->make($password),
         ]);
 
         $response = $this->post('/login', [
-            'user_email' => $user->user_email,
+            'email' => $user->email,
             'password' => $password,
         ]);
 

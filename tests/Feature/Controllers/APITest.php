@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
+use App\Models\User;
 use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\TrimRepository;
 use App\Repositories\UserRepository;
+use Illuminate\Contracts\Hashing\Hasher;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 
@@ -20,10 +22,11 @@ class APITest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        $hasher = $this->app->make(Hasher::class);
         $this->userRepository = $this->app->make(UserRepository::class);
         $this->makeRepository = $this->app->make(MakeRepository::class);
         $this->trimRepository = $this->app->make(TrimRepository::class);
-        $this->user = $this->userRepository->get(1);
+        $this->user = User::factory()->create(['password' => $hasher->make('password')]);
         $this->artisan('passport:install')->execute();
         DB::table('oauth_clients')->where(['id' => 2])->update(['user_id' => $this->user->getId()]);
         DB::table('oauth_clients')->select('*')->where(['id' => 2])->first();
@@ -34,7 +37,7 @@ class APITest extends TestCase
         $oauth_client = DB::table('oauth_clients')->select('*')->where(['id' => 2])->first();
 
         $body = [
-            'username' => $this->user->user_email,
+            'username' => $this->user->email,
             'password' => 'password',
             'client_id' => 2,
             'client_secret' => $oauth_client->secret,
@@ -46,7 +49,7 @@ class APITest extends TestCase
         $auth = json_decode( (string) $response->getContent() );
 
         $body = [
-            'username' => $this->user->user_email,
+            'username' => $this->user->email,
             'password' => 'password',
             'client_id' => 2,
             'client_secret' => $oauth_client->secret,

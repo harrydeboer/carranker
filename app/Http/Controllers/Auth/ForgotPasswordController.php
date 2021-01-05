@@ -31,15 +31,4 @@ class ForgotPasswordController extends Controller
         return response()->view('auth.passwords.email', [
             'title' => 'Forgot password?', 'controller' => 'auth']);
     }
-
-    public function sendResetLinkEmail(Request $request)
-    {
-        $request->validate(['email' => 'required|email']);
-
-        $status = $this->passwordBroker->sendResetLink(['user_email' => $request->get('email')]);
-
-        return $status === $this->passwordBroker::RESET_LINK_SENT
-            ? back()->with(['status' => __($status)])
-            : back()->withErrors(['email' => __($status)]);
-    }
 }
