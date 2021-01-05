@@ -16,6 +16,7 @@ class CreateMenusPagesTable extends Migration
     public function up()
     {
         Schema::create('menus_pages', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('menu_id')->unsigned()->nullable();
             $table->foreign('menu_id')->references('id')
                 ->on('menus')->onDelete('cascade');
