@@ -21,14 +21,6 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 <li>Browse to the cms at http://cms.carranker:8080 and install wordpress.</li>
 <li>Run command ‘docker exec -it carranker php artisan migrate’ in sitefolder.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
-<li>Add pages Home, Auth, Register, About, Contact and PHPinfo. Fill in the pages content.</li>
-<li>Make Home the front page.</li>
-<li>Add menus navigationHeader with page Home as primary menu and navigationFooter with About and Contact as footer 
-menu.</li>
-<li>Activate the Carranker Theme and set the permalinks on ’Post name’.</li>
-<li>Activate the plugins.</li>
-<li>Add permissions to the role editor: create_users, delete_users, edit_theme_options, edit_themes, edit_users, 
-list_users and remove_users.</li>
 <li>Run command ‘docker exec -it carranker php artisan getcmsdata’ in sitefolder.</li>
 <li>Run command ‘docker exec -it carranker php artisan getfxrate’ in sitefolder.</li>
 <li>Run command ‘docker exec -it carranker php artisan indexcars’ in sitefolder.</li>
@@ -37,10 +29,9 @@ list_users and remove_users.</li>
 <li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
 <li>Execute npm install.</li>
 <li>Enable scss and uglifyjs filewatchers with node_modules/.bin binaries.</li>
-<li>Execute ’./unittests.sh’ for unit tests.</li>
-<li>Execute ’./featuretests.sh’ for feature tests.</li>
-<li>Execute ’./wordpresstests.sh’ for feature tests.</li>
-<li>Execute ’./dusktests.sh’ for browser tests.</li>
+<li>Execute ’bin/unittests.sh’ for unit tests.</li>
+<li>Execute ’bin/featuretests.sh’ for feature tests.</li>
+<li>Execute ’bin/dusktests.sh’ for browser tests.</li>
 <li>Execute ‘./jmeter -n -t CarRanker.jmx’ with .jmx in apache-jmeter/bin for stress tests.</li>
 </ol>
 
@@ -55,8 +46,8 @@ cannot be root.</li>
 <li>Execute command ‘git init’ in sitefolder.</li>
 <li>Execute command ‘git remote add origin {ssh-origin}’.</li>
 <li>Execute command ‘git pull origin master’.</li>
-<li>Make apache configuration files for laravel and wordpress and edit these files to match the sites.</li>
-<li>Run the certbot command with the laravel and wordpress sites added.</li>
+<li>Make apache configuration files for laravel and edit these files to match the sites.</li>
+<li>Run the certbot command with the laravel site added.</li>
 <li>Enable the new sites.</li>
 <li>Enable the necessary apache modules ‘a2enmod headers proxy rewrite proxy_balancer proxy_http slotmem_shm ssl’.</li>
 <li>Enable the php modules listed in composer.json.</li>
@@ -70,15 +61,6 @@ cannot be root.</li>
 <li>Execute command ‘git reset –hard’ in sitefolder. </li>
 <li>Run command ‘php artisan migrate’ in sitefolder.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
-<li>Add pages Home, Auth, Register, About, Contact and PHPinfo. Fill in the pages content.</li>
-<li>Make Home the front page.</li>
-<li>Add menus navigationHeader with page Home as primary menu and navigationFooter with About and Contact as footer 
-menu.</li>
-<li>Activate the Carranker Theme and set the permalinks on ’Post name’.</li>
-<li>Activate the plugins.</li>
-<li>Add permissions to the role editor: create_users, delete_users, edit_theme_options, edit_themes, edit_users, 
-list_users and remove_users.</li>
-<li>Enable cronjob with crontab -e: * * * * * (cd path/to/sitefolder && php artisan getcmsdata).</li>
 <li>Enable cronjob with crontab -e: 0 * * * * (cd path/to/sitefolder && php artisan getfxrate).</li>
 <li>Enable cronjob with crontab -e: */5 * * * * (cd path/to/sitefolder && php artisan processqueue).</li>
 <li>Run command ‘php artisan getcmsdata’ in sitefolder.</li>
@@ -93,7 +75,7 @@ list_users and remove_users.</li>
 apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
 <li>In production: install postfix, dovecot, opendkim, opendmarc, postsrsd and spamassassin.</li>
 <li>In production: add <yourdevuser>@carranker.com, info@carranker.com, noreply@carranker.com, postmaster@carranker.com and root@carranker.com 
-in Mail Users in the admin panel. <yourdevuser>@carranker.com and info@carranker.com to carranker@gmail.com.</li>
-<li>An update in production or acceptance can be retrieved with the command ’./update.sh’</li>
-<li>To revert the update execute ’./rollback.sh’.</li>
+in. <yourdevuser>@carranker.com and info@carranker.com to carranker@gmail.com.</li>
+<li>An update in production or acceptance can be retrieved inside the bin folder with the command ’./update.sh’</li>
+<li>To revert the update go to the bin folder and execute ’./rollback.sh’.</li>
 </ol>

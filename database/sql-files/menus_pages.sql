@@ -21,7 +21,7 @@
 
 LOCK TABLES `menus_pages` WRITE;
 /*!40000 ALTER TABLE `menus_pages` DISABLE KEYS */;
-INSERT INTO `menus_pages` VALUES (2,3),(2,4),(19,6);
+INSERT INTO `menus_pages` VALUES (1,2,3),(2,2,4),(3,19,6);
 /*!40000 ALTER TABLE `menus_pages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
