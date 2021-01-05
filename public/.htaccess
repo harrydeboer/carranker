@@ -32,14 +32,6 @@ AddType application/x-font-ttf .ttf
     </FilesMatch>
 </IfModule>
 
-<FilesMatch "\.(ttf|otf|eot|woff|woff2|jpeg|png)$">
-    <IfModule mod_headers.c>
-            SetEnvIf Origin "http(s)?://(www\.)?(cms.carranker.com|accept.cms.carranker.com|cms.carranker(:8080)?)$" AccessControlAllowOrigin=$0
-            Header add Access-Control-Allow-Origin %{AccessControlAllowOrigin}e env=AccessControlAllowOrigin
-            Header merge Vary Origin
-    </IfModule>
-</FilesMatch>
-
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews
