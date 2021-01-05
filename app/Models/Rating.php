@@ -66,4 +66,9 @@ class Rating extends BaseModel
     {
         return $this->pending;
     }
+
+    public function setPending(int $pending)
+    {
+        $this->pending = $pending;
+    }
 }

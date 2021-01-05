@@ -96,8 +96,9 @@
         <div class="modal-dialog" id="thankYouDialog">
             <div class="modal-content">
                 <div class="modal-header" id="thankYouHeader">
-                    <h3 id="thankYouHeading">Thank you for your rating</h3>
+                    <h3 id="thankYouHeading">Thank you for your rating!</h3>
                 </div>
+                When you wrote a review it is now pending approval.
                 <div class="modal-footer">
                     <button class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>

@@ -51,7 +51,7 @@ class ModelPageTest extends TestCase
             'generation' => $trim->getYearBegin() . '-' . $trim->getYearEnd(),
             'serie' => $trim->getYearBegin() . '-' . $trim->getYearEnd() . ';' . $trim->getFramework(),
             'trimId' => $trim->getYearBegin() . '-' . $trim->getYearEnd() . ';' . $trim->getFramework() . ';' . $trim->getId(),
-            'content' => 'Review',
+            'content' => null,
             'reCaptchaToken' => 'notusedintests',
         ];
         foreach (Aspect::getAspects() as $aspect) {

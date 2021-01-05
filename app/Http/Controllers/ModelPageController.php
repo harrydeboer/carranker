@@ -99,12 +99,14 @@ class ModelPageController extends Controller
             $model = $trim->getModel();
 
             $rating = $this->userRepository->getRatingsTrim($user, $trimId);
-            $this->modelRepositoryEloquent->updateVotesAndRating($model, $ratingForm->star, $rating);
-            $this->trimRepositoryEloquent->updateVotesAndRating($trim, $ratingForm->star, $rating);
+            if (is_null($ratingForm->content)) {
+                $this->modelRepositoryEloquent->updateVotesAndRating($model, $ratingForm->star, $rating);
+                $this->trimRepositoryEloquent->updateVotesAndRating($trim, $ratingForm->star, $rating);
+            }
             if (is_null($rating)) {
                 $this->ratingRepository->createRating($user, $model, $trim, $ratingForm, 1);
             } else {
-                $this->ratingRepository->updateRating($rating, $ratingForm);
+                $this->ratingRepository->updateRating($rating, $ratingForm, 1);
             }
             $data['success'] = 'true';
         }

@@ -65,7 +65,7 @@ class RatingRepository implements IRepository
         return $this->create($createArray);
     }
 
-    public function updateRating(Rating $rating, RatingForm $form): Rating
+    public function updateRating(Rating $rating, RatingForm $form, int $pending): Rating
     {
         foreach ($form->star as $key => $aspect) {
             $rating->setAspect($key, (int) $aspect);
@@ -75,6 +75,8 @@ class RatingRepository implements IRepository
         } else {
             $rating->setContent($form->content);
         }
+        $rating->setPending($pending);
+
         $rating->save();
 
         return $rating;

@@ -75,7 +75,7 @@ class RatingRepositoryTest extends TestCase
         }
         $form = new \App\Forms\RatingForm($this->profanityRepository, $createArray);
 
-        $rating = $this->ratingRepository->updateRating($rating, $form);
+        $rating = $this->ratingRepository->updateRating($rating, $form, 1);
 
         foreach (\App\Models\Aspect::getAspects() as $aspect) {
             $this->assertEquals((int) $form->star[$aspect], $rating->getAspect($aspect));
