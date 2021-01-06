@@ -21,9 +21,13 @@ class HomePageController extends Controller
     private const numShowMoreLess = 10;
     private const homepageNumReviews = 3;
 
-    public function __construct(private RatingRepository $ratingRepository,
-                                private TrimRepository $trimRepository,
-                                private PageRepository $pageRepository){}
+    public function __construct(
+        private RatingRepository $ratingRepository,
+        private TrimRepository $trimRepository,
+        private PageRepository $pageRepository)
+    {
+
+    }
 
     public function view(): Response
     {
@@ -43,7 +47,7 @@ class HomePageController extends Controller
             'minNumVotes' => $minNumVotes,
             'minNumVotesDefault' => self::minNumVotes,
             'filterForm' => $form,
-            'content' => $this->pageRepository->getByName('home')->getContent(),
+            'content' => $this->pageRepository->findByName('home')?->getContent(),
         ];
 
         return response()->view('homePage.index', $data);
@@ -81,11 +85,11 @@ class HomePageController extends Controller
     {
         $form = new FilterTopForm($request->all());
         $trims = $this->trimRepository->findTrimsOfTop($form,
-            (int) $form->minNumVotes,
-            (int) $form->numberOfRows,
-            (int) $form->offset);
+                                                       (int) $form->minNumVotes,
+                                                       (int) $form->numberOfRows,
+                                                       (int) $form->offset);
 
         return response()->view('homePage.showMoreTopTable',
-            ['trims' => $trims, 'offset' => (int) $form->offset]);
+                                ['trims' => $trims, 'offset' => (int) $form->offset]);
     }
 }

@@ -6,9 +6,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Repositories\PageRepository;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -28,7 +28,12 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    public function __construct(private PageRepository $pageRepository){}
+    public function __construct(
+        private PageRepository $pageRepository,
+        private Guard $guard)
+    {
+
+    }
 
     /**
      * Where to redirect users after login.
@@ -39,13 +44,13 @@ class LoginController extends Controller
 
     public function showLoginForm(): Response
     {
-        $user = Auth::user();
+        $user = $this->guard->user();
         return response()->view('auth.login', [
             'title' => 'Authentication',
             'controller' => 'auth',
             'isLoggedIn' => !is_null($user),
             'isEmailVerified' => $user?->hasVerifiedEmail(),
-            'page' => $this->pageRepository->getByName('auth'),
+            'content' => $this->pageRepository->findByName('auth')?->getContent(),
         ]);
     }
 

@@ -17,6 +17,13 @@ class RegisterTest extends TestCase
         $this->userRepository = $this->app->make(UserRepository::class);
     }
 
+    public function testRegisterPage()
+    {
+        $response = $this->get('/register');
+
+        $response->assertStatus(200);
+    }
+
     public function testRegister()
     {
         $useremail = 'test@test.com';

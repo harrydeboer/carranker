@@ -26,7 +26,7 @@ class ContactPageController extends Controller
             'title' => 'Contact',
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'contactForm' => $contactForm,
-            'page' => $this->pageRepository->getByName('contact'),
+            'content' => $this->pageRepository->findByName('contact')?->getContent(),
             'reCaptchaKey' => env('reCaptchaKey'),
         ];
 

@@ -32,14 +32,8 @@ class PageRepository implements IRepository
         Page::destroy($id);
     }
 
-    public function getByName(string $name): Page
+    public function findByName(string $name): ?Page
     {
-        $result = Page::where('name', $name)->first();
-
-        if (is_null($result)) {
-            abort(404, "The requested page does not exist.");
-        }
-
-        return $result;
+        return Page::where('name', $name)->first();
     }
 }

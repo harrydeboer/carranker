@@ -40,7 +40,7 @@
     @else
         <div class="row justify-content-center">
             <div class="col-md-8 col-md-offset-2">
-                {!! $page->getContent() ?? '' !!}
+                {!! $content !!}
                 {!! Form::open(['route' => 'login', 'id' => 'login-form']) !!}
                 {!! Form::label('email', 'Email', ['class' => 'control-label']) !!}
                 {!! Form::email('email', null, ['class' => 'form-control', 'required']) !!}

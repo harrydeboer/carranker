@@ -1,8 +1,11 @@
 <div class="navbar navbar-default text-center">
     <ul id="navmenuFooter" class="nav navbar-nav">
-        @foreach ($menuFooter as $page)
-            <li class="nav-item navText"><a href="/{{ strtolower($page->getName()) }}" class="nav-link">{{ $page->getTitle() }}&nbsp;&nbsp;</a></li>
-        @endforeach
+        @if (!is_null($menuFooter))
+            @foreach ($menuFooter as $page)
+                <li class="nav-item navText"><a href="/{{ strtolower($page->getName()) }}"
+                                                class="nav-link">{{ $page->getTitle() }}&nbsp;&nbsp;</a></li>
+            @endforeach
+        @endif
     </ul>
 </div>
 <div class="container text-center">This site is protected by reCAPTCHA and the Google

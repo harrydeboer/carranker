@@ -29,8 +29,10 @@ class ShareWithAllViews
         $this->viewFactory->share('metaKeyWords', 'car, cars, ranker, rate, rank, ranking, rating, top');
         $this->viewFactory->share('metaDescription', 'Check out the top of all cars and rate your favorite cars!');
         $this->viewFactory->share('searchForm', new SearchForm());
-        $this->viewFactory->share('menuHeader', $this->menuRepository->getByName('navigationHeader')->getPages()->get());
-        $this->viewFactory->share('menuFooter', $this->menuRepository->getByName('navigationFooter')->getPages()->get());
+        $this->viewFactory->share('menuHeader', $this->menuRepository
+            ->findByName('navigationHeader')?->getPages()->get());
+        $this->viewFactory->share('menuFooter', $this->menuRepository
+            ->findByName('navigationFooter')?->getPages()->get());
 
 
         return $next($request);

@@ -3,7 +3,7 @@
 @section('content')
     <div class="row justify-content-center" id="contactsArticle">
         <div class="col-md-8">
-            {!! $page->getContent() ?? '' !!}
+            {!! $content !!}
             @if (isset($success))
                 <span id="success">{{ $success }}</span>
             @endif

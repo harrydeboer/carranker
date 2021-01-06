@@ -10,6 +10,13 @@ use Tests\TestCase;
 
 class LoginLogoutTest extends TestCase
 {
+    public function testLoginPage()
+    {
+        $response = $this->get('/login');
+
+        $response->assertStatus(200);
+    }
+
     public function testLoginLogout()
     {
         $hasher = app()->make(Hasher::class);

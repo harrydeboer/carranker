@@ -22,10 +22,10 @@ class MenuRepositoryTest extends TestCase
         $this->pageRepository = $this->app->make(PageRepository::class);
     }
 
-    public function testGetByName()
+    public function testFindByName()
     {
         $menu = Menu::factory()->create();
-        $menuFromDb = $this->menuRepository->getByName($menu->getName());
+        $menuFromDb = $this->menuRepository->findByName($menu->getName());
 
         $this->assertEquals($menu->getId(), $menuFromDb->getId());
     }

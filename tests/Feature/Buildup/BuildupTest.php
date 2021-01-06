@@ -25,7 +25,6 @@ class BuildupTest extends TestCase
         Trim::factory()->create(['votes' => 31, 'framework' => 'Sedan', 'price' => 11000]);
         Trim::factory()->create(['votes' => 31, 'framework' => 'Van']);
         Trim::factory()->create(['votes' => 25]);
-        $this->artisan('getcmsdata')->execute();
         $this->artisan('getfxrate')->execute();
         $this->artisan('processqueue')->execute();
         $this->artisan('indexcars')->execute();

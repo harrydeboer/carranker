@@ -19,10 +19,10 @@ class PageRepositoryTest extends TestCase
         $this->pageRepository = $this->app->make(PageRepository::class);
     }
 
-    public function testGetByName()
+    public function testFindByName()
     {
         $page = Page::factory()->create();
-        $pageFromDb = $this->pageRepository->getByName($page->getName());
+        $pageFromDb = $this->pageRepository->findByName($page->getName());
 
         $this->assertEquals($page->getId(), $pageFromDb->getId());
     }

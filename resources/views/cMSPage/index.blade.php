@@ -1,5 +1,5 @@
 @extends('layout')
 
 @section('content')
-    {!! $page->getContent() !!}
+    {!! $content !!}
 @endsection

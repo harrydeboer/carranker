@@ -6,7 +6,6 @@
   php artisan config:clear
   php artisan view:clear
   php artisan migrate --force --no-interaction
-  php artisan getcmsdata
   php artisan getfxrate
   php artisan flushredisdb
   php artisan indexcars

@@ -17,10 +17,12 @@
         'id' => 'search-form'
         ]) !!}
         <ul id="navmenuHeader" class="nav navbar-nav">
-            @foreach ($menuHeader as $page)
-                <li class="nav-item navText"><a href="/{{ $page->getName() === 'home' ? '' :
+            @if (!is_null($menuHeader))
+                @foreach ($menuHeader as $page)
+                    <li class="nav-item navText"><a href="/{{ $page->getName() === 'home' ? '' :
                     strtolower($page->getName()) }}" class="nav-link">{{ $page->getTitle() }}</a></li>
-            @endforeach
+                @endforeach
+            @endif
             <li><a href="{{ route('login') }}"><i class="fa fa-user-o fa-lg"></i></a></li>
             <li class="nav-item">
                 <select id="nav_select_make" class="form-control">

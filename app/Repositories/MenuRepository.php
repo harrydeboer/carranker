@@ -39,7 +39,7 @@ class MenuRepository implements IRepository
         Menu::destroy($id);
     }
 
-    public function getByName(string $name): Menu
+    public function findByName(string $name): ?Menu
     {
         return Menu::where('name', $name)->first();
     }

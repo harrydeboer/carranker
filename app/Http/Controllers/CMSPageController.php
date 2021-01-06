@@ -13,12 +13,16 @@ class CMSPageController extends Controller
 
     public function view(string $url): Response
     {
-        $page = $this->pageRepository->getByName($url);
+        $page = $this->pageRepository->findByName($url);
+
+        if (is_null($page)) {
+            abort(404, 'The requested page does not exist.');
+        }
 
         $response = response()->view('cMSPage.index', [
             'title' => $page->title,
-            'page' => $page,
-        ],200);
+            'content' => $page?->getContent(),
+        ]);
 
         return $response;
     }
