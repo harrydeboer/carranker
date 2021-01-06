@@ -38,7 +38,22 @@ class RatingRepository implements IRepository
         Rating::destroy($id);
     }
 
-    public function findRecentReviews($limit): Collection
+    public function approve(int $id): void
+    {
+        $review = $this->get($id);
+        $review->setPending(0);
+        $review->save();
+    }
+
+    public function findPendingReviews(int $numReviewsPerPage): LengthAwarePaginator
+    {
+        return Rating::whereNotNull('content')
+            ->where('pending', 1)
+            ->orderBy('time', 'desc')
+            ->paginate($numReviewsPerPage);
+    }
+
+    public function findRecentReviews(int $limit): Collection
     {
         return Rating::whereNotNull('content')->where('pending', 0)->take($limit)->orderBy('time', 'desc')->get();
     }

@@ -40,6 +40,14 @@ class RatingRepositoryTest extends TestCase
         }
     }
 
+    public function testFindPendingReviews()
+    {
+        $review = Rating::factory()->create(['content' => 'notnull', 'pending' => 1]);
+        $reviews = $this->ratingRepository->findPendingReviews(1);
+
+        $this->assertEquals(count($reviews), 1);
+    }
+
     public function testCreateRating()
     {
         $user = User::factory()->create();

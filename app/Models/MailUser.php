@@ -20,9 +20,19 @@ class MailUser extends BaseModel
         return $this->domain;
     }
 
+    public function setDomain(string $domain)
+    {
+        $this->domain = $domain;
+    }
+
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function setPassword(string $password)
+    {
+        $this->password = $password;
     }
 
     public function getEmail(): string
@@ -30,8 +40,18 @@ class MailUser extends BaseModel
         return $this->email;
     }
 
-    public function getForward(): string
+    public function setEmail(string $email)
+    {
+        $this->email = $email;
+    }
+
+    public function getForward(): ?string
     {
         return $this->forward;
+    }
+
+    public function setForward(?string $email)
+    {
+        $this->forward = $email;
     }
 }
