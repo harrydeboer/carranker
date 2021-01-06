@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Controllers;
+namespace Tests\Feature\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;

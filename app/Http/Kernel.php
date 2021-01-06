@@ -5,11 +5,23 @@ declare(strict_types=1);
 namespace App\Http;
 
 use App\Http\Middleware\CacheWithVarnish;
+use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\ShareWithAllViews;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Routing\Router;
 
 class Kernel extends HttpKernel
 {
+    public function __construct(Application $app, Router $router)
+    {
+        $this->middlewareGroups['admin'] = $this->webAdmin;
+        $this->middlewareGroups['admin'][] = IsAdmin::class;
+        $this->middlewareGroups['web'] = $this->webAdmin;
+        $this->middlewareGroups['web'][] = ShareWithAllViews::class;
+        parent::__construct($app, $router);
+    }
+
     /**
      * The application's global HTTP middleware stack.
      *
@@ -28,23 +40,24 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\ContentSecurityPolicy::class,
     ];
 
+    private $webAdmin = [
+        \App\Http\Middleware\EncryptCookies::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        // \Illuminate\Session\Middleware\AuthenticateSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \App\Http\Middleware\VerifyCsrfToken::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    ];
+
     /**
      * The application's route middleware groups.
      *
      * @var array
      */
     protected $middlewareGroups = [
-        'web' => [
-            ShareWithAllViews::class,
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
-
+        'web' => [],
+        'admin' => [],
         'api' => [
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
