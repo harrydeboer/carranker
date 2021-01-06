@@ -45,9 +45,6 @@ class IndexCars extends Command
         $this->modelRepository->createIndex();
         $this->trimRepository->createIndex();
 
-        $tmp = $this->makeRepositoryEloquent->all();
-        $tmp2 = $this->modelRepositoryEloquent->all();
-        $tmp3 = $this->trimRepositoryEloquent->all();
         $this->makeRepository->addAllToIndex($this->makeRepositoryEloquent->all());
         $this->modelRepository->addAllToIndex($this->modelRepositoryEloquent->all());
         $this->trimRepository->addAllToIndex($this->trimRepositoryEloquent->all());

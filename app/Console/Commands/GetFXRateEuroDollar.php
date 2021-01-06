@@ -21,9 +21,11 @@ class GetFXRateEuroDollar extends Command
      *
      * @var string
      */
-    protected $description = 'Get FXRate Euro/Dollar';
+    protected $description = 'Get FX Rate Euro/Dollar';
 
-    public function __construct(private FXRateRepository $fXRateRepository)
+    public function __construct(
+        private FXRateRepository $fXRateRepository,
+    )
     {
         parent::__construct();
     }
@@ -40,18 +42,18 @@ class GetFXRateEuroDollar extends Command
 
         if ($info === 200) {
             $jsonObj = json_decode((string) $data);
-            $fxrate = $this->fXRateRepository->getByName('euro/dollar');
-            if (is_null($fxrate)) {
+            $fXRate = $this->fXRateRepository->getByName('euro/dollar');
+            if (is_null($fXRate)) {
                 $this->fXRateRepository->create(['name' => 'euro/dollar', 'value' => (float) $jsonObj->rates->USD]);
             } else {
-                $fxrate->setValue((float) $jsonObj->rates->USD);
-                $fxrate->save();
+                $fXRate->setValue((float) $jsonObj->rates->USD);
+                $fXRate->save();
             }
 
-            $this->info('FX rate updated!');
+            $this->info('FX Rate updated!');
 
         } else {
-            throw new \Exception("Api for fxrates not available.");
+            throw new \Exception("Api for FX Rates not available.");
         }
     }
 }

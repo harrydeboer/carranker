@@ -24,7 +24,7 @@ class ProcessQueue extends Command
      *
      * @var string
      */
-    protected $description = 'Process the elasticsearch queue';
+    protected $description = 'Process the elasticsearch jobs queue';
 
     public function __construct(private ElasticJobRepository $elasticJobRepository,
                                 private MakeRepository $makeRepository,
