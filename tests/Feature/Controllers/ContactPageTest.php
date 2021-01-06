@@ -21,10 +21,11 @@ class ContactPageTest extends TestCase
             'email' => 'test@test.com',
             'name' => 'Test',
             'subject' => 'Test',
-            'Message' => 'Test',
-            'reCaptchaToken' => 'notusedintests',
+            'message' => 'Test',
+            'reCaptchaToken' => 'notavalidtoken',
         ]);
 
         $response->assertStatus(200);
+        $response->assertSee('Could not deliver mail. Try again later.');
     }
 }

@@ -11,13 +11,19 @@ use Illuminate\Http\Response;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Log\LogManager;
 
 class ContactPageController extends Controller
 {
-    public function __construct(private Mailer $mailer,
-                                private ProfanityRepository $profanityRepository,
-                                private PageRepository $pageRepository){}
+    public function __construct(
+        private Mailer $mailer,
+        private ProfanityRepository $profanityRepository,
+        private PageRepository $pageRepository,
+        private LogManager $logManager,
+    )
+    {
+
+    }
 
     public function view(Request $request): Response
     {
@@ -43,7 +49,7 @@ class ContactPageController extends Controller
 
                 $data['success'] = 'Thank you for your mail!';
             } catch (\Exception $e) {
-            	Log::debug($e->getMessage());
+            	$this->logManager->debug($e->getMessage());
                 $data['error'] = 'Could not deliver mail. Try again later.';
             }
         }
