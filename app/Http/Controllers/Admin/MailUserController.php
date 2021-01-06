@@ -21,7 +21,7 @@ class MailUserController extends Controller
 
     public function view(): Response
     {
-        $mailUsers = $this->mailUserRepository->findAll(1);
+        $mailUsers = $this->mailUserRepository->findAll(10);
 
         /** The links of the pagination get extra html classes to make them centered on the modelpage. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',

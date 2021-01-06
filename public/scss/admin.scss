@@ -1,1 +1,12 @@
-@import 'main';
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+$font-stack: 'Open Sans', sans-serif;
+$housecolor-blue: #336699;
+$housecolor-blue-r: 51;
+$housecolor-blue-g: 102;
+$housecolor-blue-b: 153;
+
+body {
+  font-family: $font-stack;
+  font-size: 20px;
+}
