@@ -4,7 +4,7 @@
     @include('errors.errors')
     <table>
         <tr class="mailUserTr"><td colspan="3">
-                <form method="post" action="{{ route('admin.mail.users.create') }}" autocomplete="off">
+                <form method="post" action="{{ route('admin.mail.users.create') }}">
                     @csrf
                     <input type="text" name="domain" placeholder="domain" required>
                     <input type="password" name="password" placeholder="password" required>
@@ -18,7 +18,7 @@
 
             @foreach ($mailUsers as $mailUser)
                 <tr class="mailUserTr"><td>
-                        <form method="post" action="{{ route('admin.mail.users.update') }}" autocomplete="off">
+                        <form method="post" action="{{ route('admin.mail.users.update') }}">
                             @csrf
                             <input type="text" name="domain" value="{{ $mailUser->getDomain() }}"
                                    placeholder="domain" required>
@@ -31,7 +31,7 @@
                         </form>
                     </td><td>
                         <form method="post" class="updatePasswordForm"
-                              action="{{ route('admin.mail.users.update.password') }}" autocomplete="off">
+                              action="{{ route('admin.mail.users.update.password') }}">
                             @csrf
                             <input type="password" class="updatePassword"
                                    name="password" placeholder="password" required>
