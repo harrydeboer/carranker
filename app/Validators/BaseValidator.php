@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Forms;
+namespace App\Validators;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-abstract class BaseForm extends Model
+abstract class BaseValidator extends Model
 {
     use ValidatesRequests;
 

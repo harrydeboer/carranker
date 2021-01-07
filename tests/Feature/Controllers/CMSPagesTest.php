@@ -20,7 +20,7 @@ class CMSPagesTest extends TestCase
 
     public function test404()
     {
-        $response = $this->get('/doesnotexist');
+        $response = $this->get('/doesNotExist');
 
         $response->assertStatus(404);
     }

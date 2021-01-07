@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Forms\ContactForm;
 use App\Repositories\PageRepository;
 use App\Repositories\ProfanityRepository;
+use App\Validators\ContactValidator;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
@@ -25,17 +26,21 @@ class ContactPageController extends Controller
 
     }
 
-    public function view(Request $request): Response
+    public function view(): Response
     {
-        $contactForm = new ContactForm($this->profanityRepository, $request->all());
         $data = [
             'title' => 'Contact',
             'profanities' => $this->profanityRepository->getProfanityNames(),
-            'contactForm' => $contactForm,
             'content' => $this->pageRepository->findByName('contact')?->getContent(),
             'reCaptchaKey' => env('reCaptchaKey'),
         ];
 
+        return response()->view('contactPage.index', $data);
+    }
+
+    public function sendMail(Request $request): RedirectResponse
+    {
+        $contactForm = new ContactValidator($this->profanityRepository, $request->all());
         if ($contactForm->validateFull($request, $contactForm->reCaptchaToken)) {
             try {
                 $this->mailer->send('contactPage.message', ['userMessage' => $contactForm->message],
@@ -47,13 +52,14 @@ class ContactPageController extends Controller
                     $message->to(env('MAIL_USERNAME'));
                 });
 
-                $data['success'] = 'Thank you for your mail!';
+                return redirect(route('contactPage'))->with('success', 'Thank you for your mail!');
             } catch (\Exception $e) {
             	$this->logManager->debug($e->getMessage());
-                $data['error'] = 'Could not deliver mail. Try again later.';
+
+                return redirect(route('contactPage'))->withErrors('Could not deliver mail. Try again later.');
             }
         }
 
-        return response()->view('contactPage.index', $data, 200);
+        return redirect(route('contactPage'))->withErrors('The posted data was invalid.');
     }
 }

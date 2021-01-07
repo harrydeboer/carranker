@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Forms\SearchForm;
 use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\ModelRepository;
 use App\Repositories\Elastic\TrimRepository;
@@ -19,17 +18,15 @@ class SearchController extends Controller
 
     public function view(Request $request): Response
     {
-        $searchForm = new SearchForm($request->all());
-
-        if ($searchForm->validateFull($request)) {
+        if ($formData = $this->validate($request, $this->rules())) {
             $data = [
                 'title' => 'Search results',
-                'makes' => $this->makeRepository->findForSearch($searchForm->query),
-                'models' => $this->modelRepository->findForSearch($searchForm->query),
-                'trims' => $this->trimRepository->findForSearch($searchForm->query),
+                'makes' => $this->makeRepository->findForSearch($formData['query']),
+                'models' => $this->modelRepository->findForSearch($formData['query']),
+                'trims' => $this->trimRepository->findForSearch($formData['query']),
             ];
 
-            return response()->view('search.index', $data, 200);
+            return response()->view('search.index', $data);
         }
 
         $data = [
@@ -39,6 +36,13 @@ class SearchController extends Controller
             'trims' => [],
         ];
 
-        return response()->view('search.index', $data, 200);
+        return response()->view('search.index', $data);
+    }
+
+    public function rules(): array
+    {
+        return [
+            'query' => 'string|required',
+        ];
     }
 }

@@ -4,9 +4,9 @@ $(document).ready(function ()
     $('#contact-form').on('submit', function (event)
     {
         var testProfanities = true;
-        var mailWords = $('#contactform-message').val().split(' ');
-        var subjectWords = $('#contactform-subject').val().split(' ');
-        var nameWords = $('#contactform-name').val().split(' ');
+        var mailWords = $('#contactFormMessage').val().split(' ');
+        var subjectWords = $('#contactFormSubject').val().split(' ');
+        var nameWords = $('#contactFormName').val().split(' ');
         var profanities = $('#profanities').val().split(' ');
 
         for (var index = 0; index < profanities.length; index++) {

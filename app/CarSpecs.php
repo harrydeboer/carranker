@@ -201,13 +201,12 @@ class CarSpecs
     private static function getRange(string $specName, array $spec, string $minOrMax): array
     {
         $range = [];
+        $range[$minOrMax] = '';
         if ($specName === 'generation') {
-            $range[''] = $minOrMax;
             for ($i = $spec['max']; $i >= $spec['min']; $i = $i - $spec['step']) {
                 $range["{$i}"] = $i;
             }
         } else {
-            $range[''] = $minOrMax;
             for ($i = $spec['min']; $i <= $spec['max']; $i = $i + $spec['step']) {
                 $range["{$i}"] = $i;
             }

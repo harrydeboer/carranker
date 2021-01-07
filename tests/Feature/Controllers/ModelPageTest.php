@@ -21,7 +21,7 @@ class ModelPageTest extends TestCase
         $this->userRepository = $this->app->make(UserRepository::class);
     }
 
-    public function testModelpage()
+    public function testModelPage()
     {
         $trim = $this->trimRepository->get(1);
         $response = $this->get('/model/' . $trim->getModel()->getMakeName() . '/' . $trim->getModel()->getName());
@@ -41,7 +41,7 @@ class ModelPageTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testRatecar()
+    public function testRateCar()
     {
         $trim = $this->trimRepository->get(1);
         $user = $this->userRepository->get(1);
@@ -49,10 +49,10 @@ class ModelPageTest extends TestCase
 
         $postArrayFirst = [
             'generation' => $trim->getYearBegin() . '-' . $trim->getYearEnd(),
-            'serie' => $trim->getYearBegin() . '-' . $trim->getYearEnd() . ';' . $trim->getFramework(),
+            'series' => $trim->getYearBegin() . '-' . $trim->getYearEnd() . ';' . $trim->getFramework(),
             'trimId' => $trim->getYearBegin() . '-' . $trim->getYearEnd() . ';' . $trim->getFramework() . ';' . $trim->getId(),
             'content' => null,
-            'reCaptchaToken' => 'notusedintests',
+            'reCaptchaToken' => 'notUsedInTests',
         ];
         foreach (Aspect::getAspects() as $aspect) {
             $postArrayFirst['star'][$aspect] = '10';

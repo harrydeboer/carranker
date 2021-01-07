@@ -26,7 +26,9 @@ class TrimService
         return $generationsSeriesTrims;
     }
 
-    /** If a trim has a name then there are multiple trim types for this serie trims. Otherwise the trim is a serie. */
+    /** If a trim has a name then there are multiple trim types for this series trims.
+     * Otherwise the trim is a series.
+     */
     public function hasTrimTypes(Collection $trims): bool
     {
         $hasTrimTypes = false;

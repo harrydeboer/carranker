@@ -10,51 +10,50 @@
         <img src="{{ fileUrl('/img/CarRanker.png') }}" alt="Car Ranker" id="carrankerLogo" class="img-thumbnail">
     </div>
     <div class="navbar-collapse collapse" id="navbarCollapse">
-        {!! Form::model($searchForm, [
-        'route' => ['search.view'],
-        'method' => 'get',
-        'class' => 'nav navbar-nav ml-auto navbar-right',
-        'id' => 'search-form'
-        ]) !!}
-        <ul id="navmenuHeader" class="nav navbar-nav">
-            @if (!is_null($menuHeader))
-                @foreach ($menuHeader as $page)
-                    <li class="nav-item navText"><a href="/{{ $page->getName() === 'home' ? '' :
+        <form method="get" action="{{ route('search.view') }}" id="search-form"
+              class="nav navbar-nav ml-auto navbar-right">
+            <ul id="navmenuHeader" class="nav navbar-nav">
+                @if (!is_null($menuHeader))
+                    @foreach ($menuHeader as $page)
+                        <li class="nav-item navText"><a href="/{{ $page->getName() === 'home' ? '' :
                     strtolower($page->getName()) }}" class="nav-link">{{ $page->getTitle() }}</a></li>
-                @endforeach
-            @endif
-            <li><a href="{{ route('login') }}"><i class="fa fa-user-o fa-lg"></i></a></li>
-            <li class="nav-item">
-                <select id="nav_select_make" class="form-control">
-                    <option value="">Make</option>
-                    @foreach ($makenames as $makename)
-                        @if (isset($makenameRoute) && $makename === $makenameRoute)
-                            <option value="{{ $makename }}" selected>{{ $makename }}</option>
-                        @else
-                            <option value="{{ $makename }}">{{ $makename }}</option>
-                        @endif
                     @endforeach
-                </select>
-            </li>
-            <li class="nav-item">
-                <select class="form-control" id="nav_select_model">
-                    <option value="">Model</option>
-                    @if (isset($modelnames))
-                        @foreach ($modelnames as $modelname)
-                            @if (isset($modelnameRoute) && $modelname === $modelnameRoute)
-                                <option value="{{ $modelname }}" selected>{{ $modelname }}</option>
+                @endif
+                <li><a href="{{ route('login') }}"><i class="fa fa-user-o fa-lg"></i></a></li>
+                <li class="nav-item">
+                    <select id="nav_select_make" class="form-control">
+                        <option value="">Make</option>
+                        @foreach ($makenames as $makename)
+                            @if (isset($makenameRoute) && $makename === $makenameRoute)
+                                <option value="{{ $makename }}" selected>{{ $makename }}</option>
                             @else
-                                <option value="{{ $modelname }}">{{ $modelname }}</option>
+                                <option value="{{ $makename }}">{{ $makename }}</option>
                             @endif
                         @endforeach
-                    @endif
-                </select>
-            </li>
-            <li class="nav-item">{!! Form::text('query', null, ['class' => 'form-control', 'id' => 'search_form_text',
-            'placeholder' => 'Search car...']) !!}</li>
-            <li class="nav-item">{!! Form::submit('Go', ['class' => 'btn btn-primary',
-            'id' => 'search_form_submit']) !!}</li>
-        </ul>
-        {!! Form::close() !!}
+                    </select>
+                </li>
+                <li class="nav-item">
+                    <select class="form-control" id="nav_select_model">
+                        <option value="">Model</option>
+                        @if (isset($modelnames))
+                            @foreach ($modelnames as $modelname)
+                                @if (isset($modelnameRoute) && $modelname === $modelnameRoute)
+                                    <option value="{{ $modelname }}" selected>{{ $modelname }}</option>
+                                @else
+                                    <option value="{{ $modelname }}">{{ $modelname }}</option>
+                                @endif
+                            @endforeach
+                        @endif
+                    </select>
+                </li>
+                <li class="nav-item">
+                    <input type="text" name="query" class="form-control"
+                           id="search_form_text" placeholder="Search car...">
+                </li>
+                <li class="nav-item">
+                    <input type="submit" class="btn btn-primary" value="Go" id="search_form_submit">
+                </li>
+            </ul>
+        </form>
     </div>
 </div>

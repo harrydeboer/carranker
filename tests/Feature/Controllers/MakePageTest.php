@@ -17,7 +17,7 @@ class MakePageTest extends TestCase
         $this->makeRepository = $this->app->make(MakeRepository::class);
     }
 
-    public function testMakepage()
+    public function testMakePage()
     {
         $make = $this->makeRepository->get(1);
         $response = $this->get('/make/' . $make->getName());

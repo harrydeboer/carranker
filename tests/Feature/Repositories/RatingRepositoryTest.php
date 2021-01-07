@@ -58,7 +58,7 @@ class RatingRepositoryTest extends TestCase
         foreach (Aspect::getAspects() as $aspect) {
             $createArray['star'][$aspect] = '8';
         }
-        $form = new \App\Forms\RatingForm($this->profanityRepository, $createArray);
+        $form = new \App\Validators\RatingValidator($this->profanityRepository, $createArray);
 
         $rating = $this->ratingRepository->createRating($user, $trim->getModel(), $trim, $form, 0);
 
@@ -81,7 +81,7 @@ class RatingRepositoryTest extends TestCase
         foreach (Aspect::getAspects() as $aspect) {
             $createArray['star'][$aspect] = '8';
         }
-        $form = new \App\Forms\RatingForm($this->profanityRepository, $createArray);
+        $form = new \App\Validators\RatingValidator($this->profanityRepository, $createArray);
 
         $rating = $this->ratingRepository->updateRating($rating, $form, 1);
 

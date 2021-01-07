@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Repositories\Elastic;
 
 use App\Models\Elastic\Trim;
-use App\Forms\FilterTopForm;
+use App\Validators\FilterTopValidator;
 use App\Repositories\Elastic\TrimRepository;
 use Tests\TestCase;
 
@@ -42,7 +42,7 @@ class TrimRepositoryTest extends TestCase
         $index = '0';
         $framework = \App\CarSpecs::specsChoice()['framework']['choices'][(int) $index];
 
-        $form = new FilterTopForm();
+        $form = new FilterTopValidator();
         $form->hasRequest = true;
 
         $aspects = [];

@@ -4,28 +4,43 @@
     <div class="row justify-content-center" id="contactsArticle">
         <div class="col-md-8">
             {!! $content !!}
-            @if (isset($success))
-                <span id="success">{{ $success }}</span>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
-            @if (isset($error))
-                <span id="error">{{ $error }}</span>
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
             @endif
-            {!! Form::model($contactForm, ['route' => ['contact.view'], 'id' => 'contact-form']) !!}
-            <div class="form-group">{!! Form::email('email', old('email'), ['class'=>'form-control',
-                'placeholder'=>'Enter your email', 'id' => 'contactform-email', 'required']) !!}</div>
-            <div class="form-group">{!! Form::text('name', old('name'), ['class'=>'form-control',
-                'placeholder'=>'Enter your name', 'id' => 'contactform-name', 'required']) !!}</div>
-            <div class="form-group">{!! Form::text('subject', old('subject'), ['class'=>'form-control',
-                'placeholder'=>'Enter subject', 'id' => 'contactform-subject', 'required']) !!}</div>
-            <div class="form-group">
-                {!! Form::textarea('message', old('message'), ['class'=>'form-control', 'cols' => 60, 'rows' => 15,
-                'placeholder' => 'Enter message', 'id' => 'contactform-message', 'required']) !!}
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Send" class="btn btn-success" id="filter_top_form_submit">
-            </div>
-            <input type="hidden" name="reCaptchaToken" id="reCaptchaToken">
-            {!! Form::close() !!}
+            <form method="post" action="{{ route('contact.sendMail') }}" id="contact-form">
+                @csrf
+                <div class="form-group">
+                    <input type="email" id="contactFormEmail" name="email"
+                           class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="contactFormName" name="name"
+                           class="form-control" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="contactFormSubject" name="subject"
+                           class="form-control" placeholder="Enter subject" required>
+                </div>
+                <div class="form-group">
+                <textarea id="contactFormMessage" name="message" cols="60" rows="15"
+                          class="form-control" placeholder="Enter message" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Send" class="btn btn-success" id="filter_top_form_submit">
+                </div>
+                <input type="hidden" name="reCaptchaToken" id="reCaptchaToken">
+            </form>
             <input type="hidden" value="{{ $reCaptchaKey }}" id="reCaptchaKey">
             <input type="hidden" value="{{ $profanities }}" id="profanities">
         </div>

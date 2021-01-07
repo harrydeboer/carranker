@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\CarSpecs;
-use App\Forms\RatingForm;
 use App\Models\Aspect;
+use App\Validators\RatingValidator;
 use App\Repositories\FXRateRepository;
 use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\ModelRepository;
@@ -47,7 +47,7 @@ class ModelPageController extends Controller
 
         $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
         $model->getMake();
-        $ratingForm = new RatingForm($this->profanityRepository);
+        $ratingForm = new RatingValidator($this->profanityRepository);
         $trims = $model->getTrims();
         $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelpage);
 
@@ -87,7 +87,7 @@ class ModelPageController extends Controller
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
     public function rateCar(Request $request, Guard $guard): Response
     {
-        $ratingForm = new RatingForm($this->profanityRepository, $request->all());
+        $ratingForm = new RatingValidator($this->profanityRepository, $request->all());
         $data['success'] = 'false';
 
         if ($ratingForm->validateFull($request, $ratingForm->reCaptchaToken)) {

@@ -6,7 +6,7 @@ namespace App\Repositories\Elastic;
 
 use App\Models\Aspect;
 use App\Models\Elastic\Trim;
-use App\Forms\FilterTopForm;
+use App\Validators\FilterTopValidator;
 use App\CarSpecs;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -34,11 +34,11 @@ class TrimRepository extends BaseRepository
     }
 
     /** The trims for the top on the homepage are retrieved. The filtering options are used when present.
-     * There is an aspectfilter, specs choice filter and specs range filter. The minimum number of votes is also a
+     * There is an aspect filter, specs choice filter and specs range filter. The minimum number of votes is also a
      * filter and the number of trims to be retrieved and the offset if present.
-     * The ratings are sorted from hight to low.
+     * The ratings are sorted from high to low.
      */
-    public function findTrimsOfTop(FilterTopForm $form, int $minNumVotes,
+    public function findTrimsOfTop(FilterTopValidator $form, int $minNumVotes,
                                    int $lengthTopTable, int $offset=0): Collection
     {
         $params = [
@@ -85,7 +85,7 @@ class TrimRepository extends BaseRepository
     }
 
     /** Filter the trims for the user settings in the aspect ranges of the filter top form. */
-    private function queryAspects(FilterTopForm $form, array $params): array
+    private function queryAspects(FilterTopValidator $form, array $params): array
     {
         $params['body']['sort']['_script'] = [
             'type' => 'number',
@@ -111,7 +111,7 @@ class TrimRepository extends BaseRepository
     }
 
     /** Filter the trims for the user settings in the dropdowns of the filter top form. */
-    private function queryChoice(array $choices, string $name, array $params, FilterTopForm $form): array
+    private function queryChoice(array $choices, string $name, array $params, FilterTopValidator $form): array
     {
         $queryArr = [];
         $formSpec = $form->specsChoice;
@@ -154,7 +154,7 @@ class TrimRepository extends BaseRepository
     }
 
     /** Filter the trims for the user settings in the min/max selects of the filter top form. */
-    private function queryRange(array $spec, string $name, array $params, FilterTopForm $form): array
+    private function queryRange(array $spec, string $name, array $params, FilterTopValidator $form): array
     {
         $formSpecs = $form->specsRange;
         $formMin = $formSpecs[$name . 'min'];

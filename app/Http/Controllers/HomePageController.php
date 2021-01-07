@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\CarSpecs;
-use App\Forms\FilterTopForm;
+use App\Validators\FilterTopValidator;
 use App\Models\Aspect;
 use App\Repositories\PageRepository;
 use App\Repositories\RatingRepository;
@@ -31,9 +31,9 @@ class HomePageController extends Controller
 
     public function view(): Response
     {
-        $form = new FilterTopForm();
+        $filterForm = new FilterTopValidator();
         $minNumVotes = self::minNumVotes;
-        $topTrims = $this->trimRepository->findTrimsOfTop($form, $minNumVotes,self::topLength);
+        $topTrims = $this->trimRepository->findTrimsOfTop($filterForm, $minNumVotes,self::topLength);
 
         $data = [
             'title' => 'Car Ranker',
@@ -46,7 +46,7 @@ class HomePageController extends Controller
             'topTrims' => $topTrims,
             'minNumVotes' => $minNumVotes,
             'minNumVotesDefault' => self::minNumVotes,
-            'filterForm' => $form,
+            'filterForm' => $filterForm,
             'content' => $this->pageRepository->findByName('home')?->getContent(),
         ];
 
@@ -55,7 +55,7 @@ class HomePageController extends Controller
 
     public function filterTop(Request $request): Response
     {
-        $form = new FilterTopForm($request->all());
+        $form = new FilterTopValidator($request->all());
 
         if ($form->validateFull($request)) {
 
@@ -83,7 +83,7 @@ class HomePageController extends Controller
     /** When a user wants to see more trims in the top the extra trims are retrieved. */
     public function showMoreTopTable(Request $request): Response
     {
-        $form = new FilterTopForm($request->all());
+        $form = new FilterTopValidator($request->all());
         $trims = $this->trimRepository->findTrimsOfTop($form,
                                                        (int) $form->minNumVotes,
                                                        (int) $form->numberOfRows,

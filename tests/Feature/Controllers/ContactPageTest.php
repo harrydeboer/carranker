@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class ContactPageTest extends TestCase
 {
-    public function testContactpage()
+    public function testContactPage()
     {
         $response = $this->get('/contact');
 
@@ -25,7 +25,6 @@ class ContactPageTest extends TestCase
             'reCaptchaToken' => 'notavalidtoken',
         ]);
 
-        $response->assertStatus(200);
-        $response->assertSee('Could not deliver mail. Try again later.');
+        $response->assertStatus(302);
     }
 }

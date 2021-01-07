@@ -41,7 +41,7 @@
         <div class="text-center">
             <a href="#dialog" class="toRateTrim btn btn-primary" data-toggle="modal"
                data-generation="{{ $trim->getYearBegin() . '-' . $trim->getYearEnd() }}"
-               data-serie="{{ $trim->getFramework() ?? 'N/A' }}" data-idtrim="{{ $id }}">Rate this car!</a>
+               data-series="{{ $trim->getFramework() ?? 'N/A' }}" data-idtrim="{{ $id }}">Rate this car!</a>
         </div>
     @endif
     <table class="specsTrim">

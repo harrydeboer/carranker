@@ -35,11 +35,11 @@ $(document).ready(function ()
         $('.typeInfo').modal('hide');
         showDialog('trim');
         var generation = $(this).data('generation');
-        var serie = $(this).data('serie');
+        var series = $(this).data('series');
         var IDTrim = $(this).data('idtrim');
-        $('#rating_form_generation').val(generation);
-        $('#rating_form_serie').val(generation + ';' + serie);
-        $('#rating_form_trim').val(generation + ';' + serie + ';' + IDTrim);
+        $('#ratingFormGeneration').val(generation);
+        $('#ratingFormSeries').val(generation + ';' + series);
+        $('#ratingFormTrim').val(generation + ';' + series + ';' + IDTrim);
     });
 
     $("#showModelDialog").on('click', function()
@@ -54,13 +54,13 @@ $(document).ready(function ()
 
     /** A rating can be send to the server when there is no swearing in a review
      * or when the submit is not a review. The required attributes in the html validate the form. */
-    $('#rating-form').on('submit', function(event)
+    $('#ratingForm').on('submit', function(event)
     {
         var testProfanities = true;
         var profanities = $('#profanities').val().split(' ');
 
-        if ($('#rating_form_content:visible').length) {
-            var content = $('#rating_form_content').val();
+        if ($('#ratingFormContent:visible').length) {
+            var content = $('#ratingFormContent').val();
             isReview = true;
 
             var contentWords = content.split(' ');
@@ -102,7 +102,7 @@ $(document).ready(function ()
 
                         /** The form is submitted which triggers the current function again but now the recaptcha element
                          * is loaded and the events default is not prevented so that the form will actually submit. */
-                        $.post($('#rating-form').attr('action'), $('#rating-form').serialize(), function(data)
+                        $.post($('#ratingForm').attr('action'), $('#ratingForm').serialize(), function(data)
                         {
                             if (data === 'true') {
                                 sessionStorage.isThankYou = "true";
@@ -118,12 +118,12 @@ $(document).ready(function ()
     });
 
     /** The generations have series and when a generation is selected the right options for the series must be shown.
-     * The series have trims and when a serie is selected the right options for the trims must be shown. */
-    var menuGenerations = $('#rating_form_generation');
-    var menuSeries = $('#rating_form_serie');
-    var menuSeriesOptions = $('#rating_form_serie option');
-    var menuTrims = $('#rating_form_trim');
-    var menuTrimsOptions = $('#rating_form_trim option');
+     * The series have trims and when a series is selected the right options for the trims must be shown. */
+    var menuGenerations = $('#ratingFormGeneration');
+    var menuSeries = $('#ratingFormSeries');
+    var menuSeriesOptions = $('#ratingFormSeries option');
+    var menuTrims = $('#ratingFormTrim');
+    var menuTrimsOptions = $('#ratingFormTrim option');
     menuSeriesOptions.hide();
     menuTrimsOptions.hide();
 
@@ -137,8 +137,8 @@ $(document).ready(function ()
         menuSeriesOptions.each(function()
         {
             if ($(this).val() !== '') {
-                var serieArray = $(this).val().split(';');
-                if (serieArray[0] === selectedGeneration) {
+                var seriesArray = $(this).val().split(';');
+                if (seriesArray[0] === selectedGeneration) {
                     $(this).show();
                 }
             } else {
@@ -150,14 +150,14 @@ $(document).ready(function ()
     menuSeries.on('change', function()
     {
         var selectedGeneration = $(this).val();
-        var selectedSerie = $(this).val();
+        var selectedSeries = $(this).val();
         menuTrimsOptions.hide();
         menuTrims.val('');
         menuTrimsOptions.each(function()
         {
             if ($(this).val() !== '') {
                 var trimArray = $(this).val().split(';');
-                if (trimArray[0] + ';' + trimArray[1] === selectedSerie) {
+                if (trimArray[0] + ';' + trimArray[1] === selectedSeries) {
                     $(this).show();
                     if (hasTrimTypes === false) {
                         $(this).prop('selected', true);
@@ -172,30 +172,30 @@ $(document).ready(function ()
     });
 
     /** The dialog with the rating form can have three shapes. When a trim is viewed and the user wants to rate
-     * this trim then the user does not need to specify the right generation, serie or trim. When the form is selected
-     * from the modelpage the user needs to specify the generation, serie and/or trim and these are then required.
+     * this trim then the user does not need to specify the right generation, series or trim. When the form is selected
+     * from the modelpage the user needs to specify the generation, series and/or trim and these are then required.
      * Finally when the user wants to write a review the textarea is displayed in the form and made required. */
     function showDialog(typeShow)
     {
         var winW = $(window).width();
         var winH = $(window).height();
-        $('#rating_form_generation').show();
-        $('#rating_form_serie').show();
-        $('#rating_form_trim').show();
+        $('#ratingFormGeneration').show();
+        $('#ratingFormSeries').show();
+        $('#ratingFormTrim').show();
         $("#divArea").show();
         if (hasTrimTypes === false) {
-            $('#rating_form_trim').hide();
+            $('#ratingFormTrim').hide();
         }
         if (typeShow === 'review') {
-            $("#rating_form_content").prop('required',true);
+            $("#ratingFormContent").prop('required',true);
         } else {
             $("#divArea").hide();
-            $("#rating_form_content").prop('required',false);
+            $("#ratingFormContent").prop('required',false);
 
             if (typeShow === 'trim') {
-                $('#rating_form_generation').hide();
-                $('#rating_form_serie').hide();
-                $('#rating_form_trim').hide();
+                $('#ratingFormGeneration').hide();
+                $('#ratingFormSeries').hide();
+                $('#ratingFormTrim').hide();
             }
         }
     }

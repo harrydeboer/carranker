@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Forms;
+namespace App\Validators;
 
+use App\Models\Aspect;
 use Illuminate\Http\Request;
 use App\Repositories\ProfanityRepository;
 
-class ContactForm extends BaseForm
+class RatingValidator extends BaseValidator
 {
-    protected $fillable = ['email', 'subject', 'name', 'message', 'reCaptchaToken'];
+    protected $fillable = ['star', 'generation', 'series', 'trimId', 'content', 'reCaptchaToken'];
 
     public function __construct(private ProfanityRepository $profanityRepository, array $attributes = [])
     {
@@ -18,22 +19,26 @@ class ContactForm extends BaseForm
 
     public function rules(): array
     {
-        return [
-            'email' => 'required|email',
-            'subject' => 'string|required',
-            'name' => 'string|required',
-            'message' => 'string|required',
+        $rules = [
+            'generation' => 'string|required',
+            'series' => 'string|required',
+            'trimId' => 'string|required',
+            'content' => 'string|nullable',
             'reCaptchaToken' => 'string|required',
         ];
+
+        foreach (Aspect::getAspects() as $aspect) {
+            $rules['star.' . $aspect] = 'integer|required';
+        }
+
+        return $rules;
     }
 
     public function validateFull(Request $request, string $token = null): bool
     {
         $result = parent::validateFull($request, $token);
 
-        if ($this->profanityRepository->validate($this->subject) &&
-            $this->profanityRepository->validate($this->name) &&
-            $this->profanityRepository->validate($this->message)) {
+        if ($this->profanityRepository->validate($this->content)) {
 
             return $result;
         } else {

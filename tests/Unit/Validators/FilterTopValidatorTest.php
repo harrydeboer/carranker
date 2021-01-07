@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Forms;
+namespace Tests\Unit\Validators;
 
-use App\Forms\FilterTopForm;
+use App\Validators\FilterTopValidator;
 use App\Models\Aspect;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class FilterTopFormTest extends TestCase
+class FilterTopValidatorTest extends TestCase
 {
     use DatabaseMigrations;
 
     public function testFilterTopForm()
     {
-        $form = new FilterTopForm();
+        $form = new FilterTopValidator();
 
         $request = request();
         $request->setMethod('GET');

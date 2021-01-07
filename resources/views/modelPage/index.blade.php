@@ -78,7 +78,7 @@
     <div id="dialog" class="modal fade">
         <div class="modal-dialog" id="rateForm">
             <div class="modal-content">
-                @include('modelPage.ratingform')
+                @include('modelPage.ratingForm')
             </div>
         </div>
     </div>

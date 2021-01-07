@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Forms\RatingForm;
+use App\Validators\RatingValidator;
 use App\Models\Rating;
 use App\Models\Model as ModelEloquent;
 use App\Models\Elastic\Model;
@@ -59,7 +59,7 @@ class RatingRepository implements IRepository
     }
 
     public function createRating(Authenticatable $user, ModelEloquent $model,
-        Trim $trim, RatingForm $form, int $pending): Rating
+        Trim $trim, RatingValidator $form, int $pending): Rating
     {
         $createArray = [
             'user_id' => $user->getId(),
@@ -80,7 +80,7 @@ class RatingRepository implements IRepository
         return $this->create($createArray);
     }
 
-    public function updateRating(Rating $rating, RatingForm $form, int $pending): Rating
+    public function updateRating(Rating $rating, RatingValidator $form, int $pending): Rating
     {
         foreach ($form->star as $key => $aspect) {
             $rating->setAspect($key, (int) $aspect);

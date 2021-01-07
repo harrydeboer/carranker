@@ -12,7 +12,7 @@ Route::get('model/{make}/{model}', ['as' => 'modelPage','uses' => 'ModelPageCont
 Route::post('rateCar', ['as' => 'rateCar', 'uses' => 'ModelPageController@rateCar'])
     ->middleware('verified');
 Route::get('contact', ['as' => 'contactPage', 'uses' => 'ContactPageController@view']);
-Route::post('contact', ['as' => 'contact.view', 'uses' => 'ContactPageController@view']);
+Route::post('contact', ['as' => 'contact.sendMail', 'uses' => 'ContactPageController@sendMail']);
 
 Route::get('email/verify/with/mail', ['as' => 'verification.notice.with.mail',
     'uses' => 'Auth\VerificationController@showAndMail'])->middleware('auth');
