@@ -5,7 +5,8 @@
         @include('errors.errors')
         <table>
             @foreach ($reviews as $review)
-                <tr><td>{{ $review->getUser()->getName() }}</td><td>{{ $review->getContent() }}</td><td>
+                <tr><td class="reviewName">{{ $review->getUser()->getName() }}</td>
+                    <td class="reviewContent">{{ $review->getContent() }}</td><td>
                         <form method="post" action="{{ route('admin.reviews.approve') }}">
                             @csrf
                             <input type="hidden" name="id" value="{{ $review->getId() }}">

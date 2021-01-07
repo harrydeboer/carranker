@@ -3,7 +3,7 @@
 @section('content')
     @include('errors.errors')
     <table>
-        <tr><td>
+        <tr class="mailUserTr"><td colspan="3">
                 <form method="post" action="{{ route('admin.mail.users.create') }}">
                     @csrf
                     <input type="text" name="domain" placeholder="domain" required>
@@ -17,7 +17,7 @@
         @if (count($mailUsers) > 0)
 
             @foreach ($mailUsers as $mailUser)
-                <tr><td>
+                <tr class="mailUserTr"><td>
                         <form method="post" action="{{ route('admin.mail.users.update') }}">
                             @csrf
                             <input type="text" name="domain" value="{{ $mailUser->getDomain() }}"
@@ -30,14 +30,16 @@
                             <input type="submit" class="btn btn-warning" value="Update">
                         </form>
                     </td><td>
-                        <form method="post" action="{{ route('admin.mail.users.update.password') }}">
+                        <form method="post" class="updatePasswordForm"
+                              action="{{ route('admin.mail.users.update.password') }}">
                             @csrf
-                            <input type="password" name="password" placeholder="password" required>
+                            <input type="password" class="updatePassword"
+                                   name="password" placeholder="password" required>
                             <input type="hidden" name="id" value="{{ $mailUser->getId() }}">
                             <input type="submit" class="btn btn-warning" value="Reset">
                         </form>
                     </td><td>
-                        <form method="post" action="{{ route('admin.mail.users.delete') }}">
+                        <form method="post" class="deleteMailUserForm" action="{{ route('admin.mail.users.delete') }}">
                             @csrf
                             <input type="hidden" name="id" value="{{ $mailUser->getId() }}">
                             <input type="submit" class="btn btn-danger" value="Delete">

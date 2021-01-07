@@ -54,8 +54,8 @@ class ReviewController extends Controller
 
     public function approve(Request $request): RedirectResponse
     {
-        if ($request->validate($this->rulesApprove())) {
-            $id = (int)$request->id;
+        if ($data = $request->validate($this->rulesApprove())) {
+            $id = (int) $data['id'];
             $rating = $this->ratingRepository->get($id);
 
             $ratingArray = [];
@@ -73,8 +73,8 @@ class ReviewController extends Controller
 
     public function delete(Request $request): RedirectResponse
     {
-        if ($request->validate($this->rulesDelete())) {
-            $this->ratingRepository->delete((int) $request->id);
+        if ($data = $request->validate($this->rulesDelete())) {
+            $this->ratingRepository->delete((int) $data['id']);
         }
 
         return $this->redirectTo();
