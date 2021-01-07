@@ -2,6 +2,7 @@
 
 @section('content')
     @if (count($reviews) > 0)
+        @include('errors.errors')
         <table>
             @foreach ($reviews as $review)
                 <tr><td>{{ $review->getUser()->getName() }}</td><td>{{ $review->getContent() }}</td><td>

@@ -10,12 +10,15 @@ use App\Repositories\ModelRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\TrimRepository;
 use App\Repositories\UserRepository;
+use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ReviewController extends Controller
 {
+    use RedirectsUsers;
+
     public function __construct(
         private RatingRepository $ratingRepository,
         private ModelRepository $modelRepository,
@@ -44,27 +47,46 @@ class ReviewController extends Controller
         return response()->view('admin.review.index', $data);
     }
 
+    protected function redirectTo(): RedirectResponse
+    {
+        return redirect(route('admin.reviews'));
+    }
+
     public function approve(Request $request): RedirectResponse
     {
-        $id = (int) $request->id;
-        $rating = $this->ratingRepository->get($id);
+        if ($request->validate($this->rulesApprove())) {
+            $id = (int)$request->id;
+            $rating = $this->ratingRepository->get($id);
 
-        $ratingArray = [];
-        foreach (Aspect::getAspects() as $aspect) {
-            $ratingArray[$aspect] = $rating->getAspect($aspect);
+            $ratingArray = [];
+            foreach (Aspect::getAspects() as $aspect) {
+                $ratingArray[$aspect] = $rating->getAspect($aspect);
+            }
+
+            $this->ratingRepository->approve($id);
+            $this->modelRepository->updateVotesAndRating($rating->getModel(), $ratingArray, null);
+            $this->trimRepository->updateVotesAndRating($rating->getTrim(), $ratingArray, null);
         }
 
-        $this->ratingRepository->approve($id);
-        $this->modelRepository->updateVotesAndRating($rating->getModel(), $ratingArray, null);
-        $this->trimRepository->updateVotesAndRating($rating->getTrim(), $ratingArray, null);
-
-        return redirect(route('admin.reviews'));
+        return $this->redirectTo();
     }
 
     public function delete(Request $request): RedirectResponse
     {
-        $this->ratingRepository->delete((int) $request->id);
+        if ($request->validate($this->rulesDelete())) {
+            $this->ratingRepository->delete((int) $request->id);
+        }
 
-        return redirect(route('admin.reviews'));
+        return $this->redirectTo();
+    }
+
+    protected function rulesApprove(): array
+    {
+        return ['id' => 'integer|required'];
+    }
+
+    protected function rulesDelete(): array
+    {
+        return ['id' => 'integer|required'];
     }
 }

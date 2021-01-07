@@ -6,17 +6,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\MailUserRepository;
+use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Factory;
 
 class MailUserController extends Controller
 {
+    use RedirectsUsers;
+
     public function __construct(
         private MailUserRepository $mailUserRepository,
+        private Factory $validatorFactory,
     )
     {
-
     }
 
     public function view(): Response
@@ -37,49 +41,62 @@ class MailUserController extends Controller
         return response()->view('admin.mailUser.index', $data);
     }
 
+    protected function redirectTo(): RedirectResponse
+    {
+        return redirect(route('admin.mail.users'));
+    }
+
     public function create(Request $request): RedirectResponse
     {
-        $createArray = [
-            'domain' => $request->domain,
-            'password' => $this->encryptPasswordSHA512($request->password),
-            'email' => $request->email,
-            'forward' => $request->forward,
-        ];
+        if ($request->validate($this->rulesCreate())) {
+            $createArray = [
+                'domain' => $request->domain,
+                'password' => $this->encryptPasswordSHA512($request->password),
+                'email' => $request->email,
+                'forward' => $request->forward,
+            ];
 
-        $this->mailUserRepository->create($createArray);
+            $this->mailUserRepository->create($createArray);
+        }
 
-        return redirect(route('admin.mail.users'));
+        return $this->redirectTo();
     }
 
     public function update(Request $request): RedirectResponse
     {
-        $mailUser = $this->mailUserRepository->get((int) $request->id);
+        if ($request->validate($this->rulesUpdate())) {
+            $mailUser = $this->mailUserRepository->get((int)$request->id);
 
-        $mailUser->setDomain($request->domain);
-        $mailUser->setEmail($request->email);
-        $mailUser->setForward($request->forward);
+            $mailUser->setDomain($request->domain);
+            $mailUser->setEmail($request->email);
+            $mailUser->setForward($request->forward);
 
-        $mailUser->save();
+            $mailUser->save();
+        }
 
-        return redirect(route('admin.mail.users'));
+        return $this->redirectTo();
     }
 
     public function updatePassword(Request $request): RedirectResponse
     {
-        $mailUser = $this->mailUserRepository->get((int) $request->id);
+        if ($request->validate($this->rulesUpdatePassword())) {
+            $mailUser = $this->mailUserRepository->get((int) $request->id);
 
-        $mailUser->setPassword($this->encryptPasswordSHA512($request->password));
+            $mailUser->setPassword($this->encryptPasswordSHA512($request->password));
 
-        $mailUser->save();
+            $mailUser->save();
+        }
 
-        return redirect(route('admin.mail.users'));
+        return $this->redirectTo();
     }
 
     public function delete(Request $request): RedirectResponse
     {
-        $this->mailUserRepository->delete((int) $request->id);
+        if ($request->validate($this->rulesDelete())) {
+            $this->mailUserRepository->delete((int)$request->id);
+        }
 
-        return redirect(route('admin.mail.users'));
+        return $this->redirectTo();
     }
 
     private function encryptPasswordSHA512(string $password):string
@@ -94,5 +111,37 @@ class MailUserController extends Controller
         }
 
         return crypt( $password, '$6$' . $salt );
+    }
+
+    protected function rulesCreate(): array
+    {
+        return [
+            'domain' => 'string|required',
+            'password' => 'string|required',
+            'email' => 'string|email|required|unique:mail_users',
+            'forward' => 'nullable'
+        ];
+    }
+
+    public function rulesUpdate(): array
+    {
+        return [
+            'domain' => 'string|required',
+            'email' => 'string|email|required',
+            'forward' => 'nullable',
+        ];
+    }
+
+    public function rulesUpdatePassword(): array
+    {
+        return [
+            'id' => 'integer|required',
+            'password' => 'string|required',
+        ];
+    }
+
+    protected function rulesDelete(): array
+    {
+        return ['id' => 'integer|required'];
     }
 }

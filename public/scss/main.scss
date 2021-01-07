@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import 'webAndAdmin';
 
 #hideAll {
   position: fixed;
@@ -18,20 +18,10 @@
   margin:auto;
 }
 
-$font-stack: 'Open Sans', sans-serif;
-$housecolor-blue: #336699;
-$housecolor-blue-r: 51;
-$housecolor-blue-g: 102;
-$housecolor-blue-b: 153;
 $body-width: 1275px;
 
 .help-block {
   display: none;
-}
-
-body {
-  font-family: $font-stack;
-  font-size: 20px;
 }
 
 .fa-star {

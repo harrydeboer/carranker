@@ -15,9 +15,9 @@ class Kernel extends HttpKernel
 {
     public function __construct(Application $app, Router $router)
     {
-        $this->middlewareGroups['admin'] = $this->webAdmin;
+        $this->middlewareGroups['admin'] = $this->webAndAdmin;
         $this->middlewareGroups['admin'][] = IsAdmin::class;
-        $this->middlewareGroups['web'] = $this->webAdmin;
+        $this->middlewareGroups['web'] = $this->webAndAdmin;
         $this->middlewareGroups['web'][] = ShareWithAllViews::class;
         parent::__construct($app, $router);
     }
@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\ContentSecurityPolicy::class,
     ];
 
-    private $webAdmin = [
+    private $webAndAdmin = [
         \App\Http\Middleware\EncryptCookies::class,
         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         \Illuminate\Session\Middleware\StartSession::class,

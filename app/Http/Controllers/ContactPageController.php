@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Repositories\PageRepository;
 use App\Repositories\ProfanityRepository;
 use App\Validators\ContactValidator;
+use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Mail\Mailer;
@@ -16,6 +17,8 @@ use Illuminate\Log\LogManager;
 
 class ContactPageController extends Controller
 {
+    use RedirectsUsers;
+
     public function __construct(
         private Mailer $mailer,
         private ProfanityRepository $profanityRepository,
@@ -38,6 +41,11 @@ class ContactPageController extends Controller
         return response()->view('contactPage.index', $data);
     }
 
+    private function redirectTo()
+    {
+        return redirect(route('contactPage'));
+    }
+
     public function sendMail(Request $request): RedirectResponse
     {
         $contactForm = new ContactValidator($this->profanityRepository, $request->all());
@@ -51,15 +59,13 @@ class ContactPageController extends Controller
                     $message->subject($contactForm->subject);
                     $message->to(env('MAIL_USERNAME'));
                 });
-
-                return redirect(route('contactPage'))->with('success', 'Thank you for your mail!');
             } catch (\Exception $e) {
             	$this->logManager->debug($e->getMessage());
 
-                return redirect(route('contactPage'))->withErrors('Could not deliver mail. Try again later.');
+                return $this->redirectTo()->withErrors('Could not deliver mail. Try again later.');
             }
         }
 
-        return redirect(route('contactPage'))->withErrors('The posted data was invalid.');
+        return $this->redirectTo()->with('success', 'Thank you for your mail!');
     }
 }

@@ -1,19 +1,20 @@
 @extends('admin.layout')
 
 @section('content')
+    @include('errors.errors')
     <table>
-    <tr><td>
-            <form method="post" action="{{ route('admin.mail.users.create') }}">
-                @csrf
-                <input type="text" name="domain" placeholder="domain" required>
-                <input type="password" name="password" placeholder="password" required>
-                <input type="email" name="email" placeholder="email" required>
-                <input type="email" name="forward" placeholder="forward">
-                <input type="submit" class="btn btn-primary" value="Create">
-            </form>
-        </td>
-    </tr>
-    @if (count($mailUsers) > 0)
+        <tr><td>
+                <form method="post" action="{{ route('admin.mail.users.create') }}">
+                    @csrf
+                    <input type="text" name="domain" placeholder="domain" required>
+                    <input type="password" name="password" placeholder="password" required>
+                    <input type="email" name="email" placeholder="email" required>
+                    <input type="email" name="forward" placeholder="forward">
+                    <input type="submit" class="btn btn-primary" value="Create">
+                </form>
+            </td>
+        </tr>
+        @if (count($mailUsers) > 0)
 
             @foreach ($mailUsers as $mailUser)
                 <tr><td>
@@ -43,11 +44,11 @@
                         </form>
                     </td></tr>
             @endforeach
-        {!! $links !!}
-    @else
+            {!! $links !!}
+        @else
     </table>
-        <section class="col-md-12 row justify-content-center text-center">
-            <h3 class="col-md-6" id="reviewHeading">No mail users.</h3>
-        </section>
+    <section class="col-md-12 row justify-content-center text-center">
+        <h3 class="col-md-6" id="reviewHeading">No mail users.</h3>
+    </section>
     @endif
 @endsection
