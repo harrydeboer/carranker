@@ -45,10 +45,10 @@ class APIController extends BaseController
         return response()->json($trim);
     }
 
-    /** When a user selects a make then the modelnames belonging to this make are retrieved. */
-    public function getModelNames(string $makename): JsonResponse
+    /** When a user selects a make then the modelNames belonging to this make are retrieved. */
+    public function getModelNames(string $makeName): JsonResponse
     {
-        return response()->json($this->makeRepository->getModelNames($makename));
+        return response()->json($this->makeRepository->getModelNames($makeName));
     }
 
     public function makeSitemap(): Response

@@ -13,9 +13,17 @@ class ContactValidatorTest extends TestCase
 {
     use DatabaseMigrations;
 
+    private ProfanityRepository $profanitiesRepository;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->profanitiesRepository = $this->app->make(ProfanityRepository::class);
+    }
+
     public function testContactForm()
     {
-        $form = new ContactValidator($this->app->make(ProfanityRepository::class));
+        $validator = new ContactValidator($this->profanitiesRepository->all());
 
         $request = request();
         $request->setMethod('POST');
@@ -24,9 +32,9 @@ class ContactValidatorTest extends TestCase
                                    'subject' => 'Test',
                                    'name' => 'Test',
                                    'message' => 'Test',
-                                   'reCaptchaToken' => 'notusedintests',
+                                   'reCaptchaToken' => 'notUsedInTests',
                                ]);
 
-        $this->assertTrue($form->validateFull($request, 'notvalid'));
+        $this->assertIsArray($validator->validate($request));
     }
 }

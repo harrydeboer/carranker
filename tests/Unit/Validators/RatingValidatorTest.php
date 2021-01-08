@@ -14,9 +14,18 @@ class RatingValidatorTest extends TestCase
 {
     use DatabaseMigrations;
 
+    private ProfanityRepository $profanitiesRepository;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->profanitiesRepository = $this->app->make(ProfanityRepository::class);
+    }
+
     public function testRatingForm()
     {
-        $form = new RatingValidator($this->app->make(ProfanityRepository::class));
+        $validator = new RatingValidator($this->profanitiesRepository->all());
 
         $request = request();
         $request->setMethod('POST');
@@ -26,13 +35,13 @@ class RatingValidatorTest extends TestCase
             'series' => 'Sedan',
             'trimId' => '1',
             'content' => null,
-            'reCaptchaToken' => 'notusedintests',
+            'reCaptchaToken' => 'notUsedInTests',
         ];
         foreach (Aspect::getAspects() as $aspect) {
             $requestParams['star'][$aspect] = '8';
         }
         $request->request->add($requestParams);
 
-        $this->assertTrue($form->validateFull($request, 'notvalid'));
+        $this->assertIsArray($validator->validate($request));
     }
 }

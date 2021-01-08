@@ -56,37 +56,37 @@ class MakeRepository extends BaseRepository
             ],
         ];
         $makes = Make::searchMany($params);
-        $makenames = [];
+        $makeNames = [];
         $makesASCII = array();
         foreach($makes as $make) {
-            $makenames[$make->getName()] = $make->getName();
+            $makeNames[$make->getName()] = $make->getName();
             $makesASCII[] = strtolower(preg_replace("/&([a-z])[a-z]+;/i",
                 "$1", htmlentities($make->getName())));
         }
-        array_multisort($makesASCII, $makenames);
+        array_multisort($makesASCII, $makeNames);
 
-        return $makenames;
+        return $makeNames;
     }
 
     /** The model names are retrieved and sorted on ascii value.
      * This is needed for models with special characters in their name to be sorted properly.
      */
-    public function getModelNames(?string $makename): ?array
+    public function getModelNames(?string $makeName): ?array
     {
-        if (is_null($makename)) {
+        if (is_null($makeName)) {
             return null;
         }
 
-        $models = $this->getByName($makename)->getModels();
-        $modelnames = [];
+        $models = $this->getByName($makeName)->getModels();
+        $modelNames = [];
         $modelsASCII = [];
         foreach($models as $model) {
-            $modelnames[] = $model->getName();
+            $modelNames[] = $model->getName();
             $modelsASCII[] = strtolower(preg_replace("/&([a-z])[a-z]+;/i",
                 "$1", htmlentities($model->getName())));
         }
-        array_multisort($modelsASCII, $modelnames);
+        array_multisort($modelsASCII, $modelNames);
 
-        return $modelnames;
+        return $modelNames;
     }
 }

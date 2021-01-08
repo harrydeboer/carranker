@@ -25,15 +25,4 @@ class ProfanityRepositoryTest extends TestCase
         $profanities = explode(' ', $this->profanityRepository->getProfanityNames());
         $this->assertTrue(in_array($profanity->getName(), $profanities));
     }
-
-    public function testValidate()
-    {
-        $badWord = Profanity::factory()->create();
-
-        $this->assertFalse($this->profanityRepository->validate($badWord->getName()));
-
-        $this->assertTrue($this->profanityRepository->validate("hey there"));
-
-        $this->assertTrue($this->profanityRepository->validate(null));
-    }
 }

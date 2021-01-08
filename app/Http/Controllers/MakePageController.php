@@ -15,20 +15,20 @@ class MakePageController extends Controller
         private MakeRepository $makeRepository,
     ){}
 
-    public function view(string $makename): Response
+    public function view(string $makeName): Response
     {
-        $makename = rawurldecode($makename);
-        $make = $this->makeRepository->getByName($makename);
+        $makeName = rawurldecode($makeName);
+        $make = $this->makeRepository->getByName($makeName);
 
         $models = $make->getModels();
         $data = [
-            'title' => $makename,
+            'title' => $makeName,
             'make' => $make,
             'models' => $models,
         ];
 
-        $this->viewFactory->share('makenameRoute', $makename);
-        $this->viewFactory->share('modelnames', $this->makeRepository->getModelNames($makename));
+        $this->viewFactory->share('makeNameRoute', $makeName);
+        $this->viewFactory->share('modelNames', $this->makeRepository->getModelNames($makeName));
 
         return response()->view('makePage.index', $data, 200);
     }

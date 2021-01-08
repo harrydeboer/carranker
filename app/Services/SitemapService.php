@@ -13,7 +13,7 @@ class SitemapService
         private PageRepository $pageRepository,
     ){}
 
-    public function makeSitemap(array $makenames, array $modelnames): string
+    public function makeSitemap(array $makeNames, array $modelNames): string
     {
         $sitemap = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
                 <?xml-stylesheet type="text/xsl" href="' . fileUrl('/css/sitemap.xsl') . '"?>
@@ -52,16 +52,16 @@ class SitemapService
             $url->addChild('changefreq', 'monthly');
         }
 
-        foreach ($makenames as $make) {
+        foreach ($makeNames as $makeName) {
             $url = $sitemap->addChild('url');
-            $url->addChild('loc', $baseUrl . '/make/' . rawurlencode($make));
+            $url->addChild('loc', $baseUrl . '/make/' . rawurlencode($makeName));
             $url->addChild('priority', '1.0');
             $url->addChild('lastmod', $update);
             $url->addChild('changefreq', 'monthly');
         }
 
-        foreach ($modelnames as $modelname) {
-            $modelArray = explode(';', $modelname);
+        foreach ($modelNames as $modelName) {
+            $modelArray = explode(';', $modelName);
             $url = $sitemap->addChild('url');
             $subUrl = rawurlencode($modelArray[0]) . '/' . rawurlencode($modelArray[1]);
             $url->addChild('loc', $baseUrl . '/model/' . $subUrl);

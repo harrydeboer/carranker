@@ -26,7 +26,7 @@ class ShareWithAllViews
         $controller = str_replace('Controller', '', $controllerArray[0]);
 
         $this->viewFactory->share('controller', lcfirst($controller));
-        $this->viewFactory->share('makenames', $this->makeRepository->getMakeNames());
+        $this->viewFactory->share('makeNames', $this->makeRepository->getMakeNames());
         $this->viewFactory->share('metaKeyWords', 'car, cars, ranker, rate, rank, ranking, rating, top');
         $this->viewFactory->share('metaDescription', 'Check out the top of all cars and rate your favorite cars!');
         $this->viewFactory->share('menuHeader', $this->menuRepository

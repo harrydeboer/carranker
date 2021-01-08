@@ -5,19 +5,14 @@ declare(strict_types=1);
 namespace App\Validators;
 
 use Illuminate\Http\Request;
-use App\Repositories\ProfanityRepository;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Validation\ValidationException;
 
 class ContactValidator extends BaseValidator
 {
-    protected $fillable = ['email', 'subject', 'name', 'message', 'reCaptchaToken'];
-
     public function __construct(
-        private ProfanityRepository $profanityRepository,
-        array $attributes = [],
-    )
-    {
-        parent::__construct($attributes);
-    }
+        private Collection $profanities,
+    ){}
 
     public function rules(): array
     {
@@ -30,18 +25,17 @@ class ContactValidator extends BaseValidator
         ];
     }
 
-    public function validateFull(Request $request, string $token = null): bool
+    public function validate(Request $request): array
     {
-        $result = parent::validateFull($request, $token);
+        $data = parent::validate($request);
 
-        if ($this->profanityRepository->validate($this->subject) &&
-            $this->profanityRepository->validate($this->name) &&
-            $this->profanityRepository->validate($this->message)) {
+        if ($this->profanitiesCheck($data['subject'], $this->profanities) &&
+            $this->profanitiesCheck($data['name'], $this->profanities) &&
+            $this->profanitiesCheck($data['message'], $this->profanities)) {
 
-            return $result;
-        } else {
-
-            return false;
+            return $data;
         }
+
+        throw ValidationException::withMessages(['profanities' => 'No swearing please.']);
     }
 }

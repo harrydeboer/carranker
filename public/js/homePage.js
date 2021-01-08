@@ -115,7 +115,7 @@ $(document).ready(function ()
                 sessionStorage.numberOfRows = $('.topRow:visible').length + numShowMoreLess - $('.topRow:visible').length % 10;
             }
 
-            var dataRequest = 'numberOfRows=' + sessionStorage.numberOfRows + '&offset=' + $('.topRow').length +
+            var dataRequest = 'numberOfRows=' + sessionStorage.numberOfRows + '&offset=' + $('.topRow').length + '&' +
                 $('#filterTopForm').serialize();
             $.get($(this).attr('href'), dataRequest, function (data)
             {

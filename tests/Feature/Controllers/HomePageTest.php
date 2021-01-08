@@ -19,13 +19,13 @@ class HomePageTest extends TestCase
     {
         $response = $this->get('/filterTop');
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     public function testShowMoreTopTable()
     {
         $response = $this->get('/showMoreTopTable');
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 }

@@ -38,26 +38,27 @@ class ContactPageController extends Controller
         return response()->view('contactPage.index', $data);
     }
 
-    private function redirectTo()
+    private function redirectTo(): RedirectResponse
     {
         return redirect(route('contactPage'));
     }
 
     public function sendMail(Request $request): RedirectResponse
     {
-        $contactForm = new ContactValidator($this->profanityRepository, $request->all());
-        if ($contactForm->validateFull($request, $contactForm->reCaptchaToken)) {
+        $validator = new ContactValidator($this->profanityRepository->all());
+        if ($data = $validator->validate($request)) {
             try {
-                $this->mailer->send('contactPage.message', ['userMessage' => $contactForm->message],
-                    function (Message $message) use ($contactForm)
-                {
-                    $message->from(env('MAIL_POSTMASTER_USERNAME'), $contactForm->name);
-                    $message->replyTo($contactForm->email, $contactForm->name);
-                    $message->subject($contactForm->subject);
-                    $message->to(env('MAIL_USERNAME'));
-                });
-            } catch (\Exception $e) {
-            	$this->logManager->debug($e->getMessage());
+                $this->mailer->send('contactPage.message',
+                                    ['userMessage' => $data['message']],
+                    function (Message $message) use ($data)
+                    {
+                        $message->from(env('MAIL_POSTMASTER_USERNAME'), $data['name']);
+                        $message->replyTo($data['email'], $data['name']);
+                        $message->subject($data['subject']);
+                        $message->to(env('MAIL_USERNAME'));
+                    });
+            } catch (\Swift_RfcComplianceException $e) {
+                $this->logManager->debug($e->getMessage());
 
                 return $this->redirectTo()->withErrors('Could not deliver mail. Try again later.');
             }

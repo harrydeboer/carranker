@@ -41,17 +41,15 @@ class TrimRepositoryTest extends TestCase
     {
         $index = '0';
         $framework = \App\CarSpecs::specsChoice()['framework']['choices'][(int) $index];
-
-        $form = new FilterTopValidator();
-        $form->hasRequest = true;
+        $formData = [];
 
         $aspects = [];
         foreach (\App\Models\Aspect::getAspects() as $aspect) {
             $aspects[$aspect] = '1';
         }
-        $form->aspects = $aspects;
+        $formData['aspects'] = $aspects;
 
-        $form->specsChoice = ['framework' . $index => 'on'];
+        $formData['specsChoice'] = ['framework' . $index => 'on'];
 
         $specsRange = [];
         foreach (\App\CarSpecs::specsRange() as $specName => $spec) {
@@ -60,11 +58,11 @@ class TrimRepositoryTest extends TestCase
         }
         $specsRange['pricemin'] = '5000';
         $specsRange['pricemax'] = '10000';
-        $form->specsRange = $specsRange;
+        $formData['specsRange'] = $specsRange;
         $minNumVotes = 30;
         $lengthTopTable = 4;
 
-        $trims = $this->trimRepository->findTrimsOfTop($form, $minNumVotes, $lengthTopTable);
+        $trims = $this->trimRepository->findTrimsOfTop($formData, $minNumVotes, $lengthTopTable);
 
         foreach ($trims as $trim) {
             $this->assertTrue((int) $trim->votes >= $minNumVotes);

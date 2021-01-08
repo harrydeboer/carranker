@@ -44,23 +44,4 @@ class ProfanityRepository implements IRepository
 
         return $profanities;
     }
-
-    public function validate(?string $string): bool
-    {
-        if (is_null($string)) {
-            return true;
-        }
-
-        $string = strtolower($string);
-        $stringWords = explode(' ', $string);
-        foreach ($this->all() as $profanity) {
-            foreach ($stringWords as $word) {
-                if ($word === $profanity->getName()) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
 }

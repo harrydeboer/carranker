@@ -38,18 +38,17 @@ class ModelPageController extends Controller
         private TrimService $trimService,
     ){}
 
-    public function view(string $makename, string $modelname, Request $request, Guard $guard): Response
+    public function view(string $makeName, string $modelName, Request $request, Guard $guard): Response
     {
-        $makename = rawurldecode($makename);
-        $modelname = rawurldecode($modelname);
+        $makeName = rawurldecode($makeName);
+        $modelName = rawurldecode($modelName);
         $trimId = $request->query('trimId');
         $user = $guard->user();
 
         $request->getMethod();
 
-        $model = $this->modelRepository->getByMakeModelName($makename, $modelname);
+        $model = $this->modelRepository->getByMakeModelName($makeName, $modelName);
         $model->getMake();
-        $ratingForm = new RatingValidator($this->profanityRepository);
         $trims = $model->getTrims();
         $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelPage);
 
@@ -58,12 +57,11 @@ class ModelPageController extends Controller
                              $reviews->onEachSide(1)->links()->toHtml());
 
         $data = [
-            'title' => $makename . ' ' . $modelname,
+            'title' => $makeName . ' ' . $modelName,
             'aspects' => Aspect::getAspects(),
             'specsChoice' => CarSpecs::specsChoice(),
             'specsRange' => CarSpecs::specsRange(),
             'model' => $model,
-            'ratingForm' => $ratingForm,
             'trims' => $trims,
             'isLoggedIn' => !is_null($user),
             'isVerified' => $user?->hasVerifiedEmail(),
@@ -79,9 +77,9 @@ class ModelPageController extends Controller
         ];
 
         $viewFactory = app('Illuminate\Contracts\View\Factory');
-        $viewFactory->share('makenameRoute', $makename);
-        $viewFactory->share('modelnameRoute', $modelname);
-        $viewFactory->share('modelnames', $this->makeRepository->getModelNames($makename));
+        $viewFactory->share('makeNameRoute', $makeName);
+        $viewFactory->share('modelNameRoute', $modelName);
+        $viewFactory->share('modelNames', $this->makeRepository->getModelNames($makeName));
 
         return response()->view('modelPage.index', $data, 200);
     }
@@ -89,13 +87,13 @@ class ModelPageController extends Controller
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated. */
     public function rateCar(Request $request, Guard $guard): Response
     {
-        $ratingForm = new RatingValidator($this->profanityRepository, $request->all());
+        $validator = new RatingValidator($this->profanityRepository->all());
         $data['success'] = 'false';
 
-        if ($ratingForm->validateFull($request, $ratingForm->reCaptchaToken)) {
+        if ($formData = $validator->validate($request)) {
 
             $user = $guard->user();
-            $trimArray = explode(';', $ratingForm->trimId);
+            $trimArray = explode(';', $formData['trimId']);
             $trimId = (int) end($trimArray);
             $trim = $this->trimRepositoryEloquent->get($trimId);
             $model = $trim->getModel();
@@ -103,17 +101,17 @@ class ModelPageController extends Controller
             $earlier = $this->userRepository->getRatingsTrim($user, $trimId);
             $pending = $earlier?->getPending() === 0;
 
-            if (is_null($ratingForm->content) && !$pending) {
-                $this->modelRepositoryEloquent->updateVotesAndRating($model, $ratingForm->star, $earlier);
-                $this->trimRepositoryEloquent->updateVotesAndRating($trim, $ratingForm->star, $earlier);
+            if (is_null($formData['content']) && !$pending) {
+                $this->modelRepositoryEloquent->updateVotesAndRating($model, $formData['star'], $earlier);
+                $this->trimRepositoryEloquent->updateVotesAndRating($trim, $formData['star'], $earlier);
             }
 
             if ($pending) {
-                $this->ratingRepository->updateRating($earlier, $ratingForm, 1);
-            } elseif(is_null($earlier) || !is_null($ratingForm->content)) {
-                $this->ratingRepository->createRating($user, $model, $trim, $ratingForm, 1);
+                $this->ratingRepository->updateRating($earlier, $formData, 1);
+            } elseif(is_null($earlier) || !is_null($formData['content'])) {
+                $this->ratingRepository->createRating($user, $model, $trim, $formData, 1);
             } else {
-                $this->ratingRepository->updateRating($earlier, $ratingForm, 0);
+                $this->ratingRepository->updateRating($earlier, $formData, 0);
             }
 
             $data['success'] = 'true';

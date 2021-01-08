@@ -23,11 +23,11 @@
                 <li class="nav-item">
                     <select id="nav_select_make" class="form-control">
                         <option value="">Make</option>
-                        @foreach ($makenames as $makename)
-                            @if (isset($makenameRoute) && $makename === $makenameRoute)
-                                <option value="{{ $makename }}" selected>{{ $makename }}</option>
+                        @foreach ($makeNames as $makeName)
+                            @if (isset($makeNameRoute) && $makeName === $makeNameRoute)
+                                <option value="{{ $makeName }}" selected>{{ $makeName }}</option>
                             @else
-                                <option value="{{ $makename }}">{{ $makename }}</option>
+                                <option value="{{ $makeName }}">{{ $makeName }}</option>
                             @endif
                         @endforeach
                     </select>
@@ -35,12 +35,12 @@
                 <li class="nav-item">
                     <select class="form-control" id="nav_select_model">
                         <option value="">Model</option>
-                        @if (isset($modelnames))
-                            @foreach ($modelnames as $modelname)
-                                @if (isset($modelnameRoute) && $modelname === $modelnameRoute)
-                                    <option value="{{ $modelname }}" selected>{{ $modelname }}</option>
+                        @if (isset($modelNames))
+                            @foreach ($modelNames as $modelName)
+                                @if (isset($modelNameRoute) && $modelName === $modelNameRoute)
+                                    <option value="{{ $modelName }}" selected>{{ $modelName }}</option>
                                 @else
-                                    <option value="{{ $modelname }}">{{ $modelname }}</option>
+                                    <option value="{{ $modelName }}">{{ $modelName }}</option>
                                 @endif
                             @endforeach
                         @endif

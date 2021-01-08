@@ -5,20 +5,16 @@ declare(strict_types=1);
 namespace App\Validators;
 
 use App\Models\Aspect;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Repositories\ProfanityRepository;
+use Illuminate\Validation\ValidationException;
 
 class RatingValidator extends BaseValidator
 {
-    protected $fillable = ['star', 'generation', 'series', 'trimId', 'content', 'reCaptchaToken'];
-
     public function __construct(
-        private ProfanityRepository $profanityRepository,
-        array $attributes = [],
-    )
-    {
-        parent::__construct($attributes);
-    }
+        private Collection $profanities,
+    ){}
 
     public function rules(): array
     {
@@ -37,16 +33,15 @@ class RatingValidator extends BaseValidator
         return $rules;
     }
 
-    public function validateFull(Request $request, string $token = null): bool
+    public function validate(Request $request): array
     {
-        $result = parent::validateFull($request, $token);
+        $data = parent::validate($request);
 
-        if ($this->profanityRepository->validate($this->content)) {
+        if ($this->profanitiesCheck($data['content'], $this->profanities)) {
 
-            return $result;
-        } else {
-
-            return false;
+            return $data;
         }
+
+        throw ValidationException::withMessages(['profanities' => 'No swearing please.']);
     }
 }

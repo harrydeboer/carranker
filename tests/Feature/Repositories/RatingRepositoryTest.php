@@ -11,6 +11,7 @@ use App\Models\Rating;
 use App\Repositories\ProfanityRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\Elastic\TrimRepository;
+use App\Validators\RatingValidator;
 use Tests\TestCase;
 
 class RatingRepositoryTest extends TestCase
@@ -53,22 +54,34 @@ class RatingRepositoryTest extends TestCase
         $user = User::factory()->create();
         $user->setAttribute('email_verified_at', date('Y-m-d h:i:s'));
         $trim = Trim::factory()->create();
-        $content = 'content';
-        $createArray = ['content' => $content];
+
+        $request = request();
+        $request->setMethod('POST');
+
+        $requestParams = [
+            'generation' => '2000-2004',
+            'series' => 'Sedan',
+            'trimId' => (string) $trim->getId(),
+            'content' => 'dummy',
+            'reCaptchaToken' => 'notUsedInTests',
+        ];
         foreach (Aspect::getAspects() as $aspect) {
-            $createArray['star'][$aspect] = '8';
+            $requestParams['star'][$aspect] = '8';
         }
-        $form = new \App\Validators\RatingValidator($this->profanityRepository, $createArray);
+        $request->request->add($requestParams);
+        $request->setMethod('POST');
+        $validator = new RatingValidator($this->profanityRepository->all());
+        $data = $validator->validate($request);
 
-        $rating = $this->ratingRepository->createRating($user, $trim->getModel(), $trim, $form, 0);
+        $rating = $this->ratingRepository->createRating($user, $trim->getModel(), $trim, $data, 0);
 
-        $this->assertEquals($rating->getContent(), $content);
+        $this->assertEquals($rating->getContent(), $requestParams['content']);
         $this->assertEquals($rating->getModel()->getId(), $trim->getModel()->getId());
         $this->assertEquals($rating->getTrim()->getId(), $trim->getId());
         $this->assertEquals($rating->getUser()->getId(), $user->getId());
 
         foreach (Aspect::getAspects() as $aspect) {
-            $this->assertEquals($rating->getAspect($aspect), (int) $form->star[$aspect]);
+            $this->assertEquals($rating->getAspect($aspect), (int) $data['star'][$aspect]);
         }
     }
 
@@ -76,19 +89,30 @@ class RatingRepositoryTest extends TestCase
     {
         $rating = Rating::factory()->create(['content' => 'content']);
 
-        $content = 'newcontent';
-        $createArray = ['content' => $content];
-        foreach (Aspect::getAspects() as $aspect) {
-            $createArray['star'][$aspect] = '8';
-        }
-        $form = new \App\Validators\RatingValidator($this->profanityRepository, $createArray);
+        $request = request();
+        $request->setMethod('POST');
 
-        $rating = $this->ratingRepository->updateRating($rating, $form, 1);
+        $requestParams = [
+            'generation' => '2000-2004',
+            'series' => 'Sedan',
+            'trimId' => (string) $rating->getTrim()->getId(),
+            'content' => 'dummy',
+            'reCaptchaToken' => 'notUsedInTests',
+        ];
+        foreach (Aspect::getAspects() as $aspect) {
+            $requestParams['star'][$aspect] = '8';
+        }
+        $request->request->add($requestParams);
+        $validator = new RatingValidator($this->profanityRepository->all());
+
+        $data = $validator->validate($request);
+
+        $rating = $this->ratingRepository->updateRating($rating, $data, 1);
 
         foreach (\App\Models\Aspect::getAspects() as $aspect) {
-            $this->assertEquals((int) $form->star[$aspect], $rating->getAspect($aspect));
+            $this->assertEquals((int) $data['star'][$aspect], $rating->getAspect($aspect));
         }
-        $this->assertEquals($form->content, $rating->getContent());
+        $this->assertEquals($data['content'], $rating->getContent());
     }
 
     public function testFindEarlierByTrimAndUser()

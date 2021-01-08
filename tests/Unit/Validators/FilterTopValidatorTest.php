@@ -15,7 +15,7 @@ class FilterTopValidatorTest extends TestCase
 
     public function testFilterTopForm()
     {
-        $form = new FilterTopValidator();
+        $validator = new FilterTopValidator();
 
         $request = request();
         $request->setMethod('GET');
@@ -24,6 +24,6 @@ class FilterTopValidatorTest extends TestCase
             $request->query->set('aspect.' . $aspect, '3');
         }
 
-        $this->assertTrue($form->validateFull($request));
+        $this->assertIsArray($validator->validate($request));
     }
 }

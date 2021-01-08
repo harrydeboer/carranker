@@ -10,7 +10,6 @@ use App\CarSpecs;
 class FilterTopValidator extends BaseValidator
 {
     public bool $hasRequest = false;
-    protected $fillable = ['minNumVotes', 'aspects', 'specsChoice', 'specsRange', 'numberOfRows', 'offset'];
 
     /** This form has default values for the filtering of the top. */
     public function __construct(array $attributes = [])
@@ -43,8 +42,6 @@ class FilterTopValidator extends BaseValidator
 
         $this->minNumVotes = 30;
         $this->numberOfRows = 10;
-
-        parent::__construct($attributes);
     }
 
     public function rules(): array

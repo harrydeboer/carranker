@@ -59,7 +59,7 @@ class RatingRepository implements IRepository
     }
 
     public function createRating(Authenticatable $user, ModelEloquent $model,
-        Trim $trim, RatingValidator $form, int $pending): Rating
+        Trim $trim, array $data, int $pending): Rating
     {
         $createArray = [
             'user_id' => $user->getId(),
@@ -68,27 +68,27 @@ class RatingRepository implements IRepository
             'time' => time(),
             'pending' => $pending,
         ];
-        if (is_null($form->content)) {
+        if (is_null($data['content'])) {
             $createArray['content'] = null;
         } else {
-            $createArray['content'] = mb_convert_encoding($form->content, 'HTML-ENTITIES', 'ISO-8859-1');
+            $createArray['content'] = mb_convert_encoding($data['content'], 'HTML-ENTITIES', 'ISO-8859-1');
         }
-        foreach ($form->star as $key => $aspect) {
+        foreach ($data['star'] as $key => $aspect) {
             $createArray[$key] = (int) $aspect;
         }
 
         return $this->create($createArray);
     }
 
-    public function updateRating(Rating $rating, RatingValidator $form, int $pending): Rating
+    public function updateRating(Rating $rating, array $data, int $pending): Rating
     {
-        foreach ($form->star as $key => $aspect) {
+        foreach ($data['star'] as $key => $aspect) {
             $rating->setAspect($key, (int) $aspect);
         }
-        if (is_null($form->content)) {
+        if (is_null($data['content'])) {
             $rating->setContent();
         } else {
-            $rating->setContent($form->content);
+            $rating->setContent($data['content']);
         }
         $rating->setPending($pending);
 

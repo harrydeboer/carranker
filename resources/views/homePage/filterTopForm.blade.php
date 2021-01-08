@@ -1,7 +1,7 @@
 <form method="get" action="{{ route('filterTop') }}" id="filterTopForm">
     <label for="minNumVotes" class="collapseChoice control-label">Minimum number of votes:</label>
     <input type="number" name="minNumVotes" class="collapseChoice form-control"
-           step="1" value="{{ $filterForm->minNumVotes }}" id="minNumVotes" required>
+           step="1" value="{{ $minNumVotes }}" id="minNumVotes" required>
     <div class="row mx-auto col-md-12">
         <div id="choices" class="btn-group text-center">
             @foreach ($specsChoice as $specName => $spec)
@@ -19,7 +19,7 @@
                                        name="specsChoice[checkAll{{ $specName }}]"
                                        class="{{ $specName }} checkAll"
                                        data-specname="{{ $specName }}"
-                                        {{ $filterForm->specsChoice['checkAll' . $specName] ? 'checked' : '' }}>
+                                        {{ isset($formData['specsChoice']['checkAll' . $specName]) || $formData === [] ? 'checked' : '' }}>
                             </td>
                         </tr>
                         @foreach ($spec['choices'] as $index => $choice)
@@ -31,7 +31,7 @@
                                            id="specsChoice[{{ $specName . $index }}]"
                                            name="specsChoice[{{ $specName . $index }}]"
                                            class="{{ $specName }}"
-                                            {{ $filterForm->specsChoice[$specName . $index] ? 'checked' : '' }}
+                                            {{ isset($formData['specsChoice'][$specName . $index]) || $formData === [] ? 'checked' : '' }}
                                     ></td>
                             </tr>
                         @endforeach
@@ -47,7 +47,7 @@
                     </td>
                     <td class="col-xl-1 col-lg-2 aspectMin">0</td>
                     <td class="col-xl-6 col-lg-4 aspectRange">
-                        <input value="{{ $filterForm->aspects[$aspect] ?? '1' }}"
+                        <input value="{{ $formData['aspects'][$aspect] ?? '1' }}"
                                name="aspects[{{ $aspect }}]"
                                id="filterTopForm{{ $aspect }}"
                                type="range"
@@ -68,7 +68,8 @@
                 <td class="col-md-3 col-sm-3">
                     <select name="specsRange[{{ $specName }}min]" class="specsRange form-control">
                         @foreach($spec['minRange'] as $name => $value)
-                            @if ($filterForm->specsRange[$specName . 'min'] === $value)
+                            @if (isset($formData['specsRange'][$specName . 'min'])
+                                 && $formData['specsRange'][$specName . 'min'] === $value)
                                 <option value="{{ $value }}" selected>{{ $name }}</option>
                             @else
                                 <option value="{{ $value }}">{{ $name }}</option>
@@ -79,7 +80,8 @@
                 <td class="col-md-3 col-sm-3">
                     <select name="specsRange[{{ $specName }}max]" class="specsRange form-control">
                         @foreach($spec['maxRange'] as $name => $value)
-                            @if ($filterForm->specsRange[$specName . 'max'] === $value)
+                            @if (isset($formData['specsRange'][$specName . 'max'])
+                                 && $formData['specsRange'][$specName . 'max'] === $value)
                                 <option value="{{ $value }}" selected>{{ $name }}</option>
                             @else
                                 <option value="{{ $value }}">{{ $name }}</option>

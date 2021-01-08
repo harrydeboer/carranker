@@ -44,7 +44,7 @@
     <div id="preferencesDialog" class="col-md-8 collapse mx-auto">
         <input type="hidden" value="{{ $minNumVotesDefault }}" id="minNumVotesDefault">
         @include('homePage.filterTopForm',
-                      ['minNumVotes' => $minNumVotes, 'aspects' => $aspects, 'filterForm' => $filterForm,
+                      ['minNumVotes' => $minNumVotes, 'aspects' => $aspects, 'formData' => $formData,
                        'specsChoice' => $specsChoice, 'specsRange' => $specsRange])
     </div>
     <BR>

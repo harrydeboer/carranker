@@ -31,15 +31,15 @@ class ModelRepository extends BaseRepository
             ],
         ];
         $models = Model::searchMany($params);
-        $modelnames = [];
+        $modelNames = [];
         foreach($models as $model) {
-            $modelnames[] = $model->getMakeName() . ';' . $model->getName();
+            $modelNames[] = $model->getMakeName() . ';' . $model->getName();
         }
 
-        return $modelnames;
+        return $modelNames;
     }
 
-    public function getByMakeModelName(string $makename, string $modelname): Model
+    public function getByMakeModelName(string $makeName, string $modelName): Model
     {
         $params = [
             'index' => $this->model->getIndex(),
@@ -48,8 +48,8 @@ class ModelRepository extends BaseRepository
                 'query' => [
                     'bool' => [
                         'must' => [
-                            ['match' => [ 'make_name' => $makename ]],
-                            ['match' => [ 'name' => $modelname ]],
+                            ['match' => [ 'make_name' => $makeName ]],
+                            ['match' => [ 'name' => $modelName ]],
                         ]
                     ],
                 ],

@@ -6,7 +6,6 @@ namespace App\Repositories\Elastic;
 
 use App\Models\Aspect;
 use App\Models\Elastic\Trim;
-use App\Validators\FilterTopValidator;
 use App\CarSpecs;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -38,7 +37,7 @@ class TrimRepository extends BaseRepository
      * filter and the number of trims to be retrieved and the offset if present.
      * The ratings are sorted from high to low.
      */
-    public function findTrimsOfTop(FilterTopValidator $form, int $minNumVotes,
+    public function findTrimsOfTop(array $data, int $minNumVotes,
                                    int $lengthTopTable, int $offset=0): Collection
     {
         $params = [
@@ -61,14 +60,14 @@ class TrimRepository extends BaseRepository
             ],
         ];
 
-        $params = $this->queryAspects($form, $params);
-        if ($form->hasRequest) {
+        $params = $this->queryAspects($data, $params);
+        if ($data !== []) {
             foreach (CarSpecs::specsChoice() as $key => $spec) {
-                $params = $this->queryChoice($spec['choices'], $key, $params, $form);
+                $params = $this->queryChoice($spec['choices'], $key, $params, $data);
             }
 
             foreach (CarSpecs::specsRange() as $key => $spec) {
-                $params = $this->queryRange($spec, $key, $params, $form);
+                $params = $this->queryRange($spec, $key, $params, $data);
             }
         }
 
@@ -85,7 +84,7 @@ class TrimRepository extends BaseRepository
     }
 
     /** Filter the trims for the user settings in the aspect ranges of the filter top form. */
-    private function queryAspects(FilterTopValidator $form, array $params): array
+    private function queryAspects(array $data, array $params): array
     {
         $params['body']['sort']['_script'] = [
             'type' => 'number',
@@ -98,11 +97,15 @@ class TrimRepository extends BaseRepository
         $source = '(';
         $factorArray = [];
         $total = 0;
-        $formAspects = $form->aspects;
         foreach (Aspect::getAspects() as $key => $aspect) {
             $source .= "doc['" . $aspect . "'] * factor" . $key . " + ";
-            $factorArray['factor' . $key] = (int) $formAspects[$aspect];
-            $total += (int) $formAspects[$aspect];
+            if ($data === []) {
+                $factorArray['factor' . $key] = 1;
+                $total ++;
+            } else {
+                $factorArray['factor' . $key] = (int) $data['aspects'][$aspect];
+                $total += (int) $data['aspects'][$aspect];
+            }
         }
         $params['body']['sort']['_script']['script']['source'] = substr($source, 0, -3) . ")/ $total";
         $params['body']['sort']['_script']['script']['params'] = $factorArray;
@@ -111,10 +114,10 @@ class TrimRepository extends BaseRepository
     }
 
     /** Filter the trims for the user settings in the dropdowns of the filter top form. */
-    private function queryChoice(array $choices, string $name, array $params, FilterTopValidator $form): array
+    private function queryChoice(array $choices, string $name, array $params, array $data): array
     {
         $queryArr = [];
-        $formSpec = $form->specsChoice;
+        $formSpec = $data['specsChoice'];
         foreach ($choices as $keyItem => $choice) {
             $formVar = $formSpec[$name . $keyItem] ?? false;
             if (isset($formVar) && $formVar === "on") {
@@ -154,9 +157,9 @@ class TrimRepository extends BaseRepository
     }
 
     /** Filter the trims for the user settings in the min/max selects of the filter top form. */
-    private function queryRange(array $spec, string $name, array $params, FilterTopValidator $form): array
+    private function queryRange(array $spec, string $name, array $params, array $data): array
     {
-        $formSpecs = $form->specsRange;
+        $formSpecs = $data['specsRange'];
         $formMin = $formSpecs[$name . 'min'];
         $formMax = $formSpecs[$name . 'max'];
 
