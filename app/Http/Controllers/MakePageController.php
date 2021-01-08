@@ -10,8 +10,10 @@ use Illuminate\Contracts\View\Factory;
 
 class MakePageController extends Controller
 {
-    public function __construct(private Factory $viewFactory,
-                                private MakeRepository $makeRepository){}
+    public function __construct(
+        private Factory $viewFactory,
+        private MakeRepository $makeRepository,
+    ){}
 
     public function view(string $makename): Response
     {

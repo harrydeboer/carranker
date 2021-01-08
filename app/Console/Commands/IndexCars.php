@@ -25,12 +25,14 @@ class IndexCars extends Command
      */
     protected $description = 'Index makes, models and trims in elasticsearch';
 
-    public function __construct(private MakeRepository $makeRepository,
-                                private ModelRepository $modelRepository,
-                                private TrimRepository $trimRepository,
-                                private \App\Repositories\MakeRepository $makeRepositoryEloquent,
-                                private \App\Repositories\ModelRepository $modelRepositoryEloquent,
-                                private \App\Repositories\TrimRepository $trimRepositoryEloquent)
+    public function __construct(
+        private MakeRepository $makeRepository,
+        private ModelRepository $modelRepository,
+        private TrimRepository $trimRepository,
+        private \App\Repositories\MakeRepository $makeRepositoryEloquent,
+        private \App\Repositories\ModelRepository $modelRepositoryEloquent,
+        private \App\Repositories\TrimRepository $trimRepositoryEloquent,
+    )
     {
         parent::__construct();
     }

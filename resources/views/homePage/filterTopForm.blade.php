@@ -19,7 +19,6 @@
                                        name="specsChoice[checkAll{{ $specName }}]"
                                        class="{{ $specName }} checkAll"
                                        data-specname="{{ $specName }}"
-                                       value="1"
                                         {{ $filterForm->specsChoice['checkAll' . $specName] ? 'checked' : '' }}>
                             </td>
                         </tr>
@@ -32,7 +31,6 @@
                                            id="specsChoice[{{ $specName . $index }}]"
                                            name="specsChoice[{{ $specName . $index }}]"
                                            class="{{ $specName }}"
-                                           value="1"
                                             {{ $filterForm->specsChoice[$specName . $index] ? 'checked' : '' }}
                                     ></td>
                             </tr>

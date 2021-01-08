@@ -11,7 +11,10 @@ class ContactValidator extends BaseValidator
 {
     protected $fillable = ['email', 'subject', 'name', 'message', 'reCaptchaToken'];
 
-    public function __construct(private ProfanityRepository $profanityRepository, array $attributes = [])
+    public function __construct(
+        private ProfanityRepository $profanityRepository,
+        array $attributes = [],
+    )
     {
         parent::__construct($attributes);
     }

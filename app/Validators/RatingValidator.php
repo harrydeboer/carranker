@@ -12,7 +12,10 @@ class RatingValidator extends BaseValidator
 {
     protected $fillable = ['star', 'generation', 'series', 'trimId', 'content', 'reCaptchaToken'];
 
-    public function __construct(private ProfanityRepository $profanityRepository, array $attributes = [])
+    public function __construct(
+        private ProfanityRepository $profanityRepository,
+        array $attributes = [],
+    )
     {
         parent::__construct($attributes);
     }

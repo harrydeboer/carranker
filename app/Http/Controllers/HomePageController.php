@@ -24,10 +24,8 @@ class HomePageController extends Controller
     public function __construct(
         private RatingRepository $ratingRepository,
         private TrimRepository $trimRepository,
-        private PageRepository $pageRepository)
-    {
-
-    }
+        private PageRepository $pageRepository,
+    ){}
 
     public function view(): Response
     {

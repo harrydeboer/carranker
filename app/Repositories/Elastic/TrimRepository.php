@@ -117,7 +117,7 @@ class TrimRepository extends BaseRepository
         $formSpec = $form->specsChoice;
         foreach ($choices as $keyItem => $choice) {
             $formVar = $formSpec[$name . $keyItem] ?? false;
-            if (isset($formVar) && $formVar === "1") {
+            if (isset($formVar) && $formVar === "on") {
                 $queryArr[] = $choice;
 
                 /** The gearbox type can be both manual and automatic per trim. */

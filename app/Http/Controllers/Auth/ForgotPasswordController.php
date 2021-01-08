@@ -24,7 +24,9 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
-    public function __construct(private PasswordBroker $passwordBroker){}
+        public function __construct(
+            private PasswordBroker $passwordBroker,
+        ){}
 
     public function showLinkRequestForm()
     {

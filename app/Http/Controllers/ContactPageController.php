@@ -24,10 +24,7 @@ class ContactPageController extends Controller
         private ProfanityRepository $profanityRepository,
         private PageRepository $pageRepository,
         private LogManager $logManager,
-    )
-    {
-
-    }
+    ){}
 
     public function view(): Response
     {

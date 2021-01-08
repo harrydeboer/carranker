@@ -19,9 +19,7 @@ class MailUserController extends Controller
     public function __construct(
         private MailUserRepository $mailUserRepository,
         private Factory $validatorFactory,
-    )
-    {
-    }
+    ){}
 
     public function view(): Response
     {
@@ -48,53 +46,53 @@ class MailUserController extends Controller
 
     public function create(Request $request): RedirectResponse
     {
-        if ($data = $request->validate($this->rulesCreate())) {
-            $createArray = [
-                'domain' => $data['domain'],
-                'password' => $this->encryptPasswordSHA512($data['password']),
-                'email' => $data['email'],
-                'forward' => $data['forward'],
-            ];
+        $data = $request->validate($this->rulesCreate());
 
-            $this->mailUserRepository->create($createArray);
-        }
+        $createArray = [
+            'domain' => $data['domain'],
+            'password' => $this->encryptPasswordSHA512($data['password']),
+            'email' => $data['email'],
+            'forward' => $data['forward'],
+        ];
+
+        $this->mailUserRepository->create($createArray);
+
 
         return $this->redirectTo();
     }
 
     public function update(Request $request): RedirectResponse
     {
-        if ($data = $request->validate($this->rulesUpdate())) {
-            $mailUser = $this->mailUserRepository->get((int) $data['id']);
+        $data = $request->validate($this->rulesUpdate($request->get('id')));
 
-            $mailUser->setDomain($data['domain']);
-            $mailUser->setEmail($data['email']);
-            $mailUser->setForward($data['forward']);
+        $mailUser = $this->mailUserRepository->get((int) $data['id']);
 
-            $mailUser->save();
-        }
+        $mailUser->setDomain($data['domain']);
+        $mailUser->setEmail($data['email']);
+        $mailUser->setForward($data['forward']);
+
+        $mailUser->save();
+
 
         return $this->redirectTo();
     }
 
     public function updatePassword(Request $request): RedirectResponse
     {
-        if ($data = $request->validate($this->rulesUpdatePassword())) {
-            $mailUser = $this->mailUserRepository->get((int) $data['id']);
+        $data = $request->validate($this->rulesUpdatePassword());
 
-            $mailUser->setPassword($this->encryptPasswordSHA512($data['password']));
-
-            $mailUser->save();
-        }
+        $mailUser = $this->mailUserRepository->get((int) $data['id']);
+        $mailUser->setPassword($this->encryptPasswordSHA512($data['password']));
+        $mailUser->save();
 
         return $this->redirectTo();
     }
 
     public function delete(Request $request): RedirectResponse
     {
-        if ($data = $request->validate($this->rulesDelete())) {
-            $this->mailUserRepository->delete((int) $data['id']);
-        }
+        $data = $request->validate($this->rulesDelete());
+
+        $this->mailUserRepository->delete((int) $data['id']);
 
         return $this->redirectTo();
     }
@@ -123,12 +121,12 @@ class MailUserController extends Controller
         ];
     }
 
-    public function rulesUpdate(): array
+    public function rulesUpdate(string $id): array
     {
         return [
             'id' => 'integer|required',
             'domain' => 'string|required',
-            'email' => 'string|email|required',
+            'email' => 'string|email|required|unique:mail_users,email,' . $id,
             'forward' => 'nullable',
         ];
     }

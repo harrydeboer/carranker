@@ -12,9 +12,11 @@ use Illuminate\Http\Request;
 
 class ShareWithAllViews
 {
-    public function __construct(private Factory $viewFactory,
-                                private MakeRepository $makeRepository,
-                                private MenuRepository $menuRepository){}
+    public function __construct(
+        private Factory $viewFactory,
+        private MakeRepository $makeRepository,
+        private MenuRepository $menuRepository,
+    ){}
 
     public function handle(Request $request, Closure $next)
     {

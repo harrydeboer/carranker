@@ -12,20 +12,22 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends Controller
 {
-    public function __construct(private MakeRepository $makeRepository,
-                                private ModelRepository $modelRepository,
-                                private TrimRepository $trimRepository){}
+    public function __construct(
+        private MakeRepository $makeRepository,
+        private ModelRepository $modelRepository,
+        private TrimRepository $trimRepository,
+    ){}
 
     public function view(Request $request): Response
     {
-        if ($formData = $request->validate($this->rules())) {
-            $data = [
-                'title' => 'Search results',
-                'makes' => $this->makeRepository->findForSearch($formData['query']),
-                'models' => $this->modelRepository->findForSearch($formData['query']),
-                'trims' => $this->trimRepository->findForSearch($formData['query']),
-            ];
-        }
+        $formData = $request->validate($this->rules());
+
+        $data = [
+            'title' => 'Search results',
+            'makes' => $this->makeRepository->findForSearch($formData['query']),
+            'models' => $this->modelRepository->findForSearch($formData['query']),
+            'trims' => $this->trimRepository->findForSearch($formData['query']),
+        ];
 
         return response()->view('search.index', $data);
     }

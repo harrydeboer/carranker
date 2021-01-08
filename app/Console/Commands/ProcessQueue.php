@@ -26,10 +26,12 @@ class ProcessQueue extends Command
      */
     protected $description = 'Process the elasticsearch jobs queue';
 
-    public function __construct(private ElasticJobRepository $elasticJobRepository,
-                                private MakeRepository $makeRepository,
-                                private ModelRepository $modelRepository,
-                                private TrimRepository $trimRepository)
+    public function __construct(
+        private ElasticJobRepository $elasticJobRepository,
+        private MakeRepository $makeRepository,
+        private ModelRepository $modelRepository,
+        private TrimRepository $trimRepository,
+    )
     {
         parent::__construct();
     }

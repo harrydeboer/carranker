@@ -6,12 +6,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Providers\WPHasher;
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Http\Request;
 use Illuminate\Auth\Passwords\PasswordBroker;
-use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
@@ -28,7 +24,9 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
-    public function __construct(private PasswordBroker $passwordBroker){}
+    public function __construct(
+        private PasswordBroker $passwordBroker,
+    ){}
 
     /**
      * Where to redirect users after resetting their password.

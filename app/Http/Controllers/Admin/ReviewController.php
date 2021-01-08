@@ -24,10 +24,7 @@ class ReviewController extends Controller
         private ModelRepository $modelRepository,
         private TrimRepository $trimRepository,
         private UserRepository $userRepository,
-    )
-    {
-
-    }
+    ){}
 
     public function view(): Response
     {
@@ -54,28 +51,28 @@ class ReviewController extends Controller
 
     public function approve(Request $request): RedirectResponse
     {
-        if ($data = $request->validate($this->rulesApprove())) {
-            $id = (int) $data['id'];
-            $rating = $this->ratingRepository->get($id);
+        $data = $request->validate($this->rulesApprove());
 
-            $ratingArray = [];
-            foreach (Aspect::getAspects() as $aspect) {
-                $ratingArray[$aspect] = $rating->getAspect($aspect);
-            }
+        $id = (int) $data['id'];
+        $rating = $this->ratingRepository->get($id);
 
-            $this->ratingRepository->approve($id);
-            $this->modelRepository->updateVotesAndRating($rating->getModel(), $ratingArray, null);
-            $this->trimRepository->updateVotesAndRating($rating->getTrim(), $ratingArray, null);
+        $ratingArray = [];
+        foreach (Aspect::getAspects() as $aspect) {
+            $ratingArray[$aspect] = $rating->getAspect($aspect);
         }
+
+        $this->ratingRepository->approve($id);
+        $this->modelRepository->updateVotesAndRating($rating->getModel(), $ratingArray, null);
+        $this->trimRepository->updateVotesAndRating($rating->getTrim(), $ratingArray, null);
 
         return $this->redirectTo();
     }
 
     public function delete(Request $request): RedirectResponse
     {
-        if ($data = $request->validate($this->rulesDelete())) {
-            $this->ratingRepository->delete((int) $data['id']);
-        }
+        $data = $request->validate($this->rulesDelete());
+
+        $this->ratingRepository->delete((int) $data['id']);
 
         return $this->redirectTo();
     }

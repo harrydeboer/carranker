@@ -10,7 +10,9 @@ use Illuminate\Contracts\Auth\Guard;
 
 class IsAdmin
 {
-    public function __construct(private Guard $guard){}
+    public function __construct(
+        private Guard $guard,
+    ){}
 
     public function handle(Request $request, Closure $next)
     {

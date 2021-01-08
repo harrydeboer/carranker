@@ -25,16 +25,18 @@ class ModelPageController extends Controller
 {
     private const numReviewsPerModelpage = 1;
 
-    public function __construct(private ProfanityRepository $profanityRepository,
-                                private RatingRepository $ratingRepository,
-                                private FXRateRepository $fXRateRepository,
-                                private UserRepository $userRepository,
-                                private MakeRepository $makeRepository,
-                                private ModelRepository $modelRepository,
-                                private TrimRepository $trimRepository,
-                                private ModelRepositoryEloquent $modelRepositoryEloquent,
-                                private TrimRepositoryEloquent $trimRepositoryEloquent,
-                                private TrimService $trimService){}
+    public function __construct(
+        private ProfanityRepository $profanityRepository,
+        private RatingRepository $ratingRepository,
+        private FXRateRepository $fXRateRepository,
+        private UserRepository $userRepository,
+        private MakeRepository $makeRepository,
+        private ModelRepository $modelRepository,
+        private TrimRepository $trimRepository,
+        private ModelRepositoryEloquent $modelRepositoryEloquent,
+        private TrimRepositoryEloquent $trimRepositoryEloquent,
+        private TrimService $trimService,
+    ){}
 
     public function view(string $makename, string $modelname, Request $request, Guard $guard): Response
     {
@@ -53,7 +55,7 @@ class ModelPageController extends Controller
 
         /** The links of the pagination get extra html classes to make them centered on the modelpage. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
-            $reviews->onEachSide(1)->links()->toHtml());
+                             $reviews->onEachSide(1)->links()->toHtml());
 
         $data = [
             'title' => $makename . ' ' . $modelname,

@@ -30,10 +30,8 @@ class LoginController extends Controller
 
     public function __construct(
         private PageRepository $pageRepository,
-        private Guard $guard)
-    {
-
-    }
+        private Guard $guard,
+    ){}
 
     /**
      * Where to redirect users after login.
