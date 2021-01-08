@@ -93,8 +93,7 @@ class ModelPageController extends Controller
         if ($formData = $validator->validate($request)) {
 
             $user = $guard->user();
-            $trimArray = explode(';', $formData['trimId']);
-            $trimId = (int) end($trimArray);
+            $trimId = (int) $formData['trimId'];
             $trim = $this->trimRepositoryEloquent->get($trimId);
             $model = $trim->getModel();
 

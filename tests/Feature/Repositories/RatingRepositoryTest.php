@@ -59,8 +59,6 @@ class RatingRepositoryTest extends TestCase
         $request->setMethod('POST');
 
         $requestParams = [
-            'generation' => '2000-2004',
-            'series' => 'Sedan',
             'trimId' => (string) $trim->getId(),
             'content' => 'dummy',
             'reCaptchaToken' => 'notUsedInTests',
@@ -93,8 +91,6 @@ class RatingRepositoryTest extends TestCase
         $request->setMethod('POST');
 
         $requestParams = [
-            'generation' => '2000-2004',
-            'series' => 'Sedan',
             'trimId' => (string) $rating->getTrim()->getId(),
             'content' => 'dummy',
             'reCaptchaToken' => 'notUsedInTests',

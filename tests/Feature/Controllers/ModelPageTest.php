@@ -48,9 +48,7 @@ class ModelPageTest extends TestCase
         $user->setAttribute('email_verified_at', date('Y-m-d h:i:s'));
 
         $postArrayFirst = [
-            'generation' => $trim->getYearBegin() . '-' . $trim->getYearEnd(),
-            'series' => $trim->getYearBegin() . '-' . $trim->getYearEnd() . ';' . $trim->getFramework(),
-            'trimId' => $trim->getYearBegin() . '-' . $trim->getYearEnd() . ';' . $trim->getFramework() . ';' . $trim->getId(),
+            'trimId' => (string) $trim->getId(),
             'content' => null,
             'reCaptchaToken' => 'notUsedInTests',
         ];

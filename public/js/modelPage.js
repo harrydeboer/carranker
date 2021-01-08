@@ -56,6 +56,9 @@ $(document).ready(function ()
      * or when the submit is not a review. The required attributes in the html validate the form. */
     $('#ratingForm').on('submit', function(event)
     {
+        var trimNameArray = $('#ratingFormTrim').val().split(';');
+        $('#ratingFormTrimId').val(trimNameArray[2]);
+
         var testProfanities = true;
         var profanities = $('#profanities').val().split(' ');
 

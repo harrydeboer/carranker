@@ -31,8 +31,6 @@ class RatingValidatorTest extends TestCase
         $request->setMethod('POST');
 
         $requestParams = [
-            'generation' => '2000-2004',
-            'series' => 'Sedan',
             'trimId' => '1',
             'content' => null,
             'reCaptchaToken' => 'notUsedInTests',

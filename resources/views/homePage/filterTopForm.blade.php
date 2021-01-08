@@ -19,7 +19,7 @@
                                        name="specsChoice[checkAll{{ $specName }}]"
                                        class="{{ $specName }} checkAll"
                                        data-specname="{{ $specName }}"
-                                        {{ isset($formData['specsChoice']['checkAll' . $specName]) || $formData === [] ? 'checked' : '' }}>
+                                       checked>
                             </td>
                         </tr>
                         @foreach ($spec['choices'] as $index => $choice)
@@ -31,8 +31,8 @@
                                            id="specsChoice[{{ $specName . $index }}]"
                                            name="specsChoice[{{ $specName . $index }}]"
                                            class="{{ $specName }}"
-                                            {{ isset($formData['specsChoice'][$specName . $index]) || $formData === [] ? 'checked' : '' }}
-                                    ></td>
+                                           checked>
+                                </td>
                             </tr>
                         @endforeach
                     </table>
@@ -47,7 +47,7 @@
                     </td>
                     <td class="col-xl-1 col-lg-2 aspectMin">0</td>
                     <td class="col-xl-6 col-lg-4 aspectRange">
-                        <input value="{{ $formData['aspects'][$aspect] ?? '1' }}"
+                        <input value="1"
                                name="aspects[{{ $aspect }}]"
                                id="filterTopForm{{ $aspect }}"
                                type="range"
@@ -68,24 +68,14 @@
                 <td class="col-md-3 col-sm-3">
                     <select name="specsRange[{{ $specName }}min]" class="specsRange form-control">
                         @foreach($spec['minRange'] as $name => $value)
-                            @if (isset($formData['specsRange'][$specName . 'min'])
-                                 && $formData['specsRange'][$specName . 'min'] === $value)
-                                <option value="{{ $value }}" selected>{{ $name }}</option>
-                            @else
-                                <option value="{{ $value }}">{{ $name }}</option>
-                            @endif
+                            <option value="{{ $value }}">{{ $name }}</option>
                         @endforeach
                     </select>
                 </td>
                 <td class="col-md-3 col-sm-3">
                     <select name="specsRange[{{ $specName }}max]" class="specsRange form-control">
                         @foreach($spec['maxRange'] as $name => $value)
-                            @if (isset($formData['specsRange'][$specName . 'max'])
-                                 && $formData['specsRange'][$specName . 'max'] === $value)
-                                <option value="{{ $value }}" selected>{{ $name }}</option>
-                            @else
-                                <option value="{{ $value }}">{{ $name }}</option>
-                            @endif
+                            <option value="{{ $value }}">{{ $name }}</option>
                         @endforeach
                     </select>
                 </td>

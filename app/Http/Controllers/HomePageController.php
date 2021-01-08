@@ -42,7 +42,6 @@ class HomePageController extends Controller
             'reviews' => $this->ratingRepository->findRecentReviews(self::homepageNumReviews),
             'topTrims' => $topTrims,
             'minNumVotes' => $minNumVotes,
-            'formData' => [],
             'minNumVotesDefault' => self::minNumVotes,
             'content' => $this->pageRepository->findByName('home')?->getContent(),
         ];
@@ -52,7 +51,7 @@ class HomePageController extends Controller
 
     public function filterTop(Request $request): Response
     {
-        $validator = new FilterTopValidator($request->all());
+        $validator = new FilterTopValidator();
 
         $formData = $validator->validate($request);
 
@@ -64,7 +63,6 @@ class HomePageController extends Controller
             'topLength' => count($topTrims),
             'topLengthSlider' => min(count($topTrims), self::topSliderNumber),
             'topTrims' => $topTrims,
-            'formData' => $formData,
             'minNumVotes' => (int) $formData['minNumVotes'],
         ];
 
@@ -74,7 +72,7 @@ class HomePageController extends Controller
     /** When a user wants to see more trims in the top the extra trims are retrieved. */
     public function showMoreTopTable(Request $request): Response
     {
-        $validator = new FilterTopValidator($request->all());
+        $validator = new FilterTopValidator();
         $formData = $validator->validate($request);
 
         $trims = $this->trimRepository->findTrimsOfTop($formData,

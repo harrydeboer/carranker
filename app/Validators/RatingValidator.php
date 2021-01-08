@@ -19,9 +19,7 @@ class RatingValidator extends BaseValidator
     public function rules(): array
     {
         $rules = [
-            'generation' => 'string|required',
-            'series' => 'string|required',
-            'trimId' => 'string|required',
+            'trimId' => 'integer|required',
             'content' => 'string|nullable',
             'reCaptchaToken' => 'string|required',
         ];
