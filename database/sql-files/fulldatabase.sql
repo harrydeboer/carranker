@@ -169,7 +169,7 @@ CREATE TABLE `menus` (
 
 LOCK TABLES `menus` WRITE;
 /*!40000 ALTER TABLE `menus` DISABLE KEYS */;
-INSERT INTO `menus` VALUES (2,'navigationFooter'),(19,'navigationHeader');
+INSERT INTO `menus` VALUES (2,'menuFooter'),(19,'menuHeader');
 /*!40000 ALTER TABLE `menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
