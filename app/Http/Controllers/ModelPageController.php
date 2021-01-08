@@ -23,7 +23,7 @@ use Illuminate\Contracts\Auth\Guard;
 
 class ModelPageController extends Controller
 {
-    private const numReviewsPerModelpage = 1;
+    private const numReviewsPerModelPage = 10;
 
     public function __construct(
         private ProfanityRepository $profanityRepository,
@@ -51,7 +51,7 @@ class ModelPageController extends Controller
         $model->getMake();
         $ratingForm = new RatingValidator($this->profanityRepository);
         $trims = $model->getTrims();
-        $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelpage);
+        $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelPage);
 
         /** The links of the pagination get extra html classes to make them centered on the modelpage. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
@@ -100,16 +100,22 @@ class ModelPageController extends Controller
             $trim = $this->trimRepositoryEloquent->get($trimId);
             $model = $trim->getModel();
 
-            $rating = $this->userRepository->getRatingsTrim($user, $trimId);
-            if (is_null($ratingForm->content)) {
-                $this->modelRepositoryEloquent->updateVotesAndRating($model, $ratingForm->star, $rating);
-                $this->trimRepositoryEloquent->updateVotesAndRating($trim, $ratingForm->star, $rating);
+            $earlier = $this->userRepository->getRatingsTrim($user, $trimId);
+            $pending = $earlier?->getPending() === 0;
+
+            if (is_null($ratingForm->content) && !$pending) {
+                $this->modelRepositoryEloquent->updateVotesAndRating($model, $ratingForm->star, $earlier);
+                $this->trimRepositoryEloquent->updateVotesAndRating($trim, $ratingForm->star, $earlier);
             }
-            if (is_null($rating)) {
+
+            if ($pending) {
+                $this->ratingRepository->updateRating($earlier, $ratingForm, 1);
+            } elseif(is_null($earlier) || !is_null($ratingForm->content)) {
                 $this->ratingRepository->createRating($user, $model, $trim, $ratingForm, 1);
             } else {
-                $this->ratingRepository->updateRating($rating, $ratingForm, 1);
+                $this->ratingRepository->updateRating($earlier, $ratingForm, 0);
             }
+
             $data['success'] = 'true';
         }
 

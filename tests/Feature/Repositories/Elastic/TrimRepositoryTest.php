@@ -51,7 +51,7 @@ class TrimRepositoryTest extends TestCase
         }
         $form->aspects = $aspects;
 
-        $form->specsChoice = ['framework' . $index => '1'];
+        $form->specsChoice = ['framework' . $index => 'on'];
 
         $specsRange = [];
         foreach (\App\CarSpecs::specsRange() as $specName => $spec) {

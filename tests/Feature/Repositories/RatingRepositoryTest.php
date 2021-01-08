@@ -91,15 +91,38 @@ class RatingRepositoryTest extends TestCase
         $this->assertEquals($form->content, $rating->getContent());
     }
 
+    public function testFindEarlierByTrimAndUser()
+    {
+        $user = User::factory()->create();
+        $trim = Trim::factory()->create();
+        $ratingEarlier = Rating::factory()->create([
+                                                       'trim_id' => $trim->getId(),
+                                                       'model_id' => $trim->getModel()->getId(),
+                                                       'user_id' => $user->getId(),
+                                                       'time' => 100,
+                                                       'pending' => 0,
+                                                   ]);
+        Rating::factory()->create([
+                                      'trim_id' => $trim->getId(),
+                                      'model_id' => $trim->getModel()->getId(),
+                                      'user_id' => $user->getId(),
+                                      'time' => 101,
+                                      'pending' => 0,
+                                  ]);
+        $earlier = $this->ratingRepository->findEarlierByTrimAndUser($trim->getId(), $user->getId());
+
+        $this->assertEquals($ratingEarlier->getId(), $earlier->getId());
+    }
+
     public function testGetReviews()
     {
         $trim = $this->trimRepository->get(1);
         $reviewFromFactory = Rating::factory()->create([
-            'content' => 'notnull',
-            'trim_id' => $trim->getId(),
-            'model_id' => $trim->getModel()->getId(),
-            'pending' => 0
-            ]);
+                                                           'content' => 'notnull',
+                                                           'trim_id' => $trim->getId(),
+                                                           'model_id' => $trim->getModel()->getId(),
+                                                           'pending' => 0
+                                                       ]);
         $reviews = $this->ratingRepository->getReviews($trim->getModel(), 1);
 
         foreach ($reviews as $review) {

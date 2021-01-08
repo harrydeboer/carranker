@@ -97,6 +97,21 @@ class RatingRepository implements IRepository
         return $rating;
     }
 
+    public function findEarlierByTrimAndUser(int $trimId, int $userId): ?Rating
+    {
+        $ratings = Rating::where('trim_id', $trimId)
+            ->where('user_id', $userId)
+            ->where('pending', 0)
+            ->orderBy('time', 'asc')
+            ->get();
+
+        if (count($ratings) === 1) {
+            return null;
+        }
+
+        return $ratings->first();
+    }
+
     /** The most recent reviews for the modelpage are retrieved and paginated. */
     public function getReviews(Model $model, int $numReviewsPerModelpage): LengthAwarePaginator
     {

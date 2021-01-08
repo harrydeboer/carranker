@@ -62,8 +62,17 @@ class ReviewController extends Controller
         }
 
         $this->ratingRepository->approve($id);
-        $this->modelRepository->updateVotesAndRating($rating->getModel(), $ratingArray, null);
-        $this->trimRepository->updateVotesAndRating($rating->getTrim(), $ratingArray, null);
+
+        $earlierRating = $this->ratingRepository->findEarlierByTrimAndUser(
+            $rating->getTrim()->getId(),
+            $rating->getUser()->getId());
+
+        $this->modelRepository->updateVotesAndRating($rating->getModel(), $ratingArray, $earlierRating);
+        $this->trimRepository->updateVotesAndRating($rating->getTrim(), $ratingArray, $earlierRating);
+
+        if (!is_null($earlierRating)) {
+            $this->ratingRepository->delete($earlierRating->getId());
+        }
 
         return $this->redirectTo();
     }
