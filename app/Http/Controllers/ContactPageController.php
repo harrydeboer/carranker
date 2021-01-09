@@ -32,7 +32,7 @@ class ContactPageController extends Controller
             'title' => 'Contact',
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'content' => $this->pageRepository->findByName('contact')?->getContent(),
-            'reCaptchaKey' => env('reCaptchaKey'),
+            'reCAPTCHAKey' => env('RE_CAPTCHA_KEY'),
         ];
 
         return response()->view('contactPage.index', $data);

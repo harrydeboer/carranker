@@ -33,7 +33,7 @@ class RatingValidatorTest extends TestCase
         $requestParams = [
             'trimId' => '1',
             'content' => null,
-            'reCaptchaToken' => 'notUsedInTests',
+            'reCAPTCHAToken' => 'notUsedInTests',
         ];
         foreach (Aspect::getAspects() as $aspect) {
             $requestParams['star'][$aspect] = '8';

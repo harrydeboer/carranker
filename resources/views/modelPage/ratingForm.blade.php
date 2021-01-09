@@ -74,7 +74,7 @@
             <button class="btn btn-danger" data-dismiss="modal" id="closeRatingModal">Close</button>
         </div>
     </div>
-    <input type="hidden" name="reCaptchaToken" id="reCaptchaToken">
+    <input type="hidden" name="reCAPTCHAToken" id="reCAPTCHAToken">
 </form>
-<input type="hidden" value="{{ $reCaptchaKey }}" id="reCaptchaKey">
+<input type="hidden" value="{{ $reCAPTCHAKey }}" id="reCAPTCHAKey">
 <input type="hidden" value="{{ $profanities }}" id="profanities">

@@ -50,7 +50,7 @@ class ModelPageTest extends TestCase
         $postArrayFirst = [
             'trimId' => (string) $trim->getId(),
             'content' => null,
-            'reCaptchaToken' => 'notUsedInTests',
+            'reCAPTCHAToken' => 'notUsedInTests',
         ];
         foreach (Aspect::getAspects() as $aspect) {
             $postArrayFirst['star'][$aspect] = '10';

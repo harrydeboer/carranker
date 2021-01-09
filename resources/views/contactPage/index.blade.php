@@ -31,9 +31,9 @@
                 <div class="form-group">
                     <input type="submit" value="Send" class="btn btn-success" id="filter_top_form_submit">
                 </div>
-                <input type="hidden" name="reCaptchaToken" id="reCaptchaToken">
+                <input type="hidden" name="reCAPTCHAToken" id="reCAPTCHAToken">
             </form>
-            <input type="hidden" value="{{ $reCaptchaKey }}" id="reCaptchaKey">
+            <input type="hidden" value="{{ $reCAPTCHAKey }}" id="reCAPTCHAKey">
             <input type="hidden" value="{{ $profanities }}" id="profanities">
         </div>
     </div>

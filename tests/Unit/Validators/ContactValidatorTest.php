@@ -32,7 +32,7 @@ class ContactValidatorTest extends TestCase
                                    'subject' => 'Test',
                                    'name' => 'Test',
                                    'message' => 'Test',
-                                   'reCaptchaToken' => 'notUsedInTests',
+                                   'reCAPTCHAToken' => 'notUsedInTests',
                                ]);
 
         $this->assertIsArray($validator->validate($request));

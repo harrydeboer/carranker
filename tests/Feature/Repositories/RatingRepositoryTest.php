@@ -61,7 +61,7 @@ class RatingRepositoryTest extends TestCase
         $requestParams = [
             'trimId' => (string) $trim->getId(),
             'content' => 'dummy',
-            'reCaptchaToken' => 'notUsedInTests',
+            'reCAPTCHAToken' => 'notUsedInTests',
         ];
         foreach (Aspect::getAspects() as $aspect) {
             $requestParams['star'][$aspect] = '8';
@@ -93,7 +93,7 @@ class RatingRepositoryTest extends TestCase
         $requestParams = [
             'trimId' => (string) $rating->getTrim()->getId(),
             'content' => 'dummy',
-            'reCaptchaToken' => 'notUsedInTests',
+            'reCAPTCHAToken' => 'notUsedInTests',
         ];
         foreach (Aspect::getAspects() as $aspect) {
             $requestParams['star'][$aspect] = '8';

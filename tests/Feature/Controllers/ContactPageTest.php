@@ -22,7 +22,7 @@ class ContactPageTest extends TestCase
             'name' => 'Test',
             'subject' => 'Test',
             'message' => 'Test',
-            'reCaptchaToken' => 'notavalidtoken',
+            'reCAPTCHAToken' => 'notAValidToken',
         ]);
 
         $response->assertStatus(302);

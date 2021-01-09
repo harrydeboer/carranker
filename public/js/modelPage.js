@@ -81,29 +81,29 @@ $(document).ready(function ()
         if (!testProfanities) {
             $('#reviewWarning').html('No swearing please.<BR>');
             event.preventDefault();
-        } else if (!$('#reCaptchaScript').length) {
+        } else if (!$('#reCAPTCHAScript').length) {
 
             /** Show the loader img */
             $('#hideAll').show();
 
-            /** The recaptcha element is loaded and waits for execution. Meanwhile the events default is prevented,
+            /** The reCAPTCHA element is loaded and waits for execution. Meanwhile the events default is prevented,
              * because the token is not passed to the form yet. */
             var head_ID = document.getElementsByTagName("head")[0];
             var script_element = document.createElement('script');
             script_element.type = 'text/javascript';
-            script_element.id = "reCaptchaScript";
-            script_element.src = "https://www.google.com/recaptcha/api.js?render=" + $('#reCaptchaKey').val();
+            script_element.id = "reCAPTCHAScript";
+            script_element.src = "https://www.google.com/recaptcha/api.js?render=" + $('#reCAPTCHAKey').val();
             head_ID.appendChild(script_element);
 
-            $('#reCaptchaScript').on('load', function ()
+            $('#reCAPTCHAScript').on('load', function ()
             {
                 grecaptcha.ready(function () {
-                    grecaptcha.execute($('#reCaptchaKey').val()).then(
-                        function (reCaptchaToken)
+                    grecaptcha.execute($('#reCAPTCHAKey').val(), {action: 'validateCAPTCHA'}, true).then(
+                        function (reCAPTCHAToken)
                     {
-                        $('#reCaptchaToken').val(reCaptchaToken);
+                        $('#reCAPTCHAToken').val(reCAPTCHAToken);
 
-                        /** The form is submitted which triggers the current function again but now the recaptcha element
+                        /** The form is submitted which triggers the current function again but now the reCAPTCHA element
                          * is loaded and the events default is not prevented so that the form will actually submit. */
                         $.post($('#ratingForm').attr('action'), $('#ratingForm').serialize(), function(data)
                         {

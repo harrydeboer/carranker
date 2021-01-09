@@ -21,7 +21,7 @@ class ContactValidator extends BaseValidator
             'subject' => 'string|required',
             'name' => 'string|required',
             'message' => 'string|required',
-            'reCaptchaToken' => 'string|required',
+            'reCAPTCHAToken' => 'string|required',
         ];
     }
 

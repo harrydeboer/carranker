@@ -21,7 +21,7 @@ class RatingValidator extends BaseValidator
         $rules = [
             'trimId' => 'integer|required',
             'content' => 'string|nullable',
-            'reCaptchaToken' => 'string|required',
+            'reCAPTCHAToken' => 'string|required',
         ];
 
         foreach (Aspect::getAspects() as $aspect) {

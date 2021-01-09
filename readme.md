@@ -8,7 +8,7 @@
 <li>When using Windows: use Powershell for the docker commands and Git Bash for everything else. 
 Or prepend Git Bash docker commands with winpty .</li>
 <li>Clone git repository in sitefolder.</li>
-<li>Ask site owner for recaptcha key, recaptcha secret and fixer api key.</li>
+<li>Ask site owner for reCAPTCHA key, reCAPTCHA secret and fixer api key.</li>
 <li>Cp .env.example to .env file in sitefolder folder and fill in the blanks except APP_KEY. 
 Do not use passwords with "" around them. 
 REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docker-compose.yml.</li>
@@ -52,7 +52,7 @@ cannot be root.</li>
 <li>Enable the necessary apache modules ‘a2enmod headers proxy rewrite proxy_balancer proxy_http slotmem_shm ssl’.</li>
 <li>Enable the php modules listed in composer.json.</li>
 <li>Restart apache.</li>
-<li>Ask site owner for recaptcha key, secret and fixer api key.</li>
+<li>Ask site owner for reCAPTCHA key, secret and fixer api key.</li>
 <li>Cp .env.example to .env file in sitefolder folder and fill in database credentials etc.</li>
 <li>Execute command php artisan key:generate</li>
 <li>Execute ’composer install --no-dev --no-progress --prefer-dist’ in sitefolder.</li>

@@ -17,19 +17,19 @@ abstract class BaseValidator
     {
         $data = $request->validate($this->rules());
 
-        if (!is_null($request->get('reCaptchaToken')) && env('APP_ENV') !== 'testing') {
+        if (!is_null($request->get('reCAPTCHAToken')) && env('APP_ENV') !== 'testing') {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, "secret=" . env('reCaptchaSecret') .
-                           "&response=" . $request->get('reCaptchaToken'));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, "secret=" . env('RE_CAPTCHA_SECRET') .
+                           "&response=" . $request->get('reCAPTCHAToken'));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
             $response = curl_exec($ch);
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             $result = json_decode($response);
             if ($httpCode !== 200 || $result->success === false) {
-                throw ValidationException::withMessages(['recaptcha' => 'No bot requests allowed.']);
+                throw ValidationException::withMessages(['reCAPTCHA' => 'No bot requests allowed.']);
             }
 
             curl_close($ch);
