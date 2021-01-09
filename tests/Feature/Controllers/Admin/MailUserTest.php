@@ -46,9 +46,10 @@ class MailUserTest extends LoginAdmin
     public function testUpdate()
     {
         $oldEmail = 'old@old.com';
+        $newEmail = 'new@new.com';
+
         $mailUser = MailUser::factory()->create(['email' => $oldEmail]);
 
-        $newEmail = 'new@new.com';
         $response = $this->post(route('admin.mail.users.update'), [
             'id' => (string) $mailUser->getId(),
             'domain' => 'carranker.com',
@@ -67,15 +68,16 @@ class MailUserTest extends LoginAdmin
 
     public function testUpdatePassword()
     {
-        $oldPassword = 'oldSecret';
         $email = 'test@password.com';
+        $oldPassword = 'oldSecret';
+        $newPassword = 'newSecret';
+
         $mailUser = MailUser::factory()
             ->create([
                          'password' => $oldPassword,
                          'email' => $email,
                      ]);
 
-        $newPassword = 'newSecret';
         $response = $this->post(route('admin.mail.users.update.password'), [
             'id' => (string) $mailUser->getId(),
             'password' => $newPassword,

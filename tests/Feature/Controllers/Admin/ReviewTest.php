@@ -37,7 +37,7 @@ class ReviewTest extends LoginAdmin
 
         $reviewUpdated = $this->ratingRepository->get($review->getId());
 
-        $this->assertEquals($reviewUpdated->getPending(), 0);
+        $this->assertEquals( 0, $reviewUpdated->getPending());
     }
 
     public function testDelete()
