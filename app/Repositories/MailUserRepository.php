@@ -37,4 +37,9 @@ class MailUserRepository implements IRepository
     {
         return MailUser::paginate($numMailUsersPerPage);
     }
+
+    public function getByEmail(string $email): MailUser
+    {
+        return MailUser::where('email', $email)->first();
+    }
 }

@@ -28,4 +28,12 @@ class MailUserRepositoryTest extends TestCase
 
         $this->assertEquals(count($mailUsers), 2);
     }
+
+    public function testFindByName()
+    {
+        $mailUser = MailUser::factory()->create();
+        $mailUserFromDb = $this->mailUserRepository->getByEmail($mailUser->getEmail());
+
+        $this->assertEquals($mailUser->getId(), $mailUserFromDb->getId());
+    }
 }
