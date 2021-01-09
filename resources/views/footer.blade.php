@@ -25,10 +25,10 @@
     <script src="{{ fileUrl('/js/lazyLoad.min.js') }}"></script>
 @endif
 @if (env('APP_ENV') === 'local')
-    <script src="{{ fileUrl('/js/main.js') }}"></script>
+    <script src="{{ fileUrl('/js/web.js') }}"></script>
     <script src="{{ fileUrl('/js/' . $controller . '.js') }}"></script>
 @else
-    <script src="{{ fileUrl('/js/main.min.js') }}"></script>
+    <script src="{{ fileUrl('/js/web.min.js') }}"></script>
     <script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
 @endif
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92295454-1"></script>

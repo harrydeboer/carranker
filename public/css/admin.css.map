@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../scss/webAndAdmin.scss","../scss/admin.scss"],"names":[],"mappings":"AAAQ,yEAQR,cACE,qBAGF,KACE,YAXW,uBAYX,eCXF,oBACE,mBACA,kBAIF,YACE,mBAGF,kBACE,YAGF,oBACE,iBAGF,gBACE,YAGF,oBACE,iBAGF,sBACE,WAIF,YACE,iBACA,mBAGF,eACE","file":"admin.css"}
+{"version":3,"sourceRoot":"","sources":["../scss/webAndAdmin.scss","../scss/admin.scss"],"names":[],"mappings":"AAAQ,yEAQR,cACE,qBAGF,KACE,YAXW,uBAYX,eCXF,oBACE,mBACA,kBAIF,YACE,mBAGF,kBACE,YAGF,oBACE,iBAGF,gBACE,YAGF,sBACE,iBAGF,sBACE,WAIF,YACE,iBACA,mBAGF,eACE,aAIF,cACE","file":"admin.css"}

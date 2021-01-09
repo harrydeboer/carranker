@@ -39,11 +39,9 @@
                             <input type="submit" class="btn btn-warning" value="Reset">
                         </form>
                     </td><td>
-                        <form method="post" class="deleteMailUserForm" action="{{ route('admin.mail.users.delete') }}">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $mailUser->getId() }}">
-                            <input type="submit" class="btn btn-danger" value="Delete">
-                        </form>
+                        <button class="btn btn-danger deleteMailUserButton deleteButton"
+                                data-action="{{ route('admin.mail.users.delete') }}"
+                                data-id="{{ $mailUser->getId() }}">Delete</button>
                     </td></tr>
             @endforeach
             {!! $links !!}

@@ -13,11 +13,9 @@
                             <input type="submit" class="btn btn-primary" value="Approve">
                         </form>
                     </td><td>
-                        <form method="post" action="{{ route('admin.reviews.delete') }}">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $review->getId() }}">
-                            <input type="submit" class="btn btn-danger" value="Delete">
-                        </form>
+                        <button class="btn btn-danger deleteReviewButton deleteButton"
+                                data-action="{{ route('admin.reviews.delete') }}"
+                                data-id="{{ $review->getId() }}">Delete</button>
                     </td></tr>
             @endforeach
         </table>
