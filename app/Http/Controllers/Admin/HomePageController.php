@@ -15,6 +15,7 @@ class HomePageController extends Controller
             'title' => 'Home',
             'controller' => 'admin',
         ];
+
         return response()->view('admin.homePage.index', $data);
     }
 }

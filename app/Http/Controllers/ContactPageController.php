@@ -7,7 +7,6 @@ namespace App\Http\Controllers;
 use App\Repositories\PageRepository;
 use App\Repositories\ProfanityRepository;
 use App\Validators\ContactValidator;
-use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Mail\Mailer;
@@ -17,8 +16,6 @@ use Illuminate\Log\LogManager;
 
 class ContactPageController extends Controller
 {
-    use RedirectsUsers;
-
     public function __construct(
         private Mailer $mailer,
         private ProfanityRepository $profanityRepository,

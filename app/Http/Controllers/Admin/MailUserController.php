@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\MailUserRepository;
-use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -14,8 +13,6 @@ use Illuminate\Validation\Factory;
 
 class MailUserController extends Controller
 {
-    use RedirectsUsers;
-
     public function __construct(
         private MailUserRepository $mailUserRepository,
         private Factory $validatorFactory,
@@ -117,7 +114,7 @@ class MailUserController extends Controller
             'domain' => 'string|required',
             'password' => 'string|required',
             'email' => 'string|email|required|unique:mail_users',
-            'forward' => 'nullable'
+            'forward' => 'nullable',
         ];
     }
 

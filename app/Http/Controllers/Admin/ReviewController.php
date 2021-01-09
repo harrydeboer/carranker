@@ -10,15 +10,12 @@ use App\Repositories\ModelRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\TrimRepository;
 use App\Repositories\UserRepository;
-use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ReviewController extends Controller
 {
-    use RedirectsUsers;
-
     public function __construct(
         private RatingRepository $ratingRepository,
         private ModelRepository $modelRepository,
