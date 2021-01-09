@@ -35,24 +35,4 @@ class TrimServiceTest extends TestCase
         $generationSeriesTrims = $trimService->getGenerationsSeriesTrims($collection);
         $this->assertEquals($generationSeriesTrims[$trim->getYearBegin() . '-' . $trim->getYearEnd()][$trim->getFramework()][$trim->getName()], $trim->getId());
     }
-
-    public function testHasTrimTypes()
-    {
-        $trim = Trim::factory()->create(['name' => null]);
-
-        $collection = new Collection();
-
-        $collection->add($trim);
-
-        $trimService = new TrimService();
-        $this->assertFalse($trimService->hasTrimTypes($collection));
-
-        $trim = Trim::factory()->create(['name' => 'notnull']);
-
-        $collection = new Collection();
-
-        $collection->add($trim);
-
-        $this->assertTrue($trimService->hasTrimTypes($collection));
-    }
 }

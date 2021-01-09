@@ -1,32 +1,33 @@
 document.addEventListener("DOMContentLoaded", function ()
 {
-    var lazyloadImages = document.querySelectorAll("img.lazy");
+    let lazyLoadImages = document.querySelectorAll("img.lazy");
+    let hasLazyLoaded;
 
-    function lazyload()
+    function lazyLoad()
     {
         if (typeof hasLazyLoaded === 'undefined') {
-            lazyloadImages.forEach(function (img) {
+            lazyLoadImages.forEach(function (img) {
                 img.src = img.dataset.src;
                 img.classList.remove('lazy');
             });
-            if (lazyloadImages.length === 0) {
-                document.removeEventListener("scroll", lazyload);
-                window.removeEventListener("resize", lazyload);
-                window.removeEventListener("orientationChange", lazyload);
-                document.removeEventListener("visibilitychange", lazyload);
+            if (lazyLoadImages.length === 0) {
+                document.removeEventListener("scroll", lazyLoad);
+                window.removeEventListener("resize", lazyLoad);
+                window.removeEventListener("orientationChange", lazyLoad);
+                document.removeEventListener("visibilitychange", lazyLoad);
             }
 
-            var hasLazyLoaded = true;
+            hasLazyLoaded = true;
         }
     }
 
-    if ( lazyloadImages.length > 0 && typeof sessionStorage.lazyLoad === 'undefined' ) {
-        setTimeout(lazyload, 3000);
-        document.addEventListener("scroll", lazyload);
-        window.addEventListener("resize", lazyload);
-        window.addEventListener("orientationChange", lazyload);
-        document.addEventListener("visibilitychange", lazyload);
+    if ( lazyLoadImages.length > 0 && typeof sessionStorage.lazyLoad === 'undefined' ) {
+        setTimeout(lazyLoad, 3000);
+        document.addEventListener("scroll", lazyLoad);
+        window.addEventListener("resize", lazyLoad);
+        window.addEventListener("orientationChange", lazyLoad);
+        document.addEventListener("visibilitychange", lazyLoad);
     } else {
-        lazyload();
+        lazyLoad();
     }
 });

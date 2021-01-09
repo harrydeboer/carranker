@@ -1,9 +1,9 @@
 <div class="modal-header text-center">
     <h3 class="title">
-        @if ($hasTrimTypes === true)
-            {{ $trim->getYearBegin() . '-' . $trim->getYearEnd() . ' ' . $trim->getFramework() . ' ' . $trim->getName() }}
-        @else
+        @if (is_null($trim->getName()))
             {{ $trim->getYearBegin() . '-' . $trim->getYearEnd() . ' ' . $trim->getFramework() }}
+        @else
+            {{ $trim->getYearBegin() . '-' . $trim->getYearEnd() . ' ' . $trim->getFramework() . ' ' . $trim->getName() }}
         @endif
     </h3>
 </div>
@@ -41,7 +41,7 @@
         <div class="text-center">
             <a href="#dialog" class="toRateTrim btn btn-primary" data-toggle="modal"
                data-generation="{{ $trim->getYearBegin() . '-' . $trim->getYearEnd() }}"
-               data-series="{{ $trim->getFramework() ?? 'N/A' }}" data-idtrim="{{ $id }}">Rate this car!</a>
+               data-series="{{ $trim->getFramework() ?? 'N/A' }}" data-id-trim="{{ $id }}">Rate this car!</a>
         </div>
     @endif
     <table class="specsTrim">

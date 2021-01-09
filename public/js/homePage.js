@@ -1,12 +1,13 @@
 $(document).ready(function ()
 {
     sessionStorage.lazyLoad = false;
+    let checkAll = $('.checkAll');
 
     /** Activate the slider */
     $('#sliderTop').carousel();
 
     /** Via the checkall checkbox all checks of this car spec are toggled. */
-    $(".checkAll").on('click', function () {
+    checkAll.on('click', function () {
         $("." + $(this).data('specname')).prop('checked', $(this).prop('checked'));
     });
 
@@ -45,7 +46,7 @@ $(document).ready(function ()
     /** When a user wants the default settings of all filters this function resets to default filtering. */
     $('#filterTopFormReset').on('click', function (event)
     {
-        $('.checkAll').each(function()
+        checkAll.each(function()
         {
             $(this).prop('checked', true);
             $('.' + $(this).data('specname')).each(function ()
@@ -78,7 +79,7 @@ $(document).ready(function ()
         }, 1000);
     });
 
-    numShowMoreLess = parseInt($('#numShowMoreLess').val());
+    let numShowMoreLess = parseInt($('#numShowMoreLess').val());
 
     if (typeof sessionStorage.numberOfRows === 'undefined') {
         sessionStorage.numberOfRows = $('#tableTop tr').length;
@@ -89,10 +90,14 @@ $(document).ready(function ()
         $('#slideshow').html(sessionStorage.slideshow);
         $("#atLeastVotes").html('<em>with at least ' + sessionStorage.minNumVotes + ' votes</em>');
         $(".checkAll").click();
-        $.each(sessionStorage.filterTopForm.split('&'), function (index, elem) {
-            var vals = elem.split('=');
-            $("[name='" + decodeURIComponent(vals[0]) + "']").val(decodeURIComponent(vals[1]));
-            $("[name='" + decodeURIComponent(vals[0]) + "']").prop('checked', true);
+
+        $.each(sessionStorage.filterTopForm.split('&'), function (index, elem)
+        {
+            let elemArray = elem.split('=');
+            let element = $("[name='" + decodeURIComponent(elemArray[0]) + "']");
+
+            element.val(decodeURIComponent(elemArray[1]));
+            element.prop('checked', true);
         });
     }
 
@@ -101,38 +106,41 @@ $(document).ready(function ()
     /** When more or less trims are shown in the top table the scrolling makes that the button remains in the same place of the window. */
     $('#showMore').on('click', function (event)
     {
-        var height = $(document).height();
-        var y = $(window).scrollTop();
+        let height = $(document).height();
+        let y = $(window).scrollTop();
+        let topRows = $('.topRow');
+        let topRowsVisible = $('.topRow:visible');
 
         /** More trims are loaded only when there are not enough trims hidden. Otherwise the hidden trims are shown. */
-        if ($('.topRow:visible').length + numShowMoreLess > $('.topRow').length) {
+        if (topRowsVisible.length + numShowMoreLess > topRows.length) {
 
             /** The extra number of trims is numShowMoreLess except for the case that the current number of trims is not a ten fold.
              * Showing more trims is always the upper ten fold. */
-            if ($('.topRow:visible').length % 10 === 0) {
-                sessionStorage.numberOfRows = $('.topRow:visible').length + numShowMoreLess;
+            if (topRowsVisible.length % 10 === 0) {
+                sessionStorage.numberOfRows = topRowsVisible.length + numShowMoreLess;
             } else {
-                sessionStorage.numberOfRows = $('.topRow:visible').length + numShowMoreLess - $('.topRow:visible').length % 10;
+                sessionStorage.numberOfRows = topRowsVisible.length + numShowMoreLess - topRowsVisible.length % 10;
             }
 
-            var dataRequest = 'numberOfRows=' + sessionStorage.numberOfRows + '&offset=' + $('.topRow').length + '&' +
+            let dataRequest = 'numberOfRows=' + sessionStorage.numberOfRows + '&offset=' + topRows.length + '&' +
                 $('#filterTopForm').serialize();
             $.get($(this).attr('href'), dataRequest, function (data)
             {
-                $('#tableTop').append(data);
+                let tableTop = $('#tableTop');
+                tableTop.append(data);
 
                 sessionStorage.numberOfRows = $('#tableTop tr').length;
-                sessionStorage.topTable = $('#tableTop')[0].outerHTML;
+                sessionStorage.topTable = tableTop[0].outerHTML;
                 showPartTopTable(sessionStorage.numberOfRows);
 
-                var heightNew = $(document).height();
+                let heightNew = $(document).height();
                 $(window).scrollTop(y + heightNew - height);
             });
         } else {
             sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) + numShowMoreLess;
             showPartTopTable(sessionStorage.numberOfRows);
 
-            var heightNew = $(document).height();
+            let heightNew = $(document).height();
             $(window).scrollTop(y + heightNew - height);
         }
 
@@ -142,19 +150,19 @@ $(document).ready(function ()
     $('#showLess').on('click', function (event)
     {
         if (sessionStorage.numberOfRows > numShowMoreLess) {
-            var height = $(document).height();
-            var y = $(window).scrollTop();
+            let height = $(document).height();
+            let y = $(window).scrollTop();
 
             /** Showing less trims is always the lower ten fold when the current number of trims is not a ten fold.
              * Otherwise numShorMoreLess is substracted for the number of visible trims. */
             if ($('#tableTop tr').length % 10 === 0) {
-                sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) - parseInt(numShowMoreLess);
+                sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) - numShowMoreLess;
             } else {
                 sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) - parseInt(sessionStorage.numberOfRows) % 10;
             }
             showPartTopTable(sessionStorage.numberOfRows);
 
-            var heightNew = $(document).height();
+            let heightNew = $(document).height();
             $(window).scrollTop(y + heightNew - height);
         }
 
@@ -165,11 +173,12 @@ $(document).ready(function ()
     {
         /** When there are less trims visible than numShowMoreLess the filtering tries to find numShowMoreLess trims.
          * Otherwise the number of visible trims is asked from the server. */
-        var rows;
-        if ($('.topRow:visible').length < numShowMoreLess) {
+        let rows;
+        let topRowsVisible = $('.topRow:visible');
+        if (topRowsVisible.length < numShowMoreLess) {
             rows = numShowMoreLess;
         } else {
-            rows = $('.topRow:visible').length;
+            rows = topRowsVisible.length;
         }
         sessionStorage.filterTopForm = $(this).serialize();
 
@@ -179,7 +188,8 @@ $(document).ready(function ()
          * the slider is activated. Then the window scrolls to the top of the table. */
         $.get($(this).attr('action'), $(this).serialize() + "&numberOfRows=" + rows, function (data)
         {
-            var array = data.split(/splitPoint/);
+            let array = data.split(/splitPoint/);
+            let tableTopTrs = $('#tableTop tr');
             $('#fillableTable').html(array[0]);
             $('#slideshow').html(array[1]);
             $("#atLeastVotes").html('<em>with at least ' + array[2] + ' votes</em>');
@@ -191,8 +201,8 @@ $(document).ready(function ()
             /** Activate the slider */
             $('#carousel').carousel();
 
-            showPartTopTable($('#tableTop tr').length);
-            sessionStorage.numberOfRows = $('#tableTop tr').length;
+            showPartTopTable(tableTopTrs.length);
+            sessionStorage.numberOfRows = tableTopTrs.length;
 
             $('html, body').animate({
                 scrollTop: $("#topCars").offset().top

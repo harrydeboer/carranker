@@ -4,22 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use App\Repositories\Elastic\TrimRepository;
+use App\Models\Trim;
 use Tests\TestCase;
 
 class SearchTest extends TestCase
 {
-    private TrimRepository $trimRepository;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->trimRepository = $this->app->make(TrimRepository::class);
-    }
-
     public function testSearch()
     {
-        $trim = $this->trimRepository->get(1);
+        $trim = Trim::factory()->create(['name' => 'testSearch']);
+        $this->artisan('processqueue')->execute();
+        sleep(2);
+
         $model = $trim->getModel();
         $make = $model->getMake();
 

@@ -31,7 +31,7 @@ class TrimFactory extends Factory
         $year_begin = $this->faker->randomNumber(4);
 
         $array = [
-            'name' => str_replace(' ', '', $this->faker->name),
+            'name' => null,
             'model_id' => $model->getId(),
             'make_name' => $model->getMakeName(),
             'model_name' => $model->getName(),

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature\Repositories\Elastic;
 
 use App\Models\Elastic\Trim;
-use App\Validators\FilterTopValidator;
 use App\Repositories\Elastic\TrimRepository;
 use Tests\TestCase;
 
@@ -30,11 +29,14 @@ class TrimRepositoryTest extends TestCase
 
     public function testFindTrimsForSearch()
     {
-        $trimCollection = $this->trimRepository->findForSearch($this->trim->getName());
+        $trimWithName = \App\Models\Trim::factory()->create(['name' => 'testTrimRepo']);
+        $this->artisan('processqueue')->execute();
+        sleep(2);
+        $trimCollection = $this->trimRepository->findForSearch($trimWithName->getName());
 
         $trim = $trimCollection->first();
-        $this->assertEquals($trim->getName(), $this->trim->getName());
-        $this->assertEquals($trim->getId(), $this->trim->getId());
+        $this->assertEquals($trim->getName(), $trimWithName->getName());
+        $this->assertEquals($trim->getId(), $trimWithName->getId());
     }
 
     public function testFindTrimsOfTop()

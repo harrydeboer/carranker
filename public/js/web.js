@@ -1,7 +1,7 @@
 $(document).ready(function ()
 {
-    var menuMake = $('#nav_select_make');
-    var menuModel = $('#nav_select_model');
+    let menuMake = $('#nav_select_make');
+    let menuModel = $('#nav_select_model');
 
     /* The selected options are set to the session on change of the selected make or model. */
     menuMake.on('change', function ()
@@ -27,7 +27,7 @@ $(document).ready(function ()
     /* Determines the car models related to the chosen make and fills the modelselect accordingly. */
     function fillModelMenu()
     {
-        var selectedMake = $('#nav_select_make').val();
+        let selectedMake = menuMake.val();
         menuModel.empty();
         menuModel.append('<option value="">Model</option>');
 
@@ -35,11 +35,11 @@ $(document).ready(function ()
             return;
         }
 
-        $.get("/api/getModelNames/" + selectedMake, null, function (modelnames)
+        $.get("/api/getModelNames/" + selectedMake, null, function (modelNames)
         {
-            for (var key in modelnames) {
-                menuModel.append('<option value="' + modelnames[key] + '">' + modelnames[key] + '</option>');
-            }
+            $.each(modelNames, function (index) {
+                menuModel.append('<option value="' + modelNames[index] + '">' + modelNames[index] + '</option>');
+            });
         });
     }
 
@@ -48,7 +48,8 @@ $(document).ready(function ()
         if (menuModel.val() === "") {
             window.location.href = "/make/" + encodeURIComponent(menuMake.val());
         } else {
-            window.location.href = "/model/" + encodeURIComponent(menuMake.val()) + "/" + encodeURIComponent(menuModel.val());
+            window.location.href = "/model/" + encodeURIComponent(menuMake.val()) + "/" +
+                encodeURIComponent(menuModel.val());
         }
     }
 });

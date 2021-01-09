@@ -69,9 +69,8 @@ class ModelPageController extends Controller
             'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
             'selectedGeneration' => $this->trimRepository->findSelectedGeneration((int) $trimId),
             'reviews' => $reviews,
-            'reCAPTCHAKey' => env('reCAPTCHAKey'),
+            'reCAPTCHAKey' => env('RE_CAPTCHA_KEY'),
             'links' => $links,
-            'hasTrimTypes' => $this->trimService->hasTrimTypes($trims),
             'FXRate' => $this->fXRateRepository->getByName('euro/dollar')->getValue(),
             'ratings' => $this->userRepository->getRatingsModel($user, $model->getId()),
         ];

@@ -1,5 +1,12 @@
 $(document).ready(function ()
 {
+    let ratingForm = $('#ratingForm');
+    let menuGenerations = $('#ratingFormGeneration');
+    let menuSeries = $('#ratingFormSeries');
+    let menuSeriesOptions = $('#ratingFormSeries option');
+    let menuTrims = $('#ratingFormTrim');
+    let menuTrimsOptions = $('#ratingFormTrim option');
+
     $('#generationSelect').on('change', function()
     {
         showSelectedGeneration();
@@ -23,23 +30,17 @@ $(document).ready(function ()
         $('#thankYou').modal('show');
     }
 
-    if ($('.trimType').length > 0) {
-        hasTrimTypes = true;
-    } else {
-        hasTrimTypes = false;
-    }
-
     /** When a user wants to rate a trim then the generation, series and id of the trim are filled in in the rating form. */
     $(".toRateTrim").on('click', function()
     {
         $('.typeInfo').modal('hide');
         showDialog('trim');
-        var generation = $(this).data('generation');
-        var series = $(this).data('series');
-        var IDTrim = $(this).data('idtrim');
-        $('#ratingFormGeneration').val(generation);
-        $('#ratingFormSeries').val(generation + ';' + series);
-        $('#ratingFormTrim').val(generation + ';' + series + ';' + IDTrim);
+        let generation = $(this).data('generation');
+        let series = $(this).data('series');
+        let idTrim = $(this).data('id-trim');
+        menuGenerations.val(generation);
+        menuSeries.val(generation + ';' + series);
+        menuTrims.val(generation + ';' + series + ';' + idTrim);
     });
 
     $("#showModelDialog").on('click', function()
@@ -54,22 +55,21 @@ $(document).ready(function ()
 
     /** A rating can be send to the server when there is no swearing in a review
      * or when the submit is not a review. The required attributes in the html validate the form. */
-    $('#ratingForm').on('submit', function(event)
+    ratingForm.on('submit', function(event)
     {
-        var trimNameArray = $('#ratingFormTrim').val().split(';');
+        let trimNameArray = menuTrims.val().split(';');
         $('#ratingFormTrimId').val(trimNameArray[2]);
 
-        var testProfanities = true;
-        var profanities = $('#profanities').val().split(' ');
+        let testProfanities = true;
+        let profanities = $('#profanities').val().split(' ');
 
         if ($('#ratingFormContent:visible').length) {
-            var content = $('#ratingFormContent').val();
-            isReview = true;
+            let content = $('#ratingFormContent').val();
 
-            var contentWords = content.split(' ');
+            let contentWords = content.split(' ');
 
-            for (index = 0; index < profanities.length; index++) {
-                for (word = 0; word < contentWords.length; word++) {
+            for (let index = 0; index < profanities.length; index++) {
+                for (let word = 0; word < contentWords.length; word++) {
                     if ((profanities[index]) === contentWords[word].toLowerCase()) {
                         testProfanities = false;
                         break;
@@ -88,31 +88,32 @@ $(document).ready(function ()
 
             /** The reCAPTCHA element is loaded and waits for execution. Meanwhile the events default is prevented,
              * because the token is not passed to the form yet. */
-            var head_ID = document.getElementsByTagName("head")[0];
-            var script_element = document.createElement('script');
-            script_element.type = 'text/javascript';
-            script_element.id = "reCAPTCHAScript";
-            script_element.src = "https://www.google.com/recaptcha/api.js?render=" + $('#reCAPTCHAKey').val();
-            head_ID.appendChild(script_element);
+            let headId = document.getElementsByTagName("head")[0];
+            let scriptElement = document.createElement('script');
+            scriptElement.type = 'text/javascript';
+            scriptElement.id = "reCAPTCHAScript";
+            scriptElement.src = "https://www.google.com/recaptcha/api.js?render=" + $('#reCAPTCHAKey').val();
+            headId.appendChild(scriptElement);
 
             $('#reCAPTCHAScript').on('load', function ()
             {
-                grecaptcha.ready(function () {
-                    grecaptcha.execute($('#reCAPTCHAKey').val(), {action: 'validateCAPTCHA'}).then(
+                grecaptcha.ready(function ()
+                {
+                    grecaptcha.execute($('#reCAPTCHAKey').val(), {action: 'validateReCAPTCHA'}).then(
                         function (reCAPTCHAToken)
-                    {
-                        $('#reCAPTCHAToken').val(reCAPTCHAToken);
-
-                        /** The form is submitted which triggers the current function again but now the reCAPTCHA element
-                         * is loaded and the events default is not prevented so that the form will actually submit. */
-                        $.post($('#ratingForm').attr('action'), $('#ratingForm').serialize(), function(data)
                         {
-                            if (data === 'true') {
-                                sessionStorage.isThankYou = "true";
-                            }
-                            location.reload();
+                            $('#reCAPTCHAToken').val(reCAPTCHAToken);
+
+                            /** The form is submitted which triggers the current function again but now the reCAPTCHA element
+                             * is loaded and the events default is not prevented so that the form will actually submit. */
+                            $.post(ratingForm.attr('action'), ratingForm.serialize(), function(data)
+                            {
+                                if (data === 'true') {
+                                    sessionStorage.isThankYou = "true";
+                                }
+                                location.reload();
+                            });
                         });
-                    });
                 });
             });
 
@@ -122,17 +123,12 @@ $(document).ready(function ()
 
     /** The generations have series and when a generation is selected the right options for the series must be shown.
      * The series have trims and when a series is selected the right options for the trims must be shown. */
-    var menuGenerations = $('#ratingFormGeneration');
-    var menuSeries = $('#ratingFormSeries');
-    var menuSeriesOptions = $('#ratingFormSeries option');
-    var menuTrims = $('#ratingFormTrim');
-    var menuTrimsOptions = $('#ratingFormTrim option');
     menuSeriesOptions.hide();
     menuTrimsOptions.hide();
 
     menuGenerations.on('change', function()
     {
-        var selectedGeneration = $(this).val();
+        let selectedGeneration = $(this).val();
         menuSeriesOptions.hide();
         menuTrimsOptions.hide();
         menuSeries.val('');
@@ -140,7 +136,7 @@ $(document).ready(function ()
         menuSeriesOptions.each(function()
         {
             if ($(this).val() !== '') {
-                var seriesArray = $(this).val().split(';');
+                let seriesArray = $(this).val().split(';');
                 if (seriesArray[0] === selectedGeneration) {
                     $(this).show();
                 }
@@ -152,17 +148,16 @@ $(document).ready(function ()
 
     menuSeries.on('change', function()
     {
-        var selectedGeneration = $(this).val();
-        var selectedSeries = $(this).val();
+        let selectedSeries = $(this).val();
         menuTrimsOptions.hide();
         menuTrims.val('');
         menuTrimsOptions.each(function()
         {
             if ($(this).val() !== '') {
-                var trimArray = $(this).val().split(';');
+                let trimArray = $(this).val().split(';');
                 if (trimArray[0] + ';' + trimArray[1] === selectedSeries) {
                     $(this).show();
-                    if (hasTrimTypes === false) {
+                    if ($('.trimType').length === 0) {
                         $(this).prop('selected', true);
                     } else {
                         $(this).show();
@@ -180,25 +175,24 @@ $(document).ready(function ()
      * Finally when the user wants to write a review the textarea is displayed in the form and made required. */
     function showDialog(typeShow)
     {
-        var winW = $(window).width();
-        var winH = $(window).height();
-        $('#ratingFormGeneration').show();
-        $('#ratingFormSeries').show();
-        $('#ratingFormTrim').show();
-        $("#divArea").show();
-        if (hasTrimTypes === false) {
-            $('#ratingFormTrim').hide();
+        menuGenerations.show();
+        menuSeries.show();
+        menuTrims.show();
+        let divTextarea = $('#divArea');
+        divTextarea.show();
+        if ($('.trimType').length === 0) {
+            menuTrims.hide();
         }
         if (typeShow === 'review') {
             $("#ratingFormContent").prop('required',true);
         } else {
-            $("#divArea").hide();
+            divTextarea.hide();
             $("#ratingFormContent").prop('required',false);
 
             if (typeShow === 'trim') {
-                $('#ratingFormGeneration').hide();
-                $('#ratingFormSeries').hide();
-                $('#ratingFormTrim').hide();
+                menuGenerations.hide();
+                menuSeries.hide();
+                menuTrims.hide();
             }
         }
     }
