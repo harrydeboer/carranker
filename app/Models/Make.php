@@ -29,7 +29,7 @@ class Make extends BaseModel
 
     public function save(array $options = [])
     {
-        if (is_null($this->getId())) {
+        if (is_null($this->findId())) {
             $action = 'create';
         } else {
             $action = 'update';
