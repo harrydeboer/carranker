@@ -27,7 +27,7 @@ class LoginLogoutTest extends TestCase
         ]);
 
         $response = $this->post('/login', [
-            'email' => $user->email,
+            'email' => $user->getEmail(),
             'password' => $password,
         ]);
 

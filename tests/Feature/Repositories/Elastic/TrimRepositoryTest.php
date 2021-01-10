@@ -71,11 +71,6 @@ class TrimRepositoryTest extends TestCase
             $this->assertTrue($trim->getFramework() === $framework);
         }
 
-        try {
-            $this->assertEquals(count($trims), 2);
-        } catch (\Exception $e) {
-            $allTrims = $this->trimRepository->all();
-            var_dump($allTrims);
-        }
+        $this->assertEquals(count($trims), 2);
     }
 }
