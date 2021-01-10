@@ -12,6 +12,7 @@ class HomePageTest extends TestCase
     {
         $response = $this->get('/');
 
+        $response->assertHeader('content-security-policy');
         $response->assertStatus(200);
     }
 

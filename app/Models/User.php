@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
@@ -76,6 +77,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getRoles(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Role', 'users_roles');
+    }
+
+    public function getRatings(): Collection
+    {
+        return $this->hasMany('\App\Models\Rating','user_id', 'id')->get();
     }
 
     public function sendPasswordResetNotification($token)

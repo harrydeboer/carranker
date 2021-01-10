@@ -21,7 +21,7 @@
                 @endif
                 <li><a href="{{ route('login') }}"><i class="fa fa-user-o fa-lg"></i></a></li>
                 <li class="nav-item">
-                    <select id="nav_select_make" class="form-control">
+                    <select id="navSelectMake" class="form-control">
                         <option value="">Make</option>
                         @foreach ($makeNames as $makeName)
                             @if (isset($makeNameRoute) && $makeName === $makeNameRoute)
@@ -33,7 +33,7 @@
                     </select>
                 </li>
                 <li class="nav-item">
-                    <select class="form-control" id="nav_select_model">
+                    <select class="form-control" id="navSelectModel">
                         <option value="">Model</option>
                         @if (isset($modelNames))
                             @foreach ($modelNames as $modelName)
@@ -48,10 +48,10 @@
                 </li>
                 <li class="nav-item">
                     <input type="text" name="query" class="form-control"
-                           id="search_form_text" placeholder="Search car...">
+                           id="searchFormText" placeholder="Search car...">
                 </li>
                 <li class="nav-item">
-                    <input type="submit" class="btn btn-primary" value="Go" id="search_form_submit">
+                    <input type="submit" class="btn btn-primary" value="Go" id="searchFormSubmit">
                 </li>
             </ul>
         </form>

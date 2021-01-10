@@ -1,7 +1,7 @@
 $(document).ready(function ()
 {
-    let menuMake = $('#nav_select_make');
-    let menuModel = $('#nav_select_model');
+    let menuMake = $('#navSelectMake');
+    let menuModel = $('#navSelectModel');
 
     /* The selected options are set to the session on change of the selected make or model. */
     menuMake.on('change', function ()
@@ -14,9 +14,9 @@ $(document).ready(function ()
         navigate();
     });
 
-    $('#search_form_submit').on('click', function(event)
+    $('#searchFormSubmit').on('click', function(event)
     {
-        if ($('#search_form_text').val() === "") {
+        if ($('#searchFormText').val() === "") {
             event.preventDefault();
             if (menuMake.val() !== "") {
                 navigate();

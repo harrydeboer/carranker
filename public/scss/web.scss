@@ -62,7 +62,7 @@ $body-width: 1275px;
   background-color: $housecolor-blue;
 }
 
-#nav_select_make, #nav_select_model {
+#navSelectMake, #navSelectModel {
   width: 141px !important;
   font-size: 20px;
   margin-left: 10px;
@@ -70,7 +70,7 @@ $body-width: 1275px;
   padding: 0;
 }
 
-#search_form_text {
+#searchFormText {
   width: 147px !important;
   font-size: 20px;
   margin-left: 10px;
@@ -80,7 +80,7 @@ $body-width: 1275px;
   color: $housecolor-blue;
 }
 
-#search_form_submit {
+#searchFormSubmit {
   width: 52px;
   height: 34px;
   font-size: 20px;
@@ -116,13 +116,13 @@ header {
     margin-bottom: 3px;
 }
 
-#nav_select_make, #nav_select_model, #search_form_submit {
+#navSelectMake, #navSelectModel, #searchFormSubmit {
   background-color: $housecolor-blue;
   color: white;
   border: 1px solid white;
 }
 
-#nav_select_make:hover, #nav_select_model:hover, #search_form_submit:hover {
+#navSelectMake:hover, #navSelectModel:hover, #searchSormSubmit:hover {
   cursor: pointer;
 }
 

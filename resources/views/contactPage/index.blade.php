@@ -29,7 +29,7 @@
                           class="form-control" placeholder="Enter message" required></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Send" class="btn btn-success" id="filter_top_form_submit">
+                    <input type="submit" value="Send" class="btn btn-success" id="contactFormSubmit">
                 </div>
                 <input type="hidden" name="reCAPTCHAToken" id="reCAPTCHAToken">
             </form>
