@@ -83,39 +83,7 @@ $(document).ready(function ()
             event.preventDefault();
         } else if (!$('#reCAPTCHAScript').length) {
 
-            /** Show the loader img */
-            $('#hideAll').show();
-
-            /** The reCAPTCHA element is loaded and waits for execution. Meanwhile the events default is prevented,
-             * because the token is not passed to the form yet. */
-            let headId = document.getElementsByTagName("head")[0];
-            let scriptElement = document.createElement('script');
-            scriptElement.type = 'text/javascript';
-            scriptElement.id = "reCAPTCHAScript";
-            scriptElement.src = "https://www.google.com/recaptcha/api.js?render=" + $('#reCAPTCHAKey').val();
-            headId.appendChild(scriptElement);
-
-            $('#reCAPTCHAScript').on('load', function ()
-            {
-                grecaptcha.ready(function ()
-                {
-                    grecaptcha.execute($('#reCAPTCHAKey').val(), {action: 'validateReCAPTCHA'}).then(
-                        function (reCAPTCHAToken)
-                        {
-                            $('#reCAPTCHAToken').val(reCAPTCHAToken);
-
-                            /** The form is submitted which triggers the current function again but now the reCAPTCHA element
-                             * is loaded and the events default is not prevented so that the form will actually submit. */
-                            $.post(ratingForm.attr('action'), ratingForm.serialize(), function(data)
-                            {
-                                if (data === 'true') {
-                                    sessionStorage.isThankYou = "true";
-                                }
-                                location.reload();
-                            });
-                        });
-                });
-            });
+            reCAPTCHA(ratingForm, 'modelPage')
 
             event.preventDefault();
         }
@@ -125,7 +93,6 @@ $(document).ready(function ()
      * The series have trims and when a series is selected the right options for the trims must be shown. */
     menuSeriesOptions.hide();
     menuTrimsOptions.hide();
-
     menuGenerations.on('change', function()
     {
         let selectedGeneration = $(this).val();
@@ -145,7 +112,6 @@ $(document).ready(function ()
             }
         });
     });
-
     menuSeries.on('change', function()
     {
         let selectedSeries = $(this).val();

@@ -91,13 +91,13 @@ $(document).ready(function ()
         $("#atLeastVotes").html('<em>with at least ' + sessionStorage.minNumVotes + ' votes</em>');
         $(".checkAll").click();
 
-        $.each(sessionStorage.filterTopForm.split('&'), function (index, elem)
+        $.each(sessionStorage.filterFormSerializedValues.split('&'), function (index, value)
         {
-            let elemArray = elem.split('=');
-            let element = $("[name='" + decodeURIComponent(elemArray[0]) + "']");
+            let valueArray = value.split('=');
+            let formElement = $("[name='" + decodeURIComponent(valueArray[0]) + "']");
 
-            element.val(decodeURIComponent(elemArray[1]));
-            element.prop('checked', true);
+            formElement.val(decodeURIComponent(valueArray[1]));
+            formElement.prop('checked', true);
         });
     }
 
@@ -122,8 +122,9 @@ $(document).ready(function ()
                 sessionStorage.numberOfRows = topRowsVisible.length + numShowMoreLess - topRowsVisible.length % 10;
             }
 
-            let dataRequest = 'numberOfRows=' + sessionStorage.numberOfRows + '&offset=' + topRows.length + '&' +
-                $('#filterTopForm').serialize();
+            let dataRequest = 'numberOfRows=' + sessionStorage.numberOfRows + '&offset=' +
+                topRows.length + '&' + $('#filterTopForm').serialize();
+
             $.get($(this).attr('href'), dataRequest, function (data)
             {
                 let tableTop = $('#tableTop');
@@ -136,6 +137,7 @@ $(document).ready(function ()
                 let heightNew = $(document).height();
                 $(window).scrollTop(y + heightNew - height);
             });
+
         } else {
             sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) + numShowMoreLess;
             showPartTopTable(sessionStorage.numberOfRows);
@@ -180,7 +182,7 @@ $(document).ready(function ()
         } else {
             rows = topRowsVisible.length;
         }
-        sessionStorage.filterTopForm = $(this).serialize();
+        sessionStorage.filterFormSerializedValues = $(this).serialize();
 
         /** Three pieces of html, the slideshow, the top table and the least number of votes, are filled with the
          * ajax callback data. The data has a splitpoint to split at the right point for the three pieces of html.

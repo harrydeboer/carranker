@@ -37,8 +37,8 @@ $(document).ready(function ()
 
         $.get("/api/getModelNames/" + selectedMake, null, function (modelNames)
         {
-            $.each(modelNames, function (index) {
-                menuModel.append('<option value="' + modelNames[index] + '">' + modelNames[index] + '</option>');
+            $.each(modelNames, function (index, value) {
+                menuModel.append('<option value="' + value + '">' + value + '</option>');
             });
         });
     }
@@ -53,3 +53,49 @@ $(document).ready(function ()
         }
     }
 });
+
+function reCAPTCHA(form, page)
+{
+    /** Show the loader img */
+    $('#hideAll').show();
+
+    /** The reCAPTCHAScript element is loaded when not present.*/
+    let headId = document.getElementsByTagName("head")[0];
+    let scriptElement = document.createElement('script');
+    scriptElement.type = 'text/javascript';
+    scriptElement.id = "reCAPTCHAScript";
+    scriptElement.src = "https://www.google.com/recaptcha/api.js?render=" + $('#reCAPTCHAKey').val();
+    headId.appendChild(scriptElement);
+
+    $('#reCAPTCHAScript').on('load',function ()
+    {
+        grecaptcha.ready(function ()
+        {
+            grecaptcha.execute(
+                $('#reCAPTCHAKey').val(),
+                {action: 'validateReCAPTCHA'},
+                false)
+                .then(
+                function (reCAPTCHAToken)
+                {
+                    $('#reCAPTCHAToken').val(reCAPTCHAToken);
+
+                    if (page === 'contactPage') {
+                        /** The form is submitted which triggers the current function again but now the reCAPTCHA element
+                         * is loaded and the events default is not prevented so that the form will actually submit. */
+                        form.submit();
+                    } else if (page === 'modelPage') {
+
+                        /** The form is submitted which triggers the current function again but now the reCAPTCHA element
+                         * is loaded and the events default is not prevented so that the form will actually submit. */
+                        $.post(form.attr('action'), form.serialize(), function (data) {
+                            if (data === 'true') {
+                                sessionStorage.isThankYou = "true";
+                            }
+                            location.reload();
+                        });
+                    }
+                });
+        });
+    });
+}

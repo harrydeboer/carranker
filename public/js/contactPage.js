@@ -34,32 +34,7 @@ $(document).ready(function ()
             $('#error').html('No swearing please.<BR>');
         } else if (!$('#reCAPTCHAScript').length) {
 
-            /** Show the loader img */
-            $('#hideAll').show();
-
-            /** The reCAPTCHAScript element is loaded when not present.*/
-            let headId = document.getElementsByTagName("head")[0];
-            let script_element = document.createElement('script');
-            script_element.type = 'text/javascript';
-            script_element.id = "reCAPTCHAScript";
-            script_element.src = "https://www.google.com/recaptcha/api.js?render=" + $('#reCAPTCHAKey').val();
-            headId.appendChild(script_element);
-
-            $('#reCAPTCHAScript').on('load',function ()
-            {
-                grecaptcha.ready(function ()
-                {
-                    grecaptcha.execute($('#reCAPTCHAKey').val(), {action: 'validateReCAPTCHA'}).then(
-                        function (reCAPTCHAToken)
-                        {
-                            $('#reCAPTCHAToken').val(reCAPTCHAToken);
-
-                            /** The form is submitted which triggers the current function again but now the reCAPTCHA element
-                             * is loaded and the events default is not prevented so that the form will actually submit. */
-                            $('#contact-form').submit();
-                        });
-                });
-            });
+            reCAPTCHA($(this), 'contactPage');
 
             event.preventDefault();
         }
