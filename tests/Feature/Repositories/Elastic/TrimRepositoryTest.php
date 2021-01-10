@@ -30,7 +30,7 @@ class TrimRepositoryTest extends TestCase
     public function testFindTrimsForSearch()
     {
         $trimWithName = \App\Models\Trim::factory()->create(['name' => 'testTrimRepo']);
-        $this->artisan('processqueue')->execute();
+        $this->artisan('process:queue')->execute();
         sleep(2);
         $trimCollection = $this->trimRepository->findForSearch($trimWithName->getName());
 

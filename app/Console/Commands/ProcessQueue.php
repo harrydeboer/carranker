@@ -17,7 +17,7 @@ class ProcessQueue extends Command
      *
      * @var string
      */
-    protected $signature = 'processqueue';
+    protected $signature = 'process:queue';
 
     /**
      * The console command description.

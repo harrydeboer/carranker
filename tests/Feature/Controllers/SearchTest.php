@@ -12,7 +12,7 @@ class SearchTest extends TestCase
     public function testSearch()
     {
         $trim = Trim::factory()->create(['name' => 'testSearch']);
-        $this->artisan('processqueue')->execute();
+        $this->artisan('process:queue')->execute();
         sleep(2);
 
         $model = $trim->getModel();

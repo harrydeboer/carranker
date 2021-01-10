@@ -33,7 +33,7 @@ class TeardownTest extends TestCase
         $this->modelRepository->deleteIndex();
         $this->trimRepository->deleteIndex();
 
-        $this->artisan('flushredisdb')->execute();
+        $this->artisan('flush:redis-dbs')->execute();
 
         $this->assertTrue(true);
     }

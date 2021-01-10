@@ -16,7 +16,7 @@ class IndexCars extends Command
      *
      * @var string
      */
-    protected $signature = 'indexcars';
+    protected $signature = 'index:cars';
 
     /**
      * The console command description.

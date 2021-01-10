@@ -14,7 +14,7 @@ class GetFXRateEuroDollar extends Command
      *
      * @var string
      */
-    protected $signature = 'getfxrate';
+    protected $signature = 'get:fx-rate';
 
     /**
      * The console command description.

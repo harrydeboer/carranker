@@ -13,7 +13,7 @@ class FlushRedisDB extends Command
 	 *
 	 * @var string
 	 */
-	protected $signature = 'flushredisdb';
+	protected $signature = 'flush:redis-dbs';
 
 	/**
 	 * The console command description.
