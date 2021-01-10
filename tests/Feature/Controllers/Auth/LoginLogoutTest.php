@@ -12,7 +12,7 @@ class LoginLogoutTest extends TestCase
 {
     public function testLoginPage()
     {
-        $response = $this->get('/login');
+        $response = $this->get(route('login'));
 
         $response->assertStatus(200);
     }
@@ -26,7 +26,7 @@ class LoginLogoutTest extends TestCase
             'password' => $hasher->make($password),
         ]);
 
-        $response = $this->post('/login', [
+        $response = $this->post(route('login'), [
             'email' => $user->getEmail(),
             'password' => $password,
         ]);

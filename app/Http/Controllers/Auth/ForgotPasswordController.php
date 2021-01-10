@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Passwords\PasswordBroker;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
 {
@@ -24,9 +23,7 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
-        public function __construct(
-            private PasswordBroker $passwordBroker,
-        ){}
+    public function __construct(){}
 
     public function showLinkRequestForm()
     {

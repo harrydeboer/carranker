@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Password;
 use Tests\TestCase;
 
 class ResetPasswordTest extends TestCase
@@ -26,29 +28,41 @@ class ResetPasswordTest extends TestCase
 
     public function testEmail()
     {
-        $response = $this->actingAs($this->user)->post(route('password.email'), [
+        $response = $this->post(route('password.email'), [
             'email' => $this->user->getEmail(),
         ]);
 
-        $response->assertStatus(302);
-    }
+        $response->assertRedirect(route('Home'));
 
-    public function testResetPage()
-    {
-        $response = $this->actingAs($this->user)->get(route('password.reset', ['token' => 'notValid']));
+        $tokens = DB::table('password_resets')->where('email', $this->user->getEmail())->get();
 
-        $response->assertStatus(200);
+        $this->assertCount(1, $tokens);
     }
 
     public function testReset()
     {
+        $token = Password::broker()->createToken($this->user);
+        $response = $this->actingAs($this->user)->get(route('password.reset', ['token' => $token]));
+
+        $response->assertStatus(200);
+
+        $newPassword = 'newSecret';
         $response = $this->actingAs($this->user)->post(route('password.update'), [
-            'token' => 'notValid',
+            'token' => $token,
             'email' => $this->user->getEmail(),
-            'password' => $this->user->getPassword(),
-            'password_confirmation' => $this->user->getPassword(),
+            'password' => $newPassword,
+            'password_confirmation' => $newPassword,
             ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('Home'));
+
+        $response = $this->post(route('login'), [
+            'email' => $this->user->getEmail(),
+            'password' => $newPassword,
+        ]);
+
+        $response->assertSessionHasNoErrors();
+
+        $response->assertRedirect(route('Home'));
     }
 }

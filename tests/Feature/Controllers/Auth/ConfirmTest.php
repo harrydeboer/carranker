@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Contracts\Hashing\Hasher;
 use Tests\TestCase;
 
 class ConfirmTest extends TestCase
@@ -26,10 +27,23 @@ class ConfirmTest extends TestCase
 
     public function testConfirm()
     {
-        $response = $this->actingAs($this->user)->post(route('password.confirm'), [
-            'password' => $this->user->getPassword(),
+        $hasher = app()->make(Hasher::class);
+
+        $password = 'secretConfirm';
+        $user = User::factory()->create(['password' => $hasher->make($password)]);
+
+        $response = $this->actingAs($user)->post(route('password.confirm'), [
+            'password' => $password . 'NotValid',
         ]);
 
-        $response->assertStatus(302);
+        $response->assertSessionHasErrors();
+
+        $response = $this->actingAs($user)->post(route('password.confirm'), [
+            'password' => $password,
+        ]);
+
+        $response->assertRedirect(route('Home'));
+
+        $response->assertSessionHasNoErrors();
     }
 }

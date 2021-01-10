@@ -36,7 +36,7 @@ class ModelPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user, $trim)
         {
-            $browser->visit('/login')
+            $browser->visit(route('login'))
                 ->type('email', $user->getEmail())
                 ->type('password', 'secret')
                 ->press('Login')

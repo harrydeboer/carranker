@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class VerifyTest extends TestCase
@@ -26,15 +30,28 @@ class VerifyTest extends TestCase
 
     public function testVerifyPage()
     {
-        $response = $this->actingAs($this->user)->get(route('verification.verify', ['id' => '1', 'hash' => 'notValid']));
+        $url = URL::temporarySignedRoute(
+            'verification.verify',
+            Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
+            [
+                'id' => $this->user->getKey(),
+                'hash' => sha1($this->user->getEmailForVerification()),
+            ]
+        );
 
-        $response->assertStatus(403);
+        $this->assertNull($this->user->getEmailVerifiedAt());
+
+        $response = $this->actingAs($this->user)->get($url);
+
+        $this->assertNotNull($this->user->getEmailVerifiedAt());
+
+        $response->assertRedirect(route('login'));
     }
 
     public function testResendPage()
     {
         $response = $this->actingAs($this->user)->post(route('verification.resend'));
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('Home'));
     }
 }

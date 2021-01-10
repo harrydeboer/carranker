@@ -23,7 +23,7 @@ class LoginAdmin extends TestCase
         $user = User::factory()->create(['password' => $hasher->make($password)]);
         $user->getRoles()->attach($role->getId());
 
-        $this->post('/login', [
+        $this->post(route('login'), [
             'email' => $user->email,
             'password' => $password,
         ]);
