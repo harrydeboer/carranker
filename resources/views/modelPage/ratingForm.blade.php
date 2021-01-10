@@ -62,7 +62,15 @@
             </div>
             <input type="hidden" name="trimId" id="ratingFormTrimId">
             <div class="form-group" id="divArea">
-                <textarea id="ratingFormContent" name="content" class="form-control" cols="42" rows="10"></textarea>
+                <textarea id="ratingFormContent"
+                          name="content"
+                          class="form-control"
+                          cols="42"
+                          rows="10"
+                          maxlength="{{ $maxNumberCharactersReview }}"></textarea>
+                <div>
+                    <span id="charactersLeft">{{ $maxNumberCharactersReview }}</span> characters left.
+                </div>
             </div>
         </div>
     </div>

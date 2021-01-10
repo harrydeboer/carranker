@@ -6,6 +6,7 @@ $(document).ready(function ()
     let menuSeriesOptions = $('#ratingFormSeries option');
     let menuTrims = $('#ratingFormTrim');
     let menuTrimsOptions = $('#ratingFormTrim option');
+    let ratingFormContent = $('#ratingFormContent');
 
     $('#generationSelect').on('change', function()
     {
@@ -133,6 +134,12 @@ $(document).ready(function ()
                 $(this).show();
             }
         });
+    });
+
+    let maxCharactersInReview = ratingFormContent.attr('maxlength');
+    ratingFormContent.on('keyup', function()
+    {
+        $('#charactersLeft').text(maxCharactersInReview - $(this).val().length);
     });
 
     /** The dialog with the rating form can have three shapes. When a trim is viewed and the user wants to rate

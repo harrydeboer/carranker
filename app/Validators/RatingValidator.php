@@ -12,6 +12,8 @@ use Illuminate\Validation\ValidationException;
 
 class RatingValidator extends BaseValidator
 {
+    public const maxNumberCharactersReview = 1000;
+
     public function __construct(
         private Collection $profanities,
     ){}
@@ -20,7 +22,7 @@ class RatingValidator extends BaseValidator
     {
         $rules = [
             'trimId' => 'integer|required',
-            'content' => 'string|nullable',
+            'content' => 'string|nullable|max:' . (string) self::maxNumberCharactersReview,
             'reCAPTCHAToken' => 'string|required',
         ];
 
