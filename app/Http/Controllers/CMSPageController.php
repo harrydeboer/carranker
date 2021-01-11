@@ -21,11 +21,9 @@ class CMSPageController extends Controller
             abort(404, 'The requested page does not exist.');
         }
 
-        $response = response()->view('cMSPage.index', [
-            'title' => $page->title,
-            'content' => $page?->getContent(),
+        return response()->view('cMSPage.index', [
+            'title' => $page->getTitle(),
+            'content' => $page->getContent(),
         ]);
-
-        return $response;
     }
 }

@@ -5,6 +5,7 @@ declare( strict_types=1 );
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Redis;
 
 class FlushRedisDB extends Command
 {
@@ -24,7 +25,7 @@ class FlushRedisDB extends Command
 
 	public function handle(): void
 	{
-		$redis = new \Redis();
+		$redis = new Redis();
 		$redis->connect(env('REDIS_HOST'), (int) env('REDIS_PORT'));
 		$redis->auth(env('REDIS_PASSWORD'));
 		if (env('APP_ENV') === 'testing') {

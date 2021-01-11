@@ -40,7 +40,7 @@ class LoginController extends Controller
      */
     protected string $redirectTo = '/';
 
-    public function showLoginForm()
+    public function showLoginForm(): Response
     {
         $user = $this->guard->user();
         return response()->view('auth.login', [

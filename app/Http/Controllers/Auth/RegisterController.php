@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use App\Models\User;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Response;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Validation\Factory;
@@ -42,7 +43,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    public function showRegistrationForm()
+    public function showRegistrationForm(): Response
     {
         $data = [
             'title' => 'Register',
@@ -53,13 +54,7 @@ class RegisterController extends Controller
         return response()->view('auth.register', $data);
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    protected function validator(array $data): Validator
     {
         return $this->validatorFactory->make($data, [
             'name' => ['required', 'string', 'max:255'],
@@ -68,13 +63,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
+    protected function create(array $data): User
     {
         $user = User::create([
                                 'name' => $data['name'],

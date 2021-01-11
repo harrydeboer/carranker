@@ -6,6 +6,7 @@ namespace App\Console\Commands;
 
 use App\Repositories\FXRateRepository;
 use Illuminate\Console\Command;
+use Exception;
 
 class GetFXRateEuroDollar extends Command
 {
@@ -30,6 +31,9 @@ class GetFXRateEuroDollar extends Command
         parent::__construct();
     }
 
+    /**
+     * @throws Exception
+     */
     public function handle(): void
     {
         $ch = curl_init("http://data.fixer.io/api/latest?access_key=" . env("FIXER_API_KEY"));
@@ -53,7 +57,7 @@ class GetFXRateEuroDollar extends Command
             $this->info('FX Rate updated!');
 
         } else {
-            throw new \Exception("Api for FX Rates not available.");
+            throw new Exception("Api for FX Rates not available.");
         }
     }
 }

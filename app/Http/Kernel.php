@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http;
 
-use App\Http\Middleware\CacheWithVarnish;
-use App\Http\Middleware\IsAdmin;
-use App\Http\Middleware\ShareWithAllViews;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Routing\Router;
@@ -16,9 +13,13 @@ class Kernel extends HttpKernel
     public function __construct(Application $app, Router $router)
     {
         $this->middlewareGroups['admin'] = $this->webAndAdmin;
-        $this->middlewareGroups['admin'][] = IsAdmin::class;
+        $this->middlewareGroups['admin'][] = \App\Http\Middleware\IsAdmin::class;
+        $this->middlewareGroups['api'] = [
+            'throttle:api',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ];
         $this->middlewareGroups['web'] = $this->webAndAdmin;
-        $this->middlewareGroups['web'][] = ShareWithAllViews::class;
+        $this->middlewareGroups['web'][] = \App\Http\Middleware\ShareWithAllViews::class;
         parent::__construct($app, $router);
     }
 
@@ -51,20 +52,6 @@ class Kernel extends HttpKernel
     ];
 
     /**
-     * The application's route middleware groups.
-     *
-     * @var array
-     */
-    protected $middlewareGroups = [
-        'web' => [],
-        'admin' => [],
-        'api' => [
-            'throttle:api',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
-    ];
-
-    /**
      * The application's route middleware.
      *
      * These middleware may be assigned to groups or used individually.
@@ -81,6 +68,6 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'cacheable' => CacheWithVarnish::class,
+        'cacheable' => \App\Http\Middleware\CacheWithVarnish::class,
     ];
 }

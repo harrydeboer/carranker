@@ -30,6 +30,6 @@ class MakePageController extends Controller
         $this->viewFactory->share('makeNameRoute', $makeName);
         $this->viewFactory->share('modelNames', $this->makeRepository->getModelNames($makeName));
 
-        return response()->view('makePage.index', $data, 200);
+        return response()->view('makePage.index', $data);
     }
 }

@@ -12,6 +12,7 @@ use App\Repositories\RatingRepository;
 use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 
 class HomePageController extends Controller
 {
@@ -49,6 +50,9 @@ class HomePageController extends Controller
         return response()->view('homePage.index', $data);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function filterTop(Request $request): Response
     {
         $validator = new FilterTopValidator();
@@ -69,7 +73,10 @@ class HomePageController extends Controller
         return response()->view('homePage.filterTop', $data);
     }
 
-    /** When a user wants to see more trims in the top the extra trims are retrieved. */
+    /**
+     * When a user wants to see more trims in the top the extra trims are retrieved.
+     * @throws ValidationException
+     */
     public function showMoreTopTable(Request $request): Response
     {
         $validator = new FilterTopValidator();
@@ -80,7 +87,9 @@ class HomePageController extends Controller
                                                        (int) $formData['numberOfRows'],
                                                        (int) $formData['offset']);
 
-        return response()->view('homePage.showMoreTopTable',
-                                ['trims' => $trims, 'offset' => (int) $formData['offset']]);
+        return response()->view('homePage.showMoreTopTable', [
+            'trims' => $trims,
+            'offset' => (int) $formData['offset']],
+        );
     }
 }

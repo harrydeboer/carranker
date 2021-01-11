@@ -6,7 +6,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class VerificationController extends Controller
 {
@@ -42,30 +44,18 @@ class VerificationController extends Controller
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
-    /**
-     * Show the email verification notice.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
-    public function show(Request $request)
+    public function show(Request $request): Response|RedirectResponse
     {
         return $request->user()->hasVerifiedEmail()
             ? redirect($this->redirectPath())
-            : view('auth.verify')->with(['title' => 'Verify Email', 'controller' => 'auth']);
+            : response()->view('auth.verify', ['title' => 'Verify Email', 'controller' => 'auth']);
     }
 
-    /**
-     * Show the email verification notice.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
-    public function showAndMail(Request $request)
+    public function showAndMail(Request $request): Response|RedirectResponse
     {
         $request->user()->sendEmailVerificationNotification();
         return $request->user()->hasVerifiedEmail()
             ? redirect($this->redirectPath())
-            : view('auth.verify')->with(['title' => 'Verify Email', 'controller' => 'auth']);
+            : response()->view('auth.verify', ['title' => 'Verify Email', 'controller' => 'auth']);
     }
 }

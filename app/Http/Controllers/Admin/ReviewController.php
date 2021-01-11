@@ -13,6 +13,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use JetBrains\PhpStorm\ArrayShape;
 
 class ReviewController extends Controller
 {
@@ -27,7 +28,6 @@ class ReviewController extends Controller
     {
         $reviews = $this->ratingRepository->findPendingReviews(10);
 
-        /** The links of the pagination get extra html classes to make them centered on the modelpage. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
                              $reviews->onEachSide(1)->links()->toHtml());
 
@@ -83,11 +83,13 @@ class ReviewController extends Controller
         return $this->redirectTo();
     }
 
+    #[ArrayShape(['id' => "string"])]
     protected function rulesApprove(): array
     {
         return ['id' => 'integer|required'];
     }
 
+    #[ArrayShape(['id' => "string"])]
     protected function rulesDelete(): array
     {
         return ['id' => 'integer|required'];

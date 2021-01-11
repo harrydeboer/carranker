@@ -17,7 +17,7 @@ class ProcessQueue extends Command
      *
      * @var string
      */
-    protected $signature = 'process:queue {--only-truncate}';
+    protected $signature = 'process:queue {--truncate}';
 
     /**
      * The console command description.
@@ -38,7 +38,7 @@ class ProcessQueue extends Command
 
     public function handle()
     {
-        if ($this->option('only-truncate')) {
+        if ($this->option('truncate')) {
 
             $this->elasticJobRepository->truncate();
 

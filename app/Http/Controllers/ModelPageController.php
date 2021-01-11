@@ -53,7 +53,7 @@ class ModelPageController extends Controller
         $trims = $model->getTrims();
         $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelPage);
 
-        /** The links of the pagination get extra html classes to make them centered on the modelpage. */
+        /** The links of the pagination get extra html classes to make them centered on the model page. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
                              $reviews->onEachSide(1)->links()->toHtml());
 
@@ -99,23 +99,23 @@ class ModelPageController extends Controller
         $trim = $this->trimRepositoryEloquent->get($trimId);
         $model = $trim->getModel();
 
-        $earlier = $this->userRepository->getRatingsTrim($user, $trimId);
-        $isPendingEarlier = $earlier?->getPending() === 1;
-        $isReviewNew = !is_null($data['content']);
+        $earlierRating = $this->userRepository->getRatingsTrim($user, $trimId);
+        $isPendingEarlierRating = $earlierRating?->getPending() === 1;
+        $isReviewNewRating = !is_null($data['content']);
 
-        if (!$isReviewNew && !$isPendingEarlier) {
-            $this->modelRepositoryEloquent->updateVotesAndRating($model, $data['star'], $earlier);
-            $this->trimRepositoryEloquent->updateVotesAndRating($trim, $data['star'], $earlier);
+        if (!$isReviewNewRating && !$isPendingEarlierRating) {
+            $this->modelRepositoryEloquent->updateVotesAndRating($model, $data['star'], $earlierRating);
+            $this->trimRepositoryEloquent->updateVotesAndRating($trim, $data['star'], $earlierRating);
         }
 
-        if ($isPendingEarlier) {
-            $this->ratingRepository->updateRating($earlier, $data, 1);
-        } elseif($isReviewNew) {
+        if ($isPendingEarlierRating) {
+            $this->ratingRepository->updateRating($earlierRating, $data, 1);
+        } elseif($isReviewNewRating) {
             $this->ratingRepository->createRating($user, $model, $trim, $data, 1);
-        } elseif (is_null($earlier)) {
+        } elseif (is_null($earlierRating)) {
             $this->ratingRepository->createRating($user, $model, $trim, $data, 0);
         } else {
-            $this->ratingRepository->updateRating($earlier, $data, 0);
+            $this->ratingRepository->updateRating($earlierRating, $data, 0);
         }
 
         return response()->view('modelPage.rateCar', ['success' => 'true']);

@@ -13,6 +13,8 @@ use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
 use Illuminate\Http\Request;
 use Illuminate\Log\LogManager;
+use Illuminate\Validation\ValidationException;
+use Exception;
 
 class ContactPageController extends Controller
 {
@@ -40,25 +42,28 @@ class ContactPageController extends Controller
         return redirect(route('contactPage'));
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function sendMail(Request $request): RedirectResponse
     {
         $validator = new ContactValidator($this->profanityRepository->all());
-        if ($data = $validator->validate($request)) {
-            try {
-                $this->mailer->send('contactPage.message',
-                                    ['userMessage' => $data['message']],
-                    function (Message $message) use ($data)
-                    {
-                        $message->from(env('MAIL_POSTMASTER_USERNAME'), $data['name']);
-                        $message->replyTo($data['email'], $data['name']);
-                        $message->subject($data['subject']);
-                        $message->to(env('MAIL_USERNAME'));
-                    });
-            } catch (\Swift_RfcComplianceException $e) {
-                $this->logManager->debug($e->getMessage());
+        $data = $validator->validate($request);
 
-                return $this->redirectTo()->withErrors('Could not deliver mail. Try again later.');
-            }
+        try {
+            $this->mailer->send('contactPage.message',
+                                ['userMessage' => $data['message']],
+                function (Message $message) use ($data)
+                {
+                    $message->from(env('MAIL_POSTMASTER_USERNAME'), $data['name']);
+                    $message->replyTo($data['email'], $data['name']);
+                    $message->subject($data['subject']);
+                    $message->to(env('MAIL_USERNAME'));
+                });
+        } catch (Exception $e) {
+            $this->logManager->debug($e->getMessage());
+
+            return $this->redirectTo()->withErrors('Could not deliver mail. Try again later.');
         }
 
         return $this->redirectTo()->with('success', 'Thank you for your mail!');

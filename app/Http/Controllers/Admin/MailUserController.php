@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Factory;
+use JetBrains\PhpStorm\ArrayShape;
 
 class MailUserController extends Controller
 {
@@ -22,7 +23,6 @@ class MailUserController extends Controller
     {
         $mailUsers = $this->mailUserRepository->findAll(10);
 
-        /** The links of the pagination get extra html classes to make them centered on the modelpage. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
                              $mailUsers->onEachSide(1)->links()->toHtml());
 
@@ -108,6 +108,7 @@ class MailUserController extends Controller
         return crypt( $password, '$6$' . $salt );
     }
 
+    #[ArrayShape(['domain' => "string", 'password' => "string", 'email' => "string", 'forward' => "string"])]
     protected function rulesCreate(): array
     {
         return [
@@ -118,6 +119,7 @@ class MailUserController extends Controller
         ];
     }
 
+    #[ArrayShape(['id' => "string", 'domain' => "string", 'email' => "string", 'forward' => "string"])]
     public function rulesUpdate(string $id): array
     {
         return [
@@ -128,6 +130,7 @@ class MailUserController extends Controller
         ];
     }
 
+    #[ArrayShape(['id' => "string", 'password' => "string"])]
     public function rulesUpdatePassword(): array
     {
         return [
@@ -136,6 +139,7 @@ class MailUserController extends Controller
         ];
     }
 
+    #[ArrayShape(['id' => "string"])]
     protected function rulesDelete(): array
     {
         return ['id' => 'integer|required'];

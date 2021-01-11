@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\ModelRepository;
@@ -13,7 +13,7 @@ use App\Services\SitemapService;
 use Illuminate\Http\Response;
 
 /** When Oauth authenticated a user can get any make, model or trim as json. */
-class APIController extends BaseController
+class Controller extends BaseController
 {
     public function __construct(
         private MakeRepository $makeRepository,
