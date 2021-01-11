@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use App\Repositories\MakeRepository;
+use App\Repositories\Elastic\MakeRepository;
 use Tests\TestCase;
 
 class MakePageTest extends TestCase
@@ -27,7 +27,7 @@ class MakePageTest extends TestCase
 
     public function test404()
     {
-        $response = $this->get('/make/doesnotexist');
+        $response = $this->get('/make/doesNotExist');
 
         $response->assertStatus(404);
     }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers;
 
 use App\Models\Aspect;
-use App\Repositories\TrimRepository;
+use App\Repositories\Elastic\TrimRepository;
 use App\Repositories\UserRepository;
 use Tests\TestCase;
 
