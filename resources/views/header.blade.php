@@ -1,5 +1,4 @@
 <div id="headerImg" class="img-thumbnail"></div>
-{{ route('password.reset', ['token' => '3']) }}
 <div class="navbar navbar-toggleable-md navbar-light bg-faded navbar-expand-lg">
     <button class="navbar-toggler navbar-toggler-right"
             type="button"
