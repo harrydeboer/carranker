@@ -13,7 +13,7 @@ class ContactPageTest extends DuskTestCase
     /**
      * @throws Throwable
      */
-    public function testHomePage(): void
+    public function testContactPage(): void
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(route('contactPage'));
@@ -25,7 +25,7 @@ class ContactPageTest extends DuskTestCase
 
             $browser->press('Send');
 
-            $browser->waitFor('#errorDisplay');
+            $browser->waitFor('#errorDisplay', 30);
 
             $this->assertEmpty($browser->driver->manage()->getLog('browser'));
         });
