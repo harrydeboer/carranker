@@ -8,8 +8,8 @@
   php artisan migrate --force --no-interaction
   php artisan get:fx-rate
   php artisan flush:redis-dbs
+  php artisan process:queue --only-truncate
   php artisan index:cars
-  php artisan process:queue
   cd bin || exit
   ./opcacheReset.sh
   cd ..

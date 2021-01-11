@@ -39,6 +39,7 @@ class ElasticJobRepository implements IRepository
         $makes = new Collection();
         foreach ($jobs as $job) {
             $makes->add($job->getMake());
+            ElasticJob::destroy($job->getId());
         }
 
         return $makes;
@@ -51,6 +52,7 @@ class ElasticJobRepository implements IRepository
         $models = new Collection();
         foreach ($jobs as $job) {
             $models->add($job->getModel());
+            ElasticJob::destroy($job->getId());
         }
 
         return $models;
@@ -63,6 +65,7 @@ class ElasticJobRepository implements IRepository
         $trims = new Collection();
         foreach ($jobs as $job) {
             $trims->add($job->getTrim());
+            ElasticJob::destroy($job->getId());
         }
 
         return $trims;

@@ -93,19 +93,21 @@ abstract class BaseRepository
 
     public function addAllToIndex(Collection $models): void
     {
+        $params = ['refresh' => 'wait_for'];
         foreach ($models as $key => $model) {
             $params['body'][] = [
                 'index' => [
                     '_index' => $this->model->getIndex(),
                     '_id' => $model->getId(),
-                ]
+
+                ],
             ];
 
             $params['body'][] = $this->propertiesToParams($model);
 
-            if ($key % 1000 === 0) {
+            if ($key % 1000 === 0 && $key !== 0) {
                 BaseModel::bulk($params);
-                unset($params);
+                $params = ['refresh' => 'wait_for'];
             }
         }
 

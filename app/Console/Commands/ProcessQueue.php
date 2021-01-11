@@ -17,7 +17,7 @@ class ProcessQueue extends Command
      *
      * @var string
      */
-    protected $signature = 'process:queue';
+    protected $signature = 'process:queue {--only-truncate}';
 
     /**
      * The console command description.
@@ -38,31 +38,36 @@ class ProcessQueue extends Command
 
     public function handle()
     {
-        $makesCreate = $this->elasticJobRepository->getAllMakesByAction('create');
-        $makesUpdate = $this->elasticJobRepository->getAllMakesByAction('update');
-        $makesDelete = $this->elasticJobRepository->getAllMakesByAction('delete');
+        if ($this->option('only-truncate')) {
 
-        $this->makeRepository->addAllToIndex($makesCreate);
-        $this->makeRepository->updateAllInIndex($makesUpdate);
-        $this->makeRepository->deleteAllFromIndex($makesDelete);
+            $this->elasticJobRepository->truncate();
 
-        $modelsCreate = $this->elasticJobRepository->getAllModelsByAction('create');
-        $modelsUpdate = $this->elasticJobRepository->getAllModelsByAction('update');
-        $modelsDelete = $this->elasticJobRepository->getAllModelsByAction('delete');
+        } else {
 
-        $this->modelRepository->addAllToIndex($modelsCreate);
-        $this->modelRepository->updateAllInIndex($modelsUpdate);
-        $this->modelRepository->deleteAllFromIndex($modelsDelete);
+            $makesCreate = $this->elasticJobRepository->getAllMakesByAction('create');
+            $makesUpdate = $this->elasticJobRepository->getAllMakesByAction('update');
+            $makesDelete = $this->elasticJobRepository->getAllMakesByAction('delete');
 
-        $trimsCreate = $this->elasticJobRepository->getAllTrimsByAction('create');
-        $trimsUpdate = $this->elasticJobRepository->getAllTrimsByAction('update');
-        $trimsDelete = $this->elasticJobRepository->getAllTrimsByAction('delete');
+            $this->makeRepository->addAllToIndex($makesCreate);
+            $this->makeRepository->updateAllInIndex($makesUpdate);
+            $this->makeRepository->deleteAllFromIndex($makesDelete);
 
-        $this->trimRepository->addAllToIndex($trimsCreate);
-        $this->trimRepository->updateAllInIndex($trimsUpdate);
-        $this->trimRepository->deleteAllFromIndex($trimsDelete);
+            $modelsCreate = $this->elasticJobRepository->getAllModelsByAction('create');
+            $modelsUpdate = $this->elasticJobRepository->getAllModelsByAction('update');
+            $modelsDelete = $this->elasticJobRepository->getAllModelsByAction('delete');
 
-        $this->elasticJobRepository->truncate();
+            $this->modelRepository->addAllToIndex($modelsCreate);
+            $this->modelRepository->updateAllInIndex($modelsUpdate);
+            $this->modelRepository->deleteAllFromIndex($modelsDelete);
+
+            $trimsCreate = $this->elasticJobRepository->getAllTrimsByAction('create');
+            $trimsUpdate = $this->elasticJobRepository->getAllTrimsByAction('update');
+            $trimsDelete = $this->elasticJobRepository->getAllTrimsByAction('delete');
+
+            $this->trimRepository->addAllToIndex($trimsCreate);
+            $this->trimRepository->updateAllInIndex($trimsUpdate);
+            $this->trimRepository->deleteAllFromIndex($trimsDelete);
+        }
 
         $this->info('Queue processed!');
     }

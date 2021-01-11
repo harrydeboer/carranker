@@ -31,7 +31,7 @@ class TrimRepositoryTest extends TestCase
     {
         $trimWithName = \App\Models\Trim::factory()->create(['name' => 'testTrimRepo']);
         $this->artisan('process:queue')->execute();
-        sleep(2);
+
         $trimCollection = $this->trimRepository->findForSearch($trimWithName->getName());
 
         $trim = $trimCollection->first();
