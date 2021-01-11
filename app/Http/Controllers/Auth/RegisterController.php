@@ -42,7 +42,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    public function showRegistrationForm(): Response
+    public function showRegistrationForm()
     {
         $data = [
             'title' => 'Register',
