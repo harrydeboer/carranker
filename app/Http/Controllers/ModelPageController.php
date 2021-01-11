@@ -100,17 +100,20 @@ class ModelPageController extends Controller
         $model = $trim->getModel();
 
         $earlier = $this->userRepository->getRatingsTrim($user, $trimId);
-        $pending = $earlier?->getPending() === 0;
+        $isPendingEarlier = $earlier?->getPending() === 1;
+        $isReviewNew = !is_null($data['content']);
 
-        if (is_null($data['content']) && !$pending) {
+        if (!$isReviewNew && !$isPendingEarlier) {
             $this->modelRepositoryEloquent->updateVotesAndRating($model, $data['star'], $earlier);
             $this->trimRepositoryEloquent->updateVotesAndRating($trim, $data['star'], $earlier);
         }
 
-        if ($pending) {
+        if ($isPendingEarlier) {
             $this->ratingRepository->updateRating($earlier, $data, 1);
-        } elseif(is_null($earlier) || !is_null($data['content'])) {
+        } elseif($isReviewNew) {
             $this->ratingRepository->createRating($user, $model, $trim, $data, 1);
+        } elseif (is_null($earlier)) {
+            $this->ratingRepository->createRating($user, $model, $trim, $data, 0);
         } else {
             $this->ratingRepository->updateRating($earlier, $data, 0);
         }

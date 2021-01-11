@@ -120,26 +120,45 @@ abstract class BaseRepository
     public function updateAllInIndex(Collection $models): void
     {
         foreach ($models as $key => $model) {
-            $params = [
-                'index' => $this->model->getIndex(),
-                'id' => $model->getId(),
+            $params['body'][] = [
+                'update' => [
+                    '_index' => $this->model->getIndex(),
+                    '_id' => $model->getId(),
+                    '_type' => '_doc',
+
+                ],
             ];
+            $params['body'][] = ['doc' => $this->propertiesToParams($model)];
 
-            $params['body']['doc'] = $this->propertiesToParams($model);
+            if ($key % 1000 === 0 && $key !== 0) {
+                BaseModel::bulk($params);
+            }
+        }
 
-            BaseModel::updateInIndex($params);
+        // Send the last batch if it exists
+        if (!empty($params['body'])) {
+            BaseModel::bulk($params);
         }
     }
 
     public function deleteAllFromIndex(Collection $models): void
     {
         foreach ($models as $key => $model) {
-            $params = [
-                'index' => $this->model->getIndex(),
-                'id' => $model->getId(),
-            ];
+            $params['body'][] = array(
+                'delete' => array(
+                    '_id' => $model->getId(),
+                    '_index' => $this->model->getIndex(),
+                ),
+            );
 
-            BaseModel::deleteFromIndex($params);
+            if ($key % 1000 === 0 && $key !== 0) {
+                BaseModel::bulk($params);
+            }
+        }
+
+        // Send the last batch if it exists
+        if (!empty($params['body'])) {
+            BaseModel::bulk($params);
         }
     }
 }

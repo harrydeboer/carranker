@@ -81,6 +81,11 @@ abstract class BaseModel extends Model
         return self::arrayToModels($result['hits']['hits'], $sortField);
     }
 
+    public static function createInIndex(array $params)
+    {
+        self::$client->index($params);
+    }
+
     public static function updateInIndex(array $params)
     {
         self::$client->update($params);

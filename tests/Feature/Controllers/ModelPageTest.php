@@ -60,6 +60,8 @@ class ModelPageTest extends TestCase
         $response->assertSee('true', false);
         $response->assertStatus(200);
 
+        $this->artisan('process:queue')->execute();
+
         $trimDBFirst = $this->trimRepository->get(1);
 
         foreach (Aspect::getAspects() as $aspect) {
@@ -76,6 +78,8 @@ class ModelPageTest extends TestCase
         $response = $this->actingAs($user)->post('/rateCar/', $postArraySecond);
         $response->assertSee('true', false);
         $response->assertStatus(200);
+
+        $this->artisan('process:queue')->execute();
 
         $trimDBSecond = $this->trimRepository->get(1);
 
