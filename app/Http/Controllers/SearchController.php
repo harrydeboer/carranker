@@ -8,6 +8,7 @@ use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\ModelRepository;
 use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,6 +20,9 @@ class SearchController extends Controller
         private TrimRepository $trimRepository,
     ){}
 
+    /**
+     * @throws ValidationException
+     */
     public function view(Request $request): Response
     {
         $formData = $request->validate($this->rules());

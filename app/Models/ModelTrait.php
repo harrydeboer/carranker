@@ -10,6 +10,7 @@ trait ModelTrait
     {
         return $this->name;
     }
+
     public function getMakeName(): string
     {
         return $this->make_name;
