@@ -25,21 +25,16 @@ class RatingValidatorTest extends TestCase
 
     public function testRatingForm()
     {
-        $validator = new RatingValidator($this->profanitiesRepository->all());
-
-        $request = request();
-        $request->setMethod('POST');
-
-        $requestParams = [
+        $formData = [
             'trimId' => '1',
             'content' => null,
             'reCAPTCHAToken' => 'notUsedInTests',
         ];
         foreach (Aspect::getAspects() as $aspect) {
-            $requestParams['star'][$aspect] = '8';
+            $formData['star'][$aspect] = '8';
         }
-        $request->request->add($requestParams);
+        $validator = new RatingValidator($formData, $this->profanitiesRepository->all());
 
-        $this->assertIsArray($validator->validate($request));
+        $this->assertIsArray($validator->validate());
     }
 }

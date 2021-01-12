@@ -29,14 +29,14 @@ class ContactPageController extends Controller
 
     public function view(): Response
     {
-        $data = [
+        $viewData = [
             'title' => 'Contact',
             'profanities' => $this->profanityRepository->getProfanityNames(),
             'content' => $this->pageRepository->findByName('contact')?->getContent(),
             'reCAPTCHAKey' => env('RE_CAPTCHA_KEY'),
         ];
 
-        return response()->view('contactPage.index', $data);
+        return response()->view('contactPage.index', $viewData);
     }
 
     private function redirectTo(): RedirectResponse
@@ -51,12 +51,12 @@ class ContactPageController extends Controller
     public function sendMail(Request $request): RedirectResponse
     {
         $validator = new ContactValidator($request->all(), $this->profanityRepository->all());
-        $data = $validator->validate();
+        $formData = $validator->validate();
 
         try {
             $this->mailer->send('contactPage.message',
-                                ['userMessage' => $data['message']],
-                                $this->mailerCallback($data));
+                                ['userMessage' => $formData['message']],
+                                $this->mailerCallback($formData));
 
         } catch (Swift_SwiftException $e) {
             $this->logManager->debug($e->getMessage());

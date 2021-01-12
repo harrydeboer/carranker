@@ -21,7 +21,7 @@ class MakePageController extends Controller
         $make = $this->makeRepository->getByName($makeName);
 
         $models = $make->getModels();
-        $data = [
+        $viewData = [
             'title' => $makeName,
             'make' => $make,
             'models' => $models,
@@ -30,6 +30,6 @@ class MakePageController extends Controller
         $this->viewFactory->share('makeNameRoute', $makeName);
         $this->viewFactory->share('modelNames', $this->makeRepository->getModelNames($makeName));
 
-        return response()->view('makePage.index', $data);
+        return response()->view('makePage.index', $viewData);
     }
 }

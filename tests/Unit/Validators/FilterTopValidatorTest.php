@@ -15,15 +15,13 @@ class FilterTopValidatorTest extends TestCase
 
     public function testFilterTopForm()
     {
-        $validator = new FilterTopValidator();
-
-        $request = request();
-        $request->setMethod('GET');
-        $request->query->set('minNumVotes', '30');
+        $formData = ['minNumVotes' => '30'];
         foreach (Aspect::getAspects() as $aspect) {
-            $request->query->set('aspect.' . $aspect, '3');
+            $formData['aspect.' . $aspect] = '3';
         }
 
-        $this->assertIsArray($validator->validate($request));
+        $validator = new FilterTopValidator($formData);
+
+        $this->assertIsArray($validator->validate());
     }
 }

@@ -43,10 +43,10 @@ class RatingRepositoryTest extends TestCase
 
     public function testFindPendingReviews()
     {
-        $review = Rating::factory()->create(['content' => 'notnull', 'pending' => 1]);
+        Rating::factory()->create(['content' => 'notnull', 'pending' => 1]);
         $reviews = $this->ratingRepository->findPendingReviews(1);
 
-        $this->assertEquals(count($reviews), 1);
+        $this->assertCount(1, $reviews);
     }
 
     public function testCreateRating()
@@ -58,28 +58,27 @@ class RatingRepositoryTest extends TestCase
         $request = request();
         $request->setMethod('POST');
 
-        $requestParams = [
+        $requestData = [
             'trimId' => (string) $trim->getId(),
             'content' => 'dummy',
             'reCAPTCHAToken' => 'notUsedInTests',
         ];
         foreach (Aspect::getAspects() as $aspect) {
-            $requestParams['star'][$aspect] = '8';
+            $requestData['star'][$aspect] = '8';
         }
-        $request->request->add($requestParams);
-        $request->setMethod('POST');
-        $validator = new RatingValidator($this->profanityRepository->all());
-        $data = $validator->validate($request);
 
-        $rating = $this->ratingRepository->createRating($user, $trim->getModel(), $trim, $data, 0);
+        $validator = new RatingValidator($requestData, $this->profanityRepository->all());
+        $formData = $validator->validate();
 
-        $this->assertEquals($rating->getContent(), $requestParams['content']);
+        $rating = $this->ratingRepository->createRating($user, $trim->getModel(), $trim, $formData, 0);
+
+        $this->assertEquals($rating->getContent(), $formData['content']);
         $this->assertEquals($rating->getModel()->getId(), $trim->getModel()->getId());
         $this->assertEquals($rating->getTrim()->getId(), $trim->getId());
         $this->assertEquals($rating->getUser()->getId(), $user->getId());
 
         foreach (Aspect::getAspects() as $aspect) {
-            $this->assertEquals($rating->getAspect($aspect), (int) $data['star'][$aspect]);
+            $this->assertEquals($rating->getAspect($aspect), (int) $formData['star'][$aspect]);
         }
     }
 
@@ -90,18 +89,18 @@ class RatingRepositoryTest extends TestCase
         $request = request();
         $request->setMethod('POST');
 
-        $requestParams = [
+        $requestData = [
             'trimId' => (string) $rating->getTrim()->getId(),
             'content' => 'dummy',
             'reCAPTCHAToken' => 'notUsedInTests',
         ];
         foreach (Aspect::getAspects() as $aspect) {
-            $requestParams['star'][$aspect] = '8';
+            $requestData['star'][$aspect] = '8';
         }
-        $request->request->add($requestParams);
-        $validator = new RatingValidator($this->profanityRepository->all());
 
-        $data = $validator->validate($request);
+        $validator = new RatingValidator($requestData, $this->profanityRepository->all());
+
+        $data = $validator->validate();
 
         $rating = $this->ratingRepository->updateRating($rating, $data, 1);
 

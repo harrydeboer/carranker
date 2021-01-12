@@ -45,13 +45,13 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(): Response
     {
-        $data = [
+        $viewData = [
             'title' => 'Register',
             'controller' => 'auth',
             'content' => $this->pageRepository->findByName('register')?->getContent(),
         ];
 
-        return response()->view('auth.register', $data);
+        return response()->view('auth.register', $viewData);
     }
 
     protected function validator(array $data): Validator

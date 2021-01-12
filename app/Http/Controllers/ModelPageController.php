@@ -58,7 +58,7 @@ class ModelPageController extends Controller
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
                              $reviews->onEachSide(1)->links()->toHtml());
 
-        $data = [
+        $viewData = [
             'title' => $makeName . ' ' . $modelName,
             'aspects' => Aspect::getAspects(),
             'specsChoice' => CarSpecs::specsChoice(),
@@ -83,7 +83,7 @@ class ModelPageController extends Controller
         $viewFactory->share('modelNameRoute', $modelName);
         $viewFactory->share('modelNames', $this->makeRepository->getModelNames($makeName));
 
-        return response()->view('modelPage.index', $data);
+        return response()->view('modelPage.index', $viewData);
     }
 
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated.
@@ -94,30 +94,30 @@ class ModelPageController extends Controller
     {
         $validator = new RatingValidator($request->all(), $this->profanityRepository->all());
 
-        $data = $validator->validate();
+        $formData = $validator->validate();
 
         $user = $guard->user();
-        $trimId = (int) $data['trimId'];
+        $trimId = (int) $formData['trimId'];
         $trim = $this->trimRepositoryEloquent->get($trimId);
         $model = $trim->getModel();
 
         $earlierRating = $this->userRepository->getRatingsTrim($user, $trimId);
         $isPendingEarlierRating = $earlierRating?->getPending() === 1;
-        $isReviewNewRating = !is_null($data['content']);
+        $isReviewNewRating = !is_null($formData['content']);
 
         if (!$isReviewNewRating && !$isPendingEarlierRating) {
-            $this->modelRepositoryEloquent->updateVotesAndRating($model, $data['star'], $earlierRating);
-            $this->trimRepositoryEloquent->updateVotesAndRating($trim, $data['star'], $earlierRating);
+            $this->modelRepositoryEloquent->updateVotesAndRating($model, $formData['star'], $earlierRating);
+            $this->trimRepositoryEloquent->updateVotesAndRating($trim, $formData['star'], $earlierRating);
         }
 
         if ($isPendingEarlierRating) {
-            $this->ratingRepository->updateRating($earlierRating, $data, 1);
+            $this->ratingRepository->updateRating($earlierRating, $formData, 1);
         } elseif($isReviewNewRating) {
-            $this->ratingRepository->createRating($user, $model, $trim, $data, 1);
+            $this->ratingRepository->createRating($user, $model, $trim, $formData, 1);
         } elseif (is_null($earlierRating)) {
-            $this->ratingRepository->createRating($user, $model, $trim, $data, 0);
+            $this->ratingRepository->createRating($user, $model, $trim, $formData, 0);
         } else {
-            $this->ratingRepository->updateRating($earlierRating, $data, 0);
+            $this->ratingRepository->updateRating($earlierRating, $formData, 0);
         }
 
         return response()->view('modelPage.rateCar', ['success' => 'true']);

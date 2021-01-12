@@ -31,14 +31,14 @@ class ReviewController extends Controller
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
                              $reviews->onEachSide(1)->links()->toHtml());
 
-        $data = [
+        $viewData = [
             'title' => 'Reviews',
             'controller' => 'admin',
             'reviews' => $reviews,
             'links' => $links,
         ];
 
-        return response()->view('admin.review.index', $data);
+        return response()->view('admin.review.index', $viewData);
     }
 
     protected function redirectTo(): RedirectResponse
@@ -51,9 +51,9 @@ class ReviewController extends Controller
      */
     public function approve(Request $request): RedirectResponse
     {
-        $data = $request->validate($this->rulesApprove());
+        $formData = $request->validate($this->rulesApprove());
 
-        $id = (int) $data['id'];
+        $id = (int) $formData['id'];
         $rating = $this->ratingRepository->get($id);
 
         $ratingArray = [];
@@ -82,9 +82,9 @@ class ReviewController extends Controller
      */
     public function delete(Request $request): RedirectResponse
     {
-        $data = $request->validate($this->rulesDelete());
+        $formData = $request->validate($this->rulesDelete());
 
-        $this->ratingRepository->delete((int) $data['id']);
+        $this->ratingRepository->delete((int) $formData['id']);
 
         return $this->redirectTo();
     }

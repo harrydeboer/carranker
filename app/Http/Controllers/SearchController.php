@@ -26,14 +26,14 @@ class SearchController extends Controller
     {
         $formData = $request->validate($this->rules());
 
-        $data = [
+        $viewData = [
             'title' => 'Search results',
             'makes' => $this->makeRepository->findForSearch($formData['query']),
             'models' => $this->modelRepository->findForSearch($formData['query']),
             'trims' => $this->trimRepository->findForSearch($formData['query']),
         ];
 
-        return response()->view('search.index', $data);
+        return response()->view('search.index', $viewData);
     }
 
     public function rules(): array

@@ -34,7 +34,7 @@ class HomePageController extends Controller
         $minNumVotes = self::minNumVotes;
         $topTrims = $this->trimRepository->findTrimsOfTop([], $minNumVotes,self::topLength);
 
-        $data = [
+        $viewData = [
             'title' => 'Car Ranker',
             'topLengthSlider' => min(count($topTrims), self::topSliderNumber),
             'numShowMoreLess' => self::numShowMoreLess,
@@ -48,7 +48,7 @@ class HomePageController extends Controller
             'content' => $this->pageRepository->findByName('home')?->getContent(),
         ];
 
-        return response()->view('homePage.index', $data);
+        return response()->view('homePage.index', $viewData);
     }
 
     /**
@@ -65,14 +65,14 @@ class HomePageController extends Controller
                                                           (int) $formData['minNumVotes'],
                                                           (int) $formData['numberOfRows']);
 
-        $data = [
+        $viewData = [
             'topLength' => count($topTrims),
             'topLengthSlider' => min(count($topTrims), self::topSliderNumber),
             'topTrims' => $topTrims,
             'minNumVotes' => (int) $formData['minNumVotes'],
         ];
 
-        return response()->view('homePage.filterTop', $data);
+        return response()->view('homePage.filterTop', $viewData);
     }
 
     /**

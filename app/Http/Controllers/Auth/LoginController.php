@@ -43,6 +43,7 @@ class LoginController extends Controller
     public function showLoginForm(): Response
     {
         $user = $this->guard->user();
+
         return response()->view('auth.login', [
             'title' => 'Authentication',
             'controller' => 'auth',

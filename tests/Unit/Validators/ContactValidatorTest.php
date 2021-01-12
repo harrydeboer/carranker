@@ -15,7 +15,7 @@ class ContactValidatorTest extends TestCase
 
     private ProfanityRepository $profanitiesRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->profanitiesRepository = $this->app->make(ProfanityRepository::class);
@@ -23,18 +23,17 @@ class ContactValidatorTest extends TestCase
 
     public function testContactForm()
     {
-        $validator = new ContactValidator($this->profanitiesRepository->all());
+        $formData = [
+            'email' => 'test@test.com',
+            'subject' => 'Test',
+            'name' => 'Test',
+            'message' => 'Test',
+            'reCAPTCHAToken' => 'notUsedInTests',
+        ];
 
-        $request = request();
-        $request->setMethod('POST');
-        $request->request->add([
-                                   'email' => 'test@test.com',
-                                   'subject' => 'Test',
-                                   'name' => 'Test',
-                                   'message' => 'Test',
-                                   'reCAPTCHAToken' => 'notUsedInTests',
-                               ]);
+        $validator = new ContactValidator($formData, $this->profanitiesRepository->all());
 
-        $this->assertIsArray($validator->validate($request));
+
+        $this->assertIsArray($validator->validate());
     }
 }

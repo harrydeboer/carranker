@@ -11,11 +11,11 @@ class HomePageController extends Controller
 {
     public function view(): Response
     {
-        $data = [
+        $viewData = [
             'title' => 'Home',
             'controller' => 'admin',
         ];
 
-        return response()->view('admin.homePage.index', $data);
+        return response()->view('admin.homePage.index', $viewData);
     }
 }

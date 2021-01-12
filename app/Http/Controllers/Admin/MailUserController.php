@@ -26,14 +26,14 @@ class MailUserController extends Controller
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
                              $mailUsers->onEachSide(1)->links()->toHtml());
 
-        $data = [
+        $viewData = [
             'title' => 'Mail Users',
             'controller' => 'admin',
             'mailUsers' => $mailUsers,
             'links' => $links,
         ];
 
-        return response()->view('admin.mailUser.index', $data);
+        return response()->view('admin.mailUser.index', $viewData);
     }
 
     protected function redirectTo(): RedirectResponse
@@ -46,13 +46,13 @@ class MailUserController extends Controller
      */
     public function create(Request $request): RedirectResponse
     {
-        $data = $request->validate($this->rulesCreate());
+        $formData = $request->validate($this->rulesCreate());
 
         $createArray = [
-            'domain' => $data['domain'],
-            'password' => $this->encryptPasswordSHA512($data['password']),
-            'email' => $data['email'],
-            'forward' => $data['forward'],
+            'domain' => $formData['domain'],
+            'password' => $this->encryptPasswordSHA512($formData['password']),
+            'email' => $formData['email'],
+            'forward' => $formData['forward'],
         ];
 
         $this->mailUserRepository->create($createArray);
@@ -66,13 +66,13 @@ class MailUserController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
-        $data = $request->validate($this->rulesUpdate($request->get('id')));
+        $formData = $request->validate($this->rulesUpdate($request->get('id')));
 
-        $mailUser = $this->mailUserRepository->get((int) $data['id']);
+        $mailUser = $this->mailUserRepository->get((int) $formData['id']);
 
-        $mailUser->setDomain($data['domain']);
-        $mailUser->setEmail($data['email']);
-        $mailUser->setForward($data['forward']);
+        $mailUser->setDomain($formData['domain']);
+        $mailUser->setEmail($formData['email']);
+        $mailUser->setForward($formData['forward']);
 
         $mailUser->save();
 
@@ -85,10 +85,10 @@ class MailUserController extends Controller
      */
     public function updatePassword(Request $request): RedirectResponse
     {
-        $data = $request->validate($this->rulesUpdatePassword());
+        $formData = $request->validate($this->rulesUpdatePassword());
 
-        $mailUser = $this->mailUserRepository->get((int) $data['id']);
-        $mailUser->setPassword($this->encryptPasswordSHA512($data['password']));
+        $mailUser = $this->mailUserRepository->get((int) $formData['id']);
+        $mailUser->setPassword($this->encryptPasswordSHA512($formData['password']));
         $mailUser->save();
 
         return $this->redirectTo();
@@ -99,9 +99,9 @@ class MailUserController extends Controller
      */
     public function delete(Request $request): RedirectResponse
     {
-        $data = $request->validate($this->rulesDelete());
+        $formData = $request->validate($this->rulesDelete());
 
-        $this->mailUserRepository->delete((int) $data['id']);
+        $this->mailUserRepository->delete((int) $formData['id']);
 
         return $this->redirectTo();
     }
