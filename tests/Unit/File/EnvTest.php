@@ -20,7 +20,7 @@ class EnvTest extends TestCase
 	    $contents = Reader::read([base_path() . "/.env"], true);
         $envNames = explode(PHP_EOL, $contents[base_path() . "/.env"]);
 
-        $this->assertEquals(count($envNames), count($envExampleNames));
+        $this->assertSameSize($envNames, $envExampleNames);
 
         foreach ($envExampleNames as $key => $name) {
         	if ($envNames[$key] === "") {
@@ -28,8 +28,8 @@ class EnvTest extends TestCase
 	        } elseif ($name === "") {
 		        $this->assertTrue($envNames[$key] === "");
 	        }else {
-		        $this->assertTrue( strpos( $envNames[$key], $name ) === 0,
-			        "the first part of $envNames[$key] is not $name");
+		        $this->assertTrue(str_starts_with($envNames[$key], $name),
+                                  "the first part of $envNames[$key] is not $name");
 	        }
         }
     }

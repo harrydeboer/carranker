@@ -32,7 +32,7 @@ class ModelTest extends TestCase
         }
         $this->assertDatabaseHas('models', $assertArray);
 
-        $modelDb = Model::find($model->getId());
+        $modelDb = (new Model())->find($model->getId());
 
         $this->assertEquals($model->getWikiCarModel(), $modelDb->getWikiCarModel());
 

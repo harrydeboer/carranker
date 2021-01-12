@@ -23,7 +23,7 @@ class MakeTest extends TestCase
             'wiki_car_make' => $make->getWikiCarMake(),
         ]);
 
-        $makeDb = Make::find($make->getId());
+        $makeDb = (new Make())->find($make->getId());
         $this->assertTrue($makeDb->testAttributesMatchFillable());
     }
 }

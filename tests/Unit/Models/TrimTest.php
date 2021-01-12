@@ -47,7 +47,7 @@ class TrimTest extends TestCase
         }
         $this->assertDatabaseHas('trims', $assertArray);
 
-        $trimDb = Trim::find($trim->getId());
+        $trimDb = (new Trim())->find($trim->getId());
         $this->assertTrue($trimDb->testAttributesMatchFillable());
     }
 }

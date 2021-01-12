@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Models;
 
 use App\Models\Page;
@@ -20,7 +22,7 @@ class PageTest extends TestCase
             'content' => $page->getContent(),
         ]);
 
-        $pageDb = Page::find($page->getId());
+        $pageDb = (new Page())->find($page->getId());
         $this->assertTrue($pageDb->testAttributesMatchFillable());
     }
 }

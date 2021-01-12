@@ -22,7 +22,7 @@ class FXRateTest extends TestCase
             'value' => $fXRate->getValue(),
         ]);
 
-        $fXRateDb = FXRate::find($fXRate->getId());
+        $fXRateDb = (new FXRate())->find($fXRate->getId());
         $this->assertTrue($fXRateDb->testAttributesMatchFillable());
     }
 }

@@ -24,7 +24,7 @@ class MailUserTest extends TestCase
             'forward' => $mailUser->getForward(),
         ]);
 
-        $mailUserDb = MailUser::find($mailUser->getId());
+        $mailUserDb = (new MailUser())->find($mailUser->getId());
         $this->assertTrue($mailUserDb->testAttributesMatchFillable());
     }
 }

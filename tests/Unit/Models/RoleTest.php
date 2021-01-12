@@ -21,7 +21,7 @@ class RoleTest extends TestCase
             'name' => $role->getName(),
         ]);
 
-        $roleDb = Role::find($role->getId());
+        $roleDb = (new Role())->find($role->getId());
         $this->assertTrue($roleDb->testAttributesMatchFillable());
     }
 }

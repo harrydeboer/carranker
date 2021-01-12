@@ -21,7 +21,7 @@ class ProfanityTest extends TestCase
             'name' => $profanity->getName(),
         ]);
 
-        $profanityDb = Profanity::find($profanity->getId());
+        $profanityDb = (new Profanity())->find($profanity->getId());
         $this->assertTrue($profanityDb->testAttributesMatchFillable());
     }
 }

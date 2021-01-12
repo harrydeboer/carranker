@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -26,7 +25,7 @@ class UserTest extends TestCase
             'email_verified_at' => $user->getEmailVerifiedAt(),
         ]);
 
-        $userDb = User::find($user->getId());
+        $userDb = (new User())->find($user->getId());
 
         $properties = array_merge($user->getFillable(), $user->getHidden(), [
                                       'email_verified_at',

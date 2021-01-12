@@ -41,7 +41,7 @@ class RatingTest extends TestCase
 
         $this->assertDatabaseHas('ratings', $assertArray);
 
-        $ratingDb = Rating::find($rating->getId());
+        $ratingDb = (new Rating())->find($rating->getId());
 
         $this->assertTrue($ratingDb->testAttributesMatchFillable());
     }

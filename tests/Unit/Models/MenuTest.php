@@ -21,7 +21,7 @@ class MenuTest extends TestCase
             'name' => $menu->getName(),
         ]);
 
-        $menuDb = Menu::find($menu->getId());
+        $menuDb = (new Menu())->find($menu->getId());
         $this->assertTrue($menuDb->testAttributesMatchFillable());
     }
 }

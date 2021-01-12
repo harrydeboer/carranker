@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models\Elastic;
 
+use App\Models\Elastic\Make;
 use App\Models\Trim;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -31,7 +32,7 @@ class TrimTest extends TestCase
 
     public function testMappings()
     {
-        $makeElastic = new \App\Models\Elastic\Make();
+        $makeElastic = new Make();
 
         $this->assertIsArray($makeElastic->getMappings());
     }
