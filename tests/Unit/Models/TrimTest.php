@@ -18,6 +18,7 @@ class TrimTest extends TestCase
         $trim = Trim::factory()->create();
 
         $assertArray = [
+            'id' => $trim->getId(),
             'name' => $trim->getName(),
             'model_id' => $trim->getModel()->getId(),
             'make_name' => $trim->getMakeName(),
@@ -46,7 +47,7 @@ class TrimTest extends TestCase
         }
         $this->assertDatabaseHas('trims', $assertArray);
 
-        $trimDB = Trim::find($trim->getId());
-        $this->assertTrue($trimDB->testAttributesMatchFillable());
+        $trimDb = Trim::find($trim->getId());
+        $this->assertTrue($trimDb->testAttributesMatchFillable());
     }
 }

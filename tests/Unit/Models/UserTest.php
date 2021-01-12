@@ -18,6 +18,7 @@ class UserTest extends TestCase
         $user = User::factory()->create();
 
         $this->assertDatabaseHas('users', [
+            'id' => $user->getId(),
             'name' => $user->getName(),
             'email' => $user->getEmail(),
             'password' => $user->getPassword(),
@@ -25,7 +26,7 @@ class UserTest extends TestCase
             'email_verified_at' => $user->getEmailVerifiedAt(),
         ]);
 
-        $user = User::find($user->getId());
+        $userDb = User::find($user->getId());
 
         $properties = array_merge($user->getFillable(), $user->getHidden(), [
                                       'email_verified_at',
@@ -33,7 +34,7 @@ class UserTest extends TestCase
                                       'updated_at',
                                       ]);
 
-        foreach ($user->getAttributes() as $key => $attribute) {
+        foreach ($userDb->getAttributes() as $key => $attribute) {
             if ($key !== 'id') {
                 $this->assertTrue(in_array($key, $properties));
             }

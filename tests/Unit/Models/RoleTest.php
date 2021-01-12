@@ -17,10 +17,11 @@ class RoleTest extends TestCase
         $role = Role::factory()->create();
 
         $this->assertDatabaseHas('roles', [
+            'id' => $role->getId(),
             'name' => $role->getName(),
         ]);
 
-        $roleDB = Role::find($role->getId());
-        $this->assertTrue($roleDB->testAttributesMatchFillable());
+        $roleDb = Role::find($role->getId());
+        $this->assertTrue($roleDb->testAttributesMatchFillable());
     }
 }

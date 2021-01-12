@@ -33,6 +33,7 @@ class RatingValidatorTest extends TestCase
         foreach (Aspect::getAspects() as $aspect) {
             $formData['star'][$aspect] = '8';
         }
+
         $validator = new RatingValidator($formData, $this->profanitiesRepository->all());
 
         $this->assertIsArray($validator->validate());

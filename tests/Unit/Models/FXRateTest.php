@@ -14,14 +14,15 @@ class FXRateTest extends TestCase
 
     public function testGetByName()
     {
-        $fxrate = FXRate::factory()->create();
+        $fXRate = FXRate::factory()->create();
 
         $this->assertDatabaseHas('fx_rates', [
-            'name' => $fxrate->getName(),
-            'value' => $fxrate->getValue(),
+            'id' => $fXRate->getId(),
+            'name' => $fXRate->getName(),
+            'value' => $fXRate->getValue(),
         ]);
 
-        $fxrateDB = FXRate::find($fxrate->getId());
-        $this->assertTrue($fxrateDB->testAttributesMatchFillable());
+        $fXRateDb = FXRate::find($fXRate->getId());
+        $this->assertTrue($fXRateDb->testAttributesMatchFillable());
     }
 }

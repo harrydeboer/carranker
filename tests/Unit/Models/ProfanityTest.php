@@ -17,10 +17,11 @@ class ProfanityTest extends TestCase
         $profanity = Profanity::factory()->create();
 
         $this->assertDatabaseHas('profanities', [
+            'id' => $profanity->getId(),
             'name' => $profanity->getName(),
         ]);
 
-        $profanityDB = Profanity::find($profanity->getId());
-        $this->assertTrue($profanityDB->testAttributesMatchFillable());
+        $profanityDb = Profanity::find($profanity->getId());
+        $this->assertTrue($profanityDb->testAttributesMatchFillable());
     }
 }

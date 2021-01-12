@@ -24,7 +24,8 @@ class TrimServiceTest extends TestCase
 
         $trimService = new TrimService();
         $generationSeriesTrims = $trimService->getGenerationsSeriesTrims($collection);
-        $this->assertEquals($generationSeriesTrims[$trim->getYearBegin() . '-' . $trim->getYearEnd()][$trim->getFramework()][0], $trim->getId());
+        $this->assertEquals($generationSeriesTrims[$trim->getYearBegin() . '-' . $trim->getYearEnd()]
+                            [$trim->getFramework()][0], $trim->getId());
 
         $trim = Trim::factory()->create(['name' => 'notnull']);
 
@@ -33,6 +34,7 @@ class TrimServiceTest extends TestCase
         $collection->add($trim);
 
         $generationSeriesTrims = $trimService->getGenerationsSeriesTrims($collection);
-        $this->assertEquals($generationSeriesTrims[$trim->getYearBegin() . '-' . $trim->getYearEnd()][$trim->getFramework()][$trim->getName()], $trim->getId());
+        $this->assertEquals($generationSeriesTrims[$trim->getYearBegin() . '-' . $trim->getYearEnd()]
+                            [$trim->getFramework()][$trim->getName()], $trim->getId());
     }
 }

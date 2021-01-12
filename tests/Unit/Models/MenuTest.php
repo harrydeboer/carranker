@@ -17,10 +17,11 @@ class MenuTest extends TestCase
         $menu = Menu::factory()->create();
 
         $this->assertDatabaseHas('menus', [
+            'id' => $menu->getId(),
             'name' => $menu->getName(),
         ]);
 
-        $menuDB = Menu::find($menu->getId());
-        $this->assertTrue($menuDB->testAttributesMatchFillable());
+        $menuDb = Menu::find($menu->getId());
+        $this->assertTrue($menuDb->testAttributesMatchFillable());
     }
 }

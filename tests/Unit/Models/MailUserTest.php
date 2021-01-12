@@ -6,8 +6,9 @@ namespace Tests\Unit\Models;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Models\MailUser;
 
-class MailUser extends TestCase
+class MailUserTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -23,7 +24,7 @@ class MailUser extends TestCase
             'forward' => $mailUser->getForward(),
         ]);
 
-        $mailUser = MailUser::find($mailUser->getId());
-        $this->assertTrue($mailUser->testAttributesMatchFillable());
+        $mailUserDb = MailUser::find($mailUser->getId());
+        $this->assertTrue($mailUserDb->testAttributesMatchFillable());
     }
 }

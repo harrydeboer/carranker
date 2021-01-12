@@ -8,6 +8,7 @@ use App\Repositories\PageRepository;
 use App\Services\SitemapService;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use XMLReader;
 
 class SitemapServiceTest extends TestCase
 {
@@ -15,7 +16,7 @@ class SitemapServiceTest extends TestCase
 
     public function testSitemap()
     {
-        $xmlReader = new \XMLReader();
+        $xmlReader = new XMLReader();
 
         $sitemapService = new SitemapService($this->app->make(PageRepository::class));
 

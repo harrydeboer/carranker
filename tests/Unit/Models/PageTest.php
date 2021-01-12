@@ -15,11 +15,12 @@ class PageTest extends TestCase
         $page = Page::factory()->create();
 
         $this->assertDatabaseHas('pages', [
+            'id' => $page->getId(),
             'name' => $page->getName(),
             'content' => $page->getContent(),
         ]);
 
-        $pageDB = Page::find($page->getId());
-        $this->assertTrue($pageDB->testAttributesMatchFillable());
+        $pageDb = Page::find($page->getId());
+        $this->assertTrue($pageDb->testAttributesMatchFillable());
     }
 }
