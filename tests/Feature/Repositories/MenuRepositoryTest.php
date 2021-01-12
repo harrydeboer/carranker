@@ -15,7 +15,7 @@ class MenuRepositoryTest extends TestCase
     private MenuRepository $menuRepository;
     private PageRepository $pageRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->menuRepository = $this->app->make(MenuRepository::class);

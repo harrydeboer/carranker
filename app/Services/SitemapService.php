@@ -23,20 +23,11 @@ class SitemapService
 
         $env = env('APP_ENV');
 
-        switch ($env) {
-            case 'local':
-                $baseUrl = "http://carranker";
-                break;
-            case 'testing':
-                $baseUrl = "http://carranker";
-                break;
-            case 'production':
-                $baseUrl = "https://carranker.com";
-                break;
-            case 'acceptance':
-                $baseUrl = "https://accept.carranker.com";
-                break;
-        }
+        $baseUrl = match ($env) {
+            'local', 'testing' => "http://carranker",
+            'production' => "https://carranker.com",
+            'acceptance' => "https://accept.carranker.com",
+        };
 
         $update = '2019-01-31';
 

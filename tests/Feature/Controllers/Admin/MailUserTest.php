@@ -12,7 +12,7 @@ class MailUserTest extends LoginAdmin
 {
     private MailUserRepository $mailUserRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mailUserRepository = app()->make(MailUserRepository::class);
@@ -27,7 +27,7 @@ class MailUserTest extends LoginAdmin
 
     public function testCreate()
     {
-        $email = 'test@test.com';
+        $email = 'test@testcreate.com';
 
         $response = $this->post(route('admin.mail.users.create'), [
             'domain' => 'carranker.com',
@@ -68,7 +68,7 @@ class MailUserTest extends LoginAdmin
 
     public function testUpdatePassword()
     {
-        $email = 'test@password.com';
+        $email = 'testtest@password.com';
         $oldPassword = 'oldSecret';
         $newPassword = 'newSecret';
 

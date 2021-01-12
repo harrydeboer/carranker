@@ -19,7 +19,7 @@ class CarRepositoryTest extends TestCase
     private $trim;
     private $model;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->modelRepository = $this->app->make(ModelRepository::class);

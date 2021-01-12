@@ -16,9 +16,11 @@ class TrimService
 
             /** If the trim has a name it means the trim has a specific trim version. */
             if (!is_null($trim->getName())) {
-                $generationsSeriesTrims[$trim->getYearBegin() . '-' . $trim->getYearEnd()][$trim->getFramework()][$trim->getName()] = $trim->getId();
+                $generationsSeriesTrims[$trim->getYearBegin() . '-' .
+                $trim->getYearEnd()][$trim->getFramework()][$trim->getName()] = $trim->getId();
             } else {
-                $generationsSeriesTrims[$trim->getYearBegin() . '-' . $trim->getYearEnd()][$trim->getFramework()][] = $trim->getId();
+                $generationsSeriesTrims[$trim->getYearBegin() . '-' .
+                $trim->getYearEnd()][$trim->getFramework()][] = $trim->getId();
             }
         }
         krsort($generationsSeriesTrims);

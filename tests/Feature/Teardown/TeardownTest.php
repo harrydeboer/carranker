@@ -16,7 +16,7 @@ class TeardownTest extends TestCase
     private ModelRepository $modelRepository;
     private TrimRepository $trimRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->makeRepository = $this->app->make(MakeRepository::class);

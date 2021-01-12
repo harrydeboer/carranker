@@ -12,7 +12,7 @@ class MailUserRepositoryTest extends TestCase
 {
     private MailUserRepository $mailUserRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mailUserRepository = $this->app->make(MailUserRepository::class);

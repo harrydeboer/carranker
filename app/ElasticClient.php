@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace App;
 
+use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 
 class ElasticClient
 {
-    private static $client;
+    private static Client $client;
 
-    public static function getClient()
+    public static function getClient(): Client
     {
-        if (is_null(self::$client)) {
+        if (!isset(self::$client) || is_null(self::$client)) {
             $hosts = [
                 env('ELASTIC_HOST') . ':' . env('ELASTIC_PORT')
             ];

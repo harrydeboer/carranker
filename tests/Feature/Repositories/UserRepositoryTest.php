@@ -13,7 +13,7 @@ class UserRepositoryTest extends TestCase
 {
     private UserRepository $userRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->userRepository = $this->app->make(UserRepository::class);

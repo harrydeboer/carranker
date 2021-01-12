@@ -11,7 +11,7 @@ class FXRateRepositoryTest extends TestCase
 {
     private FXRateRepository $fXRateRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->fXRateRepository = $this->app->make(FXRateRepository::class);

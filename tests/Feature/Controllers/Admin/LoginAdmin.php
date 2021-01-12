@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class LoginAdmin extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $roleRepository = app()->make(RoleRepository::class);

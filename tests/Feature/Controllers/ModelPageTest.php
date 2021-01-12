@@ -14,7 +14,7 @@ class ModelPageTest extends TestCase
     private TrimRepository $trimRepository;
     private UserRepository $userRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->trimRepository = $this->app->make(TrimRepository::class);

@@ -12,7 +12,7 @@ class ProfanityRepositoryTest extends TestCase
 {
     private ProfanityRepository $profanityRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->profanityRepository = $this->app->make(ProfanityRepository::class);

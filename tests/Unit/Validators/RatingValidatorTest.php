@@ -16,7 +16,7 @@ class RatingValidatorTest extends TestCase
 
     private ProfanityRepository $profanitiesRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

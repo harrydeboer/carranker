@@ -19,7 +19,7 @@ class APITest extends TestCase
     private MakeRepository $makeRepository;
     private TrimRepository $trimRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $hasher = $this->app->make(Hasher::class);

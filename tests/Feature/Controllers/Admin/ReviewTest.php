@@ -12,7 +12,7 @@ class ReviewTest extends LoginAdmin
 {
     private RatingRepository $ratingRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->ratingRepository = app()->make(RatingRepository::class);

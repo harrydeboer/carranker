@@ -13,7 +13,7 @@ class PageRepositoryTest extends TestCase
 {
     private $pageRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->pageRepository = $this->app->make(PageRepository::class);

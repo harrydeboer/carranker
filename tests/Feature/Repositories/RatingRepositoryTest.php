@@ -20,7 +20,7 @@ class RatingRepositoryTest extends TestCase
     private TrimRepository $trimRepository;
     private ProfanityRepository $profanityRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->ratingRepository = $this->app->make(RatingRepository::class);

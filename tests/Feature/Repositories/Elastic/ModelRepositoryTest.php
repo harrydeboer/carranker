@@ -13,7 +13,7 @@ class ModelRepositoryTest extends TestCase
     private ModelRepository $modelRepository;
     private Model $model;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->modelRepository = $this->app->make(ModelRepository::class);

@@ -13,7 +13,7 @@ class TrimRepositoryTest extends TestCase
     private TrimRepository $trimRepository;
     private Trim $trim;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->trimRepository = $this->app->make(TrimRepository::class);
