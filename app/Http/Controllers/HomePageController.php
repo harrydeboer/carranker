@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\CarSpecs;
-use App\Validators\FilterTopValidator;
 use App\Models\Aspect;
 use App\Repositories\PageRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\Elastic\TrimRepository;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -53,13 +51,10 @@ class HomePageController extends Controller
 
     /**
      * @throws ValidationException
-     * @throws BindingResolutionException
      */
     public function filterTop(Request $request): Response
     {
-        $validator = new FilterTopValidator($request->all());
-
-        $formData = $validator->validate();
+        $formData = $request->validate($this->rules());
 
         $topTrims = $this->trimRepository->findTrimsOfTop($formData,
                                                           (int) $formData['minNumVotes'],
@@ -78,12 +73,10 @@ class HomePageController extends Controller
     /**
      * When a user wants to see more trims in the top the extra trims are retrieved.
      * @throws ValidationException
-     * @throws BindingResolutionException
      */
     public function showMoreTopTable(Request $request): Response
     {
-        $validator = new FilterTopValidator($request->all());
-        $formData = $validator->validate();
+        $formData = $request->validate($this->rules());
 
         $trims = $this->trimRepository->findTrimsOfTop($formData,
                                                        (int) $formData['minNumVotes'],
@@ -94,5 +87,17 @@ class HomePageController extends Controller
             'trims' => $trims,
             'offset' => (int) $formData['offset']],
         );
+    }
+
+    private function rules(): array
+    {
+        return [
+            'minNumVotes' => 'required|integer',
+            'aspects.*' => 'required|integer',
+            'specsChoice.*' => 'accepted|nullable',
+            'specsRange.*' => 'numeric|nullable',
+            'numberOfRows' => 'numeric|nullable',
+            'offset' => 'numeric|nullable'
+        ];
     }
 }

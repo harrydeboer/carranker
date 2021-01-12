@@ -55,9 +55,6 @@ class RatingRepositoryTest extends TestCase
         $user->setAttribute('email_verified_at', date('Y-m-d h:i:s'));
         $trim = Trim::factory()->create();
 
-        $request = request();
-        $request->setMethod('POST');
-
         $requestData = [
             'trimId' => (string) $trim->getId(),
             'content' => 'dummy',
@@ -85,9 +82,6 @@ class RatingRepositoryTest extends TestCase
     public function testUpdateRating()
     {
         $rating = Rating::factory()->create(['content' => 'content']);
-
-        $request = request();
-        $request->setMethod('POST');
 
         $requestData = [
             'trimId' => (string) $rating->getTrim()->getId(),

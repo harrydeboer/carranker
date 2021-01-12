@@ -13,12 +13,12 @@
         @foreach ($reviews as $key => $review)
             <article class="reviewArticle col-md-7">
                 <h4>
-                    {!! $review->getUser()->getName() . ' on ' . $review->getTrim()->getYearBegin() .
+                    {{ $review->getUser()->getName() . ' on ' . $review->getTrim()->getYearBegin() .
                     '-' . $review->getTrim()->getYearEnd() . ' ' . $review->getTrim()->getFramework() . ' ' .
-                    $review->getTrim()->getName() . ' with ' . number_format($review->getRating(), 1) !!}
+                    $review->getTrim()->getName() . ' with ' . number_format($review->getRating(), 1) }}
                     <span class="fa fa-star"></span> at {{ $review->getDate() }}
                 </h4>
-                {!! $review->getContent() !!}
+                {{ $review->getContent() }}
             </article>
         @endforeach
     </div>

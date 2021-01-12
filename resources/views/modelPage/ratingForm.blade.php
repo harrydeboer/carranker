@@ -69,6 +69,9 @@
                           rows="10"
                           maxlength="{{ $maxNumberCharactersReview }}"></textarea>
                 <div>
+                    <span id="noHtmlAllowed"></span>
+                </div>
+                <div>
                     <span id="charactersLeft">{{ $maxNumberCharactersReview }}</span> characters left.
                 </div>
             </div>

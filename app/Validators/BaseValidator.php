@@ -53,7 +53,7 @@ abstract class BaseValidator extends Validator
 
     abstract public function rules(): array;
 
-    protected function profanitiesCheck(?string $string, Collection $profanities): bool
+    protected function profanitiesCheck(string $string, Collection $profanities): bool
     {
         if (is_null($string)) {
             return true;

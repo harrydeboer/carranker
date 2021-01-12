@@ -65,7 +65,7 @@
                         <img src="{{ fileUrl('/img/favicon-16x16.png') }}"
                              data-src="{{ fileUrl($review->getTrim()->getImage()) }}"
                              class="lazy reviewImage pull-left" alt="review{{ ($key + 1) }}">
-                        <div class="reviewContent">{!! $review->getContent() !!}</div>
+                        <div class="reviewContent">{{ $review->getContent() }}</div>
                     </div>
                 </div>
             @endforeach

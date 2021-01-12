@@ -41,11 +41,18 @@ class RatingValidator extends BaseValidator
     {
         $data = parent::validate();
 
-        if ($this->profanitiesCheck($data['content'], $this->profanities)) {
+        if (!is_null($data['content'])) {
 
-            return $data;
+            /** No html in the review. */
+            $data['content'] = strip_tags($data['content']);
+
+            if ($this->profanitiesCheck($data['content'], $this->profanities)) {
+                return $data;
+            }
+
+            throw ValidationException::withMessages(['profanities' => 'No swearing please.']);
         }
 
-        throw ValidationException::withMessages(['profanities' => 'No swearing please.']);
+        return $data;
     }
 }

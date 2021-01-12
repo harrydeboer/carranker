@@ -175,4 +175,17 @@ $(document).ready(function ()
         $('.generations').hide();
         $('#generation' + $("#generationSelect option:selected").val()).show();
     }
+
+    ratingFormContent.keypress(function(event)
+    {
+        let errorMessage = $('#noHtmlAllowed');
+        errorMessage.text('');
+
+        /** No <>[] characters allowed. */
+        if (event.which === 60 || event.which === 62 || event.which === 91 || event.which === 93) {
+            errorMessage.text('No html allowed');
+
+            return false;
+        }
+    });
 });
