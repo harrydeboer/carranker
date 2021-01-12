@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -15,7 +16,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Carbon;
 use Laravel\Passport\HasApiTokens;
 
-/** The user has the same table as wordpress. One column is added to the wordpress table: remember_token. */
+/**
+ * The user has the same table as wordpress. One column is added to the wordpress table: remember_token.
+ * @mixin Builder
+ */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory;

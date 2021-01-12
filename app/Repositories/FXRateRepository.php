@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class FXRateRepository implements IRepository
 {
+    public function __construct(
+        private FXRate $fXRate,
+    ){}
+
     public function all(): Collection
     {
         return FXRate::all();
@@ -16,7 +20,7 @@ class FXRateRepository implements IRepository
 
     public function get(int $id): FXRate
     {
-        return FXRate::findOrFail($id);
+        return $this->fXRate->findOrFail($id);
     }
 
     public function create(array $createArray): FXRate
@@ -34,6 +38,6 @@ class FXRateRepository implements IRepository
 
     public function getByName(string $fxIndex): ?FXRate
     {
-        return FXRate::where(['name' => $fxIndex])->first();
+        return $this->fXRate->where(['name' => $fxIndex])->first();
     }
 }

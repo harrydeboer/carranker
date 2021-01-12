@@ -13,7 +13,6 @@ use App\Repositories\UserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Validation\ValidationException;
 
 class ReviewController extends Controller
 {
@@ -46,9 +45,6 @@ class ReviewController extends Controller
         return redirect(route('admin.reviews'));
     }
 
-    /**
-     * @throws ValidationException
-     */
     public function approve(Request $request): RedirectResponse
     {
         $formData = $request->validate($this->rulesApprove());
@@ -77,9 +73,6 @@ class ReviewController extends Controller
         return $this->redirectTo();
     }
 
-    /**
-     * @throws ValidationException
-     */
     public function delete(Request $request): RedirectResponse
     {
         $formData = $request->validate($this->rulesDelete());

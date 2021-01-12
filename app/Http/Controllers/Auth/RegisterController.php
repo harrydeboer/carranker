@@ -65,11 +65,12 @@ class RegisterController extends Controller
 
     protected function create(array $data): User
     {
-        $user = User::create([
+        $user = new User([
                                 'name' => $data['name'],
                                 'email' => $data['email'],
                                 'password' => $this->hasher->make($data['password']),
                             ]);
+        $user->save();
 
         $role = $this->roleRepository->getByName('member');
         $user->getRoles()->attach($role->getId());

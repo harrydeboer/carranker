@@ -7,14 +7,12 @@ namespace App\Http\Controllers;
 use App\Repositories\PageRepository;
 use App\Repositories\ProfanityRepository;
 use App\Validators\ContactValidator;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
 use Illuminate\Http\Request;
 use Illuminate\Log\LogManager;
-use Illuminate\Validation\ValidationException;
 use Swift_SwiftException;
 use Closure;
 
@@ -44,10 +42,6 @@ class ContactPageController extends Controller
         return redirect(route('contactPage'));
     }
 
-    /**
-     * @throws ValidationException
-     * @throws BindingResolutionException
-     */
     public function sendMail(Request $request): RedirectResponse
     {
         $validator = new ContactValidator($request->all(), $this->profanityRepository->all());

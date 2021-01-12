@@ -10,7 +10,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Factory;
-use Illuminate\Validation\ValidationException;
 
 class MailUserController extends Controller
 {
@@ -41,9 +40,6 @@ class MailUserController extends Controller
         return redirect(route('admin.mail.users'));
     }
 
-    /**
-     * @throws ValidationException
-     */
     public function create(Request $request): RedirectResponse
     {
         $formData = $request->validate($this->rulesCreate());
@@ -61,9 +57,6 @@ class MailUserController extends Controller
         return $this->redirectTo();
     }
 
-    /**
-     * @throws ValidationException
-     */
     public function update(Request $request): RedirectResponse
     {
         $formData = $request->validate($this->rulesUpdate($request->get('id')));
@@ -80,9 +73,6 @@ class MailUserController extends Controller
         return $this->redirectTo();
     }
 
-    /**
-     * @throws ValidationException
-     */
     public function updatePassword(Request $request): RedirectResponse
     {
         $formData = $request->validate($this->rulesUpdatePassword());
@@ -94,9 +84,6 @@ class MailUserController extends Controller
         return $this->redirectTo();
     }
 
-    /**
-     * @throws ValidationException
-     */
     public function delete(Request $request): RedirectResponse
     {
         $formData = $request->validate($this->rulesDelete());

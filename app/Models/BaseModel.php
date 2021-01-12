@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 /** All models extend this base model. The base model has two checks.
  * Check if all attributes passed to the constructor are present in the fillable property of the models.
  * For testing: check if the model factory has only set attributes that are present in the fillable property.
+ * @mixin Builder
  */
 abstract class BaseModel extends Model
 {

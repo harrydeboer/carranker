@@ -10,9 +10,6 @@ use \Closure;
 
 class ValidateSignature
 {
-    /**
-     * @throws InvalidSignatureException
-     */
     public function handle(Request $request, Closure $next, $relative = null)
     {
         $isSecure = $request->server->get('HTTPS');

@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class MakeRepository implements IRepository
 {
+    public function __construct(
+        private Make $make,
+    ){}
+
     public function all(): Collection
     {
         return Make::all();
@@ -16,7 +20,7 @@ class MakeRepository implements IRepository
 
     public function get(int $id): Make
     {
-        return Make::findOrFail($id);
+        return $this->make->findOrFail($id);
     }
 
     public function create(array $createArray): Make

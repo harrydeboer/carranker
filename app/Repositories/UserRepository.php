@@ -6,11 +6,14 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Models\Rating;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository implements IRepository
 {
+    public function __construct(
+        private User $user,
+    ){}
+
     public function all(): Collection
     {
         return User::all();
@@ -18,7 +21,7 @@ class UserRepository implements IRepository
 
     public function get(int $id): User
     {
-        return User::findOrFail($id);
+        return $this->user->findOrFail($id);
     }
 
     public function create(array $createArray): User
@@ -36,15 +39,15 @@ class UserRepository implements IRepository
 
     public function getByName(string $username): ?User
     {
-        return User::where('name', $username)->first();
+        return $this->user->where('name', $username)->first();
     }
 
     public function getByEmail(string $useremail): ?User
     {
-        return User::where('email', $useremail)->first();
+        return $this->user->where('email', $useremail)->first();
     }
 
-    public function getRatingsTrim(?Authenticatable $user, int $trimId): ?Rating
+    public function getRatingsTrim(?User $user, int $trimId): ?Rating
     {
         if (is_null($user)) {
             return null;
@@ -53,7 +56,7 @@ class UserRepository implements IRepository
         return $user->hasMany('\App\Models\Rating')->where('trim_id', $trimId)->first();
     }
 
-    public function getRatingsModel(?Authenticatable $user, int $modelId): ?Collection
+    public function getRatingsModel(?User $user, int $modelId): ?Collection
     {
         if (is_null($user)) {
             return null;

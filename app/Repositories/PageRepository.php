@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class PageRepository implements IRepository
 {
+    public function __construct(
+        private Page $page,
+    ){}
+
     public function all(): Collection
     {
         return Page::all();
@@ -16,7 +20,7 @@ class PageRepository implements IRepository
 
     public function get(int $id): Page
     {
-        return Page::findOrFail($id);
+        return $this->page->findOrFail($id);
     }
 
     public function create(array $createArray): Page
@@ -34,6 +38,6 @@ class PageRepository implements IRepository
 
     public function findByName(string $name): ?Page
     {
-        return Page::where('name', $name)->first();
+        return $this->page->where('name', $name)->first();
     }
 }

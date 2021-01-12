@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Validators\RatingValidator;
 use App\Models\Rating;
 use App\Models\Model as ModelEloquent;
 use App\Models\Elastic\Model;
@@ -15,6 +14,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class RatingRepository implements IRepository
 {
+    public function __construct(
+        private Rating $rating,
+    ){}
+
     public function all(): Collection
     {
         return Rating::all();
@@ -22,7 +25,7 @@ class RatingRepository implements IRepository
 
     public function get(int $id): Rating
     {
-        return Rating::findOrFail($id);
+        return $this->rating->findOrFail($id);
     }
 
     public function create(array $createArray): Rating
@@ -47,7 +50,7 @@ class RatingRepository implements IRepository
 
     public function findPendingReviews(int $numReviewsPerPage): LengthAwarePaginator
     {
-        return Rating::whereNotNull('content')
+        return $this->rating->whereNotNull('content')
             ->where('pending', 1)
             ->orderBy('time', 'desc')
             ->paginate($numReviewsPerPage);
@@ -55,7 +58,8 @@ class RatingRepository implements IRepository
 
     public function findRecentReviews(int $limit): Collection
     {
-        return Rating::whereNotNull('content')->where('pending', 0)->take($limit)->orderBy('time', 'desc')->get();
+        return $this->rating->whereNotNull('content')->where('pending', 0)
+            ->take($limit)->orderBy('time', 'desc')->get();
     }
 
     public function createRating(Authenticatable $user, ModelEloquent $model,
@@ -99,10 +103,10 @@ class RatingRepository implements IRepository
 
     public function findEarlierByTrimAndUser(int $trimId, int $userId): ?Rating
     {
-        $ratings = Rating::where('trim_id', $trimId)
+        $ratings = $this->rating->where('trim_id', $trimId)
             ->where('user_id', $userId)
             ->where('pending', 0)
-            ->orderBy('time', 'asc')
+            ->orderBy('time')
             ->get();
 
         if (count($ratings) === 1) {
@@ -112,18 +116,18 @@ class RatingRepository implements IRepository
         return $ratings->first();
     }
 
-    /** The most recent reviews for the modelpage are retrieved and paginated. */
-    public function getReviews(Model $model, int $numReviewsPerModelpage): LengthAwarePaginator
+    /** The most recent reviews for the model page are retrieved and paginated. */
+    public function getReviews(Model $model, int $numReviewsPerModelPage): LengthAwarePaginator
     {
-        return Rating::whereNotNull('content')
+        return $this->rating->whereNotNull('content')
             ->where('model_id', $model->getId())
             ->where('pending', 0)
             ->orderBy('time', 'desc')
-            ->paginate($numReviewsPerModelpage);
+            ->paginate($numReviewsPerModelPage);
     }
 
     public function getNumOfReviews(Model $model): int
     {
-        return count(Rating::whereNotNull('content')->where('pending', 0)->where('model_id', $model->getId())->get());
+        return count($this->rating->whereNotNull('content')->where('pending', 0)->where('model_id', $model->getId())->get());
     }
 }

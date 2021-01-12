@@ -11,7 +11,6 @@ use App\Repositories\RatingRepository;
 use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Validation\ValidationException;
 
 class HomePageController extends Controller
 {
@@ -49,9 +48,6 @@ class HomePageController extends Controller
         return response()->view('homePage.index', $viewData);
     }
 
-    /**
-     * @throws ValidationException
-     */
     public function filterTop(Request $request): Response
     {
         $formData = $request->validate($this->rules());
@@ -70,10 +66,6 @@ class HomePageController extends Controller
         return response()->view('homePage.filterTop', $viewData);
     }
 
-    /**
-     * When a user wants to see more trims in the top the extra trims are retrieved.
-     * @throws ValidationException
-     */
     public function showMoreTopTable(Request $request): Response
     {
         $formData = $request->validate($this->rules());

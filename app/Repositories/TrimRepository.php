@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TrimRepository extends CarRepository
 {
+    public function __construct(
+        private Trim $trim,
+    ){}
+
     public function all(): Collection
     {
         return Trim::all();
@@ -16,7 +20,7 @@ class TrimRepository extends CarRepository
 
     public function get(int $id): Trim
     {
-        return Trim::findOrFail($id);
+        return $this->trim->findOrFail($id);
     }
 
     public function create(array $createArray): Trim

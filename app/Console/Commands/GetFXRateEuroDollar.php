@@ -31,9 +31,6 @@ class GetFXRateEuroDollar extends Command
         parent::__construct();
     }
 
-    /**
-     * @throws Exception
-     */
     public function handle(): void
     {
         $ch = curl_init("http://data.fixer.io/api/latest?access_key=" . env("FIXER_API_KEY"));

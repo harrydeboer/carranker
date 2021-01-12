@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ElasticJobRepository implements IRepository
 {
+    public function __construct(
+        private ElasticJob $elasticJob,
+    ){}
+
     public function all(): Collection
     {
         return ElasticJob::all();
@@ -16,7 +20,7 @@ class ElasticJobRepository implements IRepository
 
     public function get(int $id): ElasticJob
     {
-        return ElasticJob::findOrFail($id);
+        return $this->elasticJob->findOrFail($id);
     }
 
     public function create(array $createArray): ElasticJob
@@ -34,7 +38,7 @@ class ElasticJobRepository implements IRepository
 
     public function getAllMakesByAction(string $action): Collection
     {
-        $jobs = ElasticJob::where('action', $action)->whereNotNull('make_id')->get();
+        $jobs = $this->elasticJob->where('action', $action)->whereNotNull('make_id')->get();
 
         $makes = new Collection();
         foreach ($jobs as $job) {
@@ -47,7 +51,7 @@ class ElasticJobRepository implements IRepository
 
     public function getAllModelsByAction(string $action): Collection
     {
-        $jobs = ElasticJob::where('action', $action)->whereNotNull('model_id')->get();
+        $jobs = $this->elasticJob->where('action', $action)->whereNotNull('model_id')->get();
 
         $models = new Collection();
         foreach ($jobs as $job) {
@@ -60,7 +64,7 @@ class ElasticJobRepository implements IRepository
 
     public function getAllTrimsByAction(string $action): Collection
     {
-        $jobs = ElasticJob::where('action', $action)->whereNotNull('trim_id')->get();
+        $jobs = $this->elasticJob->where('action', $action)->whereNotNull('trim_id')->get();
 
         $trims = new Collection();
         foreach ($jobs as $job) {
@@ -73,6 +77,6 @@ class ElasticJobRepository implements IRepository
 
     public function truncate()
     {
-        ElasticJob::truncate();
+        $this->elasticJob->truncate();
     }
 }

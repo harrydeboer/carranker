@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ProfanityRepository implements IRepository
 {
+    public function __construct(
+        private Profanity $profanity,
+    ){}
+
     public function all(): Collection
     {
         return Profanity::all();
@@ -16,7 +20,7 @@ class ProfanityRepository implements IRepository
 
     public function get(int $id): Profanity
     {
-        return Profanity::findOrFail($id);
+        return $this->profanity->findOrFail($id);
     }
 
     public function create(array $createArray): Profanity

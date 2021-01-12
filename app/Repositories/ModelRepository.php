@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ModelRepository extends CarRepository
 {
+    public function __construct(
+        private Model $model,
+    ){}
+
     public function all(): Collection
     {
         return Model::all();
@@ -16,7 +20,7 @@ class ModelRepository extends CarRepository
 
     public function get(int $id): Model
     {
-        return Model::findOrFail($id);
+        return $this->model->findOrFail($id);
     }
 
     public function create(array $createArray): Model

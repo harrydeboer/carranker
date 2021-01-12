@@ -10,6 +10,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class MailUserRepository implements IRepository
 {
+    public function __construct(
+        private MailUser $mailUser,
+    ){}
+
     public function all(): Collection
     {
         return MailUser::all();
@@ -17,7 +21,7 @@ class MailUserRepository implements IRepository
 
     public function get(int $id): MailUser
     {
-        return MailUser::findOrFail($id);
+        return $this->mailUser->findOrFail($id);
     }
 
     public function create(array $createArray): MailUser
@@ -35,11 +39,11 @@ class MailUserRepository implements IRepository
 
     public function findAll(int $numMailUsersPerPage): LengthAwarePaginator
     {
-        return MailUser::paginate($numMailUsersPerPage);
+        return $this->mailUser->paginate($numMailUsersPerPage);
     }
 
     public function getByEmail(string $email): MailUser
     {
-        return MailUser::where('email', $email)->first();
+        return $this->mailUser->where('email', $email)->first();
     }
 }

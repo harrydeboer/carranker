@@ -9,12 +9,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class MenuRepository implements IRepository
 {
-    private PageRepository $pageRepository;
-
-    public function __construct(PageRepository $pageRepository)
-    {
-        $this->pageRepository = $pageRepository;
-    }
+    public function __construct(
+        private PageRepository $pageRepository,
+        private Menu $menu,
+    ){}
 
     public function all(): Collection
     {
@@ -23,7 +21,7 @@ class MenuRepository implements IRepository
 
     public function get(int $id): Menu
     {
-        return Menu::findOrFail($id);
+        return $this->menu->findOrFail($id);
     }
 
     public function create(array $createArray): Menu
@@ -41,6 +39,6 @@ class MenuRepository implements IRepository
 
     public function findByName(string $name): ?Menu
     {
-        return Menu::where('name', $name)->first();
+        return $this->menu->where('name', $name)->first();
     }
 }

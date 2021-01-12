@@ -12,9 +12,6 @@ use Illuminate\Validation\Validator;
 
 abstract class BaseValidator extends Validator
 {
-    /**
-     * @throws BindingResolutionException
-     */
     public function __construct(
         array $data,
         array $messages = [],
@@ -23,9 +20,6 @@ abstract class BaseValidator extends Validator
         parent::__construct(app()->make(Translator::class), $data, $this->rules(), $messages, $customAttributes);
     }
 
-    /**
-     * @throws ValidationException
-     */
     public function validate(): array
     {
         $data = parent::validate();

@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class RoleRepository implements IRepository
 {
+    public function __construct(
+        private Role $role,
+    ){}
+
     public function all(): Collection
     {
         return Role::all();
@@ -16,7 +20,7 @@ class RoleRepository implements IRepository
 
     public function get(int $id): Role
     {
-        return Role::findOrFail($id);
+        return $this->role->findOrFail($id);
     }
 
     public function create(array $createArray): Role
@@ -34,6 +38,6 @@ class RoleRepository implements IRepository
 
     public function getByName(string $name): Role
     {
-        return Role::where('name', $name)->first();
+        return $this->role->where('name', $name)->first();
     }
 }
