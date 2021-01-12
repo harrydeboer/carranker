@@ -9,7 +9,6 @@ use App\Repositories\Elastic\ModelRepository;
 use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends Controller
@@ -37,7 +36,6 @@ class SearchController extends Controller
         return response()->view('search.index', $data);
     }
 
-    #[ArrayShape(['query' => "string"])]
     public function rules(): array
     {
         return [

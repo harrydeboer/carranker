@@ -10,6 +10,7 @@ use App\Models\Aspect;
 use App\Repositories\PageRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\Elastic\TrimRepository;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -52,12 +53,13 @@ class HomePageController extends Controller
 
     /**
      * @throws ValidationException
+     * @throws BindingResolutionException
      */
     public function filterTop(Request $request): Response
     {
-        $validator = new FilterTopValidator();
+        $validator = new FilterTopValidator($request->all());
 
-        $formData = $validator->validate($request);
+        $formData = $validator->validate();
 
         $topTrims = $this->trimRepository->findTrimsOfTop($formData,
                                                           (int) $formData['minNumVotes'],
@@ -76,11 +78,12 @@ class HomePageController extends Controller
     /**
      * When a user wants to see more trims in the top the extra trims are retrieved.
      * @throws ValidationException
+     * @throws BindingResolutionException
      */
     public function showMoreTopTable(Request $request): Response
     {
-        $validator = new FilterTopValidator();
-        $formData = $validator->validate($request);
+        $validator = new FilterTopValidator($request->all());
+        $formData = $validator->validate();
 
         $trims = $this->trimRepository->findTrimsOfTop($formData,
                                                        (int) $formData['minNumVotes'],

@@ -14,7 +14,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
-use JetBrains\PhpStorm\ArrayShape;
 
 class ReviewController extends Controller
 {
@@ -90,13 +89,11 @@ class ReviewController extends Controller
         return $this->redirectTo();
     }
 
-    #[ArrayShape(['id' => "string"])]
     protected function rulesApprove(): array
     {
         return ['id' => 'integer|required'];
     }
 
-    #[ArrayShape(['id' => "string"])]
     protected function rulesDelete(): array
     {
         return ['id' => 'integer|required'];

@@ -17,6 +17,7 @@ use App\Repositories\Elastic\TrimRepository;
 use App\Repositories\TrimRepository as TrimRepositoryEloquent;
 use App\Repositories\UserRepository;
 use App\Services\TrimService;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\Auth\Guard;
@@ -87,12 +88,13 @@ class ModelPageController extends Controller
 
     /** When a user rates a trim this rating is stored and the model and trim ratings are updated.
      * @throws ValidationException
+     * @throws BindingResolutionException
      */
     public function rateCar(Request $request, Guard $guard): Response
     {
-        $validator = new RatingValidator($this->profanityRepository->all());
+        $validator = new RatingValidator($request->all(), $this->profanityRepository->all());
 
-        $data = $validator->validate($request);
+        $data = $validator->validate();
 
         $user = $guard->user();
         $trimId = (int) $data['trimId'];

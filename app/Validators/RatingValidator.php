@@ -6,8 +6,6 @@ namespace App\Validators;
 
 use App\Models\Aspect;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
-use App\Repositories\ProfanityRepository;
 use Illuminate\Validation\ValidationException;
 
 class RatingValidator extends BaseValidator
@@ -15,8 +13,14 @@ class RatingValidator extends BaseValidator
     public const maxNumberCharactersReview = 1000;
 
     public function __construct(
+        array $data,
         private Collection $profanities,
-    ){}
+        array $messages = [],
+        array $customAttributes = [],
+    )
+    {
+        parent::__construct($data, $messages, $customAttributes);
+    }
 
     public function rules(): array
     {
@@ -33,9 +37,9 @@ class RatingValidator extends BaseValidator
         return $rules;
     }
 
-    public function validate(Request $request): array
+    public function validate(): array
     {
-        $data = parent::validate($request);
+        $data = parent::validate();
 
         if ($this->profanitiesCheck($data['content'], $this->profanities)) {
 

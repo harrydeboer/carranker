@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Repositories\PageRepository;
 use App\Repositories\ProfanityRepository;
 use App\Validators\ContactValidator;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Mail\Mailer;
@@ -45,11 +46,12 @@ class ContactPageController extends Controller
 
     /**
      * @throws ValidationException
+     * @throws BindingResolutionException
      */
     public function sendMail(Request $request): RedirectResponse
     {
-        $validator = new ContactValidator($this->profanityRepository->all());
-        $data = $validator->validate($request);
+        $validator = new ContactValidator($request->all(), $this->profanityRepository->all());
+        $data = $validator->validate();
 
         try {
             $this->mailer->send('contactPage.message',

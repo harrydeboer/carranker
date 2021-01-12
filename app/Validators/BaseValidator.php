@@ -4,25 +4,38 @@ declare(strict_types=1);
 
 namespace App\Validators;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Translation\Translator;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Validator;
 
-abstract class BaseValidator
+abstract class BaseValidator extends Validator
 {
+    /**
+     * @throws BindingResolutionException
+     */
+    public function __construct(
+        array $data,
+        array $messages = [],
+        array $customAttributes = []
+    ) {
+        parent::__construct(app()->make(Translator::class), $data, $this->rules(), $messages, $customAttributes);
+    }
+
     /**
      * @throws ValidationException
      */
-    public function validate(Request $request): array
+    public function validate(): array
     {
-        $data = $request->validate($this->rules());
+        $data = parent::validate();
 
-        if (!is_null($request->get('reCAPTCHAToken')) && env('APP_ENV') !== 'testing') {
+        if (!isset($data['reCAPTCHAToken']) && env('APP_ENV') !== 'testing') {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
             curl_setopt($ch, CURLOPT_POSTFIELDS, "secret=" . env('RE_CAPTCHA_SECRET') .
-                           "&response=" . $request->get('reCAPTCHAToken'));
+                           "&response=" . $data['reCAPTCHAToken']);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
             $response = curl_exec($ch);
