@@ -4,33 +4,33 @@ declare(strict_types=1);
 
 namespace App\Models\Elastic;
 
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Collection;
 
 class Model extends BaseModel
 {
     use ModelTrait;
-    use Aspect;
+    use Aspects;
+    use AspectsProperties;
+
+    protected string $name;
+    protected string $make_name;
+    protected int $make_id;
+    protected ?string $wiki_car_model;
+    protected ?string $content;
+    protected ?float $price;
+    protected int $votes;
 
     protected static string $index = 'models';
-    public array $keywords = ['name', 'make_name', 'wiki_car_model'];
-    public array $texts = ['content'];
-    public array $integers = ['make_id', 'votes'];
-    public array $doubles = ['price'];
-
-    public function __construct(array $attributes = [])
-    {
-        foreach (Aspect::getAspects() as $aspect) {
-            $this->doubles[] =$aspect;
-        }
-        $this->fillable = array_merge(self::$aspects, $this->fillable);
-        parent::__construct($attributes);
-    }
+    protected array $keywords = ['name', 'make_name', 'wiki_car_model'];
+    protected array $texts = ['content'];
+    protected array $integers = ['make_id', 'votes'];
+    protected array $doubles = ['price'];
 
     public function getMake(): Make
     {
-        return $this->hasOne('\App\Models\Elastic\Make', 'id', 'make_id');
+        return $this->hasOne('\App\Models\Elastic\Make', 'make_id');
     }
 
     public function getTrims(): Collection

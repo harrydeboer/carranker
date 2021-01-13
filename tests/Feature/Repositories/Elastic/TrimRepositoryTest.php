@@ -46,7 +46,7 @@ class TrimRepositoryTest extends TestCase
         $formData = [];
 
         $aspects = [];
-        foreach (\App\Models\Aspect::getAspects() as $aspect) {
+        foreach (\App\Models\Aspects::getAspects() as $aspect) {
             $aspects[$aspect] = '1';
         }
         $formData['aspects'] = $aspects;
@@ -67,7 +67,7 @@ class TrimRepositoryTest extends TestCase
         $trims = $this->trimRepository->findTrimsOfTop($formData, $minNumVotes, $lengthTopTable);
 
         foreach ($trims as $trim) {
-            $this->assertTrue((int) $trim->votes >= $minNumVotes);
+            $this->assertTrue((int) $trim->getVotes() >= $minNumVotes);
             $this->assertTrue($trim->getFramework() === $framework);
         }
 

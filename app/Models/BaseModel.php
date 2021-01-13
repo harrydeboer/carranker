@@ -32,6 +32,8 @@ abstract class BaseModel extends Model
                 if (!in_array($key, $this->getFillable())) {
                     throw new \Exception("Attribute assigned that is not fillable.");
                 }
+
+                $this->$key = $attribute;
             }
         }
     }

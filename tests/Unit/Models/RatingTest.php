@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Models\Rating;
 use App\Models\User;
 use App\Models\Trim;
@@ -35,7 +35,7 @@ class RatingTest extends TestCase
             'pending' => $rating->getPending(),
             ];
 
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $assertArray[$aspect] = $rating->getAspect($aspect);
         }
 

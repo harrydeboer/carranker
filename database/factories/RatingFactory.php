@@ -6,7 +6,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Rating;
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Models\User;
 use App\Models\Trim;
 
@@ -38,7 +38,7 @@ class RatingFactory extends Factory
             'pending' => 1,
         ];
 
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $array[$aspect] = $this->faker->randomNumber(1) + 1;
         }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories;
 
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Models\Trim;
 use App\Models\User;
 use App\Models\Rating;
@@ -60,7 +60,7 @@ class RatingRepositoryTest extends TestCase
             'content' => 'dummy',
             'reCAPTCHAToken' => 'notUsedInTests',
         ];
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $requestData['star'][$aspect] = '8';
         }
 
@@ -74,7 +74,7 @@ class RatingRepositoryTest extends TestCase
         $this->assertEquals($rating->getTrim()->getId(), $trim->getId());
         $this->assertEquals($rating->getUser()->getId(), $user->getId());
 
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $this->assertEquals($rating->getAspect($aspect), (int) $formData['star'][$aspect]);
         }
     }
@@ -88,7 +88,7 @@ class RatingRepositoryTest extends TestCase
             'content' => 'dummy',
             'reCAPTCHAToken' => 'notUsedInTests',
         ];
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $requestData['star'][$aspect] = '8';
         }
 
@@ -98,7 +98,7 @@ class RatingRepositoryTest extends TestCase
 
         $rating = $this->ratingRepository->updateRating($rating, $data, 1);
 
-        foreach (\App\Models\Aspect::getAspects() as $aspect) {
+        foreach (\App\Models\Aspects::getAspects() as $aspect) {
             $this->assertEquals((int) $data['star'][$aspect], $rating->getAspect($aspect));
         }
         $this->assertEquals($data['content'], $rating->getContent());

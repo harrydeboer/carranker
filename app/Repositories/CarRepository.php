@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Models\Model;
 use App\Models\Rating;
 use App\Models\Trim;
@@ -22,7 +22,7 @@ abstract class CarRepository implements IRepository
 
         $votes = $car->getVotes();
 
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $ratingModel = $car->getAspect($aspect);
             if (is_null($earlierRating)) {
                 $ratingModel = (($votes - 1) * $ratingModel + $rating[$aspect]) / $votes;

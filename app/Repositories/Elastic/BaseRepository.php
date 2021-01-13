@@ -60,37 +60,6 @@ abstract class BaseRepository
         return BaseModel::indicesGetMapping(['index' => $this->model->getIndex()]);
     }
 
-    protected function propertiesToParams(EloquentBaseModel $model): array
-    {
-        $params = [];
-
-        foreach ($this->model->keywords as $keyword) {
-            $params[$keyword] = $model->$keyword;
-        }
-
-        foreach ($this->model->texts as $text) {
-            $params[$text] = $model->$text;
-        }
-
-        foreach ($this->model->integers as $integer) {
-            $params[$integer] = $model->$integer;
-        }
-
-        foreach ($this->model->doubles as $double) {
-            $params[$double] = $model->$double;
-        }
-
-        foreach ($this->model->timestamps as $timestamp) {
-            $params[$timestamp] = $model->$timestamp;
-        }
-
-        foreach ($this->model->booleans as $boolean) {
-            $params[$boolean] = $model->$boolean;
-        }
-
-        return $params;
-    }
-
     public function addAllToIndex(Collection $models): void
     {
         $params = ['refresh' => 'wait_for'];
@@ -103,7 +72,7 @@ abstract class BaseRepository
                 ],
             ];
 
-            $params['body'][] = $this->propertiesToParams($model);
+            $params['body'][] = $this->model->propertiesToParams($model);
 
             if ($key % 1000 === 0 && $key !== 0) {
                 BaseModel::bulk($params);
@@ -128,7 +97,7 @@ abstract class BaseRepository
 
                 ],
             ];
-            $params['body'][] = ['doc' => $this->propertiesToParams($model)];
+            $params['body'][] = ['doc' => $this->model->propertiesToParams($model)];
 
             if ($key % 1000 === 0 && $key !== 0) {
                 BaseModel::bulk($params);

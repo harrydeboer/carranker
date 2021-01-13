@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Repositories\Elastic\TrimRepository;
 use App\Repositories\UserRepository;
 use Tests\TestCase;
@@ -52,7 +52,7 @@ class ModelPageTest extends TestCase
             'content' => null,
             'reCAPTCHAToken' => 'notUsedInTests',
         ];
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $postArrayFirst['star'][$aspect] = '10';
         }
 
@@ -64,14 +64,14 @@ class ModelPageTest extends TestCase
 
         $trimDBFirst = $this->trimRepository->get(1);
 
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $rating = ($trim->getAspect($aspect) * $trim->getVotes() + $postArrayFirst['star'][$aspect]) /
                 ($trim->getVotes() + 1);
             $this->assertEquals($rating, $trimDBFirst->getAspect($aspect));
         }
 
         $postArraySecond = $postArrayFirst;
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $postArraySecond['star'][$aspect] = '8';
         }
 
@@ -83,7 +83,7 @@ class ModelPageTest extends TestCase
 
         $trimDBSecond = $this->trimRepository->get(1);
 
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $rating = ($trimDBFirst->getAspect($aspect) * $trimDBFirst->getVotes() + $postArraySecond['star'][$aspect] -
                     $postArrayFirst['star'][$aspect]) / $trimDBFirst->getVotes();
             $this->assertEquals($rating, $trimDBSecond->getAspect($aspect));

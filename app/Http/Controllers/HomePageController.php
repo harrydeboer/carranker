@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\CarSpecs;
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Repositories\PageRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\Elastic\TrimRepository;
@@ -37,7 +37,7 @@ class HomePageController extends Controller
             'numShowMoreLess' => self::numShowMoreLess,
             'specsChoice' => CarSpecs::specsChoice(),
             'specsRange' => CarSpecs::specsRange(),
-            'aspects' => Aspect::getAspects(),
+            'aspects' => Aspects::getAspects(),
             'reviews' => $this->ratingRepository->findRecentReviews(self::homepageNumReviews),
             'topTrims' => $topTrims,
             'minNumVotes' => $minNumVotes,

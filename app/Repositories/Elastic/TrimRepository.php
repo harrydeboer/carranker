@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elastic;
 
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Models\Elastic\Trim;
 use App\CarSpecs;
 use Illuminate\Database\Eloquent\Collection;
@@ -97,7 +97,7 @@ class TrimRepository extends BaseRepository
         $source = '(';
         $factorArray = [];
         $total = 0;
-        foreach (Aspect::getAspects() as $key => $aspect) {
+        foreach (Aspects::getAspects() as $key => $aspect) {
             $source .= "doc['" . $aspect . "'] * factor" . $key . " + ";
             if ($data === []) {
                 $factorArray['factor' . $key] = 1;

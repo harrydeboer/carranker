@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\CarSpecs;
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Validators\RatingValidator;
 use App\Repositories\FXRateRepository;
 use App\Repositories\Elastic\MakeRepository;
@@ -58,7 +58,7 @@ class ModelPageController extends Controller
 
         $viewData = [
             'title' => $makeName . ' ' . $modelName,
-            'aspects' => Aspect::getAspects(),
+            'aspects' => Aspects::getAspects(),
             'specsChoice' => CarSpecs::specsChoice(),
             'specsRange' => CarSpecs::specsRange(),
             'model' => $model,

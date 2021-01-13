@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Validators;
 
 use App\Validators\RatingValidator;
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Repositories\ProfanityRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -30,7 +30,7 @@ class RatingValidatorTest extends TestCase
             'content' => null,
             'reCAPTCHAToken' => 'notUsedInTests',
         ];
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $formData['star'][$aspect] = '8';
         }
 

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Rating extends BaseModel
 {
     use HasFactory;
-    use Aspect;
+    use Aspects;
     protected $table = 'ratings';
     public $timestamps = false;
 

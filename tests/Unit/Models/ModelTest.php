@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Models\Model;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -27,7 +27,7 @@ class ModelTest extends TestCase
             'votes' => $model->getVotes(),
         ];
 
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $assertArray[$aspect] = $model->getAspect($aspect);
         }
         $this->assertDatabaseHas('models', $assertArray);

@@ -6,39 +6,77 @@ namespace App\Models\Elastic;
 
 use App\ElasticClient;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Elasticsearch\Client;
+use App\Models\BaseModel as EloquentBaseModel;
 
-abstract class BaseModel extends Model
+abstract class BaseModel
 {
     protected static Client $client;
     protected static string $index;
 
-    protected $fillable = [];
-    public $timestamps = [];
-    public array $keywords = [];
-    public array $texts = [];
-    public array $integers = [];
-    public array $doubles = [];
-    public array $booleans = [];
+    protected int $id;
+    protected array $attributes;
+    protected array $keywords = [];
+    protected array $texts = [];
+    protected array $integers = [];
+    protected array $doubles = [];
+    protected array $booleans = [];
 
     public function __construct(array $attributes = [])
     {
         self::$client = ElasticClient::getClient();
 
-        if (isset($attributes['id'])) {
-            $this->id = $attributes['id'];
+        foreach ($attributes as $key => $value) {
+            $this->$key = $value;
         }
 
-        $this->fillable = array_merge($this->keywords, $this->texts, $this->integers,
-            $this->doubles, $this->timestamps, $this->booleans);
+        if (method_exists($this, 'getAspects')) {
+            foreach ($this->getAspects() as $aspect) {
+                $this->doubles[] = $aspect;
+            }
+        }
 
-        parent::__construct($attributes);
+        $this->attributes = $attributes;
     }
 
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
+    public function getKeywords(): array
+    {
+        return $this->keywords;
+    }
+
+    public function getDoubles(): array
+    {
+        return $this->doubles;
+    }
+
+    public function getBooleans(): array
+    {
+        return $this->booleans;
+    }
+
+    public function getIntegers(): array
+    {
+        return $this->integers;
+    }
+
+    public function getTexts(): array
+    {
+        return $this->texts;
+    }
+
+    public function getMappingFields(): array
+    {
+        return array_merge($this->keywords, $this->doubles, $this->booleans, $this->integers, $this->texts);
     }
 
     public static function getIndex(): string
@@ -81,21 +119,6 @@ abstract class BaseModel extends Model
         return self::arrayToModels($result['hits']['hits'], $sortField);
     }
 
-    public static function createInIndex(array $params)
-    {
-        self::$client->index($params);
-    }
-
-    public static function updateInIndex(array $params)
-    {
-        self::$client->update($params);
-    }
-
-    public static function deleteFromIndex(array $params)
-    {
-        self::$client->delete($params);
-    }
-
     public static function indicesCreate(array $params): void
     {
         self::$client->indices()->create($params);
@@ -123,26 +146,26 @@ abstract class BaseModel extends Model
 
     protected static function arrayToModel(array $result): BaseModel
     {
-        $fillable = array_merge(['id' => (int) $result['_id']], $result['_source']);
+        $attributes = array_merge(['id' => (int) $result['_id']], $result['_source']);
 
-        return new static($fillable);
+        return new static($attributes);
     }
 
     protected static function arrayToModels(array $results, ?string $sortField): Collection
     {
         $models = [];
         foreach ($results as $result) {
-            $fillable = array_merge(['id' => (int) $result['_id']], $result['_source']);
+            $attributes = array_merge(['id' => (int) $result['_id']], $result['_source']);
             if (!is_null($sortField)) {
-                $fillable[$sortField] = $result['sort'][0];
+                $attributes[$sortField] = $result['sort'][0];
             }
-            $models[] = new static($fillable);
+            $models[] = new static($attributes);
         }
 
         return new Collection($models);
     }
 
-    public function hasMany($related, $foreignKey = null, $localKey = null): Collection
+    public function hasMany($related, $foreignKey = null): Collection
     {
         $params = [
             'index' => $related::getIndex(),
@@ -159,7 +182,7 @@ abstract class BaseModel extends Model
         return $related::searchMany($params);
     }
 
-    public function hasOne($related, $foreignKey = null, $localKey = null): BaseModel
+    public function hasOne($related, $localKey = null): BaseModel
     {
         $params = [
             'index' => $related::getIndex(),
@@ -211,14 +234,37 @@ abstract class BaseModel extends Model
             $mappings['properties'][$double] = ['type' => 'double'];
         }
 
-        foreach ($this->timestamps as $timestamp) {
-            $mappings['properties'][$timestamp] = ['type' => 'date'];
-        }
-
         foreach ($this->booleans as $boolean) {
             $mappings['properties'][$boolean] = ['type' => 'boolean'];
         }
 
         return $mappings;
+    }
+
+    public function propertiesToParams(EloquentBaseModel $model): array
+    {
+        $params = [];
+
+        foreach ($this->keywords as $keyword) {
+            $params[$keyword] = $model->$keyword;
+        }
+
+        foreach ($this->texts as $text) {
+            $params[$text] = $model->$text;
+        }
+
+        foreach ($this->integers as $integer) {
+            $params[$integer] = $model->$integer;
+        }
+
+        foreach ($this->doubles as $double) {
+            $params[$double] = $model->$double;
+        }
+
+        foreach ($this->booleans as $boolean) {
+            $params[$boolean] = $model->$boolean;
+        }
+
+        return $params;
     }
 }

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use App\CarSpecs;
+use App\Models\Spec;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use App\Models\Spec;
 
 class CarSpecsTest extends TestCase
 {

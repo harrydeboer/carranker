@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Browser;
 
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Models\User;
 use App\Repositories\Elastic\TrimRepository;
 use App\Repositories\RatingRepository;
@@ -47,7 +47,7 @@ class ModelPageTest extends DuskTestCase
 
             $browser->waitFor('#dialog');
 
-            foreach (Aspect::getAspects() as $aspect) {
+            foreach (Aspects::getAspects() as $aspect) {
                 $browser->radio('star[' . $aspect . ']', '8');
             }
 

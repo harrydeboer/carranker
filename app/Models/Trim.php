@@ -7,24 +7,18 @@ namespace App\Models;
 use App\CarSpecs;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Exception;
 
 class Trim extends BaseModel
 {
     use TrimTrait;
-    use Aspect;
+    use Aspects;
     use Spec;
     use HasFactory;
 
     protected $table = 'trims';
-    public static $hasTrimVersions = 0;
     public $timestamps = false;
     private float $rating;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['model_id', 'name', 'make_name', 'model_name', 'price', 'votes', 'year_begin', 'year_end'];
 
     /**
@@ -47,16 +41,16 @@ class Trim extends BaseModel
                     }
                 }
                 if ($test === false) {
-                    throw new \Exception('The spec ' . $key . ' has been assigned a non existing item.');
+                    throw new Exception('The spec ' . $key . ' has been assigned a non existing item.');
                 }
             }
 
-            $model = Model::find($attributes['model_id']);
+            $model = (new Model())->find($attributes['model_id']);
             if ($model->getName() !== $attributes['model_name']) {
-                throw new \Exception("The model_id does not match the model name.");
+                throw new Exception("The model_id does not match the model name.");
             }
             if ($model->getMakeName() !== $attributes['make_name']) {
-                throw new \Exception("The model_id does not match the make name.");
+                throw new Exception("The model_id does not match the make name.");
             }
         }
     }
@@ -71,7 +65,7 @@ class Trim extends BaseModel
         return $this->hasOne('\App\Models\Model', 'id', 'model_id')->first();
     }
 
-    public function save(array $options = [])
+    public function save(array $options = []): bool
     {
         if (is_null($this->findId())) {
             $action = 'create';
@@ -88,7 +82,7 @@ class Trim extends BaseModel
         return $hasSaved;
     }
 
-    public static function destroy($ids)
+    public static function destroy($ids): int
     {
         $job = new ElasticJob(['trim_id' => $ids, 'action' => 'delete']);
 

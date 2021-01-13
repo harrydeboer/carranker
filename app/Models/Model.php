@@ -6,36 +6,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Exception;
 
 class Model extends BaseModel
 {
     use ModelTrait;
-    use Aspect;
+    use Aspects;
     use HasFactory;
 
     protected $table = 'models';
     public $timestamps = false;
+    protected $fillable = ['make_id', 'name', 'make_name', 'content', 'price', 'votes', 'wiki_car_model'];
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * When a new model is made there is a check that the name of the make matches the make_id.
      */
-    protected $fillable = ['make_id', 'name', 'make_name', 'content',
-        'price', 'votes', 'wiki_car_model'];
-
-    /**
-     * The aspects are merged with the fillable property.
-     * When a new model is made there is a check that the name of the make matches the make_id. */
     public function __construct(array $attributes = [])
     {
         $this->fillable = array_merge(self::$aspects, $this->fillable);
         parent::__construct($attributes);
 
         if ($attributes !== []) {
-            $make = Make::find($attributes['make_id']);
+            $make = (new Make())->find($attributes['make_id']);
             if ($make->getName() !== $attributes['make_name']) {
-                throw new \Exception("The make_id does not match the make name.");
+                throw new Exception("The make id does not match the make name.");
             }
         }
     }
@@ -50,7 +44,7 @@ class Model extends BaseModel
         return $this->hasMany('\App\Models\Trim','model_id', 'id')->get();
     }
 
-    public function save(array $options = [])
+    public function save(array $options = []): bool
     {
         if (is_null($this->findId())) {
             $action = 'create';
@@ -67,7 +61,7 @@ class Model extends BaseModel
         return $hasSaved;
     }
 
-    public static function destroy($ids)
+    public static function destroy($ids): int
     {
         $job = new ElasticJob(['model_id' => $ids, 'action' => 'delete']);
 

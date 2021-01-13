@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Repositories\ModelRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\TrimRepository;
@@ -53,7 +53,7 @@ class ReviewController extends Controller
         $rating = $this->ratingRepository->get($id);
 
         $ratingArray = [];
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $ratingArray[$aspect] = $rating->getAspect($aspect);
         }
 

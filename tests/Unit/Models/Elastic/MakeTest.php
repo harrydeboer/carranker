@@ -6,33 +6,13 @@ namespace Tests\Unit\Models\Elastic;
 
 use App\Models\Make;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
 
-class MakeTest extends TestCase
+class MakeTest extends BaseModel
 {
     use DatabaseMigrations;
 
-    public function testElasticModelSyncEloquent()
+    public function testSync()
     {
-        $makeEloquent = Make::factory()->create();
-        $makeElastic = new \App\Models\Elastic\Make();
-
-        $propertiesElastic = array_merge($makeElastic->keywords, $makeElastic->texts);
-        foreach ($makeEloquent->getAttributes() as $key => $attribute) {
-            if ($key !== 'id') {
-                $this->assertTrue(in_array($key, $propertiesElastic));
-            }
-        }
-
-        foreach ($propertiesElastic as $property) {
-            $this->assertTrue(key_exists($property, $makeEloquent->getAttributes()));
-        }
-    }
-
-    public function testMappings()
-    {
-        $makeElastic = new \App\Models\Elastic\Make();
-
-        $this->assertIsArray($makeElastic->getMappings());
+        $this->elasticModelSyncEloquent(Make::factory()->create(), new \App\Models\Elastic\Make());
     }
 }

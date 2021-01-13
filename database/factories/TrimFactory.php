@@ -6,7 +6,7 @@ namespace Database\Factories;
 
 use App\Models\Trim;
 use App\Models\Model;
-use App\Models\Aspect;
+use App\Models\Aspects;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TrimFactory extends Factory
@@ -55,7 +55,7 @@ class TrimFactory extends Factory
             'fuel_consumption' => $this->faker->randomFloat(2, 0, 100),
         ];
 
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $array[$aspect] = $this->faker->randomNumber(1) + 1;
         }
 

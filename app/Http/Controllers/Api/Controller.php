@@ -27,7 +27,7 @@ class Controller extends BaseController
         $make = $this->makeRepository->get((int) $makeId);
         $make->setContent($make->getContent());
 
-        return response()->json($make);
+        return response()->json($make->getAttributes());
     }
 
     public function viewModel(string $modelId): JsonResponse
@@ -35,14 +35,14 @@ class Controller extends BaseController
         $model = $this->modelRepository->get((int) $modelId);
         $model->setContent($model->getContent());
 
-        return response()->json($model);
+        return response()->json($model->getAttributes());
     }
 
     public function viewTrim(string $trimId): JsonResponse
     {
         $trim = $this->trimRepository->get((int) $trimId);
 
-        return response()->json($trim);
+        return response()->json($trim->getAttributes());
     }
 
     /** When a user selects a make then the modelNames belonging to this make are retrieved. */

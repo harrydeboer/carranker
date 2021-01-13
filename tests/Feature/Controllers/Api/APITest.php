@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Controllers;
+namespace Tests\Feature\Controllers\Api;
 
 use App\Models\User;
 use App\Repositories\Elastic\MakeRepository;
@@ -68,10 +68,10 @@ class APITest extends TestCase
             ]);
 
         $response->assertStatus(200);
-        $jsonArray = json_decode($response->getContent());
-        $this->assertEquals($make->getId(), $jsonArray->id);
-        $this->assertEquals($make->getName(), $jsonArray->name);
-        $this->assertEquals($make->getContent(), $jsonArray->content);
+        $jsonObject = json_decode($response->getContent());
+        $this->assertEquals($make->getId(), $jsonObject->id);
+        $this->assertEquals($make->getName(), $jsonObject->name);
+        $this->assertEquals($make->getContent(), $jsonObject->content);
 
         $response = $this->json('GET','/api/model/' . $model->getId(),
             $body, [
@@ -80,11 +80,11 @@ class APITest extends TestCase
             ]);
 
         $response->assertStatus(200);
-        $jsonArray = json_decode($response->getContent());
+        $jsonObject = json_decode($response->getContent());
 
-        $this->assertEquals($model->getId(), $jsonArray->id);
-        $this->assertEquals($model->getName(), $jsonArray->name);
-        $this->assertEquals($model->getContent(), $jsonArray->content);
+        $this->assertEquals($model->getId(), $jsonObject->id);
+        $this->assertEquals($model->getName(), $jsonObject->name);
+        $this->assertEquals($model->getContent(), $jsonObject->content);
 
         $response = $this->json('GET','/api/trim/' . $trim->getId(),
             $body, [
@@ -93,10 +93,10 @@ class APITest extends TestCase
             ]);
 
         $response->assertStatus(200);
-        $jsonArray = json_decode($response->getContent());
+        $jsonObject = json_decode($response->getContent());
 
-        $this->assertEquals($trim->getId(), $jsonArray->id);
-        $this->assertEquals($trim->getName(), $jsonArray->name);
+        $this->assertEquals($trim->getId(), $jsonObject->id);
+        $this->assertEquals($trim->getName(), $jsonObject->name);
     }
 
     public function testGetModelnames()

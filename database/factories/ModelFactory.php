@@ -6,7 +6,7 @@ namespace Database\Factories;
 
 use App\Models\Model;
 use App\Models\Make;
-use App\Models\Aspect;
+use App\Models\Aspects;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ModelFactory extends Factory
@@ -37,7 +37,7 @@ class ModelFactory extends Factory
             'votes' => $this->faker->randomNumber(2) + 1,
         ];
 
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $array[$aspect] = $this->faker->randomNumber(1) + 1;
         }
 

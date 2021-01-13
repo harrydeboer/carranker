@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Validators;
 
-use App\Models\Aspect;
+use App\Models\Aspects;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
 
@@ -30,7 +30,7 @@ class RatingValidator extends BaseValidator
             'reCAPTCHAToken' => 'string|required',
         ];
 
-        foreach (Aspect::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $rules['star.' . $aspect] = 'integer|required';
         }
 

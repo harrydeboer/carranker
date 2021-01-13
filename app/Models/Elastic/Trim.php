@@ -4,35 +4,44 @@ declare(strict_types=1);
 
 namespace App\Models\Elastic;
 
-use App\Models\Aspect;
+use App\Models\Aspects;
 use App\Models\TrimTrait;
 
 class Trim extends BaseModel
 {
     use TrimTrait;
-    use Aspect;
+    use Aspects;
+    use AspectsProperties;
+
+    protected ?string $name;
+    protected string $make_name;
+    protected string $model_name;
+    protected int $model_id;
+    protected ?float $price;
+    protected int $votes;
+    protected ?string $framework;
+    protected ?string $fuel;
+    protected ?string $gearbox_type;
+    protected ?int $number_of_doors;
+    protected ?int $number_of_seats;
+    protected ?int $number_of_gears;
+    protected int $year_begin;
+    protected int $year_end;
+    protected ?int $fueltank_capacity;
+    protected ?int $engine_power;
+    protected ?int $max_trunk_capacity;
+    protected ?int $max_speed;
+    protected ?int $full_weight;
+    protected ?float $engine_capacity;
+    protected ?float $acceleration;
+    protected ?float $fuel_consumption;
 
     protected float $rating;
     protected static string $index = 'trims';
-    public array $keywords = ['name', 'make_name', 'model_name', 'framework', 'fuel', 'gearbox_type'];
-    public array $integers = ['model_id', 'votes', 'number_of_doors', 'number_of_seats', 'number_of_gears', 'year_begin',
+    protected array $keywords = ['name', 'make_name', 'model_name', 'framework', 'fuel', 'gearbox_type'];
+    protected array $integers = ['model_id', 'votes', 'number_of_doors', 'number_of_seats', 'number_of_gears', 'year_begin',
         'year_end', 'fueltank_capacity', 'engine_power', 'max_trunk_capacity', 'max_speed', 'full_weight'];
-    public array $doubles = ['price', 'engine_capacity', 'acceleration', 'fuel_consumption'];
-
-    public function __construct(array $attributes = [])
-    {
-        foreach (Aspect::getAspects() as $aspect) {
-            $this->doubles[] =$aspect;
-        }
-
-        if (isset($attributes['rating'])) {
-            $this->rating = $attributes['rating'];
-        }
-
-        $this->fillable = array_merge(self::$aspects, $this->fillable);
-
-        parent::__construct($attributes);
-    }
+    protected array $doubles = ['price', 'engine_capacity', 'acceleration', 'fuel_consumption'];
 
     public function getMappings(): array
     {
@@ -45,6 +54,6 @@ class Trim extends BaseModel
 
     public function getModel(): Model
     {
-        return $this->hasOne('\App\Models\Elastic\Model', 'id', 'model_id');
+        return $this->hasOne('\App\Models\Elastic\Model', 'model_id');
     }
 }
