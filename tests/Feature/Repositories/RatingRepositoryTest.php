@@ -55,17 +55,14 @@ class RatingRepositoryTest extends TestCase
         $user->setAttribute('email_verified_at', date('Y-m-d h:i:s'));
         $trim = Trim::factory()->create();
 
-        $requestData = [
+        $formData = [
             'trimId' => (string) $trim->getId(),
             'content' => 'dummy',
             'reCAPTCHAToken' => 'notUsedInTests',
         ];
         foreach (Aspects::getAspects() as $aspect) {
-            $requestData['star'][$aspect] = '8';
+            $formData['star'][$aspect] = '8';
         }
-
-        $validator = new RatingValidator($requestData, $this->profanityRepository->all());
-        $formData = $validator->validate();
 
         $rating = $this->ratingRepository->createRating($user, $trim->getModel(), $trim, $formData, 0);
 
@@ -83,25 +80,21 @@ class RatingRepositoryTest extends TestCase
     {
         $rating = Rating::factory()->create(['content' => 'content']);
 
-        $requestData = [
+        $formData = [
             'trimId' => (string) $rating->getTrim()->getId(),
             'content' => 'dummy',
             'reCAPTCHAToken' => 'notUsedInTests',
         ];
         foreach (Aspects::getAspects() as $aspect) {
-            $requestData['star'][$aspect] = '8';
+            $formData['star'][$aspect] = '8';
         }
 
-        $validator = new RatingValidator($requestData, $this->profanityRepository->all());
+        $rating = $this->ratingRepository->updateRating($rating, $formData, 1);
 
-        $data = $validator->validate();
-
-        $rating = $this->ratingRepository->updateRating($rating, $data, 1);
-
-        foreach (\App\Models\Aspects::getAspects() as $aspect) {
-            $this->assertEquals((int) $data['star'][$aspect], $rating->getAspect($aspect));
+        foreach (Aspects::getAspects() as $aspect) {
+            $this->assertEquals((int) $formData['star'][$aspect], $rating->getAspect($aspect));
         }
-        $this->assertEquals($data['content'], $rating->getContent());
+        $this->assertEquals($formData['content'], $rating->getContent());
     }
 
     public function testFindEarlierByTrimAndUser()
