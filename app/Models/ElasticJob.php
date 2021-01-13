@@ -16,17 +16,17 @@ class ElasticJob extends BaseModel
      */
     protected $fillable = ['make_id', 'model_id', 'trim_id', 'action'];
 
-    public function getMake()
+    public function getMake(): Make
     {
         return $this->hasOne('\App\Models\Make', 'id', 'make_id')->first();
     }
 
-    public function getModel()
+    public function getModel(): Model
     {
         return $this->hasOne('\App\Models\Model', 'id', 'model_id')->first();
     }
 
-    public function getTrim()
+    public function getTrim(): Trim
     {
         return $this->hasOne('\App\Models\Trim', 'id', 'trim_id')->first();
     }
