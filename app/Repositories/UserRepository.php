@@ -48,10 +48,7 @@ class UserRepository implements IRepository
         return $this->user->where('email', $useremail)->first();
     }
 
-    /**
-     * @return Rating|null
-     */
-    public function getRatingsTrim(?User $user, int $trimId): ?HasMany
+    public function getRatingsTrim(?User $user, int $trimId): ?Rating
     {
         if (is_null($user)) {
             return null;
