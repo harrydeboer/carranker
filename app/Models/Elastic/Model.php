@@ -28,7 +28,10 @@ class Model extends BaseModel
     protected array $integers = ['make_id', 'votes'];
     protected array $doubles = ['price'];
 
-    public function getMake(): Make
+    /**
+     * @return Make
+     */
+    public function getMake(): BaseModel
     {
         return $this->hasOne('\App\Models\Elastic\Make', 'make_id');
     }

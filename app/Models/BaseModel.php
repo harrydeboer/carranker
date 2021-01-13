@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Exception;
 
 /** All models extend this base model. The base model has two checks.
  * Check if all attributes passed to the constructor are present in the fillable property of the models.
@@ -30,7 +31,7 @@ abstract class BaseModel extends Model
         if ($attributes !== []) {
             foreach ($attributes as $key => $attribute) {
                 if (!in_array($key, $this->getFillable())) {
-                    throw new \Exception("Attribute assigned that is not fillable.");
+                    throw new Exception("Attribute assigned that is not fillable.");
                 }
 
                 $this->$key = $attribute;

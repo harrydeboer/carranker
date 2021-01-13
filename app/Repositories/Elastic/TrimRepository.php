@@ -178,7 +178,7 @@ class TrimRepository extends BaseRepository
         /** the max value in the select has to be cast to float or int. */
         if ($name === 'engine_capacity' && !is_null($formMax)) {
             $formMax = (float) $formMax;
-        } else if (!is_null($formMax)) {
+        } elseif (!is_null($formMax)) {
             $formMax = (int) $formMax;
         }
 

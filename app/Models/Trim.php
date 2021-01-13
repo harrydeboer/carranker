@@ -57,12 +57,12 @@ class Trim extends BaseModel
 
     public function getRatings(): Collection
     {
-        return $this->hasMany('\App\Models\Rating','trim_id', 'id')->get();
+        return $this->hasMany(Rating::class)->get();
     }
 
     public function getModel(): Model
     {
-        return $this->hasOne('\App\Models\Model', 'id', 'model_id')->first();
+        return $this->belongsTo(Model::class, 'model_id')->first();
     }
 
     public function save(array $options = []): bool

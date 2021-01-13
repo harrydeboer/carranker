@@ -8,26 +8,20 @@ class ElasticJob extends BaseModel
 {
     protected $table = 'elastic_jobs';
     public $timestamps = false;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['make_id', 'model_id', 'trim_id', 'action'];
 
     public function getMake(): Make
     {
-        return $this->hasOne('\App\Models\Make', 'id', 'make_id')->first();
+        return $this->belongsTo(Make::class, 'make_id')->first();
     }
 
     public function getModel(): Model
     {
-        return $this->hasOne('\App\Models\Model', 'id', 'model_id')->first();
+        return $this->belongsTo(Model::class, 'model_id')->first();
     }
 
     public function getTrim(): Trim
     {
-        return $this->hasOne('\App\Models\Trim', 'id', 'trim_id')->first();
+        return $this->belongsTo(Trim::class, 'trim_id')->first();
     }
 }

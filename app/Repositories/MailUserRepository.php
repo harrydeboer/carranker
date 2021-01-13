@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Models\MailUser;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator as LengthAwarePaginatorContract;
 
 class MailUserRepository implements IRepository
 {
@@ -37,7 +38,10 @@ class MailUserRepository implements IRepository
         MailUser::destroy($id);
     }
 
-    public function findAll(int $numMailUsersPerPage): LengthAwarePaginator
+    /**
+     * @return LengthAwarePaginator
+     */
+    public function findAll(int $numMailUsersPerPage): LengthAwarePaginatorContract
     {
         return $this->mailUser->paginate($numMailUsersPerPage);
     }

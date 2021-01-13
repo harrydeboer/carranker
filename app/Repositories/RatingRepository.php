@@ -11,6 +11,7 @@ use App\Models\Trim;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator as LengthAwarePaginatorContract;
 
 class RatingRepository implements IRepository
 {
@@ -48,7 +49,10 @@ class RatingRepository implements IRepository
         $review->save();
     }
 
-    public function findPendingReviews(int $numReviewsPerPage): LengthAwarePaginator
+    /**
+     * @return LengthAwarePaginator
+     */
+    public function findPendingReviews(int $numReviewsPerPage): LengthAwarePaginatorContract
     {
         return $this->rating->whereNotNull('content')
             ->where('pending', 1)
@@ -116,8 +120,11 @@ class RatingRepository implements IRepository
         return $ratings->first();
     }
 
-    /** The most recent reviews for the model page are retrieved and paginated. */
-    public function getReviews(Model $model, int $numReviewsPerModelPage): LengthAwarePaginator
+    /**
+     * The most recent reviews for the model page are retrieved and paginated.
+     * @return LengthAwarePaginator
+     */
+    public function getReviews(Model $model, int $numReviewsPerModelPage): LengthAwarePaginatorContract
     {
         return $this->rating->whereNotNull('content')
             ->where('model_id', $model->getId())

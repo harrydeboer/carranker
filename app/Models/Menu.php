@@ -13,12 +13,6 @@ class Menu extends BaseModel
 
     protected $table = 'menus';
     public $timestamps = false;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['name'];
 
     /** The menus have multiple pages and the pages have multiple menus so these are many to many. */

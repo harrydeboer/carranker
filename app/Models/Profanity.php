@@ -12,12 +12,6 @@ class Profanity extends BaseModel
 
     protected $table = 'profanities';
     public $timestamps = false;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['name'];
 
     public function getName(): string

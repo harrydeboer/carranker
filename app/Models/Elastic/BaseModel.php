@@ -91,7 +91,7 @@ abstract class BaseModel
         return $index;
     }
 
-    public static function get(int $id): BaseModel
+    public static function get(int $id): static
     {
         $params = [
             'index' => static::getIndex(),
@@ -101,7 +101,7 @@ abstract class BaseModel
         return self::arrayToModel(self::$client->get($params));
     }
 
-    public static function searchOne(array $params): ?BaseModel
+    public static function searchOne(array $params): ?static
     {
         $result = self::$client->search($params);
         if (isset($result['hits']['hits'][0])) {
@@ -144,7 +144,7 @@ abstract class BaseModel
         self::$client->bulk($params);
     }
 
-    protected static function arrayToModel(array $result): BaseModel
+    protected static function arrayToModel(array $result): static
     {
         $attributes = array_merge(['id' => (int) $result['_id']], $result['_source']);
 

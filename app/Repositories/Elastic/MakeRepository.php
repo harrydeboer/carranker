@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\Elastic;
 
 use App\Models\Elastic\Make;
+use stdClass;
 
 class MakeRepository extends BaseRepository
 {
@@ -51,7 +52,7 @@ class MakeRepository extends BaseRepository
             'size' => 1000,
             'body'  => [
                 'query' => [
-                    'match_all' => new \stdClass(),
+                    'match_all' => new stdClass(),
                 ],
             ],
         ];

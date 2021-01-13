@@ -13,12 +13,6 @@ class Page extends BaseModel
 
     protected $table = 'pages';
     public $timestamps = false;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['name', 'title', 'content'];
 
     public function getName(): string

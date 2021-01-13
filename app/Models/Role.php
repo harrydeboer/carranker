@@ -13,12 +13,6 @@ class Role extends BaseModel
 
     protected $table = 'roles';
     public $timestamps = false;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['name'];
 
     /** The roles have multiple users and the users have multiple roles so these are many to many. */

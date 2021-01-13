@@ -36,12 +36,12 @@ class Model extends BaseModel
 
     public function getMake(): Make
     {
-        return $this->hasOne('\App\Models\Make', 'id', 'make_id')->first();
+        return $this->belongsTo(Make::class, 'make_id')->first();
     }
 
     public function getTrims(): Collection
     {
-        return $this->hasMany('\App\Models\Trim','model_id', 'id')->get();
+        return $this->hasMany(Trim::class)->get();
     }
 
     public function save(array $options = []): bool

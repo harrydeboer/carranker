@@ -10,14 +10,9 @@ class Rating extends BaseModel
 {
     use HasFactory;
     use Aspects;
+
     protected $table = 'ratings';
     public $timestamps = false;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['user_id', 'model_id', 'trim_id', 'time', 'content', 'pending'];
 
     /** The aspects are merged with the fillable property. */
@@ -29,17 +24,17 @@ class Rating extends BaseModel
 
     public function getModel(): Model
     {
-        return $this->hasOne('\App\Models\Model', 'id', 'model_id')->first();
+        return $this->belongsTo(Model::class, 'model_id')->first();
     }
 
     public function getTrim(): Trim
     {
-        return $this->hasOne('\App\Models\Trim', 'id', 'trim_id')->first();
+        return $this->belongsTo(Trim::class, 'trim_id')->first();
     }
 
     public function getUser(): User
     {
-        return $this->hasOne('\App\Models\User', 'ID', 'user_id')->first();
+        return $this->belongsTo(User::class, 'user_id')->first();
     }
 
     public function getTime(): int

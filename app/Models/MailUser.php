@@ -12,7 +12,6 @@ class MailUser extends BaseModel
 
     protected $table = 'mail_users';
     public $timestamps = false;
-
     protected $fillable = ['domain', 'password', 'email', 'forward'];
 
     public function getDomain(): string

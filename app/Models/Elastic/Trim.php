@@ -52,7 +52,10 @@ class Trim extends BaseModel
         return $mappings;
     }
 
-    public function getModel(): Model
+    /**
+     * @return Model
+     */
+    public function getModel(): BaseModel
     {
         return $this->hasOne('\App\Models\Elastic\Model', 'model_id');
     }
