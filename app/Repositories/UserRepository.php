@@ -54,7 +54,10 @@ class UserRepository implements IRepository
             return null;
         }
 
-        return $user->hasMany('\App\Models\Rating')->where('trim_id', $trimId)->first();
+        return $user->hasMany('\App\Models\Rating')
+            ->where('trim_id', $trimId)
+            ->orderBy('time', 'desc')
+            ->first();
     }
 
     public function getRatingsModel(?User $user, int $modelId): ?Collection

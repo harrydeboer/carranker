@@ -35,7 +35,7 @@ class SendMailWhenPendingReviews extends Command
 
     public function handle()
     {
-        $pendingReviews = $this->ratingRepository->findPendingReviews(10);
+        $pendingReviews = $this->ratingRepository->findPendingReviews(1);
 
         if (count($pendingReviews) > 0) {
             $this->mailer->send(new PendingReviews());

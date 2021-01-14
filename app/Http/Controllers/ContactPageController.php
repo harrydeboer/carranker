@@ -11,11 +11,9 @@ use App\Validators\ContactValidator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Mail\Mailer;
-use Illuminate\Mail\Message;
 use Illuminate\Http\Request;
 use Illuminate\Log\LogManager;
 use Swift_SwiftException;
-use Closure;
 
 class ContactPageController extends Controller
 {
