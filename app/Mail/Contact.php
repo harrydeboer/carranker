@@ -29,9 +29,11 @@ class Contact extends Mailable
      */
     public function build(): Contact
     {
-        return $this->from(env('MAIL_POSTMASTER_USERNAME'), $this->formData['name'])
+        return $this->to(env('MAIL_USERNAME'), env('APP_NAME'))
+            ->from(env('MAIL_POSTMASTER_USERNAME'), $this->formData['name'])
             ->replyTo($this->formData['email'], $this->formData['name'])
-            ->view('mail.contact')
-            ->with(['message', $this->formData['message']]);
+            ->view('mail.contact', [
+                'userMessage' => $this->formData['message'],
+            ]);
     }
 }
