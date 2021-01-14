@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Mail\Contact;
 use App\Repositories\PageRepository;
 use App\Repositories\ProfanityRepository;
 use App\Validators\ContactValidator;
@@ -48,9 +49,7 @@ class ContactPageController extends Controller
         $formData = $validator->validate();
 
         try {
-            $this->mailer->send('contactPage.message',
-                                ['userMessage' => $formData['message']],
-                                $this->mailerCallback($formData));
+            $this->mailer->send(new Contact($formData));
 
         } catch (Swift_SwiftException $e) {
             $this->logManager->debug($e->getMessage());
@@ -59,18 +58,5 @@ class ContactPageController extends Controller
         }
 
         return $this->redirectTo()->with('success', 'Thank you for your mail!');
-    }
-
-    /**
-     * @throws Swift_SwiftException
-     */
-    private function mailerCallback($data): Closure
-    {
-        return function(Message $message) use ($data) {
-            $message->from(env('MAIL_POSTMASTER_USERNAME'), $data['name']);
-            $message->replyTo($data['email'], $data['name']);
-            $message->subject($data['subject']);
-            $message->to(env('MAIL_USERNAME'));
-        };
     }
 }

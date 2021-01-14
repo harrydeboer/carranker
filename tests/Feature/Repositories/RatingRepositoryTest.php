@@ -11,7 +11,6 @@ use App\Models\Rating;
 use App\Repositories\ProfanityRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\Elastic\TrimRepository;
-use App\Validators\RatingValidator;
 use Tests\TestCase;
 
 class RatingRepositoryTest extends TestCase
