@@ -188,4 +188,17 @@ $(document).ready(function ()
             return false;
         }
     });
+
+    ratingFormContent.bind('paste', function(event)
+    {
+        let errorMessage = $('#noHtmlAllowed');
+        let pastedData = event.originalEvent.clipboardData.getData('text');
+        errorMessage.text('');
+
+        if (pastedData.indexOf('<') || pastedData.indexOf('>') || pastedData.indexOf('[') || pastedData.indexOf(']')) {
+            errorMessage.text('No html allowed');
+
+            return false;
+        }
+    });
 });
