@@ -195,7 +195,10 @@ $(document).ready(function ()
         let pastedData = event.originalEvent.clipboardData.getData('text');
         errorMessage.text('');
 
-        if (pastedData.indexOf('<') || pastedData.indexOf('>') || pastedData.indexOf('[') || pastedData.indexOf(']')) {
+        if (pastedData.indexOf('<') !== -1
+            || pastedData.indexOf('>') !== -1
+            || pastedData.indexOf('[') !== -1
+            || pastedData.indexOf(']') !== -1) {
             errorMessage.text('No html allowed');
 
             return false;
