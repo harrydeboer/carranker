@@ -31,7 +31,7 @@ class RatingValidator extends BaseValidator
         ];
 
         foreach (Aspects::getAspects() as $aspect) {
-            $rules['star.' . $aspect] = 'integer|required';
+            $rules['star.' . $aspect] = 'integer|required|between:1,10';
         }
 
         return $rules;
