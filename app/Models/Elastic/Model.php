@@ -40,4 +40,13 @@ class Model extends BaseModel
     {
         return $this->hasMany('\App\Models\Elastic\Trim','model_id');
     }
+
+    public function getAttributes(): array
+    {
+        $attributes = $this->attributes;
+
+        $attributes['content'] = $this->getContent();
+
+        return $attributes;
+    }
 }

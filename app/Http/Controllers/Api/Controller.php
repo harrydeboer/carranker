@@ -25,7 +25,6 @@ class Controller extends BaseController
     public function viewMake(string $makeId): JsonResponse
     {
         $make = $this->makeRepository->get((int) $makeId);
-        $make->setContent($make->getContent());
 
         return response()->json($make->getAttributes());
     }
@@ -33,7 +32,6 @@ class Controller extends BaseController
     public function viewModel(string $modelId): JsonResponse
     {
         $model = $this->modelRepository->get((int) $modelId);
-        $model->setContent($model->getContent());
 
         return response()->json($model->getAttributes());
     }

@@ -24,4 +24,13 @@ class Make extends BaseModel
     {
         return $this->hasMany('\App\Models\Elastic\Model', 'make_id');
     }
+
+    public function getAttributes(): array
+    {
+        $attributes = $this->attributes;
+
+        $attributes['content'] = $this->getContent();
+
+        return $attributes;
+    }
 }
