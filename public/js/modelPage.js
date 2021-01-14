@@ -144,7 +144,7 @@ $(document).ready(function ()
 
     /** The dialog with the rating form can have three shapes. When a trim is viewed and the user wants to rate
      * this trim then the user does not need to specify the right generation, series or trim. When the form is selected
-     * from the modelpage the user needs to specify the generation, series and/or trim and these are then required.
+     * from the model page the user needs to specify the generation, series and/or trim and these are then required.
      * Finally when the user wants to write a review the textarea is displayed in the form and made required. */
     function showDialog(typeShow)
     {
