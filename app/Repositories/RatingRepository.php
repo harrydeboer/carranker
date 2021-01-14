@@ -75,12 +75,9 @@ class RatingRepository implements IRepository
             'trim_id' => $trim->getId(),
             'time' => time(),
             'pending' => $pending,
+            'content' => $data['content']
         ];
-        if (is_null($data['content'])) {
-            $createArray['content'] = null;
-        } else {
-            $createArray['content'] = mb_convert_encoding($data['content'], 'HTML-ENTITIES', 'ISO-8859-1');
-        }
+
         foreach ($data['star'] as $key => $aspect) {
             $createArray[$key] = (int) $aspect;
         }
@@ -93,9 +90,7 @@ class RatingRepository implements IRepository
         foreach ($data['star'] as $key => $aspect) {
             $rating->setAspect($key, (int) $aspect);
         }
-        if (is_null($data['content'])) {
-            $rating->setContent();
-        } else {
+        if (!is_null($data['content'])) {
             $rating->setContent($data['content']);
         }
         $rating->setPending($pending);

@@ -7,7 +7,6 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Models\Rating;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserRepository implements IRepository
 {
@@ -43,9 +42,9 @@ class UserRepository implements IRepository
         return $this->user->where('name', $username)->first();
     }
 
-    public function getByEmail(string $useremail): ?User
+    public function getByEmail(string $email): ?User
     {
-        return $this->user->where('email', $useremail)->first();
+        return $this->user->where('email', $email)->first();
     }
 
     public function getRatingsTrim(?User $user, int $trimId): ?Rating
@@ -54,7 +53,8 @@ class UserRepository implements IRepository
             return null;
         }
 
-        return $user->hasMany('\App\Models\Rating')
+        return (new Rating())
+            ->where('user_id', $user->getId())
             ->where('trim_id', $trimId)
             ->orderBy('time', 'desc')
             ->first();
@@ -66,6 +66,10 @@ class UserRepository implements IRepository
             return null;
         }
 
-        return $user->hasMany('\App\Models\Rating')->where('model_id', $modelId)->get()->keyBy('trim_id');
+        return (new Rating())
+            ->where('user_id', $user->getId())
+            ->where('model_id', $modelId)
+            ->get()
+            ->keyBy('trim_id');
     }
 }

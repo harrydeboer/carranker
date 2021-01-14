@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Validators;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Translation\Translator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;

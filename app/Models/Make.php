@@ -15,6 +15,15 @@ class Make extends BaseModel
     public $timestamps = false;
     protected $fillable = ['name', 'content', 'wiki_car_make'];
 
+    public function __construct(array $attributes = [])
+    {
+        if (isset($attributes['content'])) {
+            $this->setContent($attributes['content']);
+        }
+
+        parent::__construct($attributes);
+    }
+
     public function save(array $options = []): bool
     {
         if (is_null($this->findId())) {

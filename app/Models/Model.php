@@ -24,6 +24,11 @@ class Model extends BaseModel
     public function __construct(array $attributes = [])
     {
         $this->fillable = array_merge(self::$aspects, $this->fillable);
+
+        if (isset($attributes['content'])) {
+            $this->setContent($attributes['content']);
+        }
+
         parent::__construct($attributes);
 
         if ($attributes !== []) {
