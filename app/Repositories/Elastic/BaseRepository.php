@@ -30,6 +30,11 @@ abstract class BaseRepository
         return $this->model::searchMany($params);
     }
 
+    public function all(): Collection
+    {
+        return $this->model::all();
+    }
+
     public function createIndex()
     {
         $params = [
@@ -130,13 +135,8 @@ abstract class BaseRepository
         }
 
         // Send the last batch if it exists
-        if (!empty($params['body'])) {
+        if (!empty($params['body']) && count($models) > 0) {
             BaseModel::bulk($params);
         }
-    }
-
-    public function flush()
-    {
-        $this->model->flush();
     }
 }

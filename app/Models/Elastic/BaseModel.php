@@ -8,6 +8,7 @@ use App\ElasticClient;
 use Illuminate\Database\Eloquent\Collection;
 use Elasticsearch\Client;
 use App\Models\BaseModel as EloquentBaseModel;
+use stdClass;
 
 abstract class BaseModel
 {
@@ -37,6 +38,20 @@ abstract class BaseModel
         }
 
         $this->attributes = $attributes;
+    }
+
+    public static function all(): Collection
+    {
+        $params = [
+            'index' => static::getIndex(),
+            'body' => [
+                'query' => [
+                    'match_all' => new stdClass()
+                ]
+            ]
+        ];
+
+        return static::searchMany($params);
     }
 
     public function getId(): int
@@ -77,11 +92,6 @@ abstract class BaseModel
     public function getMappingFields(): array
     {
         return array_merge($this->keywords, $this->doubles, $this->booleans, $this->integers, $this->texts);
-    }
-
-    public function flush()
-    {
-        self::$client->indices()->flush(['index' => static::getIndex()]);
     }
 
     public function indexExists(): bool

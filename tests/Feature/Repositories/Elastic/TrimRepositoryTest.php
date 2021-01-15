@@ -13,22 +13,21 @@ use Tests\FeatureTestCase;
 class TrimRepositoryTest extends FeatureTestCase
 {
     private TrimRepository $trimRepository;
-    private \App\Models\Elastic\Trim $trim;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->trimRepository = $this->app->make(TrimRepository::class);
-        $trimEloquent = Trim::factory()->create();
-        $this->artisan('process:queue');
-        $this->trim = $this->trimRepository->get($trimEloquent->getId());
     }
 
     public function testFindSelectedGeneration()
     {
-        $generation = $this->trimRepository->findSelectedGeneration($this->trim->getId());
+        $trimEloquent = Trim::factory()->create();
+        $this->artisan('process:queue');
+        $trim = $this->trimRepository->get($trimEloquent->getId());
+        $generation = $this->trimRepository->findSelectedGeneration($trim->getId());
 
-        $this->assertEquals($generation, $this->trim->getYearBegin() . '-' . $this->trim->getYearEnd());
+        $this->assertEquals($generation, $trim->getYearBegin() . '-' . $trim->getYearEnd());
     }
 
     public function testFindTrimsForSearch()

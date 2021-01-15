@@ -42,9 +42,9 @@ class FlushIndices extends Command
             $this->modelRepository->createIndex();
             $this->trimRepository->createIndex();
         } else {
-            $this->makeRepository->flush();
-            $this->modelRepository->flush();
-            $this->trimRepository->flush();
+            $this->makeRepository->deleteAllFromIndex($this->makeRepository->all());
+            $this->modelRepository->deleteAllFromIndex($this->modelRepository->all());
+            $this->trimRepository->deleteAllFromIndex($this->trimRepository->all());
         }
 
         $this->info('Indices flushed!');
