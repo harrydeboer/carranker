@@ -94,11 +94,6 @@ abstract class BaseModel
         return array_merge($this->keywords, $this->doubles, $this->booleans, $this->integers, $this->texts);
     }
 
-    public function indexExists(): bool
-    {
-        return self::$client->indices()->exists(['index' => static::getIndex()]);
-    }
-
     public static function getIndex(): string
     {
         $index = static::$index;
@@ -139,29 +134,29 @@ abstract class BaseModel
         return self::arrayToModels($result['hits']['hits'], $sortField);
     }
 
-    public static function indicesCreate(array $params): void
+    public function indexExists(): bool
     {
-        self::$client->indices()->create($params);
+        return self::$client->indices()->exists(['index' => static::getIndex()]);
     }
 
-    public static function indicesExists(array $params): bool
+    public function indexCreate(array $params): void
     {
-        return self::$client->indices()->exists($params);
+        static::$client->indices()->create($params);
     }
 
-    public static function indicesDelete(array $params): void
+    public function indexDelete(array $params): void
     {
-        self::$client->indices()->delete($params);
+        static::$client->indices()->delete($params);
     }
 
-    public static function indicesGetMapping(array $params): array
+    public function indexGetMapping(array $params): array
     {
-        return self::$client->indices()->getMapping($params);
+        return static::$client->indices()->getMapping($params);
     }
 
     public static function bulk(array $params): void
     {
-        self::$client->bulk($params);
+        static::$client->bulk($params);
     }
 
     protected static function arrayToModel(array $result): static
