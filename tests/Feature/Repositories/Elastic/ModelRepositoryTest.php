@@ -6,9 +6,9 @@ namespace Tests\Feature\Repositories\Elastic;
 
 use App\Models\Elastic\Model;
 use App\Repositories\Elastic\ModelRepository;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class ModelRepositoryTest extends TestCase
+class ModelRepositoryTest extends FeatureTestCase
 {
     private ModelRepository $modelRepository;
     private Model $model;
@@ -17,7 +17,9 @@ class ModelRepositoryTest extends TestCase
     {
         parent::setUp();
         $this->modelRepository = $this->app->make(ModelRepository::class);
-        $this->model = $this->modelRepository->get(1);
+        $modelEloquent = \App\Models\Model::factory()->create();
+        $this->artisan('process:queue');
+        $this->model = $this->modelRepository->get($modelEloquent->getId());
     }
 
     public function testGetByMakeModelName()

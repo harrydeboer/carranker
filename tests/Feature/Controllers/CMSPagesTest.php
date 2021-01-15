@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 use App\Models\Page;
 
-class CMSPagesTest extends TestCase
+class CMSPagesTest extends FeatureTestCase
 {
     public function testAbout()
     {

@@ -4,68 +4,40 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\Api;
 
+use App\Models\Elastic\Trim;
 use App\Models\User;
-use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\TrimRepository;
-use App\Repositories\UserRepository;
 use Illuminate\Contracts\Hashing\Hasher;
-use Tests\TestCase;
-use Illuminate\Support\Facades\DB;
+use Laravel\Passport\Passport;
+use Tests\FeatureTestCase;
 
-class APITest extends TestCase
+class APITest extends FeatureTestCase
 {
-    private $user;
-    private UserRepository $userRepository;
-    private MakeRepository $makeRepository;
-    private TrimRepository $trimRepository;
+    private User $user;
+    private Trim $trim;
 
     protected function setUp(): void
     {
         parent::setUp();
+
         $hasher = $this->app->make(Hasher::class);
-        $this->userRepository = $this->app->make(UserRepository::class);
-        $this->makeRepository = $this->app->make(MakeRepository::class);
-        $this->trimRepository = $this->app->make(TrimRepository::class);
         $this->user = User::factory()->create(['password' => $hasher->make('password')]);
-        $this->artisan('passport:install')->execute();
-        DB::table('oauth_clients')->where(['id' => 2])->update(['user_id' => $this->user->getId()]);
-        DB::table('oauth_clients')->select('*')->where(['id' => 2])->first();
+
+        $trimEloquent = \App\Models\Trim::factory()->create();
+        $this->artisan('index:cars')->execute();
+        $trimRepository = $this->app->make(TrimRepository::class);
+        $this->trim = $trimRepository->get($trimEloquent->getId());
     }
 
-    public function testOauthLogin()
+    public function testOauthLoginAndGetMakeModelTrim()
     {
-        $oauth_client = DB::table('oauth_clients')->select('*')->where(['id' => 2])->first();
+        Passport::actingAs($this->user);
 
-        $body = [
-            'username' => $this->user->email,
-            'password' => 'password',
-            'client_id' => 2,
-            'client_secret' => $oauth_client->secret,
-            'grant_type' => 'password',
-            'scope' => '*'
-        ];
-        $response = $this->json('POST','/oauth/token',$body,['Accept' => 'application/json']);
-
-        $auth = json_decode( (string) $response->getContent() );
-
-        $body = [
-            'username' => $this->user->email,
-            'password' => 'password',
-            'client_id' => 2,
-            'client_secret' => $oauth_client->secret,
-            'grant_type' => 'password',
-            'scope' => '*'
-        ];
-
-        $trim = $this->trimRepository->get(1);
+        $trim = $this->trim;
         $model = $trim->getModel();
         $make = $model->getMake();
 
-        $response = $this->json('GET','/api/make/' . $make->getId(),
-            $body, [
-                'Accept' => 'application/json',
-                'Authorization' => 'Bearer ' . $auth->access_token,
-            ]);
+        $response = $this->json('GET','/api/make/' . $make->getId());
 
         $response->assertStatus(200);
         $jsonObject = json_decode($response->getContent());
@@ -73,11 +45,7 @@ class APITest extends TestCase
         $this->assertEquals($make->getName(), $jsonObject->name);
         $this->assertEquals($make->getContent(), $jsonObject->content);
 
-        $response = $this->json('GET','/api/model/' . $model->getId(),
-            $body, [
-                'Accept' => 'application/json',
-                'Authorization' => 'Bearer ' . $auth->access_token,
-            ]);
+        $response = $this->json('GET','/api/model/' . $model->getId());
 
         $response->assertStatus(200);
         $jsonObject = json_decode($response->getContent());
@@ -86,11 +54,7 @@ class APITest extends TestCase
         $this->assertEquals($model->getName(), $jsonObject->name);
         $this->assertEquals($model->getContent(), $jsonObject->content);
 
-        $response = $this->json('GET','/api/trim/' . $trim->getId(),
-            $body, [
-                'Accept' => 'application/json',
-                'Authorization' => 'Bearer ' . $auth->access_token,
-            ]);
+        $response = $this->json('GET','/api/trim/' . $trim->getId());
 
         $response->assertStatus(200);
         $jsonObject = json_decode($response->getContent());
@@ -99,9 +63,9 @@ class APITest extends TestCase
         $this->assertEquals($trim->getName(), $jsonObject->name);
     }
 
-    public function testGetModelnames()
+    public function testGetModelNames()
     {
-        $make = $this->makeRepository->get(1);
+        $make = $this->trim->getModel()->getMake();
         $models = $make->getModels();
 
         $response = $this->get('/api/getModelNames/' . $make->getName());

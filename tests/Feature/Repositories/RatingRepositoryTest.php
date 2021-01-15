@@ -8,23 +8,20 @@ use App\Models\Aspects;
 use App\Models\Trim;
 use App\Models\User;
 use App\Models\Rating;
-use App\Repositories\ProfanityRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\Elastic\TrimRepository;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class RatingRepositoryTest extends TestCase
+class RatingRepositoryTest extends FeatureTestCase
 {
     private RatingRepository $ratingRepository;
     private TrimRepository $trimRepository;
-    private ProfanityRepository $profanityRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->ratingRepository = $this->app->make(RatingRepository::class);
         $this->trimRepository = $this->app->make(TrimRepository::class);
-        $this->profanityRepository = $this->app->make(ProfanityRepository::class);
     }
 
     public function testFindRecentReviews()
@@ -33,7 +30,7 @@ class RatingRepositoryTest extends TestCase
 
         $reviews = $this->ratingRepository->findRecentReviews(1);
 
-        $this->assertEquals(count($reviews), 1);
+        $this->assertCount(1, $reviews);
 
         foreach ($reviews as $review) {
             $this->assertEquals($review->getContent(), $rating->getContent());
@@ -121,7 +118,9 @@ class RatingRepositoryTest extends TestCase
 
     public function testGetReviews()
     {
-        $trim = $this->trimRepository->get(1);
+        $trimEloquent = Trim::factory()->create();
+        $this->artisan('process:queue')->execute();
+        $trim = $this->trimRepository->get($trimEloquent->getId());
         $reviewFromFactory = Rating::factory()->create([
                                                            'content' => 'notnull',
                                                            'trim_id' => $trim->getId(),
@@ -137,10 +136,18 @@ class RatingRepositoryTest extends TestCase
 
     public function testGetNumOfReviews()
     {
-        $trim = $this->trimRepository->get(1);
-        $model = $trim->getModel();
-        $number = $this->ratingRepository->getNumOfReviews($model);
+        $trimEloquent = Trim::factory()->create();
+        $this->artisan('process:queue')->execute();
+        $trim = $this->trimRepository->get($trimEloquent->getId());
+        Rating::factory()->create([
+                                      'trim_id' => $trim->getId(),
+                                      'model_id' => $trim->getModel()->getId(),
+                                      'content' => 'test',
+                                      'pending' => 0,
+                                  ]);
 
-        $this->assertEquals($number, 1);
+        $number = $this->ratingRepository->getNumOfReviews($trim->getModel());
+
+        $this->assertEquals(1, $number);
     }
 }

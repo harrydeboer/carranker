@@ -4,21 +4,26 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\Admin;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Repositories\RoleRepository;
 use Illuminate\Contracts\Hashing\Hasher;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class LoginAdmin extends TestCase
+class LoginAdmin extends FeatureTestCase
 {
+    use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
-        $roleRepository = app()->make(RoleRepository::class);
-        $hasher = app()->make(Hasher::class);
 
+        Role::factory()->create(['name' => 'admin']);
+        $roleRepository = app()->make(RoleRepository::class);
         $role = $roleRepository->getByName('admin');
 
+        $hasher = app()->make(Hasher::class);
         $password = 'secret';
         $user = User::factory()->create(['password' => $hasher->make($password)]);
         $user->getRoles()->attach($role->getId());

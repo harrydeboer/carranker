@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\Auth;
 
+use App\Models\Role;
 use App\Repositories\UserRepository;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class RegisterTest extends TestCase
+class RegisterTest extends FeatureTestCase
 {
     private UserRepository $userRepository;
 
@@ -26,17 +27,19 @@ class RegisterTest extends TestCase
 
     public function testRegister()
     {
-        $useremail = 'test@test.com';
+        Role::factory()->create(['name' => 'member']);
+
+        $email = 'test@test.com';
         $response = $this->post('/register', [
             'name' => 'Test',
-            'email' => $useremail,
-            'password' => 'testtest',
-            'password_confirmation' => 'testtest',
+            'email' => $email,
+            'password' => 'testTest',
+            'password_confirmation' => 'testTest',
         ]);
 
         $response->assertRedirect('/email/verify');
 
-        $user = $this->userRepository->getByEmail($useremail);
+        $user = $this->userRepository->getByEmail($email);
         $this->assertAuthenticatedAs($user);
     }
 }

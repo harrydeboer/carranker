@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class HomePageTest extends TestCase
+class HomePageTest extends FeatureTestCase
 {
     public function testHomepage()
     {

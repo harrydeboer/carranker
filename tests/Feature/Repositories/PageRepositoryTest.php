@@ -6,12 +6,11 @@ namespace Tests\Feature\Repositories;
 
 use App\Models\Page;
 use App\Repositories\PageRepository;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class PageRepositoryTest extends TestCase
+class PageRepositoryTest extends FeatureTestCase
 {
-    private $pageRepository;
+    private PageRepository $pageRepository;
 
     protected function setUp(): void
     {

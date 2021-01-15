@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories;
 
+use App\Models\FXRate;
 use App\Repositories\FXRateRepository;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class FXRateRepositoryTest extends TestCase
+class FXRateRepositoryTest extends FeatureTestCase
 {
     private FXRateRepository $fXRateRepository;
 
@@ -19,9 +20,9 @@ class FXRateRepositoryTest extends TestCase
 
     public function testGetByName()
     {
-        $fxrate = $this->fXRateRepository->get(1);
-        $fxrateFromDb = $this->fXRateRepository->getByName($fxrate->getName());
+        $fXRate = FXRate::factory()->create();
+        $fXRateFromDb = $this->fXRateRepository->getByName($fXRate->getName());
 
-        $this->assertEquals($fxrate->getId(), $fxrateFromDb->getId());
+        $this->assertEquals($fXRate->getId(), $fXRateFromDb->getId());
     }
 }

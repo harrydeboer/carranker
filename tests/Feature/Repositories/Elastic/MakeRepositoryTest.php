@@ -6,11 +6,11 @@ namespace Tests\Feature\Repositories\Elastic;
 
 use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\ModelRepository;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 use App\Models\Elastic\Make;
 use App\Models\Elastic\Model;
 
-class MakeRepositoryTest extends TestCase
+class MakeRepositoryTest extends FeatureTestCase
 {
     private MakeRepository $makeRepository;
     private Make $make;
@@ -21,7 +21,9 @@ class MakeRepositoryTest extends TestCase
         parent::setUp();
         $this->makeRepository = $this->app->make(MakeRepository::class);
         $modelRepository = $this->app->make(ModelRepository::class);
-        $this->model = $modelRepository->get(1);
+        $modelEloquent = \App\Models\Model::factory()->create();
+        $this->artisan('process:queue');
+        $this->model = $modelRepository->get($modelEloquent->getId());
         $this->make = $this->model->getMake();
     }
 
@@ -43,7 +45,7 @@ class MakeRepositoryTest extends TestCase
 
     public function testGetMakeNames()
     {
-        $makeNames = $this->makeRepository->getMakenames();
+        $makeNames = $this->makeRepository->getMakeNames();
 
         $this->assertTrue(in_array($this->make->getName(), $makeNames));
     }

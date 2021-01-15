@@ -8,6 +8,7 @@ use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\ModelRepository;
 use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Console\Command;
+use Illuminate\Support\Env;
 
 class IndexCars extends Command
 {
@@ -16,7 +17,7 @@ class IndexCars extends Command
      *
      * @var string
      */
-    protected $signature = 'index:cars';
+    protected $signature = 'index:cars {--only-delete-create-indices}';
 
     /**
      * The console command description.
@@ -47,9 +48,11 @@ class IndexCars extends Command
         $this->modelRepository->createIndex();
         $this->trimRepository->createIndex();
 
-        $this->makeRepository->addAllToIndex($this->makeRepositoryEloquent->all());
-        $this->modelRepository->addAllToIndex($this->modelRepositoryEloquent->all());
-        $this->trimRepository->addAllToIndex($this->trimRepositoryEloquent->all());
+        if (!$this->option('only-delete-create-indices')) {
+            $this->makeRepository->addAllToIndex($this->makeRepositoryEloquent->all());
+            $this->modelRepository->addAllToIndex($this->modelRepositoryEloquent->all());
+            $this->trimRepository->addAllToIndex($this->trimRepositoryEloquent->all());
+        }
 
         $this->info('Cars indexed!');
     }

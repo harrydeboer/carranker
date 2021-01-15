@@ -5,25 +5,28 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers;
 
 use App\Models\Aspects;
+use App\Models\FXRate;
+use App\Models\Trim;
+use App\Models\User;
 use App\Repositories\Elastic\TrimRepository;
-use App\Repositories\UserRepository;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class ModelPageTest extends TestCase
+class ModelPageTest extends FeatureTestCase
 {
     private TrimRepository $trimRepository;
-    private UserRepository $userRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->trimRepository = $this->app->make(TrimRepository::class);
-        $this->userRepository = $this->app->make(UserRepository::class);
     }
 
     public function testModelPage()
     {
-        $trim = $this->trimRepository->get(1);
+        FXRate::factory()->create();
+        $trimEloquent = Trim::factory()->create();
+        $this->artisan('process:queue')->execute();
+        $trim = $this->trimRepository->get($trimEloquent->getId());
         $response = $this->get('/model/' . $trim->getModel()->getMakeName() . '/' . $trim->getModel()->getName());
 
         $response->assertStatus(200);
@@ -36,15 +39,18 @@ class ModelPageTest extends TestCase
 
     public function test404()
     {
-        $response = $this->get('/model/doesnotexist/doesnotexist');
+        $response = $this->get('/model/doesNotExist/doesNotExist');
 
         $response->assertStatus(404);
     }
 
     public function testRateCar()
     {
-        $trim = $this->trimRepository->get(1);
-        $user = $this->userRepository->get(1);
+        $trimEloquent = Trim::factory()->create();
+        $this->artisan('process:queue')->execute();
+        $trim = $this->trimRepository->get($trimEloquent->getId());
+
+        $user = User::factory()->create();
         $user->setAttribute('email_verified_at', date('Y-m-d h:i:s'));
 
         $postArrayFirst = [
@@ -62,7 +68,7 @@ class ModelPageTest extends TestCase
 
         $this->artisan('process:queue')->execute();
 
-        $trimDBFirst = $this->trimRepository->get(1);
+        $trimDBFirst = $this->trimRepository->get($trimEloquent->getId());
 
         foreach (Aspects::getAspects() as $aspect) {
             $rating = ($trim->getAspect($aspect) * $trim->getVotes() + $postArrayFirst['star'][$aspect]) /
@@ -81,7 +87,7 @@ class ModelPageTest extends TestCase
 
         $this->artisan('process:queue')->execute();
 
-        $trimDBSecond = $this->trimRepository->get(1);
+        $trimDBSecond = $this->trimRepository->get($trimEloquent->getId());
 
         foreach (Aspects::getAspects() as $aspect) {
             $rating = ($trimDBFirst->getAspect($aspect) * $trimDBFirst->getVotes() + $postArraySecond['star'][$aspect] -

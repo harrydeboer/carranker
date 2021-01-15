@@ -8,9 +8,9 @@ use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class VerifyTest extends TestCase
+class VerifyTest extends FeatureTestCase
 {
     private User $user;
 

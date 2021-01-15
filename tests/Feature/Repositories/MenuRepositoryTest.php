@@ -6,20 +6,16 @@ namespace Tests\Feature\Repositories;
 
 use App\Models\Menu;
 use App\Repositories\MenuRepository;
-use App\Repositories\PageRepository;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class MenuRepositoryTest extends TestCase
+class MenuRepositoryTest extends FeatureTestCase
 {
     private MenuRepository $menuRepository;
-    private PageRepository $pageRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->menuRepository = $this->app->make(MenuRepository::class);
-        $this->pageRepository = $this->app->make(PageRepository::class);
     }
 
     public function testFindByName()

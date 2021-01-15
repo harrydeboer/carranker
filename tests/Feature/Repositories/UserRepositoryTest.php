@@ -7,9 +7,9 @@ namespace Tests\Feature\Repositories;
 use App\Models\User;
 use App\Models\Rating;
 use App\Repositories\UserRepository;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class UserRepositoryTest extends TestCase
+class UserRepositoryTest extends FeatureTestCase
 {
     private UserRepository $userRepository;
 

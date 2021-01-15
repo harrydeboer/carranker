@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories\Elastic;
 
-use App\Models\Elastic\Trim;
+use App\CarSpecs;
+use App\Models\Aspects;
+use App\Models\Trim;
 use App\Repositories\Elastic\TrimRepository;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class TrimRepositoryTest extends TestCase
+class TrimRepositoryTest extends FeatureTestCase
 {
     private TrimRepository $trimRepository;
-    private Trim $trim;
+    private \App\Models\Elastic\Trim $trim;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->trimRepository = $this->app->make(TrimRepository::class);
-        $this->trim = $this->trimRepository->get(1);
+        $trimEloquent = Trim::factory()->create();
+        $this->artisan('process:queue');
+        $this->trim = $this->trimRepository->get($trimEloquent->getId());
     }
 
     public function testFindSelectedGeneration()
@@ -29,7 +33,7 @@ class TrimRepositoryTest extends TestCase
 
     public function testFindTrimsForSearch()
     {
-        $trimWithName = \App\Models\Trim::factory()->create(['name' => 'testTrimRepo']);
+        $trimWithName = Trim::factory()->create(['name' => 'testTrimRepo']);
         $this->artisan('process:queue')->execute();
 
         $trimCollection = $this->trimRepository->findForSearch($trimWithName->getName());
@@ -41,12 +45,19 @@ class TrimRepositoryTest extends TestCase
 
     public function testFindTrimsOfTop()
     {
+        Trim::factory()->create(['votes' => 31, 'framework' => 'Sedan', 'price' => 6000]);
+        Trim::factory()->create(['votes' => 31, 'framework' => 'Sedan', 'price' => 7000]);
+        Trim::factory()->create(['votes' => 31, 'framework' => 'Sedan', 'price' => 11000]);
+        Trim::factory()->create(['votes' => 31, 'framework' => 'Van']);
+        Trim::factory()->create(['votes' => 25]);
+        $this->artisan('process:queue')->execute();
+
         $index = '0';
-        $framework = \App\CarSpecs::specsChoice()['framework']['choices'][(int) $index];
+        $framework = CarSpecs::specsChoice()['framework']['choices'][(int) $index];
         $formData = [];
 
         $aspects = [];
-        foreach (\App\Models\Aspects::getAspects() as $aspect) {
+        foreach (Aspects::getAspects() as $aspect) {
             $aspects[$aspect] = '1';
         }
         $formData['aspects'] = $aspects;
@@ -54,12 +65,12 @@ class TrimRepositoryTest extends TestCase
         $formData['specsChoice'] = ['framework' . $index => 'on'];
 
         $specsRange = [];
-        foreach (\App\CarSpecs::specsRange() as $specName => $spec) {
-            $specsRange[$specName . 'min'] = null;
-            $specsRange[$specName . 'max'] = null;
+        foreach (CarSpecs::specsRange() as $specName => $spec) {
+            $specsRange[$specName . 'Min'] = null;
+            $specsRange[$specName . 'Max'] = null;
         }
-        $specsRange['pricemin'] = '5000';
-        $specsRange['pricemax'] = '10000';
+        $specsRange['priceMin'] = '5000';
+        $specsRange['priceMax'] = '10000';
         $formData['specsRange'] = $specsRange;
         $minNumVotes = 30;
         $lengthTopTable = 4;
@@ -71,6 +82,6 @@ class TrimRepositoryTest extends TestCase
             $this->assertTrue($trim->getFramework() === $framework);
         }
 
-        $this->assertEquals(count($trims), 2);
+        $this->assertCount(2, $trims);
     }
 }

@@ -66,14 +66,14 @@
             <tr class="row rangeRow {{ $spec['show'] === true ? '' : 'collapseRange' }}">
                 <td class="col-md-4 col-sm-6">{{ $spec['display'] }}</td>
                 <td class="col-md-3 col-sm-3">
-                    <select name="specsRange[{{ $specName }}min]" class="specsRange form-control">
+                    <select name="specsRange[{{ $specName }}Min]" class="specsRange form-control">
                         @foreach($spec['minRange'] as $name => $value)
                             <option value="{{ $value }}">{{ $name }}</option>
                         @endforeach
                     </select>
                 </td>
                 <td class="col-md-3 col-sm-3">
-                    <select name="specsRange[{{ $specName }}max]" class="specsRange form-control">
+                    <select name="specsRange[{{ $specName }}Max]" class="specsRange form-control">
                         @foreach($spec['maxRange'] as $name => $value)
                             <option value="{{ $value }}">{{ $name }}</option>
                         @endforeach

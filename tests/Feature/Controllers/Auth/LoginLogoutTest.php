@@ -6,9 +6,9 @@ namespace Tests\Feature\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class LoginLogoutTest extends TestCase
+class LoginLogoutTest extends FeatureTestCase
 {
     public function testLoginPage()
     {

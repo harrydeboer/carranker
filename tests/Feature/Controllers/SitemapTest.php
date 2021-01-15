@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use Tests\TestCase;
+use App\Models\Model;
+use Tests\FeatureTestCase;
 
-class SitemapTest extends TestCase
+class SitemapTest extends FeatureTestCase
 {
     public function testSitemap()
     {
+        Model::factory()->create();
+        $this->artisan('process:queue');
+
         $response = $this->get('/api/sitemap');
         $response->assertStatus(200);
 

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class NotFoundTest extends TestCase
+class NotFoundTest extends FeatureTestCase
 {
     public function test404page()
     {
-        $response = $this->get('/notexisting');
+        $response = $this->get('/notExisting');
 
         $response->assertStatus(404);
 

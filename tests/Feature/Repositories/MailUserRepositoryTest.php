@@ -6,9 +6,9 @@ namespace Tests\Feature\Repositories;
 
 use App\Models\MailUser;
 use App\Repositories\MailUserRepository;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class MailUserRepositoryTest extends TestCase
+class MailUserRepositoryTest extends FeatureTestCase
 {
     private MailUserRepository $mailUserRepository;
 
@@ -26,7 +26,7 @@ class MailUserRepositoryTest extends TestCase
 
         $mailUsers = $this->mailUserRepository->findAll(2);
 
-        $this->assertEquals(count($mailUsers), 2);
+        $this->assertCount(2, $mailUsers);
     }
 
     public function testFindByName()

@@ -10,9 +10,9 @@ use App\Models\Rating;
 use App\Models\Trim;
 use App\Repositories\ModelRepository;
 use App\Repositories\TrimRepository;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class CarRepositoryTest extends TestCase
+class CarRepositoryTest extends FeatureTestCase
 {
     private ModelRepository $modelRepository;
     private TrimRepository $trimRepository;
@@ -39,6 +39,7 @@ class CarRepositoryTest extends TestCase
         $ratingArray = [];
         $modelRatingBeforeUpdate = [];
         $newRating = [];
+        $newRatingWithEarlier = [];
         foreach (Aspects::getAspects() as $aspect) {
             $ratingArray[$aspect] = 8;
             $modelRatingBeforeUpdate[$aspect] = $this->model->getAspect($aspect);

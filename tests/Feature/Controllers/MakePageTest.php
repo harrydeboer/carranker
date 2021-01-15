@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
+use App\Models\Make;
 use App\Repositories\Elastic\MakeRepository;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class MakePageTest extends TestCase
+class MakePageTest extends FeatureTestCase
 {
     private MakeRepository $makeRepository;
 
@@ -19,7 +20,9 @@ class MakePageTest extends TestCase
 
     public function testMakePage()
     {
-        $make = $this->makeRepository->get(1);
+        $makeEloquent = Make::factory()->create();
+        $this->artisan('process:queue')->execute();
+        $make = $this->makeRepository->get($makeEloquent->getId());
         $response = $this->get('/make/' . $make->getName());
 
         $response->assertStatus(200);

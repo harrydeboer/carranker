@@ -7,9 +7,9 @@ namespace Tests\Feature\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Password;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class ResetPasswordTest extends TestCase
+class ResetPasswordTest extends FeatureTestCase
 {
     private User $user;
 

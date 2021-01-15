@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories;
 
-use App\Repositories\ProfanityRepository;
-use Tests\TestCase;
 use App\Models\Profanity;
+use App\Repositories\ProfanityRepository;
+use Tests\FeatureTestCase;
 
-class ProfanityRepositoryTest extends TestCase
+class ProfanityRepositoryTest extends FeatureTestCase
 {
     private ProfanityRepository $profanityRepository;
 
@@ -20,7 +20,7 @@ class ProfanityRepositoryTest extends TestCase
 
     public function testGetProfanityNames()
     {
-        $profanity = $this->profanityRepository->get(1);
+        $profanity = Profanity::factory()->create();
 
         $profanities = explode(' ', $this->profanityRepository->getProfanityNames());
         $this->assertTrue(in_array($profanity->getName(), $profanities));

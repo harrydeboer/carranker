@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers;
 
 use App\Models\Trim;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class SearchTest extends TestCase
+class SearchTest extends FeatureTestCase
 {
     public function testSearch()
     {
@@ -16,6 +16,8 @@ class SearchTest extends TestCase
 
         $model = $trim->getModel();
         $make = $model->getMake();
+
+        $this->artisan('process:queue')->execute();
 
         $response = $this->get('/search?query=' . $make->getName());
         $response->assertStatus(200);

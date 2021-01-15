@@ -6,9 +6,9 @@ namespace Tests\Feature\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class ConfirmTest extends TestCase
+class ConfirmTest extends FeatureTestCase
 {
     private User $user;
 

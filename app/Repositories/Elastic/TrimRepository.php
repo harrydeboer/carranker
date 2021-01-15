@@ -160,8 +160,8 @@ class TrimRepository extends BaseRepository
     private function queryRange(array $spec, string $name, array $params, array $data): array
     {
         $formSpecs = $data['specsRange'];
-        $formMin = $formSpecs[$name . 'min'];
-        $formMax = $formSpecs[$name . 'max'];
+        $formMin = $formSpecs[$name . 'Min'];
+        $formMax = $formSpecs[$name . 'Max'];
 
         if (isset($formMin)) {
 

@@ -7,6 +7,7 @@ namespace Tests\Feature\Controllers\Admin;
 use App\Models\MailUser;
 use App\Repositories\MailUserRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use TypeError;
 
 class MailUserTest extends LoginAdmin
 {
@@ -61,7 +62,7 @@ class MailUserTest extends LoginAdmin
 
         $this->mailUserRepository->getByEmail($newEmail);
 
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
 
         $this->mailUserRepository->getByEmail($oldEmail);
     }

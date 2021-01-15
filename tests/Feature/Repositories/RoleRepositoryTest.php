@@ -6,9 +6,9 @@ namespace Tests\Feature\Repositories;
 
 use App\Models\Role;
 use App\Repositories\RoleRepository;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class RoleRepositoryTest extends TestCase
+class RoleRepositoryTest extends FeatureTestCase
 {
     private RoleRepository $roleRepository;
 
