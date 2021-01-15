@@ -4,9 +4,9 @@ $(document).ready(function ()
     $('#contact-form').on('submit', function (event)
     {
         let testProfanities = true;
-        let mailWords = $('#contactFormMessage').val().split(' ');
-        let subjectWords = $('#contactFormSubject').val().split(' ');
-        let nameWords = $('#contactFormName').val().split(' ');
+        let mailWords = $('#contact-form-message').val().split(' ');
+        let subjectWords = $('#contact-form-subject').val().split(' ');
+        let nameWords = $('#contact-form-name').val().split(' ');
         let profanities = $('#profanities').val().split(' ');
 
         for (let index = 0; index < profanities.length; index++) {
@@ -32,7 +32,7 @@ $(document).ready(function ()
 
         if (!testProfanities) {
             $('#error').html('No swearing please.<BR>');
-        } else if (!$('#reCAPTCHAScript').length) {
+        } else if (!$('#re-captcha-script').length) {
 
             reCAPTCHA($(this), 'contactPage');
 

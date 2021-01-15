@@ -3,7 +3,7 @@
 @section('content')
     @include('errors.errors')
     <table>
-        <tr class="mailUserTr"><td colspan="3">
+        <tr class="mail-user-tr"><td colspan="3">
                 <form method="post" action="{{ route('admin.mail.users.create') }}">
                     @csrf
                     <input type="text" name="domain" placeholder="domain" required>
@@ -17,7 +17,7 @@
         @if (count($mailUsers) > 0)
 
             @foreach ($mailUsers as $mailUser)
-                <tr class="mailUserTr"><td>
+                <tr class="mail-user-tr"><td>
                         <form method="post" action="{{ route('admin.mail.users.update') }}">
                             @csrf
                             <input type="text" name="domain" value="{{ $mailUser->getDomain() }}"
@@ -30,7 +30,7 @@
                             <input type="submit" class="btn btn-warning" value="Update">
                         </form>
                     </td><td>
-                        <form method="post" class="updatePasswordForm"
+                        <form method="post" class="update-password-form"
                               action="{{ route('admin.mail.users.update.password') }}">
                             @csrf
                             <input type="password" class="updatePassword"
@@ -39,7 +39,7 @@
                             <input type="submit" class="btn btn-warning" value="Reset">
                         </form>
                     </td><td>
-                        <button class="btn btn-danger deleteMailUserButton deleteButton"
+                        <button class="btn btn-danger delete-mail-user-button delete-button"
                                 data-action="{{ route('admin.mail.users.delete') }}"
                                 data-id="{{ $mailUser->getId() }}">Delete</button>
                     </td></tr>
@@ -48,7 +48,7 @@
         @else
     </table>
     <section class="col-md-12 row justify-content-center text-center">
-        <h3 class="col-md-6" id="reviewHeading">No mail users.</h3>
+        <h3 class="col-md-6" id="review-heading">No mail users.</h3>
     </section>
     @endif
 @endsection

@@ -1,34 +1,34 @@
-<form method="get" action="{{ route('filterTop') }}" id="filterTopForm">
-    <label for="minNumVotes" class="collapseChoice control-label">Minimum number of votes:</label>
-    <input type="number" name="minNumVotes" class="collapseChoice form-control"
-           step="1" value="{{ $minNumVotes }}" id="minNumVotes" required>
+<form method="get" action="{{ route('filterTop') }}" id="filter-top-form">
+    <label for="min-num-votes" class="collapse-choice control-label">Minimum number of votes:</label>
+    <input type="number" name="minNumVotes" class="collapse-choice form-control"
+           step="1" value="{{ $minNumVotes }}" id="min-num-votes" required>
     <div class="row mx-auto col-md-12">
         <div id="choices" class="btn-group text-center">
             @foreach ($specsChoice as $specName => $spec)
-                <div class="dropdown col-xl-6 col-lg-12 button-inline {{ $spec['show'] === true ? '' : 'collapseChoice' }}">
-                    <button class="btn btn-primary specsChoice"
-                            data-toggle="dropdown" id="filterTopForm{{ $specName }}">{{ $spec['display'] }}</button>
+                <div class="dropdown col-xl-6 col-lg-12 button-inline {{ $spec['show'] === true ? '' : 'collapse-choice' }}">
+                    <button class="btn btn-primary specs-choice"
+                            data-toggle="dropdown" id="filter-top-form{{ $specName }}">{{ $spec['display'] }}</button>
                     <table class="dropdown-menu">
                         <tr class="row">
                             <td class="col-md-8 col-md-offset-1">
-                                <label for="specsChoice[checkAll{{ $specName }}]">Select all/none</label>
+                                <label for="specs-choice[check-all{{ $specName }}]">Select all/none</label>
                             </td>
                             <td class="col-md-2">
                                 <input type="checkbox"
-                                       id="specsChoice[checkAll{{ $specName }}]"
+                                       id="specs-choice[check-all{{ $specName }}]"
                                        name="specsChoice[checkAll{{ $specName }}]"
-                                       class="{{ $specName }} checkAll"
-                                       data-specname="{{ $specName }}"
+                                       class="{{ $specName }} check-all"
+                                       data-spec-name="{{ $specName }}"
                                        checked>
                             </td>
                         </tr>
                         @foreach ($spec['choices'] as $index => $choice)
                             <tr class="row">
                                 <td class="col-md-8 col-md-offset-1"><label
-                                            for="specsChoice[{{ $specName . $index }}]">{{ $choice }}</label></td>
+                                            for="specs-choice[{{ $specName . $index }}]">{{ $choice }}</label></td>
                                 <td class="col-md-2">
                                     <input type="checkbox"
-                                           id="specsChoice[{{ $specName . $index }}]"
+                                           id="specs-choice[{{ $specName . $index }}]"
                                            name="specsChoice[{{ $specName . $index }}]"
                                            class="{{ $specName }}"
                                            checked>
@@ -39,41 +39,41 @@
                 </div>
             @endforeach
         </div>
-        <table class="col-xl-8 col-lg-12 collapseAspects" id="aspectsTable">
+        <table class="col-xl-8 col-lg-12 collapse-aspects" id="aspects-table">
             @foreach ($aspects as $aspect)
-                <tr class="row aspectFilter">
-                    <td class="col-xl-3 col-lg-4 aspectName">
-                        <label for="filterTopForm{{ $aspect }}">{{ $aspect }}</label>
+                <tr class="row aspect-filter">
+                    <td class="col-xl-3 col-lg-4 aspect-name">
+                        <label for="filter-top-form{{ $aspect }}">{{ $aspect }}</label>
                     </td>
-                    <td class="col-xl-1 col-lg-2 aspectMin">0</td>
-                    <td class="col-xl-6 col-lg-4 aspectRange">
+                    <td class="col-xl-1 col-lg-2 aspect-min">0</td>
+                    <td class="col-xl-6 col-lg-4 aspect-range">
                         <input value="1"
                                name="aspects[{{ $aspect }}]"
-                               id="filterTopForm{{ $aspect }}"
+                               id="filter-top-form{{ $aspect }}"
                                type="range"
-                               class="form-control aspectElement"
+                               class="form-control aspect-element"
                                min="0"
                                max="5"
                                step="1">
                     </td>
-                    <td class="col-xl-1 col-lg-2 aspectMax">5</td>
+                    <td class="col-xl-1 col-lg-2 aspect-max">5</td>
                 </tr>
             @endforeach
         </table>
     </div>
-    <table class="table" id="specsRangeTable">
+    <table class="table" id="specs-range-table">
         @foreach ($specsRange as $specName => $spec)
-            <tr class="row rangeRow {{ $spec['show'] === true ? '' : 'collapseRange' }}">
+            <tr class="row range-row {{ $spec['show'] === true ? '' : 'collapse-range' }}">
                 <td class="col-md-4 col-sm-6">{{ $spec['display'] }}</td>
                 <td class="col-md-3 col-sm-3">
-                    <select name="specsRange[{{ $specName }}Min]" class="specsRange form-control">
+                    <select name="specsRange[{{ $specName }}Min]" class="specs-range form-control">
                         @foreach($spec['minRange'] as $name => $value)
                             <option value="{{ $value }}">{{ $name }}</option>
                         @endforeach
                     </select>
                 </td>
                 <td class="col-md-3 col-sm-3">
-                    <select name="specsRange[{{ $specName }}Max]" class="specsRange form-control">
+                    <select name="specsRange[{{ $specName }}Max]" class="specs-range form-control">
                         @foreach($spec['maxRange'] as $name => $value)
                             <option value="{{ $value }}">{{ $name }}</option>
                         @endforeach
@@ -83,9 +83,9 @@
             </tr>
         @endforeach
     </table>
-    <div class="row justify-content-center" id="buttonsShowFilterReset">
-        <button class="btn btn-primary" id="filterTopFormShowAll">Show all options</button>
-        <button class="btn btn-success" id="filterTopFormSubmit">Filter the top!</button>
-        <button class="btn btn-danger" id="filterTopFormReset">Reset to default</button>
+    <div class="row justify-content-center" id="buttons-show-filter-reset">
+        <button class="btn btn-primary" id="filter-top-form-show-all">Show all options</button>
+        <button class="btn btn-success" id="filter-top-form-submit">Filter the top!</button>
+        <button class="btn btn-danger" id="filter-top-form-reset">Reset to default</button>
     </div>
 </form>

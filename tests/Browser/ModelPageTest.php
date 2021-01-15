@@ -43,7 +43,7 @@ class ModelPageTest extends DuskTestCase
                 ->assertPathIs('/');
 
             $browser->visit(route('modelPage', ['make' => $trim->getMakeName(), 'model' => $trim->getModelName()]))
-                ->click('#showReviewDialog');
+                ->click('#show-review-dialog');
 
             $browser->waitFor('#dialog');
 
@@ -52,13 +52,13 @@ class ModelPageTest extends DuskTestCase
             }
 
             $generation = $trim->getYearBegin() . '-' . $trim->getYearEnd();
-            $browser->select('#ratingFormGeneration', $generation);
-            $browser->select('#ratingFormSeries', $generation . ';' . $trim->getFramework());
+            $browser->select('#rating-form-generation', $generation);
+            $browser->select('#rating-form-series', $generation . ';' . $trim->getFramework());
             $browser->type('content', 'test');
 
-            $browser->click('#ratingFormSubmit');
+            $browser->click('#rating-form-submit');
 
-            $browser->waitFor('#thankYou', 30);
+            $browser->waitFor('#thank-you', 30);
 
             $this->assertEmpty($browser->driver->manage()->getLog('browser'));
         });

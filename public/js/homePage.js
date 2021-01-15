@@ -1,68 +1,68 @@
 $(document).ready(function ()
 {
     sessionStorage.lazyLoad = false;
-    let checkAll = $('.checkAll');
+    let checkAll = $('.check-all');
 
     /** Activate the slider */
-    $('#sliderTop').carousel();
+    $('#slider-top').carousel();
 
-    /** Via the checkall checkbox all checks of this car spec are toggled. */
+    /** Via the check all checkbox all checks of this car spec are toggled. */
     checkAll.on('click', function () {
-        $("." + $(this).data('specname')).prop('checked', $(this).prop('checked'));
+        $("." + $(this).data('spec-name')).prop('checked', $(this).prop('checked'));
     });
 
     /** All hidden top filters are toggled. */
-    $('#filterTopFormShowAll').on('click', function(event)
+    $('#filter-top-form-show-all').on('click', function(event)
     {
         /** When all specs are shown the button group must be aligned vertically
          * so that the aspect ranges fit next to the buttons. */
-        if ($('#aspectsTable:visible').length) {
+        if ($('#aspects-table:visible').length) {
             $('#choices').addClass('col-xl-12').removeClass('col-xl-4').removeClass('vertical');
         } else {
             $('#choices').addClass('col-xl-4').addClass('vertical').removeClass('col-xl-12');
         }
 
-        if ($('.collapseChoice:visible').length) {
-            $('.collapseChoice').toggle();
+        if ($('.collapse-choice:visible').length) {
+            $('.collapse-choice').toggle();
         } else {
-            $('.collapseChoice').toggle().css('display', 'inline');
+            $('.collapse-choice').toggle().css('display', 'inline');
         }
 
-        $('.collapseAspects').toggle();
-        if ($('.collapseRange:visible').length) {
-            $('.collapseRange').toggle();
+        $('.collapse-aspects').toggle();
+        if ($('.collapse-range:visible').length) {
+            $('.collapse-range').toggle();
         } else {
-            $('.collapseRange').toggle().css('display', 'flex');
+            $('.collapse-range').toggle().css('display', 'flex');
         }
 
-        $('#preferencesDialog').show();
+        $('#preferences-dialog').show();
         $('html, body').animate({
-            scrollTop: $("#choosePreferences").offset().top
+            scrollTop: $("#choose-preferences").offset().top
         }, 1000);
 
         event.preventDefault();
     });
 
     /** When a user wants the default settings of all filters this function resets to default filtering. */
-    $('#filterTopFormReset').on('click', function (event)
+    $('#filter-top-form-reset').on('click', function (event)
     {
         checkAll.each(function()
         {
             $(this).prop('checked', true);
-            $('.' + $(this).data('specname')).each(function ()
+            $('.' + $(this).data('spec-name')).each(function ()
             {
                 $(this).prop('checked', true);
             });
         });
 
-        $('#minNumVotes').val($('#minNumVotesDefault').val());
+        $('#min-num-votes').val($('#min-num-votes-default').val());
 
-        $('.aspectElement').each(function ()
+        $('.aspect-element').each(function ()
         {
             $(this).val(1);
         });
 
-        $('.specsRange').each(function ()
+        $('.specs-range').each(function ()
         {
             $(this).val("");
         });
@@ -71,25 +71,25 @@ $(document).ready(function ()
     });
 
     /** When the user wants to filter the top the filter preferences are shown and scrolled to. */
-    $('#choosePreferences').on('click', function ()
+    $('#choose-preferences').on('click', function ()
     {
-        $('#preferencesDialog').toggle();
+        $('#preferences-dialog').toggle();
         $('html, body').animate({
-            scrollTop: $("#choosePreferences").offset().top
+            scrollTop: $("#choose-preferences").offset().top
         }, 1000);
     });
 
-    let numShowMoreLess = parseInt($('#numShowMoreLess').val());
+    let numShowMoreLess = parseInt($('#num-show-more-less').val());
 
     if (typeof sessionStorage.numberOfRows === 'undefined') {
-        sessionStorage.numberOfRows = $('#tableTop tr').length;
+        sessionStorage.numberOfRows = $('#table-top tr').length;
     }
 
     if (typeof sessionStorage.topTable !== 'undefined') {
-        $('#fillableTable').html(sessionStorage.topTable);
+        $('#fillable-table').html(sessionStorage.topTable);
         $('#slideshow').html(sessionStorage.slideshow);
-        $("#atLeastVotes").html('<em>with at least ' + sessionStorage.minNumVotes + ' votes</em>');
-        $(".checkAll").click();
+        $("#at-least-votes").html('<em>with at least ' + sessionStorage.minNumVotes + ' votes</em>');
+        $(".check-all").click();
 
         $.each(sessionStorage.filterFormSerializedValues.split('&'), function (index, value)
         {
@@ -104,12 +104,12 @@ $(document).ready(function ()
     showPartTopTable(sessionStorage.numberOfRows);
 
     /** When more or less trims are shown in the top table the scrolling makes that the button remains in the same place of the window. */
-    $('#showMore').on('click', function (event)
+    $('#show-more').on('click', function (event)
     {
         let height = $(document).height();
         let y = $(window).scrollTop();
-        let topRows = $('.topRow');
-        let topRowsVisible = $('.topRow:visible');
+        let topRows = $('.top-row');
+        let topRowsVisible = $('.top-row:visible');
 
         /** More trims are loaded only when there are not enough trims hidden. Otherwise the hidden trims are shown. */
         if (topRowsVisible.length + numShowMoreLess > topRows.length) {
@@ -123,14 +123,14 @@ $(document).ready(function ()
             }
 
             let dataRequest = 'numberOfRows=' + sessionStorage.numberOfRows + '&offset=' +
-                topRows.length + '&' + $('#filterTopForm').serialize();
+                topRows.length + '&' + $('#filter-top-form').serialize();
 
             $.get($(this).attr('href'), dataRequest, function (data)
             {
-                let tableTop = $('#tableTop');
+                let tableTop = $('#table-top');
                 tableTop.append(data);
 
-                sessionStorage.numberOfRows = $('#tableTop tr').length;
+                sessionStorage.numberOfRows = $('#table-top tr').length;
                 sessionStorage.topTable = tableTop[0].outerHTML;
                 showPartTopTable(sessionStorage.numberOfRows);
 
@@ -149,15 +149,15 @@ $(document).ready(function ()
         event.preventDefault();
     });
 
-    $('#showLess').on('click', function (event)
+    $('#show-less').on('click', function (event)
     {
         if (sessionStorage.numberOfRows > numShowMoreLess) {
             let height = $(document).height();
             let y = $(window).scrollTop();
 
             /** Showing less trims is always the lower ten fold when the current number of trims is not a ten fold.
-             * Otherwise numShorMoreLess is substracted for the number of visible trims. */
-            if ($('#tableTop tr').length % 10 === 0) {
+             * Otherwise numShorMoreLess is subtracted for the number of visible trims. */
+            if ($('#table-top tr').length % 10 === 0) {
                 sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) - numShowMoreLess;
             } else {
                 sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) - parseInt(sessionStorage.numberOfRows) % 10;
@@ -171,12 +171,12 @@ $(document).ready(function ()
         event.preventDefault();
     });
 
-    $("#filterTopForm").on('submit', function (event)
+    $("#filter-top-form").on('submit', function (event)
     {
         /** When there are less trims visible than numShowMoreLess the filtering tries to find numShowMoreLess trims.
          * Otherwise the number of visible trims is asked from the server. */
         let rows;
-        let topRowsVisible = $('.topRow:visible');
+        let topRowsVisible = $('.top-row:visible');
         if (topRowsVisible.length < numShowMoreLess) {
             rows = numShowMoreLess;
         } else {
@@ -191,10 +191,10 @@ $(document).ready(function ()
         $.get($(this).attr('action'), $(this).serialize() + "&numberOfRows=" + rows, function (data)
         {
             let array = data.split(/splitPoint/);
-            let tableTopTrs = $('#tableTop tr');
-            $('#fillableTable').html(array[0]);
+            let tableTopTrs = $('#table-top tr');
+            $('#fillable-table').html(array[0]);
             $('#slideshow').html(array[1]);
-            $("#atLeastVotes").html('<em>with at least ' + array[2] + ' votes</em>');
+            $("#at-least-votes").html('<em>with at least ' + array[2] + ' votes</em>');
 
             sessionStorage.topTable = array[0];
             sessionStorage.slideshow = array[1];
@@ -207,7 +207,7 @@ $(document).ready(function ()
             sessionStorage.numberOfRows = tableTopTrs.length;
 
             $('html, body').animate({
-                scrollTop: $("#topCars").offset().top
+                scrollTop: $("#top-cars").offset().top
             }, 1000);
         });
 
@@ -217,8 +217,8 @@ $(document).ready(function ()
     /** Only a part of the total table is shown. The minimum number of votes is set on top of the table. */
     function showPartTopTable(numberOfRows)
     {
-        $('#tableTop tr').hide();
-        $('.topRow').slice(0, numberOfRows).show().css('display', 'flex');
-        $('#topOrLessNumber').html(numberOfRows);
+        $('#table-top tr').hide();
+        $('.top-row').slice(0, numberOfRows).show().css('display', 'flex');
+        $('#top-or-less-number').html(numberOfRows);
     }
 });

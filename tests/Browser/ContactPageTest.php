@@ -25,7 +25,7 @@ class ContactPageTest extends DuskTestCase
 
             $browser->press('Send');
 
-            $browser->waitFor('#errorDisplay', 30);
+            $browser->waitFor('#error-display', 30);
 
             $this->assertEmpty($browser->driver->manage()->getLog('browser'));
         });

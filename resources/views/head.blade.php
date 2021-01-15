@@ -1,7 +1,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="keywords" content="{{ $metaKeyWords }}" />
 <meta name="description" content="{{ $metaDescription }}" />
-<meta name="author" content="Harry de Boer" />
+<meta name="author" content="Car Ranker" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="theme-color" content="#336699">
 

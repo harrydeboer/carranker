@@ -1,14 +1,14 @@
-<div class="modal" id="reallyDelete">
+<div class="modal" id="really-delete">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Do you really want to delete this item?</h3>
             </div>
-            <form method="post" action="" id="deleteForm">
+            <form method="post" action="" id="delete-form">
                 @csrf
-                <input type="hidden" name="id" id="deleteId">
+                <input type="hidden" name="id" id="delete-id">
                 <div class="text-center">
-                    <input type="submit" class="btn btn-danger" id="deleteSubmit" value="Delete">
+                    <input type="submit" class="btn btn-danger" id="delete-submit" value="Delete">
                 </div>
             </form>
             <div class="modal-footer">

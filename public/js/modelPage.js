@@ -1,40 +1,40 @@
 $(document).ready(function ()
 {
-    let ratingForm = $('#ratingForm');
-    let menuGenerations = $('#ratingFormGeneration');
-    let menuSeries = $('#ratingFormSeries');
-    let menuSeriesOptions = $('#ratingFormSeries option');
-    let menuTrims = $('#ratingFormTrim');
-    let menuTrimsOptions = $('#ratingFormTrim option');
-    let ratingFormContent = $('#ratingFormContent');
+    let ratingForm = $('#rating-form');
+    let menuGenerations = $('#rating-form-generation');
+    let menuSeries = $('#rating-form-series');
+    let menuSeriesOptions = $('#rating-form-series option');
+    let menuTrims = $('#rating-form-trim');
+    let menuTrimsOptions = $('#rating-form-trim option');
+    let ratingFormContent = $('#rating-form-content');
 
-    $('#generationSelect').on('change', function()
+    $('#generation-select').on('change', function()
     {
         showSelectedGeneration();
     });
     showSelectedGeneration();
 
     /** Show all or part of the specs of a car trim in the car trim modal. */
-    $('.showAllSpecs').on('click', function()
+    $('.show-all-specs').on('click', function()
     {
-        if ($('.collapseSpecs:visible').length) {
-            $('.collapseSpecs').hide();
-            $('.showAllSpecs').html('Hide all specs');
+        if ($('.collapse-specs:visible').length) {
+            $('.collapse-specs').hide();
+            $('.show-all-specs').html('Hide all specs');
         } else {
-            $('.collapseSpecs').show().css('display', 'flex');
-            $('.showAllSpecs').html('Show all specs');
+            $('.collapse-specs').show().css('display', 'flex');
+            $('.show-all-specs').html('Show all specs');
         }
     });
 
     if (sessionStorage.isThankYou === 'true') {
         sessionStorage.removeItem('isThankYou');
-        $('#thankYou').modal('show');
+        $('#thank-you').modal('show');
     }
 
     /** When a user wants to rate a trim then the generation, series and id of the trim are filled in in the rating form. */
-    $(".toRateTrim").on('click', function()
+    $(".to-rate-trim").on('click', function()
     {
-        $('.typeInfo').modal('hide');
+        $('.type-info').modal('hide');
         showDialog('trim');
         let generation = $(this).data('generation');
         let series = $(this).data('series');
@@ -44,12 +44,12 @@ $(document).ready(function ()
         menuTrims.val(generation + ';' + series + ';' + idTrim);
     });
 
-    $("#showModelDialog").on('click', function()
+    $("#show-model-dialog").on('click', function()
     {
         showDialog('model');
     });
 
-    $("#showReviewDialog").on('click', function()
+    $("#show-review-dialog").on('click', function()
     {
         showDialog('review');
     });
@@ -59,13 +59,13 @@ $(document).ready(function ()
     ratingForm.on('submit', function(event)
     {
         let trimNameArray = menuTrims.val().split(';');
-        $('#ratingFormTrimId').val(trimNameArray[2]);
+        $('#rating-form-trim-id').val(trimNameArray[2]);
 
         let testProfanities = true;
         let profanities = $('#profanities').val().split(' ');
 
-        if ($('#ratingFormContent:visible').length) {
-            let content = $('#ratingFormContent').val();
+        if ($('#rating-form-content:visible').length) {
+            let content = $('#rating-form-content').val();
 
             let contentWords = content.split(' ');
 
@@ -80,9 +80,9 @@ $(document).ready(function ()
         }
 
         if (!testProfanities) {
-            $('#reviewWarning').html('No swearing please.<BR>');
+            $('#review-warning').html('No swearing please.<BR>');
             event.preventDefault();
-        } else if (!$('#reCAPTCHAScript').length) {
+        } else if (!$('#re-captcha-script').length) {
 
             reCAPTCHA(ratingForm, 'modelPage')
 
@@ -124,7 +124,7 @@ $(document).ready(function ()
                 let trimArray = $(this).val().split(';');
                 if (trimArray[0] + ';' + trimArray[1] === selectedSeries) {
                     $(this).show();
-                    if ($('.trimType').length === 0) {
+                    if ($('.trim-type').length === 0) {
                         $(this).prop('selected', true);
                     } else {
                         $(this).show();
@@ -139,7 +139,7 @@ $(document).ready(function ()
     let maxCharactersInReview = ratingFormContent.attr('maxlength');
     ratingFormContent.on('keyup', function()
     {
-        $('#charactersLeft').text(maxCharactersInReview - $(this).val().length);
+        $('#characters-left').text(maxCharactersInReview - $(this).val().length);
     });
 
     /** The dialog with the rating form can have three shapes. When a trim is viewed and the user wants to rate
@@ -151,16 +151,16 @@ $(document).ready(function ()
         menuGenerations.show();
         menuSeries.show();
         menuTrims.show();
-        let divTextarea = $('#divArea');
+        let divTextarea = $('#div-area');
         divTextarea.show();
         if ($('.trimType').length === 0) {
             menuTrims.hide();
         }
         if (typeShow === 'review') {
-            $("#ratingFormContent").prop('required',true);
+            $("#rating-form-content").prop('required',true);
         } else {
             divTextarea.hide();
-            $("#ratingFormContent").prop('required',false);
+            $("#rating-form-content").prop('required',false);
 
             if (typeShow === 'trim') {
                 menuGenerations.hide();
@@ -173,12 +173,12 @@ $(document).ready(function ()
     function showSelectedGeneration()
     {
         $('.generations').hide();
-        $('#generation' + $("#generationSelect option:selected").val()).show();
+        $('#generation' + $("#generation-select option:selected").val()).show();
     }
 
     ratingFormContent.keypress(function(event)
     {
-        let errorMessage = $('#noHtmlAllowed');
+        let errorMessage = $('#no-html-allowed');
         errorMessage.text('');
 
         /** No <>[] characters allowed. */
@@ -191,7 +191,7 @@ $(document).ready(function ()
 
     ratingFormContent.bind('paste', function(event)
     {
-        let errorMessage = $('#noHtmlAllowed');
+        let errorMessage = $('#no-html-allowed');
         let pastedData = event.originalEvent.clipboardData.getData('text');
         errorMessage.text('');
 

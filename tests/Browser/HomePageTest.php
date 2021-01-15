@@ -18,17 +18,17 @@ class HomePageTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/');
 
-	        $content = $browser->element('#carrankerLogo')->getAttribute('outerHTML');
+	        $content = $browser->element('#carranker-logo')->getAttribute('outerHTML');
             $this->assertNotFalse(strpos($content, 'Car Ranker'));
 
-            $browser->select('#navSelectMake', 'AC');
+            $browser->select('#nav-select-make', 'AC');
 
-            $browser->click('#showMore');
-            $browser->click('#showLess');
-            $browser->click('#choosePreferences');
-            $browser->click('#filterTopFormShowAll');
-            $browser->click('#filterTopFormReset');
-            $browser->click('#filterTopFormSubmit');
+            $browser->click('#show-more');
+            $browser->click('#show-less');
+            $browser->click('#choose-preferences');
+            $browser->click('#filter-top-form-show-all');
+            $browser->click('#filter-top-form-reset');
+            $browser->click('#filter-top-form-submit');
 
             $this->assertEmpty($browser->driver->manage()->getLog('browser'));
         });

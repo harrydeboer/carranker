@@ -1,6 +1,6 @@
-$('.deleteButton').on('click', function()
+$('.delete-button').on('click', function()
 {
-    $('#deleteId').val($(this).data('id'));
-    $('#deleteForm').attr('action', $(this).data('action'));
-    $('#reallyDelete').show();
+    $('#delete-id').val($(this).data('id'));
+    $('#delete-form').attr('action', $(this).data('action'));
+    $('#really-delete').show();
 });

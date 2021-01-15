@@ -1,16 +1,16 @@
 @if (count($topTrims) !== 0)
-<table id="tableTop" class="table table-striped table-hover">
+<table id="table-top" class="table table-striped table-hover">
     @foreach ($topTrims as $index => $trim)
-    <tr class="topRow row">
+    <tr class="top-row row">
         <td class="col-2">
-            <span class="numLinkTop">{{ ($index + 1) }}. </span>
+            <span class="num-link-top">{{ ($index + 1) }}. </span>
         </td>
-        <td class="col-8"><div class="linkStyle">
-                <a href="{{ $trim->getUrl() }}" class="linkTop">{{ $trim->getFullName() }}</a>
+        <td class="col-8"><div class="link-style">
+                <a href="{{ $trim->getUrl() }}" class="link-top">{{ $trim->getFullName() }}</a>
             </div>
         </td>
         <td class="col-2">
-            <span class="ratingLinkTop">{{ number_format($trim->getRatingFiltering(), 1) }} <span class="fa fa-star"></span>
+            <span class="rating-link-top">{{ number_format($trim->getRatingFiltering(), 1) }} <span class="fa fa-star"></span>
             </span>
         </td>
     </tr>

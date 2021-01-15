@@ -5,7 +5,7 @@
     @include('head')
 </head>
 <body>
-<div id="hideAll" class="text-center collapse">
+<div id="hide-all" class="text-center collapse">
     <img src="{{ fileUrl('/img/Loader.gif') }}" alt="loadImg">
 </div>
 <header class="container">

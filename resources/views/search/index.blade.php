@@ -7,7 +7,7 @@
             <h3>Trims</h3>
             @foreach ($trims as $trim)
                 <div>
-                    <a href="{{ $trim->getUrl() }}" class="searchLink">
+                    <a href="{{ $trim->getUrl() }}" class="search-link">
                         {{ $trim->getMakeName() . ' ' . $trim->getModelName() . ' ' . $trim->getYearBegin() .
                         '-' . $trim->getYearEnd() . ' ' . $trim->getFramework() . ' ' . $trim->getName() }}
                     </a>
@@ -19,7 +19,7 @@
             @foreach ($models as $model)
                 <div>
                     <a href="{{ $model->getUrl() }}"
-                       class="searchLink">{{ $model->getMakename() . ' ' . $model->getName() }}
+                       class="search-link">{{ $model->getMakename() . ' ' . $model->getName() }}
                     </a>
                 </div>
             @endforeach
@@ -28,7 +28,7 @@
             <h3>Makes</h3>
             @foreach ($makes as $make)
                 <div>
-                    <a href="{{ $make->getUrl() }}" class="searchLink">{{ $make->getName() }}</a>
+                    <a href="{{ $make->getUrl() }}" class="search-link">{{ $make->getName() }}</a>
                 </div>
             @endforeach
         @endif

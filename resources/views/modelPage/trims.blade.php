@@ -1,7 +1,7 @@
 <div class="text-center">
-    <div id="titleTypes">Trims</div>
+    <div id="title-types">Trims</div>
     Generation:
-    <select id="generationSelect">
+    <select id="generation-select">
         @foreach ($generationsSeriesTrims as $keyGen => $generation)
             <option value="{{ $keyGen }}" {{ $selectedGeneration === $keyGen ? 'selected' : '' }}>{{ $keyGen }}</option>
         @endforeach
@@ -14,17 +14,17 @@
                 <div>{{ $keySer }}</div>
                 @foreach ($series as $nameTrim => $valueTrim)
                     <div>
-                        <a href="#typeInfo{{ $valueTrim }}"
+                        <a href="#type-info{{ $valueTrim }}"
                             data-toggle="modal"
-                            id="linkType{{ $valueTrim }}"
-                            class="linkType trimType">{{ $nameTrim ?? $model->getName() }}
+                            id="link-type{{ $valueTrim }}"
+                            class="link-type trim-type">{{ $nameTrim ?? $model->getName() }}
                         </a>
                     </div>
                 @endforeach
             @else
                 <div>
-                    <a href="#typeInfo{{ $series[0] }}" data-toggle="modal"
-                       id="linkType{{ $series[0] }}" class="linkType">{{ $keySer }}</a>
+                    <a href="#type-info{{ $series[0] }}" data-toggle="modal"
+                       id="link-type{{ $series[0] }}" class="link-type">{{ $keySer }}</a>
                 </div>
             @endif
         @endforeach

@@ -12,7 +12,7 @@
                     <img src="{{ $index !== 0 && !isset($lazyLoad) ? fileUrl('/img/favicon-16x16.png') :
                               fileUrl($topTrims[$index]->getImage()) }}"
                          data-src="{{ fileUrl($topTrims[$index]->getImage()) }}"
-                         class="{{ $index !== 0 && !isset($lazyLoad) ? 'lazy' : '' }} carCarouselImg d-block img-fluid"
+                         class="{{ $index !== 0 && !isset($lazyLoad) ? 'lazy' : '' }} car-carousel-img d-block img-fluid"
                          alt="{{ $topTrims[$index]->getMakeName() . ' ' . $topTrims[$index]->getModelName() }}"></a>
                 <div class="carousel-caption {{ $index === 0 ? 'active' : '' }}">
                     {{ ($index + 1) . '. ' . $topTrims[$index]->getMakeName() . ' ' .

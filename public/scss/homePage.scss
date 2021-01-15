@@ -1,6 +1,6 @@
 @import 'web';
 
-#rankingTheCars {
+#ranking-the-cars {
     color: #333333;
     padding-bottom: 25px;
     font-size: 55pt;
@@ -41,7 +41,7 @@
 }
 
 @media (min-width: 768px) {
-    .carCarouselImg {
+    .car-carousel-img {
         width: auto;
         min-height: 170px !important;
         max-height: 170px !important;
@@ -49,27 +49,28 @@
 }
 
 /** Top table styling*/
-#topContainer {
+#top-container {
     background-color: rgba(70, 130, 180, 0.6);
     border-top: 1px dotted #cccccc;
 }
 
-#topCars {
+#top-cars {
     z-index: 1;
     background: white;
-    box-shadow: 12px 0 15px -4px rgba($housecolor-blue-r, $housecolor-blue-g, $housecolor-blue-b, 0.3), -12px 0 8px -4px rgba($housecolor-blue-r, $housecolor-blue-g, $housecolor-blue-b, 0.3);
+    box-shadow: 12px 0 15px -4px rgba($house-color-blue-r, $house-color-blue-g, $house-color-blue-b, 0.3),
+    -12px 0 8px -4px rgba($house-color-blue-r, $house-color-blue-g, $house-color-blue-b, 0.3);
 }
 
-.linkStyle, .numLinkTop, .ratingLinkTop {
+.link-style, .num-link-top, .rating-link-top {
     font-size: 15px;
 }
 
-.topRow {
+.top-row {
     flex-wrap: nowrap;
     -webkit-flex-wrap: nowrap;
 }
 
-#showMore, #showLess {
+#show-more, #show-less {
     padding: 7px;
     width: 120px;
     white-space: nowrap;
@@ -78,13 +79,13 @@
 
 @media (min-width: 576px) {
 
-    .linkStyle, .numLinkTop, .ratingLinkTop {
+    .link-style, .num-link-top, .rating-link-top {
         font-size: 125%;
     }
 }
 
 /** Choose preferences styling */
-#choosePreferences {
+#choose-preferences {
     margin-top: 30px;
     margin-bottom: 50px;
 }
@@ -101,11 +102,11 @@
     display: none;
 }
 
-.aspectFilter {
+.aspect-filter {
     height: 55px;
 }
 
-.aspectElement {
+.aspect-element {
     padding: 0;
 }
 
@@ -114,32 +115,32 @@
     padding-left: 0;
 }
 
-.specsChoice {
+.specs-choice {
     width: 200px;
     margin-top: 4px;
     margin-right: 5px;
     margin-left: 5px;
 }
 
-.specsRange {
+.specs-range {
     width: 60px;
     padding: 0.2rem 0.1rem;
 }
 
-#specsRangeTable>tbody>tr>td {
+#specs-range-table > tbody > tr > td {
     border: none;
 }
 
-#aspectsTable {
+#aspects-table {
     margin-top: 30px;
 }
 
-#specsRangeTable td, #aspectsTable td {
+#specs-range-table td, #aspects-table td {
     padding-top: 0;
     padding-bottom: 0;
 }
 
-#specsRangeTable .form-group {
+#specs-range-table .form-group {
     margin-bottom: 0.5rem;
 }
 
@@ -153,28 +154,27 @@ input[type=checkbox] {
     padding-left: 10px;
 }
 
-.specsRange:focus {
-    background-color: $housecolor-blue;
+.specs-range:focus {
+    background-color: $house-color-blue;
     color: white;
 }
 
-.dropdown-menu, .specsRange {
-    background-color: $housecolor-blue;
+.dropdown-menu, .specs-range {
+    background-color: $house-color-blue;
     color: white;
     font-size: 18px;
 }
 
-#buttonsShowFilterReset {
+#buttons-show-filter-reset {
     margin-top: 30px;
     margin-bottom: 30px;
 }
 
-#specsRangeTable {
-    margin: 0 auto;
-    margin-bottom: 20px;
+#specs-range-table {
+    margin: 0 auto 20px;
 }
 
-#filterTopFormReset, #filterTopFormShowAll, #filterTopFormSubmit {
+#filter-top-form-reset, #filter-top-form-show-all, #filter-top-form-submit {
     width: 150px;
     padding: 0.5rem 0.5rem;
     margin-right: 10px;
@@ -182,30 +182,30 @@ input[type=checkbox] {
     margin-bottom: 10px;
 }
 
-.rangeRow {
+.range-row {
     display: flex;
     -webkit-flex-wrap: nowrap;
     flex-wrap: nowrap;
     font-size : 15px;
 }
 
-.aspectName {
+.aspect-name {
     width: 47%;
 }
 
-.aspectRange {
+.aspect-range {
     width: 33%;
 }
 
-.aspectMin {
+.aspect-min {
     width: 10%;
 }
 
-.aspectMax {
+.aspect-max {
     width: 10%;
 }
 
-.collapseChoice, .collapseAspects, .collapseRange {
+.collapse-choice, .collapse-aspects, .collapse-range {
     display: none;
 }
 
@@ -232,55 +232,55 @@ input[type=checkbox] {
 
 @media (min-width: 992px) {
 
-    .aspectName {
+    .aspect-name {
         width: auto;
     }
 
-    .aspectRange {
+    .aspect-range {
         width: auto;
     }
 
-    .aspectMin {
+    .aspect-min {
         width: auto;
     }
 
-    .aspectMax {
+    .aspect-max {
         width: auto;
     }
 }
 
 @media (min-width: 576px) {
-    .rangeRow {
+    .range-row {
         font-size : 18px;
         display: flex;
     }
 
-    .specsRange {
+    .specs-range {
         width: 80px;
         font-size : 18px;
         padding: 0.5rem 0.7rem;
     }
 
-    .collapseChoice, .collapseAspects, .collapseRange {
+    .collapse-choice, .collapse-aspects, .collapse-range {
         display: none;
     }
 }
 
 /** Recent reviews styling */
-.reviewItem {
+.review-item {
     margin-bottom: 40px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-.reviewBody {
+.review-body {
     text-align: left;
 }
 
-.reviewContent {
+.review-content {
     margin-left: 20px;
 }
 
-.reviewImage {
+.review-image {
     padding-right: 20px;
 }

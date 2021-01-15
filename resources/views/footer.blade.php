@@ -1,5 +1,5 @@
 <div class="navbar navbar-default text-center">
-    <ul id="navmenuFooter" class="nav navbar-nav">
+    <ul id="nav-menu-footer" class="nav navbar-nav">
         @if (!is_null($menuFooter))
             @foreach ($menuFooter as $page)
                 <li class="nav-item navText"><a href="/{{ strtolower($page->getName()) }}"

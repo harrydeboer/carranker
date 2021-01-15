@@ -4,12 +4,12 @@
     <div class="row">
         <section class="col-md-8">
             <div class="page-header">
-                <h3 id="titleCarModel">{{ $model->getMakeName() . ' ' . $model->getName() }}</h3>
+                <h3 id="title-car-model">{{ $model->getMakeName() . ' ' . $model->getName() }}</h3>
             </div>
             <div class="col-md-12">
                 @if ($model->getImage() !== '')
                     <img src="{{ fileUrl($model->getImage()) }}"
-                         id="carModelImg"
+                         id="car-model-img"
                          alt="{{ $model->getMakeName() . ' ' . $model->getName() }}"
                          class="pull-right img-thumbnail">
                 @endif
@@ -25,7 +25,7 @@
         @if (count($trims) > 0)
             <div class="col-md-4 panel panel-default">
                 <div class="panel-heading text-center">
-                    <div id="ratingHeading">
+                    <div id="rating-heading">
                         {{ is_null($model->getRating()) ? '-' : number_format($model->getRating(), 1) }}
                         <span class="fa fa-star fa-star-shadow"></span>
                         {{ ' with ' . $model->getVotes() . ' votes' }}
@@ -33,16 +33,16 @@
                 </div>
                 <BR>
                 <div>
-                    <table id="ratingTable" class="col-md-9">
+                    <table id="rating-table" class="col-md-9">
                         @foreach ($aspects as $key => $aspect)
-                            <tr class="row rowRating">
+                            <tr class="row row-rating">
                                 <td class="col-md-7">{{ ucfirst($aspect) }}:</td>
                                 <td class="col-md-5">{{ is_null($model->getAspect($aspect)) ? '-':
                                 number_format($model->getAspect($aspect), 1) }} <span class="fa fa-star fa-star-shadow"></span>
                                 </td>
                             </tr>
                         @endforeach
-                        <tr class="row rowRating">
+                        <tr class="row row-rating">
                             <td class="col-md-7">Price: </td>
                             <td class="col-md-5">{{ is_null($model->getPrice($FXRate)) ? 'N/A' :
                             round($model->getPrice($FXRate), -3) . ' $'}}</td>
@@ -52,17 +52,17 @@
                 </div>
                 @if ($isVerified === true)
                     <div class="text-center">
-                        <a href="#dialog" data-toggle="modal" id="showModelDialog"
-                           class="btn btn-primary">Rate car!</a>
+                        <button data-toggle="modal" id="show-model-dialog" data-target="#dialog"
+                           class="btn btn-primary">Rate car!</button>
                         <BR>
                         <BR>
-                        <a href="#dialog" data-toggle="modal" id="showReviewDialog"
-                           class="btn btn-primary">Write review!</a>
+                        <button data-toggle="modal" id="show-review-dialog" data-target="#dialog"
+                           class="btn btn-primary">Write review!</button>
                     </div>
                 @elseif ($isLoggedIn === true)
                     <div class="text-center">
                         <a href="{{ route('verification.notice.with.mail') }}"
-                           class="btn btn-primary" id="loginLink">Verify your email to rate this car!</a>
+                           class="btn btn-primary" id="login-link">Verify your email to rate this car!</a>
                     </div>
                 @else
                     <div class="text-center">
@@ -76,15 +76,15 @@
         @endif
     </div>
     <div id="dialog" class="modal fade">
-        <div class="modal-dialog" id="rateForm">
+        <div class="modal-dialog" id="rate-form">
             <div class="modal-content">
                 @include('modelPage.ratingForm')
             </div>
         </div>
     </div>
     @foreach ($trims as $keyTrim => $trim)
-        <div class="modal fade typeInfo" id="typeInfo{{ $trim->getId() }}">
-            <div class="modal-dialog typeInfoContent">
+        <div class="modal fade type-info" id="type-info{{ $trim->getId() }}">
+            <div class="modal-dialog type-info-content">
                 <div class="modal-content">
                     @include('modelPage.indexTrim',
                     ['rating' => $ratings[$trim->getId()] ?? null, 'trim' => $trim, 'id' => $trim->getId()])
@@ -92,11 +92,11 @@
             </div>
         </div>
     @endforeach
-    <div class="modal" id="thankYou">
-        <div class="modal-dialog" id="thankYouDialog">
+    <div class="modal" id="thank-you">
+        <div class="modal-dialog" id="thank-you-dialog">
             <div class="modal-content">
-                <div class="modal-header" id="thankYouHeader">
-                    <h3 id="thankYouHeading">Thank you for your rating!</h3>
+                <div class="modal-header" id="thank-you-header">
+                    <h3 id="thank-you-heading">Thank you for your rating!</h3>
                 </div>
                 When you wrote a review it is now pending approval.
                 <div class="modal-footer">

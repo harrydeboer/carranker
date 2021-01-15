@@ -1,7 +1,7 @@
 $(document).ready(function ()
 {
-    let menuMake = $('#navSelectMake');
-    let menuModel = $('#navSelectModel');
+    let menuMake = $('#nav-select-make');
+    let menuModel = $('#nav-select-model');
 
     /* The selected options are set to the session on change of the selected make or model. */
     menuMake.on('change', function ()
@@ -14,9 +14,9 @@ $(document).ready(function ()
         navigate();
     });
 
-    $('#searchFormSubmit').on('click', function(event)
+    $('#search-form-submit').on('click', function(event)
     {
-        if ($('#searchFormText').val() === "") {
+        if ($('#search-form-text').val() === "") {
             event.preventDefault();
             if (menuMake.val() !== "") {
                 navigate();
@@ -24,7 +24,7 @@ $(document).ready(function ()
         }
     });
 
-    /* Determines the car models related to the chosen make and fills the modelselect accordingly. */
+    /* Determines the car models related to the chosen make and fills the model select accordingly. */
     function fillModelMenu()
     {
         let selectedMake = menuMake.val();
@@ -63,22 +63,22 @@ function reCAPTCHA(form, page)
     let headId = document.getElementsByTagName("head")[0];
     let scriptElement = document.createElement('script');
     scriptElement.type = 'text/javascript';
-    scriptElement.id = "reCAPTCHAScript";
-    scriptElement.src = "https://www.google.com/recaptcha/api.js?render=" + $('#reCAPTCHAKey').val();
+    scriptElement.id = "re-captcha-script";
+    scriptElement.src = "https://www.google.com/recaptcha/api.js?render=" + $('#re-captcha-key').val();
     headId.appendChild(scriptElement);
 
-    $('#reCAPTCHAScript').on('load',function ()
+    $('#re-captcha-script').on('load',function ()
     {
         grecaptcha.ready(function ()
         {
             grecaptcha.execute(
-                $('#reCAPTCHAKey').val(),
+                $('#re-captcha-key').val(),
                 {action: 'validateReCAPTCHA'},
                 false)
                 .then(
                 function (reCAPTCHAToken)
                 {
-                    $('#reCAPTCHAToken').val(reCAPTCHAToken);
+                    $('#re-captcha-token').val(reCAPTCHAToken);
 
                     if (page === 'contactPage') {
                         /** The form is submitted which triggers the current function again but now the reCAPTCHA element

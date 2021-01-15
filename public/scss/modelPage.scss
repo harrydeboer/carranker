@@ -1,6 +1,6 @@
 @import 'web';
 
-.spaceUnder {
+.space-under {
   height: 20px;
 }
 
@@ -13,86 +13,86 @@
   margin-bottom: 20px;
 }
 
-#titleTypes {
+#title-types {
   margin-bottom: 13px;
 }
 
-#showModelDialog, #showReviewDialog {
+#show-model-dialog, #show-review-dialog {
   width: 175px;
   font-weight: bold;
 }
 
-.rowRating {
+.row-rating {
   flex-wrap: nowrap;
   -webkit-flex-wrap: nowrap;
 }
 
-#loginLink {
+#login-link {
   font-weight: bold;
 }
 
-#ratingTable {
+#rating-table {
   margin-right: auto;
   margin-left: auto;
 }
 
-.linkType {
+.link-type {
   text-decoration: underline;
 }
 
-#generationSelect {
+#generation-select {
   border-radius: 4px;
 }
 
-#generationSelect:hover {
+#generation-select:hover {
   cursor: pointer;
 }
 
 /** View trim  */
-.ratingTrimTable, .specsTrim {
+.rating-trim-table, .specs-trim {
   margin-right: auto;
   margin-left: auto;
 }
 
-.collapseSpecs {
+.collapse-specs {
   display: none;
 }
 
-.specsTrim {
+.specs-trim {
   margin-top: 30px;
 }
 
-.toRateTrim {
+.to-rate-trim {
   margin-top: 20px;
   font-weight: bold;
 }
 
 @media (min-width: 370px) {
   
-  .typeInfoContent {
+  .type-info-content {
     width: 370px;
   }
 }
 
 /** Rating form styling */
-#bodyModalRateForm {
+#body-modal-rate-form {
   padding: 0;
 }
 
-#ratingFormGeneration, #ratingFormSeries, #ratingFormTrim {
+#rating-form-generation, #rating-form-series, #rating-form-trim {
   width: 220px;
   margin-right: auto;
   margin-left: auto;
   margin-top: 20px;
 }
 
-#closeRatingModal {
+#close-rating-modal {
   margin-top: 30px;
   width: 60px;
   padding: 5px;
 }
 
-#rateForm, .typeInfoContent {
+#rate-form, .type-info-content {
   margin: 0 auto;
 }
 
@@ -104,7 +104,7 @@
   margin-right: 7px;
 }
 
-.radioStar {
+.radio-star {
   position: absolute;
   opacity: 0;
   z-index: 0;
@@ -114,7 +114,7 @@
   white-space: nowrap;
 }
 
-#noHtmlAllowed {
+#no-html-allowed {
   color: red;
 }
 
@@ -122,7 +122,7 @@
   color: blue;
 }
 
-.radioStar:checked ~ .fa-star-form {
+.radio-star:checked ~ .fa-star-form {
   color: gold;
 }
 
@@ -131,29 +131,29 @@
 }
 
 @media (min-width: 990px) {
-  #ratingHeading {
+  #rating-heading {
     margin-right: 10%;
   }
 }
 
 @media (min-width: 390px) {
-  #rateForm {
+  #rate-form {
     width: 390px;
   }
 }
 
 @media (min-width: 400px) {
-  #bodyModalRateForm {
+  #body-modal-rate-form {
     padding: 15px;
   }
 }
 
 /** Thank you styling */
-#thankYouDialog {
+#thank-you-dialog {
   width: 300px;
 }
 
-#thankYouHeader {
+#thank-you-header {
   background-color: limegreen;
 }
 
@@ -166,12 +166,12 @@
   pointer-events: none;
 }
 
-#reviewHeading {
+#review-heading {
   margin-top: 40px;
   margin-bottom: 20px;
 }
 
-.reviewArticle {
+.review-article {
   border: 1px solid #ddd;
   border-radius: 4px;
   margin-bottom: 30px;
