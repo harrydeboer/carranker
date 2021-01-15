@@ -12,7 +12,7 @@ class FeatureTestCase extends TestCase
 
     protected function tearDown(): void
     {
-        $this->artisan('index:cars --only-delete-create-indices')->execute();
+        $this->artisan('flush:indices')->execute();
         parent::tearDown();
     }
 }

@@ -79,6 +79,16 @@ abstract class BaseModel
         return array_merge($this->keywords, $this->doubles, $this->booleans, $this->integers, $this->texts);
     }
 
+    public function flush()
+    {
+        self::$client->indices()->flush(['index' => static::getIndex()]);
+    }
+
+    public function indexExists(): bool
+    {
+        return self::$client->indices()->exists(['index' => static::getIndex()]);
+    }
+
     public static function getIndex(): string
     {
         $index = static::$index;

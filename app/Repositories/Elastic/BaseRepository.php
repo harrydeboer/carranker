@@ -54,6 +54,11 @@ abstract class BaseRepository
         }
     }
 
+    public function indexExists(): bool
+    {
+        return $this->model->indexExists();
+    }
+
     public function getMappings(): array
     {
         return BaseModel::indicesGetMapping(['index' => $this->model->getIndex()]);
@@ -128,5 +133,10 @@ abstract class BaseRepository
         if (!empty($params['body'])) {
             BaseModel::bulk($params);
         }
+    }
+
+    public function flush()
+    {
+        $this->model->flush();
     }
 }
