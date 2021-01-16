@@ -35,10 +35,10 @@ abstract class BaseRepository
         return $this->model::all();
     }
 
-    public function createIndex(bool $testing=false)
+    public function createIndex(bool $prefixTest)
     {
         $params = [
-            'index' => ($testing ? 'test' : '') . $this->model->getIndex(),
+            'index' => ($prefixTest ? 'test' : '') . $this->model->getIndex(),
             'body' => [
                 'settings' => $this->model->getSettings(),
                 'mappings' => $this->model->getMappings(),
@@ -49,10 +49,10 @@ abstract class BaseRepository
         $this->model->indexCreate($params);
     }
 
-    public function deleteIndex(bool $testing=false)
+    public function deleteIndex(bool $prefixTest)
     {
         $deleteParams = [
-            'index' => ($testing ? 'test' : '') . $this->model->getIndex(),
+            'index' => ($prefixTest ? 'test' : '') . $this->model->getIndex(),
         ];
         if ($this->model->indexExists()) {
             $this->model->indexDelete($deleteParams);

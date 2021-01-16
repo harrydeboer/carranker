@@ -42,14 +42,19 @@ class IndexCars extends Command
     public function handle()
     {
         $testing = $this->option('testing');
+        if (env('APP_ENV') === 'testing') {
+            $prefixTest = false;
+        } else {
+            $prefixTest = $testing;
+        }
 
-        $this->makeRepository->deleteIndex($testing);
-        $this->modelRepository->deleteIndex($testing);
-        $this->trimRepository->deleteIndex($testing);
+        $this->makeRepository->deleteIndex($prefixTest);
+        $this->modelRepository->deleteIndex($prefixTest);
+        $this->trimRepository->deleteIndex($prefixTest);
 
-        $this->makeRepository->createIndex($testing);
-        $this->modelRepository->createIndex($testing);
-        $this->trimRepository->createIndex($testing);
+        $this->makeRepository->createIndex($prefixTest);
+        $this->modelRepository->createIndex($prefixTest);
+        $this->trimRepository->createIndex($prefixTest);
 
         if (!$testing) {
             $this->makeRepository->addAllToIndex($this->makeRepositoryEloquent->all());
