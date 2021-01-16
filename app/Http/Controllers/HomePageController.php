@@ -53,14 +53,14 @@ class HomePageController extends Controller
         $formData = $request->validate($this->rules());
 
         $topTrims = $this->trimRepository->findTrimsOfTop($formData,
-                                                          (int) $formData['minNumVotes'],
-                                                          (int) $formData['numberOfRows']);
+                                                          (int) $formData['min-num-votes'],
+                                                          (int) $formData['number-of-rows']);
 
         $viewData = [
             'topLength' => count($topTrims),
             'topLengthSlider' => min(count($topTrims), self::topSliderNumber),
             'topTrims' => $topTrims,
-            'minNumVotes' => (int) $formData['minNumVotes'],
+            'minNumVotes' => (int) $formData['min-num-votes'],
         ];
 
         return response()->view('homePage.filterTop', $viewData);
@@ -71,8 +71,8 @@ class HomePageController extends Controller
         $formData = $request->validate($this->rules());
 
         $trims = $this->trimRepository->findTrimsOfTop($formData,
-                                                       (int) $formData['minNumVotes'],
-                                                       (int) $formData['numberOfRows'],
+                                                       (int) $formData['min-num-votes'],
+                                                       (int) $formData['number-of-rows'],
                                                        (int) $formData['offset']);
 
         return response()->view('homePage.showMoreTopTable', [
@@ -84,11 +84,11 @@ class HomePageController extends Controller
     private function rules(): array
     {
         return [
-            'minNumVotes' => 'required|integer',
+            'min-num-votes' => 'required|integer',
             'aspects.*' => 'required|integer',
-            'specsChoice.*' => 'accepted|nullable',
-            'specsRange.*' => 'numeric|nullable',
-            'numberOfRows' => 'numeric|nullable',
+            'specs-choice.*' => 'accepted|nullable',
+            'specs-range.*' => 'numeric|nullable',
+            'number-of-rows' => 'numeric|nullable',
             'offset' => 'numeric|nullable'
         ];
     }

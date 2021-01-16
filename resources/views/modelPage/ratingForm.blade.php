@@ -49,7 +49,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <select name="trimId" class="form-control" id="rating-form-trim" required>
+                <select class="form-control" id="rating-form-trim" required>
                     <option value="">Trim</option>
                     @foreach ($generationsSeriesTrims as $generationName => $generation)
                         @foreach ($generation as $seriesName => $series)
@@ -60,7 +60,7 @@
                     @endforeach
                 </select>
             </div>
-            <input type="hidden" name="trimId" id="rating-form-trim-id">
+            <input type="hidden" name="trim-id" id="rating-form-trim-id">
             <div class="form-group" id="div-area">
                 <textarea id="rating-form-content"
                           name="content"
@@ -85,7 +85,7 @@
             <button class="btn btn-danger" data-dismiss="modal" id="close-rating-modal">Close</button>
         </div>
     </div>
-    <input type="hidden" name="reCAPTCHAToken" id="re-captcha-token">
+    <input type="hidden" name="re-captcha-token" id="re-captcha-token">
 </form>
 <input type="hidden" value="{{ $reCAPTCHAKey }}" id="re-captcha-key">
 <input type="hidden" value="{{ $profanities }}" id="profanities">

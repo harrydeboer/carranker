@@ -54,9 +54,9 @@ class ModelPageTest extends FeatureTestCase
         $user->setAttribute('email_verified_at', date('Y-m-d h:i:s'));
 
         $postArrayFirst = [
-            'trimId' => (string) $trim->getId(),
+            'trim-id' => (string) $trim->getId(),
             'content' => null,
-            'reCAPTCHAToken' => 'notUsedInTests',
+            're-captcha-token' => 'notUsedInTests',
         ];
         foreach (Aspects::getAspects() as $aspect) {
             $postArrayFirst['star'][$aspect] = '10';

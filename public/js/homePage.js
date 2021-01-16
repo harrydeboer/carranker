@@ -122,7 +122,7 @@ $(document).ready(function ()
                 sessionStorage.numberOfRows = topRowsVisible.length + numShowMoreLess - topRowsVisible.length % 10;
             }
 
-            let dataRequest = 'numberOfRows=' + sessionStorage.numberOfRows + '&offset=' +
+            let dataRequest = 'number-of-rows=' + sessionStorage.numberOfRows + '&offset=' +
                 topRows.length + '&' + $('#filter-top-form').serialize();
 
             $.get($(this).attr('href'), dataRequest, function (data)
@@ -188,7 +188,7 @@ $(document).ready(function ()
          * ajax callback data. The data has a splitpoint to split at the right point for the three pieces of html.
          * The number of rows that has to be shown is set with showPartTopTable, the loader is hidden and
          * the slider is activated. Then the window scrolls to the top of the table. */
-        $.get($(this).attr('action'), $(this).serialize() + "&numberOfRows=" + rows, function (data)
+        $.get($(this).attr('action'), $(this).serialize() + "&number-of-rows=" + rows, function (data)
         {
             let array = data.split(/splitPoint/);
             let tableTopTrs = $('#table-top tr');

@@ -39,7 +39,7 @@ class ContactValidator extends BaseValidator
             'subject' => 'string|required',
             'name' => 'string|required',
             'message' => 'string|required',
-            'reCAPTCHAToken' => 'string|required',
+            're-captcha-token' => 'string|required',
         ];
     }
 }

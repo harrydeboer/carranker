@@ -26,9 +26,9 @@ class RatingValidatorTest extends TestCase
     public function testRatingForm()
     {
         $formData = [
-            'trimId' => '1',
+            'trim-id' => '1',
             'content' => null,
-            'reCAPTCHAToken' => 'notUsedInTests',
+            're-captcha-token' => 'notUsedInTests',
         ];
         foreach (Aspects::getAspects() as $aspect) {
             $formData['star'][$aspect] = '8';

@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Repositories\RoleRepository;
 use Illuminate\Contracts\Hashing\Hasher;
 use Tests\FeatureTestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginAdmin extends FeatureTestCase
 {

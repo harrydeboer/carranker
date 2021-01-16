@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <input type="submit" value="Send" class="btn btn-success" id="contact-form-submit">
                 </div>
-                <input type="hidden" name="reCAPTCHAToken" id="re-captcha-token">
+                <input type="hidden" name="re-captcha-token" id="re-captcha-token">
             </form>
             <input type="hidden" value="{{ $reCAPTCHAKey }}" id="re-captcha-key">
             <input type="hidden" value="{{ $profanities }}" id="profanities">

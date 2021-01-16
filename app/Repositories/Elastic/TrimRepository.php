@@ -117,7 +117,7 @@ class TrimRepository extends BaseRepository
     private function queryChoice(array $choices, string $name, array $params, array $data): array
     {
         $queryArr = [];
-        $formSpec = $data['specsChoice'];
+        $formSpec = $data['specs-choice'];
         foreach ($choices as $keyItem => $choice) {
             $formVar = $formSpec[$name . $keyItem] ?? false;
             if (isset($formVar) && $formVar === "on") {
@@ -159,7 +159,7 @@ class TrimRepository extends BaseRepository
     /** Filter the trims for the user settings in the min/max selects of the filter top form. */
     private function queryRange(array $spec, string $name, array $params, array $data): array
     {
-        $formSpecs = $data['specsRange'];
+        $formSpecs = $data['specs-range'];
         $formMin = $formSpecs[$name . 'Min'];
         $formMax = $formSpecs[$name . 'Max'];
 

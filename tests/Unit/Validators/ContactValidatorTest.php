@@ -28,7 +28,7 @@ class ContactValidatorTest extends TestCase
             'subject' => 'Test',
             'name' => 'Test',
             'message' => 'Test',
-            'reCAPTCHAToken' => 'notUsedInTests',
+            're-captcha-token' => 'notUsedInTests',
         ];
 
         $validator = new ContactValidator($formData, $this->profanitiesRepository->all());

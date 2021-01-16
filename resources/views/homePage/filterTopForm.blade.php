@@ -1,6 +1,6 @@
 <form method="get" action="{{ route('filterTop') }}" id="filter-top-form">
     <label for="min-num-votes" class="collapse-choice control-label">Minimum number of votes:</label>
-    <input type="number" name="minNumVotes" class="collapse-choice form-control"
+    <input type="number" name="min-num-votes" class="collapse-choice form-control"
            step="1" value="{{ $minNumVotes }}" id="min-num-votes" required>
     <div class="row mx-auto col-md-12">
         <div id="choices" class="btn-group text-center">
@@ -16,7 +16,7 @@
                             <td class="col-md-2">
                                 <input type="checkbox"
                                        id="specs-choice[check-all{{ $specName }}]"
-                                       name="specsChoice[checkAll{{ $specName }}]"
+                                       name="specs-choice[checkAll{{ $specName }}]"
                                        class="{{ $specName }} check-all"
                                        data-spec-name="{{ $specName }}"
                                        checked>
@@ -29,7 +29,7 @@
                                 <td class="col-md-2">
                                     <input type="checkbox"
                                            id="specs-choice[{{ $specName . $index }}]"
-                                           name="specsChoice[{{ $specName . $index }}]"
+                                           name="specs-choice[{{ $specName . $index }}]"
                                            class="{{ $specName }}"
                                            checked>
                                 </td>
@@ -66,14 +66,14 @@
             <tr class="row range-row {{ $spec['show'] === true ? '' : 'collapse-range' }}">
                 <td class="col-md-4 col-sm-6">{{ $spec['display'] }}</td>
                 <td class="col-md-3 col-sm-3">
-                    <select name="specsRange[{{ $specName }}Min]" class="specs-range form-control">
+                    <select name="specs-range[{{ $specName }}Min]" class="specs-range form-control">
                         @foreach($spec['minRange'] as $name => $value)
                             <option value="{{ $value }}">{{ $name }}</option>
                         @endforeach
                     </select>
                 </td>
                 <td class="col-md-3 col-sm-3">
-                    <select name="specsRange[{{ $specName }}Max]" class="specs-range form-control">
+                    <select name="specs-range[{{ $specName }}Max]" class="specs-range form-control">
                         @foreach($spec['maxRange'] as $name => $value)
                             <option value="{{ $value }}">{{ $name }}</option>
                         @endforeach

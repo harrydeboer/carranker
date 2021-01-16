@@ -22,7 +22,7 @@ class ContactPageTest extends FeatureTestCase
             'name' => 'Test',
             'subject' => 'Test',
             'message' => 'Test',
-            'reCAPTCHAToken' => 'notAValidToken',
+            're-captcha-token' => 'notAValidToken',
         ]);
 
         $response->assertStatus(302);

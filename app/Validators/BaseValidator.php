@@ -23,12 +23,12 @@ abstract class BaseValidator extends Validator
     {
         $data = parent::validate();
 
-        if (!isset($data['reCAPTCHAToken']) && env('APP_ENV') !== 'testing') {
+        if (!isset($data['re-captcha-token']) && env('APP_ENV') !== 'testing') {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
             curl_setopt($ch, CURLOPT_POSTFIELDS, "secret=" . env('RE_CAPTCHA_SECRET') .
-                           "&response=" . $data['reCAPTCHAToken']);
+                           "&response=" . $data['re-captcha-token']);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
             $response = curl_exec($ch);

@@ -54,7 +54,7 @@ class RatingRepositoryTest extends FeatureTestCase
         $formData = [
             'trimId' => (string) $trim->getId(),
             'content' => 'dummy',
-            'reCAPTCHAToken' => 'notUsedInTests',
+            're-captcha-token' => 'notUsedInTests',
         ];
         foreach (Aspects::getAspects() as $aspect) {
             $formData['star'][$aspect] = '8';
@@ -79,7 +79,7 @@ class RatingRepositoryTest extends FeatureTestCase
         $formData = [
             'trimId' => (string) $rating->getTrim()->getId(),
             'content' => 'dummy',
-            'reCAPTCHAToken' => 'notUsedInTests',
+            're-captcha-token' => 'notUsedInTests',
         ];
         foreach (Aspects::getAspects() as $aspect) {
             $formData['star'][$aspect] = '8';

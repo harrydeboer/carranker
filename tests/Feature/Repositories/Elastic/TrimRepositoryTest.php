@@ -61,7 +61,7 @@ class TrimRepositoryTest extends FeatureTestCase
         }
         $formData['aspects'] = $aspects;
 
-        $formData['specsChoice'] = ['framework' . $index => 'on'];
+        $formData['specs-choice'] = ['framework' . $index => 'on'];
 
         $specsRange = [];
         foreach (CarSpecs::specsRange() as $specName => $spec) {
@@ -70,7 +70,7 @@ class TrimRepositoryTest extends FeatureTestCase
         }
         $specsRange['priceMin'] = '5000';
         $specsRange['priceMax'] = '10000';
-        $formData['specsRange'] = $specsRange;
+        $formData['specs-range'] = $specsRange;
         $minNumVotes = 30;
         $lengthTopTable = 4;
 

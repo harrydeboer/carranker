@@ -25,9 +25,9 @@ class RatingValidator extends BaseValidator
     public function rules(): array
     {
         $rules = [
-            'trimId' => 'integer|required',
+            'trim-id' => 'integer|required',
             'content' => 'string|nullable|max:' . (string) self::maxNumberCharactersReview,
-            'reCAPTCHAToken' => 'string|required',
+            're-captcha-token' => 'string|required',
         ];
 
         foreach (Aspects::getAspects() as $aspect) {
