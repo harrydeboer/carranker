@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Repositories\PageRepository;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Response;
 
@@ -30,7 +29,6 @@ class LoginController extends Controller
 
     public function __construct(
         private PageRepository $pageRepository,
-        private Guard $guard,
     ){}
 
     /**
@@ -42,7 +40,7 @@ class LoginController extends Controller
 
     public function showLoginForm(): Response
     {
-        $user = $this->guard->user();
+        $user = $this->getCurrentUser();
 
         return response()->view('auth.login', [
             'title' => 'Authentication',

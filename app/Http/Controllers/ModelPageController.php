@@ -19,7 +19,7 @@ use App\Repositories\UserRepository;
 use App\Services\TrimService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Contracts\Auth\Guard;
+use Illuminate\View\Factory;
 
 class ModelPageController extends Controller
 {
@@ -36,14 +36,15 @@ class ModelPageController extends Controller
         private ModelRepositoryEloquent $modelRepositoryEloquent,
         private TrimRepositoryEloquent $trimRepositoryEloquent,
         private TrimService $trimService,
+        private Factory $viewFactory,
     ){}
 
-    public function view(string $makeName, string $modelName, Request $request, Guard $guard): Response
+    public function view(string $makeName, string $modelName, Request $request): Response
     {
         $makeName = rawurldecode($makeName);
         $modelName = rawurldecode($modelName);
         $trimId = $request->query('trimId');
-        $user = $guard->user();
+        $user = $this->getCurrentUser();
 
         $model = $this->modelRepository->getByMakeModelName($makeName, $modelName);
         $model->getMake();
@@ -74,21 +75,20 @@ class ModelPageController extends Controller
             'ratings' => $this->userRepository->getRatingsModel($user, $model->getId()),
         ];
 
-        $viewFactory = app('Illuminate\Contracts\View\Factory');
-        $viewFactory->share('makeNameRoute', $makeName);
-        $viewFactory->share('modelNameRoute', $modelName);
-        $viewFactory->share('modelNames', $this->makeRepository->getModelNames($makeName));
+        $this->viewFactory->share('makeNameRoute', $makeName);
+        $this->viewFactory->share('modelNameRoute', $modelName);
+        $this->viewFactory->share('modelNames', $this->makeRepository->getModelNames($makeName));
 
         return response()->view('modelPage.index', $viewData);
     }
 
-    public function rateCar(Request $request, Guard $guard): Response
+    public function rateCar(Request $request): Response
     {
         $validator = new RatingValidator($request->all(), $this->profanityRepository->all());
 
         $formData = $validator->validate();
 
-        $user = $guard->user();
+        $user = $this->getCurrentUser();
         $trimId = (int) $formData['trim-id'];
         $trim = $this->trimRepositoryEloquent->get($trimId);
         $model = $trim->getModel();

@@ -21,7 +21,7 @@ class ShareWithAllViews
     /** All views get common data. */
     public function handle(Request $request, Closure $next)
     {
-        $action = app('request')->route()->getAction();
+        $action = $request->route()->getAction();
         $controllerAndAction = class_basename($action['controller']);
         $controllerArray = explode('@', $controllerAndAction);
         $controller = str_replace('Controller', '', $controllerArray[0]);
