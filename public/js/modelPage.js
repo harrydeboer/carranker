@@ -176,6 +176,7 @@ $(document).ready(function ()
         $('#generation' + $("#generation-select option:selected").val()).show();
     }
 
+    /** No html (<>[]) allowed from keypress or copy paste in the review. */
     ratingFormContent.keypress(function(event)
     {
         let errorMessage = $('#no-html-allowed');
@@ -188,7 +189,6 @@ $(document).ready(function ()
             return false;
         }
     });
-
     ratingFormContent.bind('paste', function(event)
     {
         let errorMessage = $('#no-html-allowed');

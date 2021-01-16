@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+/** This trait is used in the Eloquent Model and Elastic Model. */
 trait ModelTrait
 {
+    use ContentTrait;
+
     public function getName(): string
     {
         return $this->name;
@@ -49,23 +52,6 @@ trait ModelTrait
         return route('modelPage', [
                 'make' => rawurlencode($this->getMakeName()),
                 'model' => rawurlencode($this->getName())]);
-    }
-
-    public function setContent(string $content): void
-    {
-        $this->content = mb_convert_encoding($content, 'HTML-ENTITIES', 'ISO-8859-1');
-    }
-
-    public function getContent(): ?string
-    {
-        if (is_null($this->content)) {
-            return null;
-        }
-        /** All content is translated to ISO-8859-1 and if a character gets an � it is removed. */
-        $content = mb_convert_encoding($this->content, 'ISO-8859-1', 'HTML-ENTITIES');
-        $content = iconv("UTF-8", "UTF-8//IGNORE", $content);
-
-        return $content;
     }
 
     public function getWikiCarModel(): string

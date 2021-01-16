@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Exception;
 
+/** Model stands for car model instead of Laravel model. */
 class Model extends BaseModel
 {
     use ModelTrait;
@@ -24,10 +25,6 @@ class Model extends BaseModel
     public function __construct(array $attributes = [])
     {
         $this->fillable = array_merge(self::$aspects, $this->fillable);
-
-        if (isset($attributes['content'])) {
-            $this->setContent($attributes['content']);
-        }
 
         parent::__construct($attributes);
 

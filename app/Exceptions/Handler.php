@@ -47,6 +47,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
+        /** The error views need a message, controller (for css and js) and a title. */
         $this->viewFactory->share('message', $e->getMessage());
         $this->viewFactory->share('controller', 'error');
 

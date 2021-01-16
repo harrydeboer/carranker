@@ -27,6 +27,10 @@ abstract class BaseModel extends Model
 
     public function __construct(array $attributes = [])
     {
+        if (method_exists($this, 'setContent') && $attributes !== []) {
+            $this->setContent($attributes['content']);
+        }
+
         parent::__construct($attributes);
         if ($attributes !== []) {
             foreach ($attributes as $key => $attribute) {

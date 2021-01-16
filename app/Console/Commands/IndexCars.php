@@ -25,7 +25,7 @@ class IndexCars extends Command
      * @var string
      */
     protected $description = 'Index makes, models and trims in elasticsearch. ' .
-    'When testing is true the test indices are deleted and created.';
+    'When testing is true the test indices are deleted and created and no documents are indexed.';
 
     public function __construct(
         private MakeRepository $makeRepository,

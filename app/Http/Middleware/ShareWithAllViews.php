@@ -18,6 +18,7 @@ class ShareWithAllViews
         private MenuRepository $menuRepository,
     ){}
 
+    /** All views get common data. */
     public function handle(Request $request, Closure $next)
     {
         $action = app('request')->route()->getAction();

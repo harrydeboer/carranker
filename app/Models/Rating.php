@@ -10,6 +10,7 @@ class Rating extends BaseModel
 {
     use HasFactory;
     use Aspects;
+    use ContentTrait;
 
     protected $table = 'ratings';
     public $timestamps = false;
@@ -19,10 +20,6 @@ class Rating extends BaseModel
     public function __construct(array $attributes = [])
     {
         $this->fillable = array_merge(self::$aspects, $this->fillable);
-
-        if (isset($attributes['content'])) {
-            $this->setContent($attributes['content']);
-        }
 
         parent::__construct($attributes);
     }
@@ -47,22 +44,9 @@ class Rating extends BaseModel
         return $this->time;
     }
 
-    public function getContent(): ?string
-    {
-        $content = mb_convert_encoding($this->content, 'ISO-8859-1', 'HTML-ENTITIES');
-        $content = iconv("UTF-8", "UTF-8//IGNORE", $content);
-
-        return $content;
-    }
-
     public function getDate(): string
     {
         return date('d-m-Y', $this->time);
-    }
-
-    public function setContent(string $content=null): void
-    {
-        $this->content = mb_convert_encoding($content, 'HTML-ENTITIES', 'ISO-8859-1');
     }
 
     public function getPending(): int

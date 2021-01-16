@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+/** This trait is used in the Eloquent Trim and Elastic Trim. */
 trait TrimTrait
 {
     public function getName(): ?string

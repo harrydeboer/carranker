@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TrimService
 {
-    /** For the front-end it is handy to have all the generations, series and trims of the trims in one array. */
+    /** For the frontend it is handy to have all the generations, series and trims of the trims in one array. */
     public function getGenerationsSeriesTrims(Collection $trims): array
     {
         $generationsSeriesTrims = [];

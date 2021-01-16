@@ -7,7 +7,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Redis;
 
-class FlushRedisDB extends Command
+class FlushRedisDb extends Command
 {
 	/**
 	 * The name and signature of the console command.
@@ -28,6 +28,8 @@ class FlushRedisDB extends Command
 		$redis = new Redis();
 		$redis->connect(env('REDIS_HOST'), (int) env('REDIS_PORT'));
 		$redis->auth(env('REDIS_PASSWORD'));
+
+		/** All databases are flushed when testing. */
 		if (env('APP_ENV') === 'testing') {
             $redis->select((int) env('TEST_REDIS_DB_SESSION'));
             $redis->flushDB();

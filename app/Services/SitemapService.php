@@ -21,9 +21,7 @@ class SitemapService
 
         $pages = $this->pageRepository->all();
 
-        $env = env('APP_ENV');
-
-        $baseUrl = match ($env) {
+        $baseUrl = match (env('APP_ENV')) {
             'local', 'testing' => "http://carranker",
             'production' => "https://carranker.com",
             'acceptance' => "https://accept.carranker.com",

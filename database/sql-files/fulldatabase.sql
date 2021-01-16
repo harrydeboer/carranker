@@ -419,7 +419,7 @@ DROP TABLE IF EXISTS `pages`;
 CREATE TABLE `pages` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `pages_name_unique` (`name`)
@@ -511,7 +511,7 @@ CREATE TABLE `ratings` (
   CONSTRAINT `ratings_model_id_foreign` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`),
   CONSTRAINT `ratings_trim_id_foreign` FOREIGN KEY (`trim_id`) REFERENCES `trims` (`id`),
   CONSTRAINT `ratings_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -520,7 +520,7 @@ CREATE TABLE `ratings` (
 
 LOCK TABLES `ratings` WRITE;
 /*!40000 ALTER TABLE `ratings` DISABLE KEYS */;
-INSERT INTO `ratings` VALUES (1,2,23,26,8,8,8,8,8,1609680762,'Cool car!',0),(2,3,1019,1984,8,8,8,8,8,1609680837,'Nice car!',0),(3,4,84,139,9,9,8,9,8,1609680915,'This car is awesome!',0),(4,1,20652,4229,9,9,9,9,9,1609848042,NULL,1);
+INSERT INTO `ratings` VALUES (1,2,23,26,8,8,8,8,8,1609680762,'Cool car!',0),(2,3,1019,1984,8,8,8,8,8,1609680837,'Nice car!',0),(3,4,84,139,9,9,8,9,8,1609680915,'This car is awesome!',0);
 /*!40000 ALTER TABLE `ratings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -619,7 +619,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -670,4 +670,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-16 14:17:29
+-- Dump completed on 2021-01-16 15:32:02

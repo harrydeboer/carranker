@@ -12,7 +12,7 @@ abstract class BaseRepository
     protected BaseModel $model;
 
     abstract public function get(int $id): BaseModel;
-
+    
     public function findForSearch(string $searchString): Collection
     {
         $words = explode(' ', $searchString);

@@ -10,6 +10,9 @@ use \Closure;
 
 class ValidateSignature
 {
+    /** Varnish uses http, but the signature is made with respect to https.
+     * Temporarily the request is made https to validate the signature.
+     */
     public function handle(Request $request, Closure $next, $relative = null)
     {
         $isSecure = $request->server->get('HTTPS');

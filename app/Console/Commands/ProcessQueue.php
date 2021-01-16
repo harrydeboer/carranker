@@ -38,6 +38,9 @@ class ProcessQueue extends Command
 
     public function handle()
     {
+        /** When updating the code in production all indices are recreated and filled and thus the queue
+         * does not need to be processed and is truncated.
+         */
         if ($this->option('truncate')) {
 
             $this->elasticJobRepository->truncate();
