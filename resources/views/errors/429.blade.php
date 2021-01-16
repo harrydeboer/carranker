@@ -3,4 +3,3 @@
 @section('content')
     Too many requests.
 @endsection
-

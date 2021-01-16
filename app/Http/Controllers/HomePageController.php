@@ -14,11 +14,11 @@ use Illuminate\Http\Response;
 
 class HomePageController extends Controller
 {
-    protected const topLength = 10;
-    private const minNumVotes = 30;
-    private const topSliderNumber = 10;
-    private const numShowMoreLess = 10;
-    private const homepageNumReviews = 3;
+    protected const TOP_LENGTH = 10;
+    private const MIN_NUM_VOTES = 30;
+    private const TOP_SLIDER_NUMBER = 10;
+    private const NUM_SHOW_MORE_LESS = 10;
+    private const HOME_PAGE_NUM_REVIEWS = 3;
 
     public function __construct(
         private RatingRepository $ratingRepository,
@@ -28,20 +28,20 @@ class HomePageController extends Controller
 
     public function view(): Response
     {
-        $minNumVotes = self::minNumVotes;
-        $topTrims = $this->trimRepository->findTrimsOfTop([], $minNumVotes,self::topLength);
+        $minNumVotes = self::MIN_NUM_VOTES;
+        $topTrims = $this->trimRepository->findTrimsOfTop([], $minNumVotes,self::TOP_LENGTH);
 
         $viewData = [
             'title' => 'Car Ranker',
-            'topLengthSlider' => min(count($topTrims), self::topSliderNumber),
-            'numShowMoreLess' => self::numShowMoreLess,
+            'topLengthSlider' => min(count($topTrims), self::TOP_SLIDER_NUMBER),
+            'numShowMoreLess' => self::NUM_SHOW_MORE_LESS,
             'specsChoice' => CarSpecs::specsChoice(),
             'specsRange' => CarSpecs::specsRange(),
             'aspects' => Aspects::getAspects(),
-            'reviews' => $this->ratingRepository->findRecentReviews(self::homepageNumReviews),
+            'reviews' => $this->ratingRepository->findRecentReviews(self::HOME_PAGE_NUM_REVIEWS),
             'topTrims' => $topTrims,
             'minNumVotes' => $minNumVotes,
-            'minNumVotesDefault' => self::minNumVotes,
+            'minNumVotesDefault' => self::MIN_NUM_VOTES,
             'content' => $this->pageRepository->findByName('home')?->getContent(),
         ];
 
@@ -58,7 +58,7 @@ class HomePageController extends Controller
 
         $viewData = [
             'topLength' => count($topTrims),
-            'topLengthSlider' => min(count($topTrims), self::topSliderNumber),
+            'topLengthSlider' => min(count($topTrims), self::TOP_SLIDER_NUMBER),
             'topTrims' => $topTrims,
             'minNumVotes' => (int) $formData['min-num-votes'],
         ];

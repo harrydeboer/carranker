@@ -23,7 +23,7 @@ use Illuminate\Contracts\Auth\Guard;
 
 class ModelPageController extends Controller
 {
-    private const numReviewsPerModelPage = 10;
+    private const NUM_REVIEWS_PER_MODEL_PAGE = 10;
 
     public function __construct(
         private ProfanityRepository $profanityRepository,
@@ -48,7 +48,7 @@ class ModelPageController extends Controller
         $model = $this->modelRepository->getByMakeModelName($makeName, $modelName);
         $model->getMake();
         $trims = $model->getTrims();
-        $reviews = $this->ratingRepository->getReviews($model, self::numReviewsPerModelPage);
+        $reviews = $this->ratingRepository->getReviews($model, self::NUM_REVIEWS_PER_MODEL_PAGE);
 
         /** The links of the pagination get extra html classes to make them centered on the model page. */
         $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
@@ -61,7 +61,7 @@ class ModelPageController extends Controller
             'specsRange' => CarSpecs::specsRange(),
             'model' => $model,
             'trims' => $trims,
-            'maxNumberCharactersReview' => RatingValidator::maxNumberCharactersReview,
+            'maxNumberCharactersReview' => RatingValidator::MAX_NUMBER_CHARACTERS_REVIEW,
             'isLoggedIn' => !is_null($user),
             'isVerified' => $user?->hasVerifiedEmail(),
             'profanities' => $this->profanityRepository->getProfanityNames(),

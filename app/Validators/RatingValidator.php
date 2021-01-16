@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 class RatingValidator extends BaseValidator
 {
-    public const maxNumberCharactersReview = 1000;
+    public const MAX_NUMBER_CHARACTERS_REVIEW = 1000;
 
     public function __construct(
         array $data,
@@ -26,7 +26,7 @@ class RatingValidator extends BaseValidator
     {
         $rules = [
             'trim-id' => 'integer|required',
-            'content' => 'string|nullable|max:' . (string) self::maxNumberCharactersReview,
+            'content' => 'string|nullable|max:' . (string) self::MAX_NUMBER_CHARACTERS_REVIEW,
             're-captcha-token' => 'string|required',
         ];
 

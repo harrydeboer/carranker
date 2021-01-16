@@ -23,4 +23,3 @@
 @else
     <script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
 @endif
-
