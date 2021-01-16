@@ -89,7 +89,7 @@ function reCAPTCHA(form, page)
                         /** The form is submitted which triggers the current function again but now the reCAPTCHA element
                          * is loaded and the events default is not prevented so that the form will actually submit. */
                         $.post(form.attr('action'), form.serialize(), function (data) {
-                            if (data === 'true') {
+                            if (data.trim() === 'true')  {
                                 sessionStorage.isThankYou = "true";
                             }
                             location.reload();
