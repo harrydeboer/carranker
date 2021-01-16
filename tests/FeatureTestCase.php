@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
 class FeatureTestCase extends TestCase
 {
-    use RefreshDatabase;
-
     protected function tearDown(): void
     {
         $this->artisan('flush:indices')->execute();
+        $this->artisan("migrate:fresh --database='mysql_testing'")->execute();
         parent::tearDown();
     }
 }

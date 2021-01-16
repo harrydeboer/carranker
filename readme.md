@@ -18,19 +18,17 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 <li>Execute the command ’docker-compose up -d’</li>
 <li>Execute ’docker exec --user devuser -it carranker composer install’ in base folder.</li>
 <li>Execute command ’docker exec -it carranker php artisan key:generate’</li>
-<li>Browse to the cms at http://cms.carranker:8080 and install wordpress.</li>
 <li>Run command ‘docker exec -it carranker php artisan migrate’ in base folder.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
-<li>Run command ‘docker exec -it carranker php artisan getcmsdata’ in base folder.</li>
-<li>Run command ‘docker exec -it carranker php artisan getfxrate’ in base folder.</li>
-<li>Run command ‘docker exec -it carranker php artisan indexcars’ in base folder.</li>
+<li>Run command ‘docker exec -it carranker php artisan get:fx-rate’ in base folder.</li>
+<li>Run command ‘docker exec -it carranker php artisan index:cars’ in base folder.</li>
 <li>Run command ‘docker exec -it carranker php artisan passport:install’ in base folder.</li>
 <li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
 <li>Execute npm install.</li>
-<li>Enable scss and uglifyjs filewatchers with node_modules/.bin binaries.</li>
-<li>Execute ’bin/unittests.sh’ for unit tests.</li>
-<li>Execute ’bin/featuretests.sh’ for feature tests.</li>
-<li>Execute ’bin/dusktests.sh’ for browser tests.</li>
+<li>Enable scss and uglifyjs file watchers with node_modules/.bin binaries.</li>
+<li>Execute ’bin/unitTests.sh’ for unit tests.</li>
+<li>Execute ’bin/featureTests.sh’ for feature tests.</li>
+<li>Execute ’bin/duskTests.sh’ for browser tests.</li>
 <li>Execute ‘./jmeter -n -t CarRanker.jmx’ with .jmx in apache-jmeter/bin for stress tests.</li>
 </ol>
 
@@ -55,17 +53,16 @@ cannot be root.</li>
 <li>Cp .env.example to .env file in base folder folder and fill in database credentials etc.</li>
 <li>Execute command php artisan key:generate</li>
 <li>Execute ’composer install --no-dev --no-progress --prefer-dist’ in base folder.</li>
-<li>Browse to the cms and install wordpress.</li>
 <li>Execute command ‘chmod 777 -R storage’ in base folder.</li>
-<li>Execute command ‘git reset –hard’ in base folder. </li>
+<li>Execute command ‘git reset –-hard’ in base folder. </li>
 <li>Run command ‘php artisan migrate’ in base folder.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
-<li>Enable cronjob with crontab -e: 0 * * * * (cd path/to/base folder && php artisan getfxrate).</li>
-<li>Enable cronjob with crontab -e: */5 * * * * (cd path/to/base folder && php artisan processqueue).</li>
-<li>Run command ‘php artisan getcmsdata’ in base folder.</li>
-<li>Run command ‘php artisan getfxrate’ in base folder.</li>
+<li>Enable cronjob with crontab -e: 0 * * * * (cd path/to/base folder && php artisan get:fx-rate) > /dev/null.</li>
+<li>Enable cronjob with crontab -e: */5 * * * * (cd path/to/base folder && php artisan process:queue) > /dev/null.</li>
+<li>Enable cronjob with crontab -e: 0 12 * * * (cd /var/www/carranker.com && php artisan send-mail:when-pending-reviews) > /dev/null.</li>
+<li>Run command ‘php artisan get:fx-rate’ in base folder.</li>
 <li>Install elasticsearch (version number can be found in docker-compose).</li>
-<li>Run command ‘php artisan indexcars’ in base folder.</li>
+<li>Run command ‘php artisan index:cars’ in base folder.</li>
 <li>Run command ‘php artisan passport:install’ in base folder.</li>
 <li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
 <li>Install varnish for acceptance and production.</li>
@@ -73,7 +70,7 @@ cannot be root.</li>
 <li>Repeat all the steps for the acceptance site with allowance for certain ips only (and the server ip) in the main 
 apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
 <li>In production: install postfix, dovecot, opendkim, opendmarc, postsrsd and spamassassin.</li>
-<li>In production: add <yourdevuser>@carranker.com, info@carranker.com, noreply@carranker.com, postmaster@carranker.com and root@carranker.com 
+<li>In production: add {yourdevuser}@carranker.com, info@carranker.com, noreply@carranker.com, postmaster@carranker.com and root@carranker.com 
 in. <yourdevuser>@carranker.com and info@carranker.com to carranker@gmail.com.</li>
 <li>An update in production or acceptance can be retrieved inside the bin folder with the command ’./update.sh’</li>
 <li>To revert the update go to the bin folder and execute ’./rollback.sh’.</li>

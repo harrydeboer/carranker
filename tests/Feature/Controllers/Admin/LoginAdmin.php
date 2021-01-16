@@ -13,8 +13,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginAdmin extends FeatureTestCase
 {
-    use RefreshDatabase;
-
     protected function setUp(): void
     {
         parent::setUp();
