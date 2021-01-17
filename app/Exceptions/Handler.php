@@ -14,8 +14,7 @@ class Handler extends ExceptionHandler
     public function __construct(
         Container $container,
         private Factory $viewFactory,
-    )
-    {
+    ) {
         parent::__construct($container);
     }
 

@@ -21,7 +21,7 @@ class ProfanityFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         $name = $this->faker->unique()->name;
         $name = strtolower(str_replace(' ', '', $name));

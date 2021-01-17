@@ -8,7 +8,6 @@ use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\ModelRepository;
 use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Console\Command;
-use Illuminate\Support\Env;
 
 class IndexCars extends Command
 {
@@ -34,8 +33,7 @@ class IndexCars extends Command
         private \App\Repositories\MakeRepository $makeRepositoryEloquent,
         private \App\Repositories\ModelRepository $modelRepositoryEloquent,
         private \App\Repositories\TrimRepository $trimRepositoryEloquent,
-    )
-    {
+    ) {
         parent::__construct();
     }
 

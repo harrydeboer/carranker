@@ -16,7 +16,8 @@ class MailUserController extends Controller
     public function __construct(
         private MailUserRepository $mailUserRepository,
         private Factory $validatorFactory,
-    ){}
+    ) {
+    }
 
     public function view(): Response
     {

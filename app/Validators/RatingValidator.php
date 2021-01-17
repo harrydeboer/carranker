@@ -17,8 +17,7 @@ class RatingValidator extends BaseValidator
         private Collection $profanities,
         array $messages = [],
         array $customAttributes = [],
-    )
-    {
+    ) {
         parent::__construct($data, $messages, $customAttributes);
     }
 

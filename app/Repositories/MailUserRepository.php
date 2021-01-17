@@ -13,7 +13,8 @@ class MailUserRepository implements IRepository
 {
     public function __construct(
         private MailUser $mailUser,
-    ){}
+    ) {
+    }
 
     public function all(): Collection
     {

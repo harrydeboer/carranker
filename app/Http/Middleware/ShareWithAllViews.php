@@ -16,7 +16,8 @@ class ShareWithAllViews
         private Factory $viewFactory,
         private MakeRepository $makeRepository,
         private MenuRepository $menuRepository,
-    ){}
+    ) {
+    }
 
     /** All views get common data. */
     public function handle(Request $request, Closure $next)

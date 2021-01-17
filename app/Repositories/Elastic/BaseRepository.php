@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 abstract class BaseRepository
 {
-    protected BaseModel $model;
-
     abstract public function get(int $id): BaseModel;
     
     public function findForSearch(string $searchString): Collection

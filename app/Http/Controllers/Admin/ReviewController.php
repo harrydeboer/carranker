@@ -21,7 +21,8 @@ class ReviewController extends Controller
         private ModelRepository $modelRepository,
         private TrimRepository $trimRepository,
         private UserRepository $userRepository,
-    ){}
+    ) {
+    }
 
     public function view(): Response
     {

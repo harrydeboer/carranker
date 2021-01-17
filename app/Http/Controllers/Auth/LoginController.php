@@ -29,7 +29,8 @@ class LoginController extends Controller
 
     public function __construct(
         private PageRepository $pageRepository,
-    ){}
+    ) {
+    }
 
     /**
      * Where to redirect users after login.

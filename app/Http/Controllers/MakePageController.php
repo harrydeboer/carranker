@@ -13,7 +13,8 @@ class MakePageController extends Controller
     public function __construct(
         private Factory $viewFactory,
         private MakeRepository $makeRepository,
-    ){}
+    ) {
+    }
 
     public function view(string $makeName): Response
     {

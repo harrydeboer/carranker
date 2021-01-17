@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TrimRepository extends BaseRepository
 {
-    public function __construct(Trim $trim)
-    {
-        $this->model = $trim;
+    public function __construct(
+        protected Trim $model,
+    ) {
     }
 
     public function get(int $id): Trim

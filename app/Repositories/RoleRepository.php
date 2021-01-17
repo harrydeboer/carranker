@@ -11,7 +11,8 @@ class RoleRepository implements IRepository
 {
     public function __construct(
         private Role $role,
-    ){}
+    ) {
+    }
 
     public function all(): Collection
     {

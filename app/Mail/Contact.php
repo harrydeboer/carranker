@@ -20,7 +20,9 @@ class Contact extends Mailable
      */
     public function __construct(
         private array $formData,
-    ){}
+    ) {
+
+    }
 
     /**
      * Build the message.

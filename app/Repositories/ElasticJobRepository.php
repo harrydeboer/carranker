@@ -11,7 +11,8 @@ class ElasticJobRepository implements IRepository
 {
     public function __construct(
         private ElasticJob $elasticJob,
-    ){}
+    ) {
+    }
 
     public function all(): Collection
     {

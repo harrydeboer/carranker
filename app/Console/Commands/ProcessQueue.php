@@ -31,8 +31,7 @@ class ProcessQueue extends Command
         private MakeRepository $makeRepository,
         private ModelRepository $modelRepository,
         private TrimRepository $trimRepository,
-    )
-    {
+    ) {
         parent::__construct();
     }
 

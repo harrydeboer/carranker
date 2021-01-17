@@ -26,8 +26,7 @@ class GetFXRateEuroDollar extends Command
 
     public function __construct(
         private FXRateRepository $fXRateRepository,
-    )
-    {
+    ) {
         parent::__construct();
     }
 

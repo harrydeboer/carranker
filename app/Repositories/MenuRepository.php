@@ -12,7 +12,8 @@ class MenuRepository implements IRepository
     public function __construct(
         private PageRepository $pageRepository,
         private Menu $menu,
-    ){}
+    ) {
+    }
 
     public function all(): Collection
     {

@@ -12,7 +12,8 @@ class UserRepository implements IRepository
 {
     public function __construct(
         private User $user,
-    ){}
+    ) {
+    }
 
     public function all(): Collection
     {

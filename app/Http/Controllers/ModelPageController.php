@@ -37,7 +37,8 @@ class ModelPageController extends Controller
         private TrimRepositoryEloquent $trimRepositoryEloquent,
         private TrimService $trimService,
         private Factory $viewFactory,
-    ){}
+    ) {
+    }
 
     public function view(string $makeName, string $modelName, Request $request): Response
     {

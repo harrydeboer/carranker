@@ -28,7 +28,7 @@ class SendMailWhenPendingReviews extends Command
     public function __construct(
         private Mailer $mailer,
         private RatingRepository $ratingRepository,
-    ){
+    ) {
         parent::__construct();
     }
 

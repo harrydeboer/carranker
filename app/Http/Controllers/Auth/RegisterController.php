@@ -38,8 +38,7 @@ class RegisterController extends Controller
         private PageRepository $pageRepository,
         private RoleRepository $roleRepository,
         private Hasher $hasher,
-    )
-    {
+    ) {
         $this->middleware('guest');
     }
 

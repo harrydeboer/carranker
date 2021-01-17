@@ -11,7 +11,8 @@ class MakeRepository implements IRepository
 {
     public function __construct(
         private Make $make,
-    ){}
+    ) {
+    }
 
     public function all(): Collection
     {

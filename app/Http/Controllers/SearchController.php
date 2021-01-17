@@ -16,7 +16,8 @@ class SearchController extends Controller
         private MakeRepository $makeRepository,
         private ModelRepository $modelRepository,
         private TrimRepository $trimRepository,
-    ){}
+    ) {
+    }
 
     public function view(Request $request): Response
     {

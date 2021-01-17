@@ -24,7 +24,8 @@ class HomePageController extends Controller
         private RatingRepository $ratingRepository,
         private TrimRepository $trimRepository,
         private PageRepository $pageRepository,
-    ){}
+    ) {
+    }
 
     public function view(): Response
     {

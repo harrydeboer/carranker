@@ -11,7 +11,8 @@ class ProfanityRepository implements IRepository
 {
     public function __construct(
         private Profanity $profanity,
-    ){}
+    ) {
+    }
 
     public function all(): Collection
     {

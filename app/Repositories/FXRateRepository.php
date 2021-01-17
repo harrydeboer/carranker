@@ -11,7 +11,8 @@ class FXRateRepository implements IRepository
 {
     public function __construct(
         private FXRate $fXRate,
-    ){}
+    ) {
+    }
 
     public function all(): Collection
     {

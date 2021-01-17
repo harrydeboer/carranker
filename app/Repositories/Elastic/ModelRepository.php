@@ -9,9 +9,9 @@ use stdClass;
 
 class ModelRepository extends BaseRepository
 {
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
+    public function __construct(
+        protected Model $model,
+    ) {
     }
 
     public function get(int $id): Model

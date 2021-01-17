@@ -17,7 +17,8 @@ class RatingRepository implements IRepository
 {
     public function __construct(
         private Rating $rating,
-    ){}
+    ) {
+    }
 
     public function all(): Collection
     {

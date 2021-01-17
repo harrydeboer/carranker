@@ -14,7 +14,7 @@ abstract class BaseValidator extends Validator
     public function __construct(
         array $data,
         array $messages = [],
-        array $customAttributes = []
+        array $customAttributes = [],
     ) {
         parent::__construct(app()->make(Translator::class), $data, $this->rules(), $messages, $customAttributes);
     }

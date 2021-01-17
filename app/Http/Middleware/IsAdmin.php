@@ -12,7 +12,8 @@ class IsAdmin
 {
     public function __construct(
         private Guard $guard,
-    ){}
+    ) {
+    }
 
     /** When the user has roles which contain admin the user can access the page.
      * When the roles do not contain admin the user is redirected to the login page.

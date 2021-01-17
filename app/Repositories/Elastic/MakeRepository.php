@@ -9,9 +9,9 @@ use stdClass;
 
 class MakeRepository extends BaseRepository
 {
-    public function __construct(Make $make)
-    {
-        $this->model = $make;
+    public function __construct(
+        protected Make $model,
+    ) {
     }
 
     public function get(int $id): Make

@@ -20,7 +20,8 @@ class Controller extends BaseController
         private ModelRepository $modelRepository,
         private TrimRepository $trimRepository,
         private SitemapService $sitemapService,
-    ){}
+    ) {
+    }
 
     public function viewMake(string $makeId): JsonResponse
     {

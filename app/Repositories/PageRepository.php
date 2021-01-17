@@ -11,7 +11,8 @@ class PageRepository implements IRepository
 {
     public function __construct(
         private Page $page,
-    ){}
+    ) {
+    }
 
     public function all(): Collection
     {

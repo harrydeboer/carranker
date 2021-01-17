@@ -11,7 +11,8 @@ class TrimRepository extends CarRepository
 {
     public function __construct(
         private Trim $trim,
-    ){}
+    ) {
+    }
 
     public function all(): Collection
     {

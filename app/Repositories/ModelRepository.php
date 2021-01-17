@@ -11,7 +11,8 @@ class ModelRepository extends CarRepository
 {
     public function __construct(
         private Model $model,
-    ){}
+    ) {
+    }
 
     public function all(): Collection
     {

@@ -21,7 +21,7 @@ class MakeFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => str_replace(' ', '', $this->faker->unique()->name),
