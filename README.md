@@ -1,4 +1,4 @@
-<p align="center"><img src="https://carranker.com/img/HeaderChrome.jpg"></p>
+<p><img alt="chrome-wheels" src="https://carranker.com/img/HeaderChrome.jpg"></p>
 
 <h1>First install local and testing</h1>
 
@@ -7,28 +7,28 @@
 <ol>
 <li>When using Windows: use Powershell for the docker commands and Git Bash for everything else. 
 Or prepend Git Bash docker commands with winpty .</li>
-<li>Clone git repository in base folder.</li>
+<li>Clone git repository in base directory.</li>
 <li>Ask site owner for reCAPTCHA key, reCAPTCHA secret and fixer api key.</li>
-<li>Cp .env.example to .env file in base folder folder and fill in the blanks except APP_KEY. 
+<li>Cp .env.example to .env file in base directory and fill in the blanks except APP_KEY. 
 Do not use passwords with "" around them. 
 REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docker-compose.yml.</li>
-<li>On Windows: Place the config/.wslconfig file in the user folder</li>
+<li>On Windows: Place the config/.wslconfig file in the user directory</li>
 <li>On Windows: Execute the lines of the file wslincreasevm in Powershell.</li>
 <li>Execute the command ’docker-compose build’</li>
 <li>Execute the command ’docker-compose up -d’</li>
-<li>Execute ’docker exec --user devuser -it carranker composer install’ in base folder.</li>
+<li>Execute ’docker exec --user devuser -it carranker composer install’ in base directory.</li>
 <li>Execute command ’docker exec -it carranker php artisan key:generate’</li>
-<li>Run command ‘docker exec -it carranker php artisan migrate’ in base folder.</li>
+<li>Run command ‘docker exec -it carranker php artisan migrate’ in base directory.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
-<li>Run command ‘docker exec -it carranker php artisan get:fx-rate’ in base folder.</li>
-<li>Run command ‘docker exec -it carranker php artisan index:cars’ in base folder.</li>
-<li>Run command ‘docker exec -it carranker php artisan passport:install’ in base folder.</li>
+<li>Run command ‘docker exec -it carranker php artisan get:fx-rate’ in base directory.</li>
+<li>Run command ‘docker exec -it carranker php artisan index:cars’ in base directory.</li>
+<li>Run command ‘docker exec -it carranker php artisan passport:install’ in base directory.</li>
 <li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
 <li>Execute npm install.</li>
 <li>Enable scss and uglifyjs file watchers with node_modules/.bin binaries.</li>
-<li>Execute ’bin/unitTests.sh’ for unit tests.</li>
-<li>Execute ’bin/featureTests.sh’ for feature tests.</li>
-<li>Execute ’bin/duskTests.sh’ for browser tests.</li>
+<li>Execute ’unitTests.sh’ for unit tests.</li>
+<li>Execute ’featureTests.sh’ for feature tests.</li>
+<li>Execute ’duskTests.sh’ for browser tests.</li>
 <li>Execute ‘./jmeter -n -t CarRanker.jmx’ with .jmx in apache-jmeter/bin for stress tests.</li>
 </ol>
 
@@ -36,11 +36,11 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 
 <ol>
 <li>Create the Car Ranker database.</li>
-<li>Sudo mkdir base folder in /var/www. The base folder must have the same name as the site name (domain name) in 
+<li>Sudo mkdir base directory in /var/www. The base directory must have the same name as the site name (domain name) in 
 /etc/apache2/sites-available (without the .conf).</li>
-<li>Execute command ‘sudo chown {youruser}:{yourusergroup} {base folder}’ in /var/www. The owner of the base folder 
+<li>Execute command ‘sudo chown {youruser}:{yourusergroup} {base directory}’ in /var/www. The owner of the base directory 
 cannot be root.</li>
-<li>Execute command ‘git init’ in base folder.</li>
+<li>Execute command ‘git init’ in base directory.</li>
 <li>Execute command ‘git remote add origin {ssh-origin}’.</li>
 <li>Execute command ‘git pull origin master’.</li>
 <li>Make apache configuration files for laravel and edit these files to match the sites.</li>
@@ -50,28 +50,28 @@ cannot be root.</li>
 <li>Enable the php modules listed in composer.json.</li>
 <li>Restart apache.</li>
 <li>Ask site owner for reCAPTCHA key, secret and fixer api key.</li>
-<li>Cp .env.example to .env file in base folder folder and fill in database credentials etc.</li>
+<li>Cp .env.example to .env file in base directory directory and fill in database credentials etc.</li>
 <li>Execute command php artisan key:generate</li>
-<li>Execute ’composer install --no-dev --no-progress --prefer-dist’ in base folder.</li>
-<li>Execute command ‘chmod 777 -R storage’ in base folder.</li>
-<li>Execute command ‘git reset –-hard’ in base folder. </li>
-<li>Run command ‘php artisan migrate’ in base folder.</li>
+<li>Execute ’composer install --no-dev --no-progress --prefer-dist’ in base directory.</li>
+<li>Execute command ‘chmod 777 -R storage’ in base directory.</li>
+<li>Execute command ‘git reset –-hard’ in base directory. </li>
+<li>Run command ‘php artisan migrate’ in base directory.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims and profanities.</li>
-<li>Enable cronjob with crontab -e: 0 * * * * (cd path/to/base folder && php artisan get:fx-rate) > /dev/null.</li>
-<li>Enable cronjob with crontab -e: */5 * * * * (cd path/to/base folder && php artisan process:queue) > /dev/null.</li>
+<li>Enable cronjob with crontab -e: 0 * * * * (cd path/to/base directory && php artisan get:fx-rate) > /dev/null.</li>
+<li>Enable cronjob with crontab -e: */5 * * * * (cd path/to/base directory && php artisan process:queue) > /dev/null.</li>
 <li>Enable cronjob with crontab -e: 0 12 * * * (cd /var/www/carranker.com && php artisan send-mail:when-pending-reviews) > /dev/null.</li>
-<li>Run command ‘php artisan get:fx-rate’ in base folder.</li>
+<li>Run command ‘php artisan get:fx-rate’ in base directory.</li>
 <li>Install elasticsearch (version number can be found in docker-compose).</li>
-<li>Run command ‘php artisan index:cars’ in base folder.</li>
-<li>Run command ‘php artisan passport:install’ in base folder.</li>
+<li>Run command ‘php artisan index:cars’ in base directory.</li>
+<li>Run command ‘php artisan passport:install’ in base directory.</li>
 <li>Assign user_id to test account in table oauth_clients for client with password_client is 1.</li>
 <li>Install varnish for acceptance and production.</li>
 <li>Install redis.</li>
 <li>Repeat all the steps for the acceptance site with allowance for certain ips only (and the server ip) in the main 
 apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
 <li>In production: install postfix, dovecot, opendkim, opendmarc, postsrsd and spamassassin.</li>
-<li>In production: add {yourdevuser}@carranker.com, info@carranker.com, noreply@carranker.com, postmaster@carranker.com and root@carranker.com 
-in. <yourdevuser>@carranker.com and info@carranker.com to carranker@gmail.com.</li>
-<li>An update in production or acceptance can be retrieved inside the bin folder with the command ’./update.sh’</li>
-<li>To revert the update go to the bin folder and execute ’./rollback.sh’.</li>
+<li>In production: add yourdevuser@carranker.com, info@carranker.com, noreply@carranker.com, postmaster@carranker.com and root@carranker.com 
+in. yourdevuser@carranker.com and info@carranker.com to carranker@gmail.com.</li>
+<li>An update in production or acceptance can be retrieved with the command ’./update.sh’</li>
+<li>To revert the update execute ’./rollback.sh’.</li>
 </ol>
