@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-/** Rating, Model and Trim all have the same aspects. An aspect is a kind of rating a car can have. */
+/**
+ * Rating, Model and Trim all have the same aspects. An aspect is a kind of rating a car can have.
+ */
 trait Aspects
 {
     protected static array $aspects = ['design', 'comfort', 'reliability', 'costs', 'performance'];
 
-    /** Gets the total rating of a car if present, otherwise null is returned. */
+    /**
+     * Gets the total rating of a car if present, otherwise null is returned.
+     */
     public function getRating(): ?float
     {
         $rating = 0;

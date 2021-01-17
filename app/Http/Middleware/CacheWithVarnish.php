@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class CacheWithVarnish
 {
-    /** Varnish needs cache even when there is a Laravel cookie.
+    /**
+     * Varnish needs cache even when there is a Laravel cookie.
      * An extra header is added to the response to tell varnish that the page must be cached.
      */
     public function handle(Request $request, Closure $next, int $cacheTimeInMinutes = null)

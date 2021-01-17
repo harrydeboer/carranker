@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Exception;
 
-/** Model stands for car model instead of Laravel model. */
+/**
+ * Model stands for car model instead of Laravel model.
+ */
 class Model extends BaseModel
 {
     use ModelTrait;

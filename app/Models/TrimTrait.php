@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-/** This trait is used in the Eloquent Trim and Elastic Trim. */
+/**
+ * This trait is used in the Eloquent Trim and Elastic Trim.
+ */
 trait TrimTrait
 {
     public function getName(): ?string
@@ -30,8 +32,10 @@ trait TrimTrait
         $this->rating = $rating;
     }
 
-    /** The images are stored in directories with names that contain no special characters.
-     * To get the image url the special characters must be replaced by normal characters. */
+    /**
+     * The images are stored in directories with names that contain no special characters.
+     * To get the image url the special characters must be replaced by normal characters.
+     */
     public function getImage(): string
     {
         $image = '/img/models/';

@@ -3,7 +3,9 @@ $(document).ready(function ()
     let menuMake = $('#nav-select-make');
     let menuModel = $('#nav-select-model');
 
-    /* The selected options are set to the session on change of the selected make or model. */
+    /**
+     *  The selected options are set to the session on change of the selected make or model.
+     */
     menuMake.on('change', function ()
     {
         fillModelMenu();
@@ -24,7 +26,9 @@ $(document).ready(function ()
         }
     });
 
-    /* Determines the car models related to the chosen make and fills the model select accordingly. */
+    /**
+     * Determines the car models related to the chosen make and fills the model select accordingly.
+     */
     function fillModelMenu()
     {
         let selectedMake = menuMake.val();
@@ -56,10 +60,14 @@ $(document).ready(function ()
 
 function reCAPTCHA(form, page)
 {
-    /** Show the loader img */
+    /**
+     * Show the loader img.
+     */
     $('#hideAll').show();
 
-    /** The reCAPTCHAScript element is loaded when not present.*/
+    /**
+     * The reCAPTCHAScript element is loaded when not present.
+     */
     let headId = document.getElementsByTagName("head")[0];
     let scriptElement = document.createElement('script');
     scriptElement.type = 'text/javascript';
@@ -81,13 +89,17 @@ function reCAPTCHA(form, page)
                     $('#re-captcha-token').val(reCAPTCHAToken);
 
                     if (page === 'contactPage') {
-                        /** The form is submitted which triggers the current function again but now the reCAPTCHA element
-                         * is loaded and the events default is not prevented so that the form will actually submit. */
+                        /**
+                         * The form is submitted which triggers the current function again but now the reCAPTCHA element
+                         * is loaded and the events default is not prevented so that the form will actually submit.
+                         */
                         form.submit();
                     } else if (page === 'modelPage') {
 
-                        /** The form is submitted which triggers the current function again but now the reCAPTCHA element
-                         * is loaded and the events default is not prevented so that the form will actually submit. */
+                        /**
+                         * The form is submitted which triggers the current function again but now the reCAPTCHA element
+                         * is loaded and the events default is not prevented so that the form will actually submit.
+                         */
                         $.post(form.attr('action'), form.serialize(), function (data) {
                             if (data.trim() === 'true')  {
                                 sessionStorage.isThankYou = "true";

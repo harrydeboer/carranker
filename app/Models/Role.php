@@ -15,7 +15,9 @@ class Role extends BaseModel
     public $timestamps = false;
     protected $fillable = ['name'];
 
-    /** The roles have multiple users and the users have multiple roles so these are many to many. */
+    /**
+     * The roles have multiple users and the users have multiple roles so these are many to many.
+     */
     public function getUsers(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\User', 'users_roles');

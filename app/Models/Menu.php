@@ -15,7 +15,9 @@ class Menu extends BaseModel
     public $timestamps = false;
     protected $fillable = ['name'];
 
-    /** The menus have multiple pages and the pages have multiple menus so these are many to many. */
+    /**
+     * The menus have multiple pages and the pages have multiple menus so these are many to many.
+     */
     public function getPages(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Page', 'menus_pages');

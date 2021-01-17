@@ -18,7 +18,9 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
-    /** @return User */
+    /**
+     * @return User
+     */
     protected function getCurrentUser(): ?Authenticatable
     {
         $guard = app()->make(Guard::class);

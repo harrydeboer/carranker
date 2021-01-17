@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-/** This trait is used in the Eloquent Model and Elastic Model. */
+/**
+ * This trait is used in the Eloquent Model and Elastic Model.
+ */
 trait ModelTrait
 {
     use ContentTrait;
@@ -29,8 +31,10 @@ trait ModelTrait
         return $this->votes;
     }
 
-    /** The images are stored in directories with names that contain no special characters.
-     * To get the image url the special characters must be replaced by normal characters. */
+    /**
+     * The images are stored in directories with names that contain no special characters.
+     * To get the image url the special characters must be replaced by normal characters.
+     */
     public function getImage(): string
     {
         $image = '/img/models/';

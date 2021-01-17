@@ -13,7 +13,8 @@ class ContentSecurityPolicy
     {
         $response = $next($request);
 
-        /** When the app env is local the Laravel error message must be displayed with inline styling and scripting.
+        /**
+         * When the app env is local the Laravel error message must be displayed with inline styling and scripting.
          * Therefore the Content Security Policy is not demanded locally. The other app envs need this security.
          * Testing has to be done with this security enabled also.
          */

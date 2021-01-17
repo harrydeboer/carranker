@@ -3,19 +3,27 @@ $(document).ready(function ()
     sessionStorage.lazyLoad = false;
     let checkAll = $('.check-all');
 
-    /** Activate the slider */
+    /**
+     * Activate the slider.
+     */
     $('#slider-top').carousel();
 
-    /** Via the check all checkbox all checks of this car spec are toggled. */
+    /**
+     * Via the check all checkbox all checks of this car spec are toggled.
+     */
     checkAll.on('click', function () {
         $("." + $(this).data('spec-name')).prop('checked', $(this).prop('checked'));
     });
 
-    /** All hidden top filters are toggled. */
+    /**
+     * All hidden top filters are toggled.
+     */
     $('#filter-top-form-show-all').on('click', function(event)
     {
-        /** When all specs are shown the button group must be aligned vertically
-         * so that the aspect ranges fit next to the buttons. */
+        /**
+         * When all specs are shown the button group must be aligned vertically
+         * so that the aspect ranges fit next to the buttons.
+         */
         if ($('#aspects-table:visible').length) {
             $('#choices').addClass('col-xl-12').removeClass('col-xl-4').removeClass('vertical');
         } else {
@@ -43,7 +51,9 @@ $(document).ready(function ()
         event.preventDefault();
     });
 
-    /** When a user wants the default settings of all filters this function resets to default filtering. */
+    /**
+     * When a user wants the default settings of all filters this function resets to default filtering.
+     */
     $('#filter-top-form-reset').on('click', function (event)
     {
         checkAll.each(function()
@@ -70,7 +80,9 @@ $(document).ready(function ()
         event.preventDefault();
     });
 
-    /** When the user wants to filter the top the filter preferences are shown and scrolled to. */
+    /**
+     * When the user wants to filter the top the filter preferences are shown and scrolled to.
+     */
     $('#choose-preferences').on('click', function ()
     {
         $('#preferences-dialog').toggle();
@@ -103,7 +115,10 @@ $(document).ready(function ()
 
     showPartTopTable(sessionStorage.numberOfRows);
 
-    /** When more or less trims are shown in the top table the scrolling makes that the button remains in the same place of the window. */
+    /**
+     * When more or less trims are shown in the top table the scrolling makes that the button remains
+     * in the same place of the window.
+     */
     $('#show-more').on('click', function (event)
     {
         let height = $(document).height();
@@ -111,11 +126,15 @@ $(document).ready(function ()
         let topRows = $('.top-row');
         let topRowsVisible = $('.top-row:visible');
 
-        /** More trims are loaded only when there are not enough trims hidden. Otherwise the hidden trims are shown. */
+        /**
+         * More trims are loaded only when there are not enough trims hidden. Otherwise the hidden trims are shown.
+         */
         if (topRowsVisible.length + numShowMoreLess > topRows.length) {
 
-            /** The extra number of trims is numShowMoreLess except for the case that the current number of trims is not a ten fold.
-             * Showing more trims is always the upper ten fold. */
+            /**
+             * The extra number of trims is numShowMoreLess except for the case that the current number of trims is not a ten fold.
+             * Showing more trims is always the upper ten fold.
+             */
             if (topRowsVisible.length % 10 === 0) {
                 sessionStorage.numberOfRows = topRowsVisible.length + numShowMoreLess;
             } else {
@@ -155,8 +174,10 @@ $(document).ready(function ()
             let height = $(document).height();
             let y = $(window).scrollTop();
 
-            /** Showing less trims is always the lower ten fold when the current number of trims is not a ten fold.
-             * Otherwise numShorMoreLess is subtracted for the number of visible trims. */
+            /**
+             * Showing less trims is always the lower ten fold when the current number of trims is not a ten fold.
+             * Otherwise numShorMoreLess is subtracted for the number of visible trims.
+             */
             if ($('#table-top tr').length % 10 === 0) {
                 sessionStorage.numberOfRows = parseInt(sessionStorage.numberOfRows) - numShowMoreLess;
             } else {
@@ -173,8 +194,10 @@ $(document).ready(function ()
 
     $("#filter-top-form").on('submit', function (event)
     {
-        /** When there are less trims visible than numShowMoreLess the filtering tries to find numShowMoreLess trims.
-         * Otherwise the number of visible trims is asked from the server. */
+        /**
+         * When there are less trims visible than numShowMoreLess the filtering tries to find numShowMoreLess trims.
+         * Otherwise the number of visible trims is asked from the server.
+         */
         let rows;
         let topRowsVisible = $('.top-row:visible');
         if (topRowsVisible.length < numShowMoreLess) {
@@ -184,10 +207,12 @@ $(document).ready(function ()
         }
         sessionStorage.filterFormSerializedValues = $(this).serialize();
 
-        /** Three pieces of html, the slideshow, the top table and the least number of votes, are filled with the
+        /**
+         * Three pieces of html, the slideshow, the top table and the least number of votes, are filled with the
          * ajax callback data. The data has a splitpoint to split at the right point for the three pieces of html.
          * The number of rows that has to be shown is set with showPartTopTable, the loader is hidden and
-         * the slider is activated. Then the window scrolls to the top of the table. */
+         * the slider is activated. Then the window scrolls to the top of the table.
+         */
         $.get($(this).attr('action'), $(this).serialize() + "&number-of-rows=" + rows, function (data)
         {
             let array = data.split(/splitPoint/);
@@ -214,7 +239,9 @@ $(document).ready(function ()
         event.preventDefault();
     });
 
-    /** Only a part of the total table is shown. The minimum number of votes is set on top of the table. */
+    /**
+     * Only a part of the total table is shown. The minimum number of votes is set on top of the table.
+     */
     function showPartTopTable(numberOfRows)
     {
         $('#table-top tr').hide();

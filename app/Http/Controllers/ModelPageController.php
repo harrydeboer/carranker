@@ -94,7 +94,8 @@ class ModelPageController extends Controller
         $trim = $this->trimRepositoryEloquent->get($trimId);
         $model = $trim->getModel();
 
-        /** When the new rating is a review it does not update the model and trim rating, because it is pending approval.
+        /**
+         * When the new rating is a review it does not update the model and trim rating, because it is pending approval.
          * When the new rating is not a review but the earlier rating is a review that is pending then the model and
          * trim rating are not updated also and the rating is updated with pending on. The new review is created when
          * the previous rating is not pending. A review that is created is always pending. When the previous rating

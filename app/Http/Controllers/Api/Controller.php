@@ -12,7 +12,9 @@ use Illuminate\Routing\Controller as BaseController;
 use App\Services\SitemapService;
 use Illuminate\Http\Response;
 
-/** When Oauth authenticated a user can get any make, model or trim as json. */
+/**
+ * When Oauth authenticated a user can get any make, model or trim as json.
+ */
 class Controller extends BaseController
 {
     public function __construct(

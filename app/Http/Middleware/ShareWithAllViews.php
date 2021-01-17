@@ -19,7 +19,9 @@ class ShareWithAllViews
     ) {
     }
 
-    /** All views get common data. */
+    /**
+     * All web views get common data.
+     */
     public function handle(Request $request, Closure $next)
     {
         $action = $request->route()->getAction();

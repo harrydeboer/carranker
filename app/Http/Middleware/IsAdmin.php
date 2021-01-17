@@ -15,7 +15,8 @@ class IsAdmin
     ) {
     }
 
-    /** When the user has roles which contain admin the user can access the page.
+    /**
+     * When the user has roles which contain admin the user can access the page.
      * When the roles do not contain admin the user is redirected to the login page.
      */
     public function handle(Request $request, Closure $next)

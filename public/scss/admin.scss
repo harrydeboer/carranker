@@ -1,12 +1,12 @@
 @import 'webAndAdmin';
 
-/** Header */
+// Header
 #navigation-admin li {
   padding-right: 20px;
   padding-left: 20px;
 }
 
-/** Mail Users */
+// Mail Users
 .mail-user-tr {
   white-space: nowrap;
 }
@@ -31,7 +31,7 @@
   width: 75px;
 }
 
-/** Reviews */
+// Reviews
 .review-name {
   font-weight: bold;
   white-space: nowrap;
@@ -41,7 +41,7 @@
   padding: 20px;
 }
 
-/** Footer */
+// Footer
 #delete-submit {
   width: 120px;
 }

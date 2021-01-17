@@ -1,6 +1,8 @@
 $(document).ready(function ()
 {
-    /** When there is no swearing in the form then a request is send to the server, which sends the email. */
+    /**
+     * When there is no swearing in the form then a request is send to the server, which sends the email.
+     */
     $('#contact-form').on('submit', function (event)
     {
         let testProfanities = true;

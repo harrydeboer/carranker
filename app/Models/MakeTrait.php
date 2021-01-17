@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-/** This trait is used in the Eloquent Make and Elastic Make. */
+/**
+ * This trait is used in the Eloquent Make and Elastic Make.
+ */
 trait MakeTrait
 {
     use ContentTrait;

@@ -32,7 +32,8 @@ class TrimRepository extends BaseRepository
         return $trim->getYearBegin() . '-' . $trim->getYearEnd();
     }
 
-    /** The trims for the top on the homepage are retrieved. The filtering options are used when present.
+    /**
+     * The trims for the top on the homepage are retrieved. The filtering options are used when present.
      * There is an aspect filter, specs choice filter and specs range filter. The minimum number of votes is also a
      * filter and the number of trims to be retrieved and the offset if present.
      * The ratings are sorted from high to low.
@@ -83,7 +84,9 @@ class TrimRepository extends BaseRepository
         return $trims;
     }
 
-    /** Filter the trims for the user settings in the aspect ranges of the filter top form. */
+    /**
+     * Filter the trims for the user settings in the aspect ranges of the filter top form.
+     */
     private function queryAspects(array $data, array $params): array
     {
         $params['body']['sort']['_script'] = [
@@ -113,7 +116,9 @@ class TrimRepository extends BaseRepository
         return $params;
     }
 
-    /** Filter the trims for the user settings in the dropdowns of the filter top form. */
+    /**
+     * Filter the trims for the user settings in the dropdowns of the filter top form.
+     */
     private function queryChoice(array $choices, string $name, array $params, array $data): array
     {
         $queryArr = [];
@@ -156,7 +161,9 @@ class TrimRepository extends BaseRepository
         return $params;
     }
 
-    /** Filter the trims for the user settings in the min/max selects of the filter top form. */
+    /**
+     * Filter the trims for the user settings in the min/max selects of the filter top form.
+     */
     private function queryRange(array $spec, string $name, array $params, array $data): array
     {
         $formSpecs = $data['specs-range'];
@@ -165,7 +172,9 @@ class TrimRepository extends BaseRepository
 
         if (isset($formMin)) {
 
-            /** The database only has year_begin and year_end not generation. Generation is the display name. */
+            /**
+             * The database only has year_begin and year_end not generation. Generation is the display name.
+             */
             if ($name === 'generation') {
                 $name = 'year_begin';
             }
@@ -175,7 +184,9 @@ class TrimRepository extends BaseRepository
             $params['body']['query']['bool']['must'][] = $array;
         }
 
-        /** the max value in the select has to be cast to float or int. */
+        /**
+         * The max value in the select has to be cast to float or int.
+         */
         if ($name === 'engine_capacity' && !is_null($formMax)) {
             $formMax = (float) $formMax;
         } elseif (!is_null($formMax)) {
@@ -184,7 +195,9 @@ class TrimRepository extends BaseRepository
 
         if (isset($formMax) && $spec['max'] !== $formMax) {
 
-            /** The database only has year_begin and year_end not generation. Generation is the display name. */
+            /**
+             * The database only has year_begin and year_end not generation. Generation is the display name.
+             */
             if ($name === 'generation') {
                 $name = 'year_end';
             }

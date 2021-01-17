@@ -87,7 +87,9 @@ abstract class BaseRepository
             }
         }
 
-        // Send the last batch if it exists
+        /**
+         * Send the last batch if it exists.
+         */
         if (!empty($params['body'])) {
             BaseModel::bulk($params);
         }
@@ -111,7 +113,9 @@ abstract class BaseRepository
             }
         }
 
-        // Send the last batch if it exists
+        /**
+         * Send the last batch if it exists.
+         */
         if (!empty($params['body'])) {
             BaseModel::bulk($params);
         }
@@ -132,7 +136,9 @@ abstract class BaseRepository
             }
         }
 
-        // Send the last batch if it exists
+        /**
+         * Send the last batch if it exists.
+         */
         if (!empty($params['body']) && count($models) > 0) {
             BaseModel::bulk($params);
         }

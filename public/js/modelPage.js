@@ -14,7 +14,9 @@ $(document).ready(function ()
     });
     showSelectedGeneration();
 
-    /** Show all or part of the specs of a car trim in the car trim modal. */
+    /**
+     * Show all or part of the specs of a car trim in the car trim modal.
+     */
     $('.show-all-specs').on('click', function()
     {
         if ($('.collapse-specs:visible').length) {
@@ -31,7 +33,9 @@ $(document).ready(function ()
         $('#thank-you').modal('show');
     }
 
-    /** When a user wants to rate a trim then the generation, series and id of the trim are filled in in the rating form. */
+    /**
+     * When a user wants to rate a trim then the generation, series and id of the trim are filled in in the rating form.
+     */
     $(".to-rate-trim").on('click', function()
     {
         $('.type-info').modal('hide');
@@ -54,8 +58,10 @@ $(document).ready(function ()
         showDialog('review');
     });
 
-    /** A rating can be send to the server when there is no swearing in a review
-     * or when the submit is not a review. The required attributes in the html validate the form. */
+    /**
+     * A rating can be send to the server when there is no swearing in a review
+     * or when the submit is not a review. The required attributes in the html validate the form.
+     */
     ratingForm.on('submit', function(event)
     {
         let trimNameArray = menuTrims.val().split(';');
@@ -90,8 +96,10 @@ $(document).ready(function ()
         }
     });
 
-    /** The generations have series and when a generation is selected the right options for the series must be shown.
-     * The series have trims and when a series is selected the right options for the trims must be shown. */
+    /**
+     * The generations have series and when a generation is selected the right options for the series must be shown.
+     * The series have trims and when a series is selected the right options for the trims must be shown.
+     */
     menuSeriesOptions.hide();
     menuTrimsOptions.hide();
     menuGenerations.on('change', function()
@@ -142,10 +150,12 @@ $(document).ready(function ()
         $('#characters-left').text(maxCharactersInReview - $(this).val().length);
     });
 
-    /** The dialog with the rating form can have three shapes. When a trim is viewed and the user wants to rate
+    /**
+     * The dialog with the rating form can have three shapes. When a trim is viewed and the user wants to rate
      * this trim then the user does not need to specify the right generation, series or trim. When the form is selected
      * from the model page the user needs to specify the generation, series and/or trim and these are then required.
-     * Finally when the user wants to write a review the textarea is displayed in the form and made required. */
+     * Finally when the user wants to write a review the textarea is displayed in the form and made required. 
+     */
     function showDialog(typeShow)
     {
         menuGenerations.show();
@@ -176,7 +186,9 @@ $(document).ready(function ()
         $('#generation' + $("#generation-select option:selected").val()).show();
     }
 
-    /** No html (<>[]) allowed from keypress or copy paste in the review. */
+    /**
+     * No html (<>[]) allowed from keypress or copy paste in the review.
+     */
     ratingFormContent.keypress(function(event)
     {
         let errorMessage = $('#no-html-allowed');

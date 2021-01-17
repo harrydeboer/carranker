@@ -46,7 +46,8 @@ class ReviewController extends Controller
         return redirect(route('admin.reviews'));
     }
 
-    /** When a review is approved the model and trim get a rating update.
+    /**
+     * When a review is approved the model and trim get a rating update.
      * This update needs the earlier rating if present. After updating the ratings the earlier rating is deleted.
      */
     public function approve(Request $request): RedirectResponse

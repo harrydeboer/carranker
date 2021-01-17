@@ -42,7 +42,8 @@ class MakeRepository extends BaseRepository
         return $model;
     }
 
-    /** The make names are retrieved and sorted on ascii value.
+    /**
+     * The make names are retrieved and sorted on ascii value.
      * This is needed for makes with special characters in their name to be sorted properly.
      */
     public function getMakeNames(): array
@@ -69,7 +70,8 @@ class MakeRepository extends BaseRepository
         return $makeNames;
     }
 
-    /** The model names are retrieved and sorted on ascii value.
+    /**
+     * The model names are retrieved and sorted on ascii value.
      * This is needed for models with special characters in their name to be sorted properly.
      */
     public function getModelNames(?string $makeName): ?array

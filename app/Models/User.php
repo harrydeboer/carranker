@@ -73,7 +73,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->remember_token;
     }
 
-    /** The users have multiple roles and the roles have multiple users so these are many to many. */
+    /**
+     * The users have multiple roles and the roles have multiple users so these are many to many.
+     */
     public function getRoles(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Role', 'users_roles');
