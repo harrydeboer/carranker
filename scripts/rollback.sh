@@ -5,5 +5,5 @@
     exit 1
   fi
   git reset --hard HEAD@{1}
-  cd bin
+  cd scripts || exit
   ./installAndClearCaches.sh

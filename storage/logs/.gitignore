@@ -1,2 +1,5 @@
 /*
 !.gitignore
+!/redis
+/redis/*
+!/redis/.gitkeep

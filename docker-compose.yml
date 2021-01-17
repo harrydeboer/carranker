@@ -30,7 +30,7 @@ services:
     command: redis-server /usr/local/etc/redis/redis.conf --requirepass ${REDIS_PASSWORD}
     volumes:
       - ./config/redis.conf:/usr/local/etc/redis/redis.conf
-      - ./logs/redis/:/var/log/redis/
+      - ./storage/logs/redis/:/var/log/redis/
     networks:
       carranker:
         ipv4_address: ${REDIS_HOST}
@@ -49,7 +49,7 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - ./data:/usr/share/elasticsearch/data
+      - ./storage/elastic/data:/usr/share/elasticsearch/data
     ports:
       - ${ELASTIC_PORT}:${ELASTIC_PORT}
     networks:

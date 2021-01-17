@@ -10,7 +10,7 @@
   php artisan flush:redis-dbs
   php artisan process:queue --truncate
   php artisan index:cars
-  cd bin || exit
+  cd scripts || exit
   ./opcacheReset.sh
   cd ..
   varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret 'ban req.http.host ~ (^accept.carranker.com$)'
