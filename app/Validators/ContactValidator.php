@@ -22,9 +22,11 @@ class ContactValidator extends BaseValidator
     {
         $data = parent::validate();
 
-        if ($this->profanitiesCheck($data['subject'], $this->profanities) &&
-            $this->profanitiesCheck($data['name'], $this->profanities) &&
-            $this->profanitiesCheck($data['message'], $this->profanities)) {
+        if (
+            $this->profanitiesCheck($data['subject'], $this->profanities)
+            && $this->profanitiesCheck($data['name'], $this->profanities)
+            && $this->profanitiesCheck($data['message'], $this->profanities)
+        ) {
 
             return $data;
         }

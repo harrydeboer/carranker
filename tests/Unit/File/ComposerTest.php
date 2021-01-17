@@ -19,11 +19,13 @@ class ComposerTest extends TestCase
 
         $extensions = get_loaded_extensions();
         foreach ($extensions as $extension) {
-            if ($extension === 'Core' ||
-                $extension === 'standard' ||
-                $extension === 'xdebug' ||
-                $extension === 'pdo_sqlite' ||
-                $extension === 'sqlite3') {
+            if (
+                $extension === 'Core'
+                || $extension === 'standard'
+                || $extension === 'xdebug'
+                || $extension === 'pdo_sqlite'
+                || $extension === 'sqlite3'
+            ) {
                 continue;
             } elseif ($extension === 'Zend OPcache') {
                 $this->assertObjectHasAttribute(

@@ -195,7 +195,12 @@ $(document).ready(function ()
         errorMessage.text('');
 
         /** No <>[] characters allowed. */
-        if (event.which === 60 || event.which === 62 || event.which === 91 || event.which === 93) {
+        if (
+            event.which === 60
+            || event.which === 62
+            || event.which === 91
+            || event.which === 93
+        ) {
             errorMessage.text('No html allowed');
 
             return false;
@@ -207,10 +212,12 @@ $(document).ready(function ()
         let pastedData = event.originalEvent.clipboardData.getData('text');
         errorMessage.text('');
 
-        if (pastedData.indexOf('<') !== -1
+        if (
+            pastedData.indexOf('<') !== -1
             || pastedData.indexOf('>') !== -1
             || pastedData.indexOf('[') !== -1
-            || pastedData.indexOf(']') !== -1) {
+            || pastedData.indexOf(']') !== -1
+        ) {
             errorMessage.text('No html allowed');
 
             return false;
