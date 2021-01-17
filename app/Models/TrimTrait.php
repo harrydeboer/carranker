@@ -177,6 +177,7 @@ trait TrimTrait
         if ($fuel === 'Gasoline,  Electric' || $fuel === 'Gasoline,  CNG') {
             return '/img/Gasoline.png';
         }
+
         return '/img/' . $fuel . '.png';
     }
 

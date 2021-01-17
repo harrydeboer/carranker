@@ -87,7 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         if (env('APP_ENV') === 'production') {
-            $this->notify(new VerifyEmail);
+            $this->notify(new VerifyEmail());
         }
     }
 }

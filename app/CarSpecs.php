@@ -99,7 +99,7 @@ class CarSpecs
     }
 
     /**
-     * Certain car trim specs can have a range of values within a manimum and maximum. The homepage has min and max
+     * Certain car trim specs can have a range of values within a minimum and maximum. The homepage has min and max
      * selects where the options are the minimum towards the maximum in certain steps. The specs can be shown or hidden.
      * The name of the spec has a more readable display name. Each spec has a unit, like liters,
      * which is also displayed on the homepage.
