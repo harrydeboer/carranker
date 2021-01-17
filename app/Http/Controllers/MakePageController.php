@@ -20,8 +20,8 @@ class MakePageController extends Controller
     {
         $makeName = rawurldecode($makeName);
         $make = $this->makeRepository->getByName($makeName);
-
         $models = $make->getModels();
+
         $viewData = [
             'title' => $makeName,
             'make' => $make,

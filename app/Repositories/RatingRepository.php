@@ -55,7 +55,9 @@ class RatingRepository implements IRepository
      */
     public function findPendingReviews(int $numReviewsPerPage): LengthAwarePaginatorContract
     {
-        return $this->rating->whereNotNull('content')
+        return $this
+            ->rating
+            ->whereNotNull('content')
             ->where('pending', 1)
             ->orderBy('time', 'desc')
             ->paginate($numReviewsPerPage);
@@ -63,7 +65,10 @@ class RatingRepository implements IRepository
 
     public function findRecentReviews(int $limit): Collection
     {
-        return $this->rating->whereNotNull('content')->where('pending', 0)
+        return $this
+            ->rating
+            ->whereNotNull('content')
+            ->where('pending', 0)
             ->take($limit)->orderBy('time', 'desc')->get();
     }
 
@@ -103,7 +108,9 @@ class RatingRepository implements IRepository
 
     public function findEarlierByTrimAndUser(int $trimId, int $userId): ?Rating
     {
-        $ratings = $this->rating->where('trim_id', $trimId)
+        $ratings = $this
+            ->rating
+            ->where('trim_id', $trimId)
             ->where('user_id', $userId)
             ->where('pending', 0)
             ->orderBy('time')
@@ -122,7 +129,9 @@ class RatingRepository implements IRepository
      */
     public function getReviews(Model $model, int $numReviewsPerModelPage): LengthAwarePaginatorContract
     {
-        return $this->rating->whereNotNull('content')
+        return $this
+            ->rating
+            ->whereNotNull('content')
             ->where('model_id', $model->getId())
             ->where('pending', 0)
             ->orderBy('time', 'desc')
@@ -131,6 +140,11 @@ class RatingRepository implements IRepository
 
     public function getNumOfReviews(Model $model): int
     {
-        return count($this->rating->whereNotNull('content')->where('pending', 0)->where('model_id', $model->getId())->get());
+        return count($this
+                         ->rating
+                         ->whereNotNull('content')
+                         ->where('pending', 0)
+                         ->where('model_id', $model->getId())
+                         ->get());
     }
 }

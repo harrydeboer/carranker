@@ -38,8 +38,7 @@ class TrimRepository extends BaseRepository
      * filter and the number of trims to be retrieved and the offset if present.
      * The ratings are sorted from high to low.
      */
-    public function findTrimsOfTop(array $data, int $minNumVotes,
-                                   int $lengthTopTable, int $offset=0): Collection
+    public function findTrimsOfTop(array $data, int $minNumVotes, int $lengthTopTable, int $offset=0): Collection
     {
         $params = [
             'index' => $this->model->getIndex(),
@@ -128,7 +127,9 @@ class TrimRepository extends BaseRepository
             if (isset($formVar) && $formVar === "on") {
                 $queryArr[] = $choice;
 
-                /** The gearbox type can be both manual and automatic per trim. */
+                /**
+                 * The gearbox type can be both manual and automatic per trim.
+                 */
                 if ($name === 'gearbox_type' && $choice === 'Manual') {
                     $queryArr[] = 'Manual/Automatic';
                 }
@@ -136,7 +137,9 @@ class TrimRepository extends BaseRepository
                     $queryArr[] = 'Manual/Automatic';
                 }
 
-                /** The fuel can be both Gasoline and Electric or Gasoline and CNG per trim. */
+                /**
+                 * The fuel can be both Gasoline and Electric or Gasoline and CNG per trim.
+                 */
                 if ($name === 'fuel' && ($choice === 'Electric' || $choice === 'Gasoline')) {
                     if (!in_array('Gasoline,  Electric', $queryArr)) {
                         $queryArr[] = 'Gasoline,  Electric';

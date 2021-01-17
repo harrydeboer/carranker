@@ -43,6 +43,9 @@ class ConfirmPasswordController extends Controller
 
     public function showConfirmForm(): Response
     {
-        return response()->view('auth.passwords.confirm', ['title' => 'Confirm password', 'controller' => 'auth']);
+        return response()->view('auth.passwords.confirm', [
+            'title' => 'Confirm password',
+            'controller' => 'auth',
+            ]);
     }
 }

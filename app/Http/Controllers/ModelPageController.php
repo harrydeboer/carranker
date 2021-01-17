@@ -53,8 +53,11 @@ class ModelPageController extends Controller
         $reviews = $this->ratingRepository->getReviews($model, self::NUM_REVIEWS_PER_MODEL_PAGE);
 
         /** The links of the pagination get extra html classes to make them centered on the model page. */
-        $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
-                             $reviews->onEachSide(1)->links()->toHtml());
+        $links = str_replace(
+            'pagination',
+            'pagination pagination-sm row justify-content-center',
+            $reviews->onEachSide(1)->links()->toHtml(),
+        );
 
         $viewData = [
             'title' => $makeName . ' ' . $modelName,

@@ -16,9 +16,11 @@ class SitemapService
 
     public function makeSitemap(array $makeNames, array $modelNames): string
     {
-        $sitemap = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
-                <?xml-stylesheet type="text/xsl" href="' . fileUrl('/css/sitemap.xsl') . '"?>
-                <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"/>');
+        $sitemap = new SimpleXMLElement(
+            '<?xml version="1.0" encoding="UTF-8"?>' .
+            '<?xml-stylesheet type="text/xsl" href="' . fileUrl('/css/sitemap.xsl') . '"?>' .
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"/>'
+        );
 
         $pages = $this->pageRepository->all();
 
@@ -33,9 +35,9 @@ class SitemapService
         foreach ($pages as $page) {
             $url = $sitemap->addChild('url');
             if ($page->getName() === 'home') {
-	            $url->addChild( 'loc', $baseUrl . '/' );
+                $url->addChild( 'loc', $baseUrl . '/' );
             } else {
-	            $url->addChild( 'loc', $baseUrl . '/' . $page->getName() );
+                $url->addChild( 'loc', $baseUrl . '/' . $page->getName() );
             }
             $url->addChild('priority', '1.0');
             $url->addChild('lastmod', $update);

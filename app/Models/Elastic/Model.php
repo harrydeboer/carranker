@@ -33,12 +33,12 @@ class Model extends BaseModel
      */
     public function getMake(): BaseModel
     {
-        return $this->hasOne('\App\Models\Elastic\Make', 'make_id');
+        return $this->hasOne(Make::class, 'make_id');
     }
 
     public function getTrims(): Collection
     {
-        return $this->hasMany('\App\Models\Elastic\Trim','model_id');
+        return $this->hasMany(Trim::class,'model_id');
     }
 
     public function getAttributes(): array

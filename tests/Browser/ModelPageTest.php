@@ -34,15 +34,17 @@ class ModelPageTest extends DuskTestCase
                                         ]);
         $trim = $trimRepository->get(1);
 
-        $this->browse(function (Browser $browser) use ($user, $trim)
-        {
+        $this->browse(function (Browser $browser) use ($user, $trim) {
             $browser->visit(route('login'))
                 ->type('email', $user->getEmail())
                 ->type('password', 'secret')
                 ->press('Login')
                 ->assertPathIs('/');
 
-            $browser->visit(route('modelPage', ['make' => $trim->getMakeName(), 'model' => $trim->getModelName()]))
+            $browser->visit(route('modelPage', [
+                'make' => $trim->getMakeName(),
+                'model' => $trim->getModelName(),
+                ]))
                 ->click('#show-review-dialog');
 
             $browser->waitFor('#dialog');

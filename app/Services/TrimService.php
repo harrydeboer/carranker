@@ -16,7 +16,9 @@ class TrimService
         $generationsSeriesTrims = [];
         foreach ($trims as $trim) {
 
-            /** If the trim has a name it means the trim has a specific trim version. */
+            /**
+             * If the trim has a name it means the trim has a specific trim version.
+             */
             if (!is_null($trim->getName())) {
                 $generationsSeriesTrims[$trim->getYearBegin() . '-' .
                 $trim->getYearEnd()][$trim->getFramework()][$trim->getName()] = $trim->getId();

@@ -20,7 +20,7 @@ class Role extends BaseModel
      */
     public function getUsers(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\User', 'users_roles');
+        return $this->belongsToMany(User::class, 'users_roles');
     }
 
     public function getName(): string

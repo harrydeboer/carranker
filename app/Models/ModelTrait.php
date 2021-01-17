@@ -38,10 +38,16 @@ trait ModelTrait
     public function getImage(): string
     {
         $image = '/img/models/';
-        $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
-                "$1", htmlentities(str_replace('/', '', $this->getMakeName())))) . '_';
-        $image .= str_replace(' ', '_', preg_replace("/&([a-z])[a-z]+;/i",
-                "$1", htmlentities(str_replace('/', '', $this->getName())))) . '.jpg';
+        $image .= str_replace(
+            ' ',
+            '_',
+            preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(str_replace('/', '', $this->getMakeName()))),
+            ) . '_';
+        $image .= str_replace(
+            ' ',
+            '_',
+            preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(str_replace('/', '', $this->getName()))),
+            ) . '.jpg';
 
         $root = dirname(__DIR__, 2);
         if (!file_exists($root . '/public/' . $image)) {
@@ -55,7 +61,8 @@ trait ModelTrait
     {
         return route('modelPage', [
                 'make' => rawurlencode($this->getMakeName()),
-                'model' => rawurlencode($this->getName())]);
+                'model' => rawurlencode($this->getName()),
+            ]);
     }
 
     public function getWikiCarModel(): string

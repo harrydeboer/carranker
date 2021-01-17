@@ -20,7 +20,7 @@ class Menu extends BaseModel
      */
     public function getPages(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Page', 'menus_pages');
+        return $this->belongsToMany(Page::class, 'menus_pages');
     }
 
     public function getName(): string

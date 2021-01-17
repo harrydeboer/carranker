@@ -9,8 +9,12 @@ namespace App\Models;
  */
 trait Spec
 {
-    protected static array $specsChoice = ['framework', 'fuel', 'number_of_doors',
-        'number_of_seats', 'number_of_gears', 'gearbox_type'];
-    protected static array $specsRange = ['max_trunk_capacity', 'engine_capacity', 'fueltank_capacity',
-        'max_speed', 'full_weight', 'engine_power', 'acceleration', 'fuel_consumption'];
+    protected static array $specsChoice = [
+        'framework', 'fuel', 'number_of_doors',
+        'number_of_seats', 'number_of_gears', 'gearbox_type',
+        ];
+    protected static array $specsRange = [
+        'max_trunk_capacity', 'engine_capacity', 'fueltank_capacity',
+        'max_speed', 'full_weight', 'engine_power', 'acceleration', 'fuel_consumption',
+        ];
 }

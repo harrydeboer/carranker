@@ -23,8 +23,11 @@ class MailUserController extends Controller
     {
         $mailUsers = $this->mailUserRepository->findAll(10);
 
-        $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
-                             $mailUsers->onEachSide(1)->links()->toHtml());
+        $links = str_replace(
+            'pagination',
+            'pagination pagination-sm row justify-content-center',
+            $mailUsers->onEachSide(1)->links()->toHtml(),
+        );
 
         $viewData = [
             'title' => 'Mail Users',
@@ -105,7 +108,7 @@ class MailUserController extends Controller
             $salt .= $characters[rand(0, $charactersLength - 1)];
         }
 
-        return crypt( $password, '$6$' . $salt );
+        return crypt($password, '$6$' . $salt);
     }
 
     protected function rulesCreate(): array

@@ -31,7 +31,8 @@ class ModelPageTest extends FeatureTestCase
 
         $response->assertStatus(200);
 
-        $response = $this->get('/model/' . $trim->getModel()->getMakeName() . '/' . $trim->getModel()->getName() . '?trimId=' . $trim->getId());
+        $response = $this->get('/model/' . $trim->getModel()->getMakeName() . '/' . $trim->getModel()->getName() .
+                               '?trimId=' . $trim->getId());
         $generation = $trim->getYearBegin() . '-' . $trim->getYearEnd();
         $response->assertSee('<option value="' . $generation . '" selected>' . $generation . '</option>', false);
         $response->assertStatus(200);

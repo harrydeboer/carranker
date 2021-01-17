@@ -24,6 +24,7 @@ class Controller extends BaseController
     protected function getCurrentUser(): ?Authenticatable
     {
         $guard = app()->make(Guard::class);
+
         return $guard->user();
     }
 }

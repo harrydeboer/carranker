@@ -34,7 +34,10 @@ class TrimServiceTest extends TestCase
         $collection->add($trim);
 
         $generationSeriesTrims = $trimService->getGenerationsSeriesTrims($collection);
-        $this->assertEquals($generationSeriesTrims[$trim->getYearBegin() . '-' . $trim->getYearEnd()]
-                            [$trim->getFramework()][$trim->getName()], $trim->getId());
+        $this->assertEquals(
+            $generationSeriesTrims[
+                $trim->getYearBegin() . '-' . $trim->getYearEnd()
+        ][$trim->getFramework()][$trim->getName()],
+            $trim->getId());
     }
 }

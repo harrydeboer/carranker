@@ -22,7 +22,7 @@ class Make extends BaseModel
 
     public function getModels(): Collection
     {
-        return $this->hasMany('\App\Models\Elastic\Model', 'make_id');
+        return $this->hasMany(Model::class, 'make_id');
     }
 
     public function getAttributes(): array

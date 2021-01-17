@@ -46,7 +46,9 @@ class Controller extends BaseController
         return response()->json($trim->getAttributes());
     }
 
-    /** When a user selects a make then the modelNames belonging to this make are retrieved. */
+    /**
+     * When a user selects a make then the modelNames belonging to this make are retrieved.
+     */
     public function getModelNames(string $makeName): JsonResponse
     {
         return response()->json($this->makeRepository->getModelNames($makeName));
@@ -54,8 +56,10 @@ class Controller extends BaseController
 
     public function makeSitemap(): Response
     {
-        $sitemap = $this->sitemapService->makeSitemap($this->makeRepository->getMakeNames(),
-                                                      $this->modelRepository->getModelNames());
+        $sitemap = $this->sitemapService->makeSitemap(
+            $this->makeRepository->getMakeNames(),
+            $this->modelRepository->getModelNames(),
+        );
 
         return response($sitemap)->header('Content-Type', 'application/xml');
     }

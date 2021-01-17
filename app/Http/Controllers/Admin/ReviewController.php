@@ -28,8 +28,11 @@ class ReviewController extends Controller
     {
         $reviews = $this->ratingRepository->findPendingReviews(10);
 
-        $links = str_replace('pagination', 'pagination pagination-sm row justify-content-center',
-                             $reviews->onEachSide(1)->links()->toHtml());
+        $links = str_replace(
+            'pagination',
+            'pagination pagination-sm row justify-content-center',
+            $reviews->onEachSide(1)->links()->toHtml(),
+        );
 
         $viewData = [
             'title' => 'Reviews',
@@ -66,7 +69,8 @@ class ReviewController extends Controller
 
         $earlierRating = $this->ratingRepository->findEarlierByTrimAndUser(
             $rating->getTrim()->getId(),
-            $rating->getUser()->getId());
+            $rating->getUser()->getId(),
+        );
 
         $this->modelRepository->updateVotesAndRating($rating->getModel(), $ratingArray, $earlierRating);
         $this->trimRepository->updateVotesAndRating($rating->getTrim(), $ratingArray, $earlierRating);

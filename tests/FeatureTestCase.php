@@ -10,6 +10,7 @@ class FeatureTestCase extends TestCase
     {
         $this->artisan('flush:indices')->execute();
         $this->artisan("migrate:fresh --database='mysql_testing'")->execute();
+
         parent::tearDown();
     }
 }

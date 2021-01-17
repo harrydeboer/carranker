@@ -53,9 +53,11 @@ class HomePageController extends Controller
     {
         $formData = $request->validate($this->rules());
 
-        $topTrims = $this->trimRepository->findTrimsOfTop($formData,
-                                                          (int) $formData['min-num-votes'],
-                                                          (int) $formData['number-of-rows']);
+        $topTrims = $this->trimRepository->findTrimsOfTop(
+            $formData,
+            (int) $formData['min-num-votes'],
+            (int) $formData['number-of-rows'],
+        );
 
         $viewData = [
             'topLength' => count($topTrims),
@@ -71,15 +73,17 @@ class HomePageController extends Controller
     {
         $formData = $request->validate($this->rules());
 
-        $trims = $this->trimRepository->findTrimsOfTop($formData,
-                                                       (int) $formData['min-num-votes'],
-                                                       (int) $formData['number-of-rows'],
-                                                       (int) $formData['offset']);
+        $trims = $this->trimRepository->findTrimsOfTop(
+            $formData,
+            (int) $formData['min-num-votes'],
+            (int) $formData['number-of-rows'],
+            (int) $formData['offset'],
+        );
 
         return response()->view('homePage.showMoreTopTable', [
             'trims' => $trims,
-            'offset' => (int) $formData['offset']],
-        );
+            'offset' => (int) $formData['offset'],
+        ]);
     }
 
     private function rules(): array

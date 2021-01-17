@@ -28,8 +28,10 @@ class EnvTest extends TestCase
 	        } elseif ($name === "") {
 		        $this->assertTrue($envNames[$key] === "");
 	        }else {
-		        $this->assertTrue(str_starts_with($envNames[$key], $name),
-                                  "the first part of $envNames[$key] is not $name");
+		        $this->assertTrue(
+		            str_starts_with($envNames[$key], $name),
+                    "the first part of $envNames[$key] is not $name",
+                );
 	        }
         }
     }

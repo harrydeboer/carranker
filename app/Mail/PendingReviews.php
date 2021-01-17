@@ -20,7 +20,8 @@ class PendingReviews extends Mailable
      */
     public function build(): PendingReviews
     {
-        return $this->to(env('MAIL_USERNAME'), env('APP_NAME'))
+        return $this
+            ->to(env('MAIL_USERNAME'), env('APP_NAME'))
             ->view('mail.pendingReviews');
     }
 }

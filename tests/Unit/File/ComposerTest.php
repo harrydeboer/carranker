@@ -16,7 +16,6 @@ class ComposerTest extends TestCase
         $string = file_get_contents(base_path() . '/composer.json');
         $jsonObject = json_decode($string);
         $requirements = $jsonObject->require;
-//        $this->assertEquals($requirements->{'elasticsearch/elasticsearch'}, env('ELASTIC_VERSION'));
 
         $extensions = get_loaded_extensions();
         foreach ($extensions as $extension) {
@@ -27,11 +26,17 @@ class ComposerTest extends TestCase
                 $extension === 'sqlite3') {
                 continue;
             } elseif ($extension === 'Zend OPcache') {
-                $this->assertObjectHasAttribute('ext-Zend-OPcache', $requirements,
-                                                "extension Zend-OPcache is missing in composer.json");
+                $this->assertObjectHasAttribute(
+                    'ext-Zend-OPcache',
+                    $requirements,
+                    "extension Zend-OPcache is missing in composer.json",
+                );
             } else {
-                $this->assertObjectHasAttribute('ext-' . $extension, $requirements,
-                                                "extension $extension is missing in composer.json");
+                $this->assertObjectHasAttribute(
+                    'ext-' . $extension,
+                    $requirements,
+                    "extension $extension is missing in composer.json",
+                );
             }
         }
 
@@ -39,8 +44,7 @@ class ComposerTest extends TestCase
             if (substr($key, 0, 4) === 'ext-') {
                 $extension = substr($key, 4, strlen($key));
                 if ($extension === 'Zend-OPcache') {
-                    $this->assertTrue(extension_loaded('Zend OPcache'),
-                                      "Extension Zend Opcache is not loaded.");
+                    $this->assertTrue(extension_loaded('Zend OPcache'), "Extension Zend Opcache is not loaded.");
                 } else {
                     $this->assertTrue(extension_loaded($extension), "Extension $extension is not loaded.");
                 }

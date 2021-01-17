@@ -31,8 +31,7 @@ class VerifyTest extends FeatureTestCase
     {
         $url = URL::temporarySignedRoute(
             'verification.verify',
-            Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
-            [
+            Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)), [
                 'id' => $this->user->getKey(),
                 'hash' => sha1($this->user->getEmailForVerification()),
             ]

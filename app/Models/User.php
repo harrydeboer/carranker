@@ -28,20 +28,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $table = 'users';
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name', 'email', 'password'];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $casts = ['email_verified_at' => 'datetime'];
 
     public function getId(): int
     {
@@ -78,12 +69,12 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getRoles(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Role', 'users_roles');
+        return $this->belongsToMany(Role::class, 'users_roles');
     }
 
     public function getRatings(): Collection
     {
-        return $this->hasMany('\App\Models\Rating','user_id', 'id')->get();
+        return $this->hasMany(Rating::class,'user_id', 'id')->get();
     }
 
     public function sendPasswordResetNotification($token)

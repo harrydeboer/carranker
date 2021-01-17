@@ -75,7 +75,6 @@ abstract class BaseRepository
                 'index' => [
                     '_index' => $this->model->getIndex(),
                     '_id' => $model->getId(),
-
                 ],
             ];
 
@@ -103,7 +102,6 @@ abstract class BaseRepository
                     '_index' => $this->model->getIndex(),
                     '_id' => $model->getId(),
                     '_type' => '_doc',
-
                 ],
             ];
             $params['body'][] = ['doc' => $this->model->propertiesToParams($model)];
@@ -124,12 +122,12 @@ abstract class BaseRepository
     public function deleteAllFromIndex(Collection $models): void
     {
         foreach ($models as $key => $model) {
-            $params['body'][] = array(
-                'delete' => array(
+            $params['body'][] = [
+                'delete' => [
                     '_id' => $model->getId(),
                     '_index' => $this->model->getIndex(),
-                ),
-            );
+                ],
+            ];
 
             if ($key % 1000 === 0 && $key !== 0) {
                 BaseModel::bulk($params);

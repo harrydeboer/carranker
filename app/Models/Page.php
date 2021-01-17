@@ -36,6 +36,6 @@ class Page extends BaseModel
      */
     public function getMenus(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Menu', 'menus_pages');
+        return $this->belongsToMany(Menu::class, 'menus_pages');
     }
 }

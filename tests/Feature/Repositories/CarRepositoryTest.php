@@ -43,8 +43,8 @@ class CarRepositoryTest extends FeatureTestCase
         foreach (Aspects::getAspects() as $aspect) {
             $ratingArray[$aspect] = 8;
             $modelRatingBeforeUpdate[$aspect] = $this->model->getAspect($aspect);
-            $newRating[$aspect] = ($modelRatingBeforeUpdate[$aspect] * $this->model->getVotes() + $ratingArray[$aspect]) /
-                ($this->model->getVotes() + 1);
+            $newRating[$aspect] = ($modelRatingBeforeUpdate[$aspect] * $this->model->getVotes() + $ratingArray[$aspect])
+                / ($this->model->getVotes() + 1);
             $trimRatingBeforeUpdate[$aspect] = $this->trim->getAspect($aspect);
             $newRatingWithEarlier[$aspect] = ($trimRatingBeforeUpdate[$aspect] * $this->trim->getVotes() +
                     $ratingArray[$aspect] - $rating->getAspect($aspect)) / ($this->trim->getVotes());

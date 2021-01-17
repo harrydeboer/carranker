@@ -62,8 +62,7 @@ class MakeRepository extends BaseRepository
         $makesASCII = array();
         foreach($makes as $make) {
             $makeNames[$make->getName()] = $make->getName();
-            $makesASCII[] = strtolower(preg_replace("/&([a-z])[a-z]+;/i",
-                "$1", htmlentities($make->getName())));
+            $makesASCII[] = strtolower(preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities($make->getName())));
         }
         array_multisort($makesASCII, $makeNames);
 
@@ -85,8 +84,7 @@ class MakeRepository extends BaseRepository
         $modelsASCII = [];
         foreach($models as $model) {
             $modelNames[] = $model->getName();
-            $modelsASCII[] = strtolower(preg_replace("/&([a-z])[a-z]+;/i",
-                "$1", htmlentities($model->getName())));
+            $modelsASCII[] = strtolower(preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities($model->getName())));
         }
         array_multisort($modelsASCII, $modelNames);
 

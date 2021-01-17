@@ -131,6 +131,7 @@ abstract class BaseModel
     public static function searchMany(array $params, string $sortField=null): Collection
     {
         $result = self::$client->search($params);
+
         return self::arrayToModels($result['hits']['hits'], $sortField);
     }
 
