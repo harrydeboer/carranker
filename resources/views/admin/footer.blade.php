@@ -1,4 +1,5 @@
 <?php declare(strict_types=1) ?>
+
 <div class="modal" id="really-delete">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -1,4 +1,5 @@
 <?php declare(strict_types=1) ?>
+
 <div class="text-center">
     <div id="title-types">Trims</div>
     Generation:

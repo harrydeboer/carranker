@@ -1,4 +1,5 @@
 <?php declare(strict_types=1) ?>
+
 @if (count($topTrims) !== 0)
 <table id="table-top" class="table table-striped table-hover">
     @foreach ($topTrims as $index => $trim)

@@ -1,4 +1,5 @@
 <?php declare(strict_types=1) ?>
+
 @if (count($reviews) > 0)
     {!! $links !!}
     <section>

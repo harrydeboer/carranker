@@ -1,4 +1,5 @@
 <?php declare(strict_types=1) ?>
+
 <div class="navbar navbar-toggleable-md navbar-light bg-faded navbar-expand-lg">
     <button class="navbar-toggler navbar-toggler-right"
             type="button"
