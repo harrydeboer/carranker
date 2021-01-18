@@ -1,3 +1,4 @@
+<?php declare(strict_types=1) ?>
 @foreach ($trims as $index => $trim)
     <tr class="top-row row">
         <td class="col-md-2"><span class="num-link-top">{{ ($offset + $index + 1) }}. </span></td>

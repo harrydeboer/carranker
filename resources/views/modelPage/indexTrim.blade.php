@@ -1,3 +1,4 @@
+<?php declare(strict_types=1) ?>
 <div class="modal-header text-center">
     <h3 class="title">
         @if (is_null($trim->getName()))

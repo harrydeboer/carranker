@@ -1,3 +1,4 @@
+<?php declare(strict_types=1) ?>
 <form method="post" action="{{ route('rateCar') }}" id="rating-form">
     @csrf
     <div class="modal-body" id="body-modal-rate-form">

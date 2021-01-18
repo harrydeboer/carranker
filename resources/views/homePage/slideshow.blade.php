@@ -1,3 +1,4 @@
+<?php declare(strict_types=1) ?>
 <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
     <h3>Top&nbsp;{{ $topLengthSlider }}</h3>
     <ol class="carousel-indicators">

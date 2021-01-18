@@ -1,3 +1,4 @@
+<?php declare(strict_types=1) ?>
 <div id="header-img" class="img-thumbnail"></div>
 <div class="navbar navbar-toggleable-md navbar-light bg-faded navbar-expand-lg">
     <button class="navbar-toggler navbar-toggler-right"

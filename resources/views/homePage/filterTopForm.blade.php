@@ -1,3 +1,4 @@
+<?php declare(strict_types=1) ?>
 <form method="get" action="{{ route('filterTop') }}" id="filter-top-form">
     <label for="min-num-votes" class="collapse-choice control-label">Minimum number of votes:</label>
     <input type="number" name="min-num-votes" class="collapse-choice form-control"

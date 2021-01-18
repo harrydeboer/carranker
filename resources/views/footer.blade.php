@@ -1,3 +1,4 @@
+<?php declare(strict_types=1) ?>
 <div class="navbar navbar-default text-center">
     <ul id="nav-menu-footer" class="nav navbar-nav">
         @if (!is_null($menuFooter))
