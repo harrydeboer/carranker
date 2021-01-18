@@ -9,10 +9,7 @@
             <h3>Trims</h3>
             @foreach ($trims as $trim)
                 <div>
-                    <a href="{{ $trim->getUrl() }}" class="search-link">
-                        {{ $trim->getMakeName() . ' ' . $trim->getModelName() . ' ' . $trim->getYearBegin() .
-                        '-' . $trim->getYearEnd() . ' ' . $trim->getFramework() . ' ' . $trim->getName() }}
-                    </a>
+                    <a href="{{ $trim->getUrl() }}" class="search-link">{{ $trim->getFullName() }}</a>
                 </div>
             @endforeach
         @endif

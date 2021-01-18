@@ -5,7 +5,13 @@
         @if (is_null($trim->getName()))
             {{ $trim->getYearBegin() . '-' . $trim->getYearEnd() . ' ' . $trim->getFramework() }}
         @else
-            {{ $trim->getYearBegin() . '-' . $trim->getYearEnd() . ' ' . $trim->getFramework() . ' ' . $trim->getName() }}
+            {{ $trim->getYearBegin() .
+            '-' .
+            $trim->getYearEnd() .
+            ' ' .
+            $trim->getFramework() .
+            ' ' .
+            $trim->getName() }}
         @endif
     </h3>
 </div>
@@ -27,23 +33,25 @@
             <td colspan="5" class="space-under"></td>
         </tr>
         @foreach ($aspects as $keyAspect => $aspect)
-        <tr><td>{{ ucfirst($aspect) }}:</td>
-            <td>{{ is_null($trim->getAspect($aspect)) ? '-' : number_format($trim->getAspect($aspect), 1) }}</td>
-            <td><span class="fa fa-star fa-star-shadow"></span></td>
-            <td>{{ is_null($rating) ? '-' : $rating->getAspect($aspect)}}</td>
-            <td><span class="fa fa-star fa-star-shadow"></span></td>
-        </tr>
+            <tr><td>{{ ucfirst($aspect) }}:</td>
+                <td>{{ is_null($trim->getAspect($aspect)) ? '-' : number_format($trim->getAspect($aspect), 1) }}</td>
+                <td><span class="fa fa-star fa-star-shadow"></span></td>
+                <td>{{ is_null($rating) ? '-' : $rating->getAspect($aspect)}}</td>
+                <td><span class="fa fa-star fa-star-shadow"></span></td>
+            </tr>
         @endforeach
         <tr>
             <td><span class="nowrap">Price:</span></td>
-            <td colspan="4">{{ is_null($trim->getPrice($FXRate)) ? 'N/A' : round($trim->getPrice($FXRate), -3) . ' $'}}</td>
+            <td colspan="4">
+                {{ is_null($trim->getPrice($FXRate)) ? 'N/A' : round($trim->getPrice($FXRate), -3) . ' $'}}
+            </td>
         </tr>
     </table>
     @if ($isLoggedIn === true)
         <div class="text-center">
             <button class="to-rate-trim btn btn-primary" data-toggle="modal" data-target="#dialog"
-               data-generation="{{ $trim->getYearBegin() . '-' . $trim->getYearEnd() }}"
-               data-series="{{ $trim->getFramework() ?? 'N/A' }}" data-id-trim="{{ $id }}">Rate this car!</button>
+                    data-generation="{{ $trim->getYearBegin() . '-' . $trim->getYearEnd() }}"
+                    data-series="{{ $trim->getFramework() ?? 'N/A' }}" data-id-trim="{{ $id }}">Rate this car!</button>
         </div>
     @endif
     <table class="specs-trim">

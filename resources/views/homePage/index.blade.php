@@ -27,10 +27,14 @@
                 </div>
                 <div class="row justify-content-center col-md-12">
                     <div class="col-md-3 text-center">
-                        <a href="{{ route('showMoreTopTable') }}" id="show-less" class="btn-lg btn-primary">Show less</a>
+                        <a href="{{ route('showMoreTopTable') }}"
+                           id="show-less"
+                           class="btn-lg btn-primary">Show less</a>
                     </div>
                     <div class="col-md-3 text-center">
-                        <a href="{{ route('showMoreTopTable') }}" id="show-more" class="btn-lg btn-primary">Show more</a>
+                        <a href="{{ route('showMoreTopTable') }}"
+                           id="show-more"
+                           class="btn-lg btn-primary">Show more</a>
                     </div>
                 </div>
                 <input type="hidden" value="{{ $numShowMoreLess }}" id="num-show-more-less">
@@ -59,7 +63,8 @@
                 <div class="review-item justify-content-center col-md-7">
                     <h3>{{ $review->getUser()->getName() }} on
                         <a href="{{ $review->getTrim()->getUrl() }}">
-                            {{ $review->getTrim()->getFullName() }}</a> with {{ number_format($review->getRating(), 1) }}
+                            {{ $review->getTrim()->getFullName() }}</a>
+                        with {{ number_format($review->getRating(), 1) }}
                         <span class="fa fa-star"></span> on {{ $review->getDate() }}
                     </h3>
                     <BR>

@@ -40,7 +40,8 @@
                             <tr class="row row-rating">
                                 <td class="col-md-7">{{ ucfirst($aspect) }}:</td>
                                 <td class="col-md-5">{{ is_null($model->getAspect($aspect)) ? '-':
-                                number_format($model->getAspect($aspect), 1) }} <span class="fa fa-star fa-star-shadow"></span>
+                                number_format($model->getAspect($aspect), 1) }}&nbsp;
+                                    <span class="fa fa-star fa-star-shadow"></span>
                                 </td>
                             </tr>
                         @endforeach
@@ -55,11 +56,11 @@
                 @if ($isVerified === true)
                     <div class="text-center">
                         <button data-toggle="modal" id="show-model-dialog" data-target="#dialog"
-                           class="btn btn-primary">Rate car!</button>
+                                class="btn btn-primary">Rate car!</button>
                         <BR>
                         <BR>
                         <button data-toggle="modal" id="show-review-dialog" data-target="#dialog"
-                           class="btn btn-primary">Write review!</button>
+                                class="btn btn-primary">Write review!</button>
                     </div>
                 @elseif ($isLoggedIn === true)
                     <div class="text-center">

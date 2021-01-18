@@ -17,11 +17,15 @@
             <ul id="nav-menu-header" class="nav navbar-nav">
                 @if (!is_null($menuHeader))
                     @foreach ($menuHeader as $page)
-                        <li class="nav-item nav-text"><a href="/{{ $page->getName() === 'home' ? '' :
-                    strtolower($page->getName()) }}" class="nav-link">{{ $page->getTitle() }}</a></li>
+                        <li class="nav-item nav-text">
+                            <a href="/{{ $page->getName() === 'home' ? '' : strtolower($page->getName()) }}"
+                               class="nav-link">{{ $page->getTitle() }}</a>
+                        </li>
                     @endforeach
                 @endif
-                <li><a href="{{ route('login') }}"><i class="fa fa-user-o fa-lg"></i></a></li>
+                <li>
+                    <a href="{{ route('login') }}"><i class="fa fa-user-o fa-lg"></i></a>
+                </li>
                 <li class="nav-item">
                     <select id="nav-select-make" class="form-control">
                         <option value="">Make</option>

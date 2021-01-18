@@ -56,7 +56,9 @@
                     @foreach ($generationsSeriesTrims as $generationName => $generation)
                         @foreach ($generation as $seriesName => $series)
                             @foreach ($series as $trimName => $trimId)
-                                <option value="{{ $generationName . ';' . $seriesName . ';' . $trimId }}">{{ $trimName }}</option>
+                                <option value="{{ $generationName . ';' . $seriesName . ';' . $trimId }}">
+                                    {{ $trimName }}
+                                </option>
                             @endforeach
                         @endforeach
                     @endforeach

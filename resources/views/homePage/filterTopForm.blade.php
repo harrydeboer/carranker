@@ -7,7 +7,7 @@
     <div class="row mx-auto col-md-12">
         <div id="choices" class="btn-group text-center">
             @foreach ($specsChoice as $specName => $spec)
-                <div class="dropdown col-xl-6 col-lg-12 button-inline {{ $spec['show'] === true ? '' : 'collapse-choice' }}">
+                <div class="dropdown col-xl-6 col-lg-12 button-inline {{ $spec['show'] ? '' : 'collapse-choice' }}">
                     <button class="btn btn-primary specs-choice"
                             data-toggle="dropdown" id="filter-top-form{{ $specName }}">{{ $spec['display'] }}</button>
                     <table class="dropdown-menu">
@@ -27,7 +27,7 @@
                         @foreach ($spec['choices'] as $index => $choice)
                             <tr class="row">
                                 <td class="col-md-8 col-md-offset-1"><label
-                                            for="specs-choice[{{ $specName . $index }}]">{{ $choice }}</label></td>
+                                        for="specs-choice[{{ $specName . $index }}]">{{ $choice }}</label></td>
                                 <td class="col-md-2">
                                     <input type="checkbox"
                                            id="specs-choice[{{ $specName . $index }}]"
@@ -65,7 +65,7 @@
     </div>
     <table class="table" id="specs-range-table">
         @foreach ($specsRange as $specName => $spec)
-            <tr class="row range-row {{ $spec['show'] === true ? '' : 'collapse-range' }}">
+            <tr class="row range-row {{ $spec['show'] ? '' : 'collapse-range' }}">
                 <td class="col-md-4 col-sm-6">{{ $spec['display'] }}</td>
                 <td class="col-md-3 col-sm-3">
                     <select name="specs-range[{{ $specName }}Min]" class="specs-range form-control">

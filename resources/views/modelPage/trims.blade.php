@@ -10,16 +10,17 @@
     </select>
 </div>
 @foreach ($generationsSeriesTrims as $keyGen => $generation)
-    <div id="generation{{ $keyGen }}" class="generations text-center {{ $selectedGeneration === $keyGen ? '' : 'collapse' }}">
+    <div id="generation{{ $keyGen }}"
+         class="generations text-center {{ $selectedGeneration === $keyGen ? '' : 'collapse' }}">
         @foreach ($generation as $keySer => $series)
             @if (count($series) > 1)
                 <div>{{ $keySer }}</div>
                 @foreach ($series as $nameTrim => $valueTrim)
                     <div>
                         <a href="#type-info{{ $valueTrim }}"
-                            data-toggle="modal"
-                            id="link-type{{ $valueTrim }}"
-                            class="link-type trim-type">{{ $nameTrim ?? $model->getName() }}
+                           data-toggle="modal"
+                           id="link-type{{ $valueTrim }}"
+                           class="link-type trim-type">{{ $nameTrim ?? $model->getName() }}
                         </a>
                     </div>
                 @endforeach

@@ -18,10 +18,10 @@ $(document).ready(function () {
     $('.show-all-specs').on('click', function() {
         if ($('.collapse-specs:visible').length) {
             $('.collapse-specs').hide();
-            $('.show-all-specs').html('Hide all specs');
+            $('.show-all-specs').html('Show all specs');
         } else {
             $('.collapse-specs').show().css('display', 'flex');
-            $('.show-all-specs').html('Show all specs');
+            $('.show-all-specs').html('Hide all specs');
         }
     });
 

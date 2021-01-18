@@ -4,21 +4,26 @@
     <h3>Top&nbsp;{{ $topLengthSlider }}</h3>
     <ol class="carousel-indicators">
         @for ($index = 0; $index < $topLengthSlider; $index++)
-            <li data-target="#carousel" data-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"></li>
+            <li data-target="#carousel"
+                data-slide-to="{{ $index }}"
+                class="{{ $index === 0 ? 'active' : '' }}"></li>
         @endfor
     </ol>
     <div class="carousel-inner" role="listbox">
         @for ($index = 0; $index < $topLengthSlider; $index++)
             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                 <a href="{{ $topTrims[$index]->getUrl() }}">
-                    <img src="{{ $index !== 0 && !isset($lazyLoad) ? fileUrl('/img/favicon-16x16.png') :
-                              fileUrl($topTrims[$index]->getImage()) }}"
+                    <img src="{{ $index ? fileUrl('/img/favicon-16x16.png') : fileUrl($topTrims[$index]->getImage()) }}"
                          data-src="{{ fileUrl($topTrims[$index]->getImage()) }}"
-                         class="{{ $index !== 0 && !isset($lazyLoad) ? 'lazy' : '' }} car-carousel-img d-block img-fluid"
+                         class="{{ $index ? 'lazy' : '' }} car-carousel-img d-block img-fluid"
                          alt="{{ $topTrims[$index]->getMakeName() . ' ' . $topTrims[$index]->getModelName() }}"></a>
                 <div class="carousel-caption {{ $index === 0 ? 'active' : '' }}">
-                    {{ ($index + 1) . '. ' . $topTrims[$index]->getMakeName() . ' ' .
-                    $topTrims[$index]->getModelName() . ' ' .
+                    {{ ($index + 1) .
+                    '. ' .
+                    $topTrims[$index]->getMakeName() .
+                    ' ' .
+                    $topTrims[$index]->getModelName() .
+                    ' ' .
                     number_format($topTrims[$index]->getRatingFiltering(), 1) }} <span class="fa fa-star"></span>
                 </div>
             </div>

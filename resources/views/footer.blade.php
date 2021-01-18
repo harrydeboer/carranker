@@ -4,8 +4,9 @@
     <ul id="nav-menu-footer" class="nav navbar-nav">
         @if (!is_null($menuFooter))
             @foreach ($menuFooter as $page)
-                <li class="nav-item navText"><a href="/{{ strtolower($page->getName()) }}"
-                                                class="nav-link">{{ $page->getTitle() }}&nbsp;&nbsp;</a></li>
+                <li class="nav-item navText">
+                    <a href="/{{ strtolower($page->getName()) }}" class="nav-link">{{ $page->getTitle() }}&nbsp;&nbsp;</a>
+                </li>
             @endforeach
         @endif
     </ul>
