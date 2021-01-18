@@ -31,6 +31,10 @@ abstract class BaseModel
             $this->$key = $value;
         }
 
+        if (method_exists($this, 'setContent') && $attributes !== []) {
+            $this->setContent($attributes['content']);
+        }
+
         if (method_exists($this, 'getAspects')) {
             foreach ($this->getAspects() as $aspect) {
                 $this->doubles[] = $aspect;
@@ -61,6 +65,10 @@ abstract class BaseModel
 
     public function getAttributes(): array
     {
+        if (method_exists($this, 'getContent')) {
+            $this->attributes['content'] = $this->getContent($this->content);
+        }
+
         return $this->attributes;
     }
 
