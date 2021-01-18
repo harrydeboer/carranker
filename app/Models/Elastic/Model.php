@@ -8,6 +8,9 @@ use App\Models\Aspects;
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Model stands for car model instead of Laravel model.
+ */
 class Model extends BaseModel
 {
     use ModelTrait;

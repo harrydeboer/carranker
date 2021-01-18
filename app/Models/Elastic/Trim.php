@@ -7,6 +7,9 @@ namespace App\Models\Elastic;
 use App\Models\Aspects;
 use App\Models\TrimTrait;
 
+/**
+ * A trim is a type of car model (a specific generation/series).
+ */
 class Trim extends BaseModel
 {
     use TrimTrait;

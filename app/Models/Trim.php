@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Exception;
 
+/**
+ * A trim is a type of car model (a specific generation/series).
+ */
 class Trim extends BaseModel
 {
     use TrimTrait;
