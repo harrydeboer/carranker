@@ -1,15 +1,16 @@
 #!/bin/bash
-  composer install --no-dev --no-progress --prefer-dist
-  php artisan cache:clear
-  php artisan route:clear
-  php artisan config:clear
-  php artisan view:clear
-  php artisan migrate --force --no-interaction
-  php artisan get:fx-rate
-  php artisan flush:redis-dbs
-  php artisan process:queue --truncate
-  php artisan index:cars
-  ./opcacheReset.sh
-  varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret 'ban req.http.host ~ (^accept.carranker.com$)'
-  varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret 'ban req.http.host ~ (^carranker.com$)'
-  echo "Varnish cache cleared!"
+composer install --no-dev --no-progress --prefer-dist
+php artisan cache:clear
+php artisan route:clear
+php artisan config:clear
+php artisan view:clear
+php artisan migrate --force --no-interaction
+php artisan get:fx-rate
+php artisan flush:redis-dbs
+php artisan process:queue --truncate
+php artisan index:cars
+./opcacheReset.sh
+varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret 'ban req.http.host ~ (^accept.carranker.com$)'
+varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret 'ban req.http.host ~ (^carranker.com$)'
+
+echo "Varnish cache cleared!"
