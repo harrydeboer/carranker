@@ -7,5 +7,5 @@
 CHANGELOG.md export-ignore
 phpunitFeature.xml export-ignore
 phpunitUnit.xml export-ignore
-tests/** export-ignore
+/tests export-ignore
 *.sh export-ignore
