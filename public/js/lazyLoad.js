@@ -1,10 +1,8 @@
-document.addEventListener("DOMContentLoaded", function ()
-{
+document.addEventListener("DOMContentLoaded", function () {
     let lazyLoadImages = document.querySelectorAll("img.lazy");
     let hasLazyLoaded;
 
-    function lazyLoad()
-    {
+    function lazyLoad() {
         if (typeof hasLazyLoaded === 'undefined') {
             lazyLoadImages.forEach(function (img) {
                 img.src = img.dataset.src;

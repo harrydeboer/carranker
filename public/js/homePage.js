@@ -1,5 +1,4 @@
-$(document).ready(function ()
-{
+$(document).ready(function () {
     sessionStorage.lazyLoad = false;
     let checkAll = $('.check-all');
 
@@ -18,8 +17,7 @@ $(document).ready(function ()
     /**
      * All hidden top filters are toggled.
      */
-    $('#filter-top-form-show-all').on('click', function(event)
-    {
+    $('#filter-top-form-show-all').on('click', function(event) {
         /**
          * When all specs are shown the button group must be aligned vertically
          * so that the aspect ranges fit next to the buttons.
@@ -54,26 +52,22 @@ $(document).ready(function ()
     /**
      * When a user wants the default settings of all filters this function resets to default filtering.
      */
-    $('#filter-top-form-reset').on('click', function (event)
-    {
+    $('#filter-top-form-reset').on('click', function (event) {
         checkAll.each(function()
         {
             $(this).prop('checked', true);
-            $('.' + $(this).data('spec-name')).each(function ()
-            {
+            $('.' + $(this).data('spec-name')).each(function () {
                 $(this).prop('checked', true);
             });
         });
 
         $('#min-num-votes').val($('#min-num-votes-default').val());
 
-        $('.aspect-element').each(function ()
-        {
+        $('.aspect-element').each(function () {
             $(this).val(1);
         });
 
-        $('.specs-range').each(function ()
-        {
+        $('.specs-range').each(function () {
             $(this).val("");
         });
 
@@ -83,8 +77,7 @@ $(document).ready(function ()
     /**
      * When the user wants to filter the top the filter preferences are shown and scrolled to.
      */
-    $('#choose-preferences').on('click', function ()
-    {
+    $('#choose-preferences').on('click', function () {
         $('#preferences-dialog').toggle();
         $('html, body').animate({
             scrollTop: $("#choose-preferences").offset().top
@@ -103,8 +96,7 @@ $(document).ready(function ()
         $("#at-least-votes").html('<em>with at least ' + sessionStorage.minNumVotes + ' votes</em>');
         $(".check-all").click();
 
-        $.each(sessionStorage.filterFormSerializedValues.split('&'), function (index, value)
-        {
+        $.each(sessionStorage.filterFormSerializedValues.split('&'), function (index, value) {
             let valueArray = value.split('=');
             let formElement = $("[name='" + decodeURIComponent(valueArray[0]) + "']");
 
@@ -119,8 +111,7 @@ $(document).ready(function ()
      * When more or less trims are shown in the top table the scrolling makes that the button remains
      * in the same place of the window.
      */
-    $('#show-more').on('click', function (event)
-    {
+    $('#show-more').on('click', function (event) {
         let height = $(document).height();
         let y = $(window).scrollTop();
         let topRows = $('.top-row');
@@ -144,8 +135,7 @@ $(document).ready(function ()
             let dataRequest = 'number-of-rows=' + sessionStorage.numberOfRows + '&offset=' +
                 topRows.length + '&' + $('#filter-top-form').serialize();
 
-            $.get($(this).attr('href'), dataRequest, function (data)
-            {
+            $.get($(this).attr('href'), dataRequest, function (data) {
                 let tableTop = $('#table-top');
                 tableTop.append(data);
 
@@ -168,8 +158,7 @@ $(document).ready(function ()
         event.preventDefault();
     });
 
-    $('#show-less').on('click', function (event)
-    {
+    $('#show-less').on('click', function (event) {
         if (sessionStorage.numberOfRows > numShowMoreLess) {
             let height = $(document).height();
             let y = $(window).scrollTop();
@@ -192,8 +181,7 @@ $(document).ready(function ()
         event.preventDefault();
     });
 
-    $("#filter-top-form").on('submit', function (event)
-    {
+    $("#filter-top-form").on('submit', function (event) {
         /**
          * When there are less trims visible than numShowMoreLess the filtering tries to find numShowMoreLess trims.
          * Otherwise the number of visible trims is asked from the server.
@@ -213,8 +201,7 @@ $(document).ready(function ()
          * The number of rows that has to be shown is set with showPartTopTable, the loader is hidden and
          * the slider is activated. Then the window scrolls to the top of the table.
          */
-        $.get($(this).attr('action'), $(this).serialize() + "&number-of-rows=" + rows, function (data)
-        {
+        $.get($(this).attr('action'), $(this).serialize() + "&number-of-rows=" + rows, function (data) {
             let array = data.split(/splitPoint/);
             let tableTopTrs = $('#table-top tr');
             $('#fillable-table').html(array[0]);
@@ -242,8 +229,7 @@ $(document).ready(function ()
     /**
      * Only a part of the total table is shown. The minimum number of votes is set on top of the table.
      */
-    function showPartTopTable(numberOfRows)
-    {
+    function showPartTopTable(numberOfRows) {
         $('#table-top tr').hide();
         $('.top-row').slice(0, numberOfRows).show().css('display', 'flex');
         $('#top-or-less-number').html(numberOfRows);

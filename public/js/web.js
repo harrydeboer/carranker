@@ -1,23 +1,19 @@
-$(document).ready(function ()
-{
+$(document).ready(function () {
     let menuMake = $('#nav-select-make');
     let menuModel = $('#nav-select-model');
 
     /**
      *  The selected options are set to the session on change of the selected make or model.
      */
-    menuMake.on('change', function ()
-    {
+    menuMake.on('change', function () {
         fillModelMenu();
     });
 
-    menuModel.on('change', function ()
-    {
+    menuModel.on('change', function () {
         navigate();
     });
 
-    $('#search-form-submit').on('click', function(event)
-    {
+    $('#search-form-submit').on('click', function(event) {
         if ($('#search-form-text').val() === "") {
             event.preventDefault();
             if (menuMake.val() !== "") {
@@ -29,8 +25,7 @@ $(document).ready(function ()
     /**
      * Determines the car models related to the chosen make and fills the model select accordingly.
      */
-    function fillModelMenu()
-    {
+    function fillModelMenu() {
         let selectedMake = menuMake.val();
         menuModel.empty();
         menuModel.append('<option value="">Model</option>');
@@ -39,16 +34,14 @@ $(document).ready(function ()
             return;
         }
 
-        $.get("/api/getModelNames/" + selectedMake, null, function (modelNames)
-        {
+        $.get("/api/getModelNames/" + selectedMake, null, function (modelNames) {
             $.each(modelNames, function (index, value) {
                 menuModel.append('<option value="' + value + '">' + value + '</option>');
             });
         });
     }
 
-    function navigate()
-    {
+    function navigate() {
         if (menuModel.val() === "") {
             window.location.href = "/make/" + encodeURIComponent(menuMake.val());
         } else {
@@ -58,8 +51,7 @@ $(document).ready(function ()
     }
 });
 
-function reCAPTCHA(form, page)
-{
+function reCAPTCHA(form, page) {
     /**
      * Show the loader img.
      */
@@ -75,17 +67,14 @@ function reCAPTCHA(form, page)
     scriptElement.src = "https://www.google.com/recaptcha/api.js?render=" + $('#re-captcha-key').val();
     headId.appendChild(scriptElement);
 
-    $('#re-captcha-script').on('load',function ()
-    {
-        grecaptcha.ready(function ()
-        {
+    $('#re-captcha-script').on('load',function () {
+        grecaptcha.ready(function () {
             grecaptcha.execute(
                 $('#re-captcha-key').val(),
                 {action: 'validateReCAPTCHA'},
                 false)
                 .then(
-                function (reCAPTCHAToken)
-                {
+                function (reCAPTCHAToken) {
                     $('#re-captcha-token').val(reCAPTCHAToken);
 
                     if (page === 'contactPage') {

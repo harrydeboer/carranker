@@ -1,10 +1,8 @@
-$(document).ready(function ()
-{
+$(document).ready(function () {
     /**
      * When there is no swearing in the form then a request is send to the server, which sends the email.
      */
-    $('#contact-form').on('submit', function (event)
-    {
+    $('#contact-form').on('submit', function (event) {
         let testProfanities = true;
         let mailWords = $('#contact-form-message').val().split(' ');
         let subjectWords = $('#contact-form-subject').val().split(' ');
