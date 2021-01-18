@@ -6,7 +6,6 @@ namespace Tests\Unit\Services;
 
 use App\Models\Trim;
 use App\Services\TrimService;
-use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -18,22 +17,14 @@ class TrimServiceTest extends TestCase
     {
         $trim = Trim::factory()->create(['name' => null]);
 
-        $collection = new Collection();
-
-        $collection->add($trim);
-
         $trimService = new TrimService();
-        $generationSeriesTrims = $trimService->getGenerationsSeriesTrims($collection);
+        $generationSeriesTrims = $trimService->getGenerationsSeriesTrims([$trim]);
         $this->assertEquals($generationSeriesTrims[$trim->getYearBegin() . '-' . $trim->getYearEnd()]
                             [$trim->getFramework()][0], $trim->getId());
 
         $trim = Trim::factory()->create(['name' => 'notnull']);
 
-        $collection = new Collection();
-
-        $collection->add($trim);
-
-        $generationSeriesTrims = $trimService->getGenerationsSeriesTrims($collection);
+        $generationSeriesTrims = $trimService->getGenerationsSeriesTrims([$trim]);
         $this->assertEquals(
             $generationSeriesTrims[
                 $trim->getYearBegin() . '-' . $trim->getYearEnd()

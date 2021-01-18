@@ -6,7 +6,6 @@ namespace App\Models\Elastic;
 
 use App\Models\Aspects;
 use App\Models\ModelTrait;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Model stands for car model instead of Laravel model.
@@ -39,7 +38,7 @@ class Model extends BaseModel
         return $this->hasOne(Make::class, 'make_id');
     }
 
-    public function getTrims(): Collection
+    public function getTrims(): array
     {
         return $this->hasMany(Trim::class,'model_id');
     }

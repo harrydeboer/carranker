@@ -7,7 +7,6 @@ namespace App\Repositories\Elastic;
 use App\Models\Aspects;
 use App\Models\Elastic\Trim;
 use App\CarSpecs;
-use Illuminate\Database\Eloquent\Collection;
 
 class TrimRepository extends BaseRepository
 {
@@ -38,7 +37,7 @@ class TrimRepository extends BaseRepository
      * filter and the number of trims to be retrieved and the offset if present.
      * The ratings are sorted from high to low.
      */
-    public function findTrimsOfTop(array $data, int $minNumVotes, int $lengthTopTable, int $offset=0): Collection
+    public function findTrimsOfTop(array $data, int $minNumVotes, int $lengthTopTable, int $offset=0): array
     {
         $params = [
             'index' => $this->model->getIndex(),

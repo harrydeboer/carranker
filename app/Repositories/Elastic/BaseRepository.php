@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Collection;
 abstract class BaseRepository
 {
     abstract public function get(int $id): BaseModel;
-    
-    public function findForSearch(string $searchString): Collection
+
+    public function findForSearch(string $searchString): array
     {
         $words = explode(' ', $searchString);
 
@@ -28,7 +28,7 @@ abstract class BaseRepository
         return $this->model::searchMany($params);
     }
 
-    public function all(): Collection
+    public function all(): array
     {
         return $this->model::all();
     }
@@ -119,7 +119,7 @@ abstract class BaseRepository
         }
     }
 
-    public function deleteAllFromIndex(Collection $models): void
+    public function deleteAllFromIndex(Collection|array $models): void
     {
         foreach ($models as $key => $model) {
             $params['body'][] = [

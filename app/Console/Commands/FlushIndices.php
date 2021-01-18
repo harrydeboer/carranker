@@ -9,6 +9,7 @@ use App\Repositories\Elastic\ModelRepository;
 use App\Repositories\Elastic\TrimRepository;
 use Illuminate\Console\Command;
 
+/** @noinspection PhpUnused */
 class FlushIndices extends Command
 {
     /**

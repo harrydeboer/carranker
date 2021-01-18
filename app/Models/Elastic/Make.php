@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models\Elastic;
 
 use App\Models\MakeTrait;
-use Illuminate\Database\Eloquent\Collection;
 
 class Make extends BaseModel
 {
@@ -20,7 +19,7 @@ class Make extends BaseModel
     protected array $keywords = ['name', 'wiki_car_make'];
     protected array $texts = ['content'];
 
-    public function getModels(): Collection
+    public function getModels(): array
     {
         return $this->hasMany(Model::class, 'make_id');
     }

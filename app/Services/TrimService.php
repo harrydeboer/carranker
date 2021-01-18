@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use Illuminate\Database\Eloquent\Collection;
-
 class TrimService
 {
     /**
      * For the frontend it is handy to have all the generations, series and trims of the trims in one array.
      */
-    public function getGenerationsSeriesTrims(Collection $trims): array
+    public function getGenerationsSeriesTrims(array $trims): array
     {
         $generationsSeriesTrims = [];
         foreach ($trims as $trim) {

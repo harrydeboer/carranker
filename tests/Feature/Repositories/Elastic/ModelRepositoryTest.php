@@ -38,9 +38,8 @@ class ModelRepositoryTest extends FeatureTestCase
 
     public function testFindModelsForSearch()
     {
-        $modelCollection = $this->modelRepository->findForSearch($this->model->getName());
-
-        $model = $modelCollection->first();
+        $models = $this->modelRepository->findForSearch($this->model->getName());
+        $model = $models[0];
 
         $this->assertEquals($model->getName(), $this->model->getName());
         $this->assertEquals($model->getId(), $this->model->getId());

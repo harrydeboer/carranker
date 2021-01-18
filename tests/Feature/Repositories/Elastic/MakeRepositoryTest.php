@@ -52,9 +52,9 @@ class MakeRepositoryTest extends FeatureTestCase
 
     public function testFindMakesForSearch()
     {
-        $makeCollection = $this->makeRepository->findForSearch($this->make->getName());
+        $makes = $this->makeRepository->findForSearch($this->make->getName());
+        $make = $makes[0];
 
-        $make = $makeCollection->first();
         $this->assertEquals($make->getName(), $this->make->getName());
         $this->assertEquals($make->getId(), $this->make->getId());
     }

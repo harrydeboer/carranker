@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models\Elastic;
 
 use App\ElasticClient;
-use Illuminate\Database\Eloquent\Collection;
 use Elasticsearch\Client;
 use App\Models\BaseModel as EloquentBaseModel;
 use stdClass;
@@ -44,7 +43,7 @@ abstract class BaseModel
         $this->attributes = $attributes;
     }
 
-    public static function all(): Collection
+    public static function all(): array
     {
         $params = [
             'index' => static::getIndex(),
@@ -136,7 +135,7 @@ abstract class BaseModel
         return self::arrayToModel($result);
     }
 
-    public static function searchMany(array $params, string $sortField=null): Collection
+    public static function searchMany(array $params, string $sortField=null): array
     {
         $result = self::$client->search($params);
 
@@ -158,6 +157,7 @@ abstract class BaseModel
         static::$client->indices()->delete($params);
     }
 
+    /** @noinspection PhpUnused */
     public function indexGetMapping(array $params): array
     {
         return static::$client->indices()->getMapping($params);
@@ -175,7 +175,7 @@ abstract class BaseModel
         return new static($attributes);
     }
 
-    protected static function arrayToModels(array $results, ?string $sortField): Collection
+    protected static function arrayToModels(array $results, ?string $sortField): array
     {
         $models = [];
         foreach ($results as $result) {
@@ -186,10 +186,10 @@ abstract class BaseModel
             $models[] = new static($attributes);
         }
 
-        return new Collection($models);
+        return $models;
     }
 
-    public function hasMany($related, $foreignKey = null): Collection
+    public function hasMany($related, $foreignKey = null): array
     {
         $params = [
             'index' => $related::getIndex(),

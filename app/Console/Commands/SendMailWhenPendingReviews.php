@@ -9,6 +9,7 @@ use App\Repositories\RatingRepository;
 use Illuminate\Console\Command;
 use Illuminate\Mail\Mailer;
 
+/** @noinspection PhpUnused */
 class SendMailWhenPendingReviews extends Command
 {
     /**

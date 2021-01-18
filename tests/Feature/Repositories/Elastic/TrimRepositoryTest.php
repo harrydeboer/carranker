@@ -35,9 +35,9 @@ class TrimRepositoryTest extends FeatureTestCase
         $trimWithName = Trim::factory()->create(['name' => 'testTrimRepo']);
         $this->artisan('process:queue')->execute();
 
-        $trimCollection = $this->trimRepository->findForSearch($trimWithName->getName());
+        $trims = $this->trimRepository->findForSearch($trimWithName->getName());
+        $trim = $trims[0];
 
-        $trim = $trimCollection->first();
         $this->assertEquals($trim->getName(), $trimWithName->getName());
         $this->assertEquals($trim->getId(), $trimWithName->getId());
     }
