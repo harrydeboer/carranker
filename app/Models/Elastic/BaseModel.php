@@ -142,9 +142,9 @@ abstract class BaseModel
         return self::arrayToModels($result['hits']['hits'], $sortField);
     }
 
-    public function indexExists(): bool
+    public function indexExists(string $index): bool
     {
-        return self::$client->indices()->exists(['index' => static::getIndex()]);
+        return self::$client->indices()->exists(['index' => $index]);
     }
 
     public function indexCreate(array $params): void

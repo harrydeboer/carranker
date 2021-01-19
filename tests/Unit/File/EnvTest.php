@@ -23,6 +23,7 @@ class EnvTest extends TestCase
         $this->assertSameSize($envNames, $envExampleNames);
 
         foreach ($envExampleNames as $key => $name) {
+            $name = rtrim($name);
         	if ($envNames[$key] === "") {
         		$this->assertTrue($name === "");
 	        } elseif ($name === "") {

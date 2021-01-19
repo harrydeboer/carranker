@@ -49,17 +49,18 @@ abstract class BaseRepository
 
     public function deleteIndex(bool $prefixTest)
     {
+        $index = ($prefixTest ? 'test' : '') . $this->model->getIndex();
         $deleteParams = [
-            'index' => ($prefixTest ? 'test' : '') . $this->model->getIndex(),
+            'index' => $index,
         ];
-        if ($this->model->indexExists()) {
+        if ($this->model->indexExists($index)) {
             $this->model->indexDelete($deleteParams);
         }
     }
 
     public function indexExists(): bool
     {
-        return $this->model->indexExists();
+        return $this->model->indexExists($this->model->getIndex());
     }
 
     public function getMappings(): array
