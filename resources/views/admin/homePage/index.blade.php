@@ -3,5 +3,5 @@
 @extends('admin.layout')
 
 @section('content')
-    Entered.
+  Entered.
 @endsection

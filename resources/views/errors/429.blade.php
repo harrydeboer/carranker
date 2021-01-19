@@ -3,5 +3,5 @@
 @extends('errors.layout')
 
 @section('content')
-    Too many requests.
+  Too many requests.
 @endsection

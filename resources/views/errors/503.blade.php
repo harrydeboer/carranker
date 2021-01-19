@@ -3,5 +3,5 @@
 @extends('errors.layout')
 
 @section('content')
-    Service unavailable.
+  Service unavailable.
 @endsection

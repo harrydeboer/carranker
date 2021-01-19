@@ -3,5 +3,5 @@
 @extends('errors.layout')
 
 @section('content')
-    Something went wrong.
+  Something went wrong.
 @endsection

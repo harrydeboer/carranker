@@ -1,22 +1,22 @@
 <?php declare(strict_types=1) ?>
-<!doctype html>
+  <!doctype html>
 <html lang="en">
 <head>
-    <title>{{ $title }}</title>
-    @include('head')
+  <title>{{ $title }}</title>
+  @include('head')
 </head>
 <body>
 <div id="hide-all" class="text-center collapse">
-    <img src="{{ fileUrl('/img/Loader.gif') }}" alt="loadImg">
+  <img src="{{ fileUrl('/img/Loader.gif') }}" alt="loadImg">
 </div>
 <header class="container">
-    @include('header')
+  @include('header')
 </header>
 <div class="container">
-    @yield('content')
+  @yield('content')
 </div>
 <footer class="container">
-    @include('footer')
+  @include('footer')
 </footer>
 </body>
 </html>

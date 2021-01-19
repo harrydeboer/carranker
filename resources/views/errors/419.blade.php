@@ -3,5 +3,5 @@
 @extends('errors.layout')
 
 @section('content')
-    Page expired.
+  Page expired.
 @endsection

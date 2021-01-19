@@ -3,5 +3,5 @@
 @extends('errors.layout')
 
 @section('content')
-    {{ $message }}
+  {{ $message }}
 @endsection
