@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Controllers\Api;
+namespace Tests\Feature\Controllers\API;
 
 use App\Models\Elastic\Trim;
 use App\Models\User;

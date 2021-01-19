@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API;
 
 use App\Repositories\Elastic\MakeRepository;
 use App\Repositories\Elastic\ModelRepository;

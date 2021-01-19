@@ -14,7 +14,7 @@ class FlushRedisDb extends Command
 	 *
 	 * @var string
 	 */
-	protected $signature = 'flush:redis-dbs';
+	protected $signature = 'flush:redis-dbs {--testing}';
 
 	/**
 	 * The console command description.
@@ -30,7 +30,7 @@ class FlushRedisDb extends Command
 		$redis->auth(env('REDIS_PASSWORD'));
 
 		/** All databases are flushed when testing. */
-		if (env('APP_ENV') === 'testing') {
+		if ($this->option('testing')) {
             $redis->select((int) env('TEST_REDIS_DB_SESSION'));
             $redis->flushDB();
             $redis->select((int) env('TEST_REDIS_DB_CACHE'));
