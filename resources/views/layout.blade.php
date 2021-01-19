@@ -1,5 +1,5 @@
 <?php declare(strict_types=1) ?>
-  <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <title>{{ $title }}</title>

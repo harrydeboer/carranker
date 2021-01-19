@@ -27,7 +27,7 @@
             @foreach ($spec['choices'] as $index => $choice)
               <tr class="row">
                 <td class="col-md-8 col-md-offset-1"><label
-                    for="specs-choice[{{ $specName . $index }}]">{{ $choice }}</label></td>
+                      for="specs-choice[{{ $specName . $index }}]">{{ $choice }}</label></td>
                 <td class="col-md-2">
                   <input type="checkbox"
                          id="specs-choice[{{ $specName . $index }}]"
