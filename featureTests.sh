@@ -4,8 +4,6 @@ if [[ ${OSTYPE} == 'msys' ]]; then
 else
   PREFIX=""
 fi
-$PREFIX docker exec -it carranker php artisan migrate --database='mysql_testing'
+$PREFIX docker exec -it carranker php artisan migrate:refresh --database='mysql_testing'
 $PREFIX docker exec -it carranker php artisan index:cars --testing
 $PREFIX docker exec -it carranker ./vendor/bin/phpunit --configuration phpunitFeature.xml
-$PREFIX docker exec -it carranker php artisan db:wipe --database='mysql_testing'
-$PREFIX docker exec -it carranker php artisan index:cars --testing
