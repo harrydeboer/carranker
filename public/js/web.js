@@ -1,3 +1,4 @@
+// noinspection DuplicatedCode
 $(document).ready(function () {
   let menuMake = $('#nav-select-make');
   let menuModel = $('#nav-select-model');
@@ -41,6 +42,7 @@ $(document).ready(function () {
     });
   }
 
+   // noinspection DuplicatedCode
   function navigate() {
     if (menuModel.val() === "") {
       window.location.href = "/make/" + encodeURIComponent(menuMake.val());
@@ -68,7 +70,9 @@ function reCAPTCHA(form, page) {
   headId.appendChild(scriptElement);
 
   $('#re-captcha-script').on('load',function () {
+    // noinspection JSUnresolvedVariable
     grecaptcha.ready(function () {
+      // noinspection JSUnresolvedVariable
       grecaptcha.execute(
         $('#re-captcha-key').val(),
         {action: 'validateReCAPTCHA'},
