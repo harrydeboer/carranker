@@ -11,9 +11,10 @@ trim_trailing_whitespace = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.{yml,yaml,sh,js,css,scss}]
+[*.{yml,yaml,sh}]
 indent_size = 2
 
-[*.blade.php]
+[*.{blade.php,html,js,css,scss}]
 indent_size = 2
+ij_javascript_align_multiline_chained_methods = true
 ij_continuation_indent_size = 4

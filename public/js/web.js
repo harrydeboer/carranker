@@ -42,13 +42,13 @@ $(document).ready(function () {
     });
   }
 
-   // noinspection DuplicatedCode
+  // noinspection DuplicatedCode
   function navigate() {
     if (menuModel.val() === "") {
       window.location.href = "/make/" + encodeURIComponent(menuMake.val());
     } else {
       window.location.href = "/model/" + encodeURIComponent(menuMake.val()) + "/" +
-        encodeURIComponent(menuModel.val());
+          encodeURIComponent(menuModel.val());
     }
   }
 });
@@ -74,33 +74,33 @@ function reCAPTCHA(form, page) {
     grecaptcha.ready(function () {
       // noinspection JSUnresolvedVariable
       grecaptcha.execute(
-        $('#re-captcha-key').val(),
-        {action: 'validateReCAPTCHA'},
-        false)
-        .then(
-          function (reCAPTCHAToken) {
-            $('#re-captcha-token').val(reCAPTCHAToken);
+          $('#re-captcha-key').val(),
+          {action: 'validateReCAPTCHA'},
+          false)
+                .then(
+                    function (reCAPTCHAToken) {
+                      $('#re-captcha-token').val(reCAPTCHAToken);
 
-            if (page === 'contactPage') {
-              /**
-               * The form is submitted which triggers the current function again but now the reCAPTCHA element
-               * is loaded and the events default is not prevented so that the form will actually submit.
-               */
-              form.submit();
-            } else if (page === 'modelPage') {
+                      if (page === 'contactPage') {
+                        /**
+                         * The form is submitted which triggers the current function again but now the reCAPTCHA element
+                         * is loaded and the events default is not prevented so that the form will actually submit.
+                         */
+                        form.submit();
+                      } else if (page === 'modelPage') {
 
-              /**
-               * The form is submitted which triggers the current function again but now the reCAPTCHA element
-               * is loaded and the events default is not prevented so that the form will actually submit.
-               */
-              $.post(form.attr('action'), form.serialize(), function (data) {
-                if (data.trim() === 'true')  {
-                  sessionStorage.isThankYou = "true";
-                }
-                location.reload();
-              });
-            }
-          });
+                        /**
+                         * The form is submitted which triggers the current function again but now the reCAPTCHA element
+                         * is loaded and the events default is not prevented so that the form will actually submit.
+                         */
+                        $.post(form.attr('action'), form.serialize(), function (data) {
+                          if (data.trim() === 'true')  {
+                            sessionStorage.isThankYou = "true";
+                          }
+                          location.reload();
+                        });
+                      }
+                    });
     });
   });
 }

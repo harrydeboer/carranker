@@ -181,10 +181,10 @@ $(document).ready(function () {
 
     /** No <>[] characters allowed. */
     if (
-      event.which === 60
-      || event.which === 62
-      || event.which === 91
-      || event.which === 93
+        event.which === 60
+        || event.which === 62
+        || event.which === 91
+        || event.which === 93
     ) {
       errorMessage.text('No html allowed');
 
@@ -197,10 +197,10 @@ $(document).ready(function () {
     errorMessage.text('');
 
     if (
-      pastedData.indexOf('<') !== -1
-      || pastedData.indexOf('>') !== -1
-      || pastedData.indexOf('[') !== -1
-      || pastedData.indexOf(']') !== -1
+        pastedData.indexOf('<') !== -1
+        || pastedData.indexOf('>') !== -1
+        || pastedData.indexOf('[') !== -1
+        || pastedData.indexOf(']') !== -1
     ) {
       errorMessage.text('No html allowed');
 

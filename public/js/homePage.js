@@ -133,7 +133,7 @@ $(document).ready(function () {
       }
 
       let dataRequest = 'number-of-rows=' + sessionStorage.numberOfRows + '&offset=' +
-        topRows.length + '&' + $('#filter-top-form').serialize();
+          topRows.length + '&' + $('#filter-top-form').serialize();
 
       $.get($(this).attr('href'), dataRequest, function (data) {
         let tableTop = $('#table-top');
