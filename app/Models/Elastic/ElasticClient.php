@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Models\Elastic;
 
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;

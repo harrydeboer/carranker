@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\CarSpecs;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Exception;
+use App\Parameters\CarSpecs;
 
 /**
  * A trim is a type of car model (a specific generation/series).

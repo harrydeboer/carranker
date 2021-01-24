@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models\Elastic;
 
-use App\ElasticClient;
 use Elasticsearch\Client;
 use App\Models\BaseModel as EloquentBaseModel;
 use stdClass;

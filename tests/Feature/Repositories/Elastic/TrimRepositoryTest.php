@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories\Elastic;
 
-use App\CarSpecs;
+use App\Parameters\CarSpecs;
 use App\Models\Aspects;
 use App\Models\Trim;
 use App\Repositories\Elastic\TrimRepository;

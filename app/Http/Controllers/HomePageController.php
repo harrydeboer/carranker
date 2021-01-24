@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\CarSpecs;
+use App\Parameters\CarSpecs;
 use App\Models\Aspects;
 use App\Repositories\PageRepository;
 use App\Repositories\RatingRepository;

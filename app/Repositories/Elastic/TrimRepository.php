@@ -6,7 +6,7 @@ namespace App\Repositories\Elastic;
 
 use App\Models\Aspects;
 use App\Models\Elastic\Trim;
-use App\CarSpecs;
+use App\Parameters\CarSpecs;
 
 class TrimRepository extends BaseRepository
 {

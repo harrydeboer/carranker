@@ -8,6 +8,7 @@ use App\Models\Trim;
 use App\Models\Model;
 use App\Models\Aspects;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Parameters\CarSpecs;
 
 class TrimFactory extends Factory
 {
@@ -35,12 +36,12 @@ class TrimFactory extends Factory
             'model_id' => $model->getId(),
             'make_name' => $model->getMakeName(),
             'model_name' => $model->getName(),
-            'framework' => $this->faker->randomElement(\App\CarSpecs::specsChoice()['framework']['choices']),
-            'fuel' => $this->faker->randomElement(\App\CarSpecs::specsChoice()['fuel']['choices']),
-            'number_of_doors' => $this->faker->randomElement(\App\CarSpecs::specsChoice()['number_of_doors']['choices']),
-            'number_of_seats' => $this->faker->randomElement(\App\CarSpecs::specsChoice()['number_of_seats']['choices']),
-            'number_of_gears' => $this->faker->randomElement(\App\CarSpecs::specsChoice()['number_of_gears']['choices']),
-            'gearbox_type' => $this->faker->randomElement(\App\CarSpecs::specsChoice()['gearbox_type']['choices']),
+            'framework' => $this->faker->randomElement(CarSpecs::specsChoice()['framework']['choices']),
+            'fuel' => $this->faker->randomElement(CarSpecs::specsChoice()['fuel']['choices']),
+            'number_of_doors' => $this->faker->randomElement(CarSpecs::specsChoice()['number_of_doors']['choices']),
+            'number_of_seats' => $this->faker->randomElement(CarSpecs::specsChoice()['number_of_seats']['choices']),
+            'number_of_gears' => $this->faker->randomElement(CarSpecs::specsChoice()['number_of_gears']['choices']),
+            'gearbox_type' => $this->faker->randomElement(CarSpecs::specsChoice()['gearbox_type']['choices']),
             'price' => $this->faker->randomNumber(4),
             'votes' => $this->faker->randomNumber(2) + 1,
             'year_begin' => $year_begin,
