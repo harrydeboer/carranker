@@ -19,9 +19,12 @@ services:
       - ./config/php-cli.ini:/etc/php/${PHP_VERSION}/cli/conf.d/php-cli.ini
     networks:
       carranker:
+        ipv4_address: 172.21.0.12
     container_name: carranker
     ports:
       - 80:80
+      - 8181:8181
+      - 443:443
   redis:
     image: redis:5.0
     ports:
@@ -55,6 +58,16 @@ services:
     networks:
       carranker:
         ipv4_address: ${ELASTIC_HOST}
+  varnish:
+    image: library/varnish:6.5.1-1
+    ports:
+      - 8080:80
+    container_name: carranker-varnish
+    volumes:
+      - ./config/default.vcl:/etc/varnish/default.vcl
+    networks:
+      carranker:
+        ipv4_address: ${VARNISH_HOST}
   database:
     image: mysql:8.0
     ports:

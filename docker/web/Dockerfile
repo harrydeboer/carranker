@@ -44,6 +44,8 @@ ENV PHP_IDE_CONFIG="serverName=carranker"
 
 # Expose apache.
 EXPOSE 80
+EXPOSE 443
+EXPOSE 8181
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     php${phpversion}-sqlite php${phpversion}-xml php${phpversion}-bcmath php${phpversion}-curl php${phpversion}-gd \
