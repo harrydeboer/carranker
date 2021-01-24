@@ -90,11 +90,6 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Car Ranker'),
     ],
 
-    'reply_to' => [
-        'address' => 'noreply@carranker.com',
-        'name' => 'No Reply',
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings

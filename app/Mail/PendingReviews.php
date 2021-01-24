@@ -22,6 +22,7 @@ class PendingReviews extends Mailable
     {
         return $this
             ->to(env('MAIL_USERNAME'), env('APP_NAME'))
+            ->replyTo(env('MAIL_FROM_ADDRESS'), env('APP_NAME'))
             ->view('mail.pendingReviews');
     }
 }
