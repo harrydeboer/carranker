@@ -57,7 +57,7 @@ function reCAPTCHA(form, page) {
   /**
    * Show the loader img.
    */
-  $('#hideAll').show();
+  $('#hide-all').show();
 
   /**
    * The reCAPTCHAScript element is loaded when not present.

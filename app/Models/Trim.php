@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Exception;
 use App\Parameters\CarSpecs;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 /**
  * A trim is a type of car model (a specific generation/series).
@@ -63,7 +64,10 @@ class Trim extends BaseModel
         return $this->hasMany(Rating::class)->get();
     }
 
-    public function getModel(): Model
+    /**
+     * @return Model
+     */
+    public function getModel(): EloquentModel
     {
         return $this->belongsTo(Model::class, 'model_id')->first();
     }

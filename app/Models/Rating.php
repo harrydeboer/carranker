@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Rating extends BaseModel
 {
@@ -26,17 +27,26 @@ class Rating extends BaseModel
         parent::__construct($attributes);
     }
 
-    public function getModel(): Model
+    /**
+     * @return Model
+     */
+    public function getModel(): EloquentModel
     {
         return $this->belongsTo(Model::class, 'model_id')->first();
     }
 
-    public function getTrim(): Trim
+    /**
+     * @return Trim
+     */
+    public function getTrim(): EloquentModel
     {
         return $this->belongsTo(Trim::class, 'trim_id')->first();
     }
 
-    public function getUser(): User
+    /**
+     * @return User
+     */
+    public function getUser(): EloquentModel
     {
         return $this->belongsTo(User::class, 'user_id')->first();
     }

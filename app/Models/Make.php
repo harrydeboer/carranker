@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Make extends BaseModel
 {
@@ -16,9 +16,9 @@ class Make extends BaseModel
     public $timestamps = false;
     protected $fillable = ['name', 'content', 'wiki_car_make'];
 
-    public function models(): HasMany
+    public function getCarModels(): Collection
     {
-        return $this->hasMany(Model::class);
+        return $this->hasMany(Model::class)->get();
     }
 
     public function save(array $options = []): bool
