@@ -1,16 +1,23 @@
 #!/bin/bash
-composer install --no-dev --no-progress --prefer-dist
-php artisan cache:clear
-php artisan route:clear
-php artisan config:clear
-php artisan view:clear
-php artisan migrate --force --no-interaction
-php artisan get:fx-rate
-php artisan flush:redis-dbs
-php artisan process:queue --truncate
-php artisan index:cars
+docker-compose build --no-cache
+docker-compose up -d
+sudo docker cp /etc/letsencrypt carranker:/etc/letsencrypt
+docker-compose up -d
+PREFIX="docker exec -it carranker"
+$PREFIX composer install --no-dev --no-progress --prefer-dist
+$PREFIX php artisan cache:clear
+$PREFIX php artisan route:clear
+$PREFIX php artisan config:clear
+$PREFIX php artisan view:clear
+./opcache_reset.sh
+$PREFIX php artisan migrate --force --no-interaction
+$PREFIX chown www-data:www-data -R storage
+$PREFIX php artisan migrate --force --no-interaction
+$PREFIX php artisan get:fx-rate
+$PREFIX php artisan flush:redis-dbs
+$PREFIX php artisan process:queue --truncate
+$PREFIX php artisan index:cars
 ./opcacheReset.sh
-varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret 'ban req.http.host ~ (^accept.carranker.com$)'
-varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret 'ban req.http.host ~ (^carranker.com$)'
+sudo varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret 'ban req.http.host ~ (^carranker.com$)'
 
 echo "Varnish cache cleared!"

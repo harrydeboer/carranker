@@ -19,3 +19,4 @@ yarn-error.log
 !/tmp/.gitkeep
 .env
 .phpunit.result.cache
+.dockerignore

@@ -1,0 +1,19 @@
+services:
+  web:
+    volumes:
+      - .:/var/www/html
+      - ./config/apache2.conf:/etc/apache2/apache2.conf
+      - ./config/ports.conf:/etc/apache2/ports.conf
+      - ./config/000-default.local.conf:/etc/apache2/sites-available/000-default.conf
+      - ./config/php-apache2.local.ini:/etc/php/${PHP_VERSION}/apache2/conf.d/php-apache2.ini
+      - ./config/php-cli.local.ini:/etc/php/${PHP_VERSION}/cli/conf.d/php-cli.ini
+  elastic:
+    volumes:
+      - ./storage/elastic/data:/usr/share/elasticsearch/data
+  redis:
+    volumes:
+      - ./config/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./storage/logs/redis/:/var/log/redis/
+  varnish:
+    volumes:
+      - ./config/default.vcl:/etc/varnish/default.vcl

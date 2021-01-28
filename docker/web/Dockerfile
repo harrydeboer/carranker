@@ -1,8 +1,9 @@
 FROM ubuntu:20.04
 
-ARG phpversion
-ARG uid
-ARG upass
+ARG PHP_VERSION
+ARG UID
+ARG UPASS
+ARG APP_ENV
 
 RUN apt-get update
 
@@ -18,16 +19,16 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
     unzip \
     libzip-dev \
     apache2 \
-    php${phpversion} \
-    php${phpversion}-mysql \
+    php${PHP_VERSION} \
+    php${PHP_VERSION}-mysql \
     libxml2 \
     libxslt1.1 \
     libc6 \
     libonig5 \
     libgd3 \
-    libapache2-mod-php${phpversion}
+    libapache2-mod-php${PHP_VERSION}
 
-RUN a2enmod php${phpversion}
+RUN a2enmod php${PHP_VERSION}
 
 RUN a2enmod headers proxy rewrite proxy_balancer proxy_http slotmem_shm ssl
 
@@ -48,10 +49,12 @@ EXPOSE 443
 EXPOSE 8181
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install \
-    php${phpversion}-sqlite php${phpversion}-xml php${phpversion}-bcmath php${phpversion}-curl php${phpversion}-gd \
-    php${phpversion}-mbstring php${phpversion}-igbinary php${phpversion}-redis php${phpversion}-xdebug php${phpversion}-zip \
-    && phpenmod xml bcmath curl gd mbstring igbinary redis xdebug zip \
+    php${PHP_VERSION}-sqlite php${PHP_VERSION}-xml php${PHP_VERSION}-bcmath php${PHP_VERSION}-curl php${PHP_VERSION}-gd \
+    php${PHP_VERSION}-mbstring php${PHP_VERSION}-igbinary php${PHP_VERSION}-redis php${PHP_VERSION}-zip \
+    && phpenmod xml bcmath curl gd mbstring igbinary redis zip \
     && phpdismod ffi gettext shmop xsl
+
+RUN if [ "$APP_ENV" = "local" ] ; then apt-get install php${PHP_VERSION}-xdebug && phpenmod xdebug; fi
 
 # By default start up apache in the foreground, override with /bin/bash for interative.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
@@ -59,8 +62,15 @@ CMD /usr/sbin/apache2ctl -D FOREGROUND
 # 5. composer
 COPY --from=composer:2.0.7 /usr/bin/composer /usr/bin/composer
 
-RUN useradd -G www-data,root -u ${uid} -d /home/devuser devuser
+RUN useradd -G www-data,root -u ${UID} -d /home/devuser devuser
 RUN mkdir -p /home/devuser/.composer && \
     chown -R devuser:devuser /home/devuser
 
-RUN echo devuser:${upass} | chpasswd && echo root:${upass} | chpasswd && usermod -aG sudo devuser
+RUN echo devuser:${UPASS} | chpasswd && echo root:${UPASS} | chpasswd && usermod -aG sudo devuser
+
+COPY . /var/www/html
+COPY ./config/apache2.conf /etc/apache2/apache2.conf
+COPY ./config/ports.conf /etc/apache2/ports.conf
+COPY ./config/000-default.${APP_ENV}.conf /etc/apache2/sites-available/000-default.conf
+COPY ./config/php-apache2.${APP_ENV}.ini /etc/php/${PHP_VERSION}/apache2/conf.d/php-apache2.ini
+COPY ./config/php-cli.${APP_ENV}.ini /etc/php/${PHP_VERSION}/cli/conf.d/php-cli.ini

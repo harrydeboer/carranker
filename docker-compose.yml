@@ -6,17 +6,11 @@ services:
       dockerfile: docker/web/Dockerfile
       context: .
       args:
-        uid: ${UID}
-        upass: ${UPASS}
-        phpversion: ${PHP_VERSION}
+        UID: ${UID}
+        UPASS: ${UPASS}
+        PHP_VERSION: ${PHP_VERSION}
+        APP_ENV: ${APP_ENV}
     working_dir: /var/www/html
-    volumes:
-      - .:/var/www/html
-      - ./config/apache2.conf:/etc/apache2/apache2.conf
-      - ./config/ports.conf:/etc/apache2/ports.conf
-      - ./config/${VIRTUAL_HOST}:/etc/apache2/sites-available/000-default.conf
-      - ./config/php-apache2.ini:/etc/php/${PHP_VERSION}/apache2/conf.d/php-apache2.ini
-      - ./config/php-cli.ini:/etc/php/${PHP_VERSION}/cli/conf.d/php-cli.ini
     networks:
       carranker:
     container_name: carranker
@@ -25,14 +19,13 @@ services:
       - 8181:8181
       - 443:443
   redis:
-    image: redis:5.0
+    build:
+      dockerfile: docker/redis/Dockerfile
+      context: .
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
     container_name: carranker-redis
     command: redis-server /usr/local/etc/redis/redis.conf --requirepass ${REDIS_PASSWORD}
-    volumes:
-      - ./config/redis.conf:/usr/local/etc/redis/redis.conf
-      - ./storage/logs/redis/:/var/log/redis/
     networks:
       carranker:
         ipv4_address: ${REDIS_HOST}
@@ -50,20 +43,18 @@ services:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - ./storage/elastic/data:/usr/share/elasticsearch/data
     ports:
       - ${ELASTIC_PORT}:${ELASTIC_PORT}
     networks:
       carranker:
         ipv4_address: ${ELASTIC_HOST}
   varnish:
-    image: library/varnish:6.5.1-1
+    build:
+      dockerfile: docker/varnish/Dockerfile
+      context: .
     ports:
       - 8080:80
     container_name: carranker-varnish
-    volumes:
-      - ./config/default.vcl:/etc/varnish/default.vcl
     networks:
       carranker:
         ipv4_address: 172.21.0.9
