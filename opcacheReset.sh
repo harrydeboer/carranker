@@ -7,9 +7,9 @@ echo "<?php opcache_reset(); echo 'OPcache reset!'?>" > "${PUBLIC_DIR}""${RANDOM
 sudo docker cp "${PUBLIC_DIR}""${RANDOM_NAME}" carranker:/var/www/html/public/"${RANDOM_NAME}"
 
 if [[ $PARENT_DIR = "accept.carranker.com" ]]; then
-  echo curl https://accept.carranker.com/"${RANDOM_NAME}"
+  RESULT=curl https://accept.carranker.com/"${RANDOM_NAME}"
 elif [[ $PARENT_DIR = "carranker.com" ]]; then
-  echo curl https://carranker.com/"${RANDOM_NAME}"
+  RESULT=curl https://carranker.com/"${RANDOM_NAME}"
 elif [[ $PARENT_DIR = "carranker" ]]; then
   RESULT=curl http://carranker/"${RANDOM_NAME}"
 fi

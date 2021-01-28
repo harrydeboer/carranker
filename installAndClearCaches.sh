@@ -9,7 +9,7 @@ $PREFIX php artisan cache:clear
 $PREFIX php artisan route:clear
 $PREFIX php artisan config:clear
 $PREFIX php artisan view:clear
-./opcache_reset.sh
+./opcacheReset.sh
 $PREFIX php artisan migrate --force --no-interaction
 $PREFIX chown www-data:www-data -R storage
 $PREFIX php artisan migrate --force --no-interaction
@@ -18,6 +18,6 @@ $PREFIX php artisan flush:redis-dbs
 $PREFIX php artisan process:queue --truncate
 $PREFIX php artisan index:cars
 ./opcacheReset.sh
-sudo varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret 'ban req.http.host ~ (^carranker.com$)'
+docker-compose restart varnish
 
 echo "Varnish cache cleared!"
