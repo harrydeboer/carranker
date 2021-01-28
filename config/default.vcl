@@ -35,7 +35,6 @@ acl purge {
   "localhost";
   "127.0.0.1";
   "::1";
-  "host.docker.internal";
 }
 
 sub vcl_init {
