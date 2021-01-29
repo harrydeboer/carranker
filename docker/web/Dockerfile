@@ -70,3 +70,4 @@ COPY ./config/php-apache2.${APP_ENV}.ini /etc/php/${PHP_VERSION}/apache2/conf.d/
 COPY ./config/php-cli.${APP_ENV}.ini /etc/php/${PHP_VERSION}/cli/conf.d/php-cli.ini
 
 RUN chown www-data:www-data -R /var/www/html/storage
+RUN chown www-data:www-data -R /var/www/html/bootstrap
