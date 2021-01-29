@@ -4,7 +4,9 @@ docker-compose up --scale selenium=0 -d
 sudo docker cp /etc/letsencrypt carranker:/etc/letsencrypt
 docker-compose up --scale selenium=0 -d
 PREFIX="docker exec -it carranker"
-docker exec -it carranker composer install --no-dev --no-progress --prefer-dist
+$PREFIX mkdir vendor
+$PREFIX chown devuser:devuser -R vendor
+docker exec -it --user=devuser carranker composer install --no-dev --no-progress --prefer-dist
 $PREFIX php artisan cache:clear
 $PREFIX php artisan route:clear
 $PREFIX php artisan config:clear
