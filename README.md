@@ -12,7 +12,7 @@ REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docke
 <li>On Windows: Execute the lines of the file config/wslIncreaseVm.txt in Powershell.</li>
 <li>Execute the command ’docker-compose build’</li>
 <li>Execute the command ’docker-compose up -d’</li>
-<li>Execute ’docker exec --user devuser -it carranker composer install’ in base directory.</li>
+<li>Execute ’docker exec --user=www-data -it carranker composer install’ in base directory.</li>
 <li>Execute command ’docker exec -it carranker php artisan key:generate’</li>
 <li>Run command ‘docker exec -it carranker php artisan migrate’ in base directory.</li>
 <li>Import the .sql files in database/sql-files in the order: makes, models, trims, 

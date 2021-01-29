@@ -62,12 +62,6 @@ CMD /usr/sbin/apache2ctl -D FOREGROUND
 # 5. composer
 COPY --from=composer:2.0.7 /usr/bin/composer /usr/bin/composer
 
-RUN useradd -G www-data,root -u ${UID} -d /home/devuser devuser
-RUN mkdir -p /home/devuser/.composer && \
-    chown -R devuser:devuser /home/devuser
-
-RUN echo devuser:${UPASS} | chpasswd && echo root:${UPASS} | chpasswd && usermod -aG sudo devuser
-
 COPY . /var/www/html
 COPY ./config/apache2.conf /etc/apache2/apache2.conf
 COPY ./config/ports.conf /etc/apache2/ports.conf
