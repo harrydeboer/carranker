@@ -11,8 +11,6 @@ $PREFIX php artisan config:clear
 $PREFIX php artisan view:clear
 ./opcacheReset.sh
 $PREFIX php artisan migrate --force --no-interaction
-$PREFIX chown www-data:www-data -R storage
-$PREFIX php artisan migrate --force --no-interaction
 $PREFIX php artisan get:fx-rate
 $PREFIX php artisan flush:redis-dbs
 $PREFIX php artisan process:queue --truncate
