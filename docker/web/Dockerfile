@@ -1,8 +1,6 @@
 FROM ubuntu:20.04
 
 ARG PHP_VERSION
-ARG UID
-ARG UPASS
 ARG APP_ENV
 
 RUN apt-get update
@@ -31,17 +29,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 RUN a2enmod php${PHP_VERSION}
 
 RUN a2enmod headers proxy rewrite proxy_balancer proxy_http slotmem_shm ssl
-
-# Manually set up the apache environment variables
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_LOCK_DIR /var/lock/apache2
-ENV APACHE_PID_FILE /var/run/apache2.pid
-ENV APACHE_RUN_USER=www-data
-ENV APACHE_RUN_GROUP=www-data
-ENV PHP_XDEBUG_ENABLED=1
-ENV PHP_INI_XDEBUG__CLIENT_PORT=9003
-ENV XDEBUG_CONFIG="client_host=host.docker.internal"
-ENV PHP_IDE_CONFIG="serverName=carranker"
 
 # Expose apache.
 EXPOSE 80

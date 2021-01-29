@@ -5,8 +5,11 @@ services:
       - ./config/apache2.conf:/etc/apache2/apache2.conf
       - ./config/ports.conf:/etc/apache2/ports.conf
       - ./config/000-default.local.conf:/etc/apache2/sites-available/000-default.conf
-      - ./config/php-apache2.local.ini:/etc/php/${PHP_VERSION}/apache2/conf.d/php-apache2.ini
-      - ./config/php-cli.local.ini:/etc/php/${PHP_VERSION}/cli/conf.d/php-cli.ini
+    environment:
+      - PHP_XDEBUG_ENABLED=1
+      - PHP_INI_XDEBUG__CLIENT_PORT=9003
+      - XDEBUG_CONFIG=client_host=192.168.65.2
+      - PHP_IDE_CONFIG=serverName=carranker
   elastic:
     volumes:
       - ./storage/elastic/data:/usr/share/elasticsearch/data

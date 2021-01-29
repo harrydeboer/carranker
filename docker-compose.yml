@@ -6,9 +6,7 @@ services:
       dockerfile: docker/web/Dockerfile
       context: .
       args:
-        UID: ${UID}
-        UPASS: ${UPASS}
-        PHP_VERSION: ${PHP_VERSION}
+        PHP_VERSION: 8.0
         APP_ENV: ${APP_ENV}
     working_dir: /var/www/html
     networks:
@@ -30,7 +28,7 @@ services:
       carranker:
         ipv4_address: ${REDIS_HOST}
   elastic:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
     container_name: carranker-elastic
     environment:
       - node.name=carranker-elastic
