@@ -74,3 +74,5 @@ COPY ./config/ports.conf /etc/apache2/ports.conf
 COPY ./config/000-default.${APP_ENV}.conf /etc/apache2/sites-available/000-default.conf
 COPY ./config/php-apache2.${APP_ENV}.ini /etc/php/${PHP_VERSION}/apache2/conf.d/php-apache2.ini
 COPY ./config/php-cli.${APP_ENV}.ini /etc/php/${PHP_VERSION}/cli/conf.d/php-cli.ini
+
+RUN chown www-data:www-data -R /var/www/html/storage
