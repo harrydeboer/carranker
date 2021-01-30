@@ -3,8 +3,8 @@ docker-compose build --no-cache
 docker-compose up -d
 sudo docker cp /etc/letsencrypt carranker:/etc/letsencrypt
 docker-compose up -d
-PREFIX="docker exec -it carranker"
-docker exec -it --user=www-data carranker composer install --no-dev --no-progress --prefer-dist
+PREFIX="docker exec -t carranker"
+docker exec -t --user=www-data carranker composer install --no-dev --no-progress --prefer-dist
 $PREFIX php artisan cache:clear
 $PREFIX php artisan route:clear
 $PREFIX php artisan config:clear
