@@ -34,11 +34,10 @@ roles, pages, menus, menus_pages and profanities.</li>
 <ol>
 <li>Follow the same steps as for install local except the test and file watcher steps. 
 Composer needs to be installed with options --no-dev --no-progress --prefer-dist.</li>
-<li>Execute command ‘chmod 777 -R storage’ in base directory.</li>
 <li>Execute command ‘git reset –-hard’ in base directory. </li>
-<li>Enable cronjob with crontab -e: 0 * * * * (cd path/to/base directory && php artisan get:fx-rate) > /dev/null.</li>
-<li>Enable cronjob with crontab -e: */5 * * * * (cd path/to/base directory && php artisan process:queue) > /dev/null.</li>
-<li>Enable cronjob with crontab -e: 0 12 * * * (cd /var/www/carranker.com && php artisan send-mail:when-pending-reviews) > /dev/null.</li>
+<li>Enable cronjob with crontab -e: 0 * * * * docker exec -t carranker php artisan get:fx-rate > /dev/null.</li>
+<li>Enable cronjob with crontab -e: */5 * * * * docker exec -t carranker php artisan process:queue > /dev/null.</li>
+<li>Enable cronjob with crontab -e: 0 12 * * * docker exec -t carranker php artisan send-mail:when-pending-reviews > /dev/null.</li>
 <li>Repeat all the steps for the acceptance site with allowance for certain ips only (and the server ip) in the main 
 apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
 <li>In production: install postfix, dovecot, opendkim, opendmarc, postsrsd and spamassassin.</li>
