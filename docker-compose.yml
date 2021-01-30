@@ -73,11 +73,6 @@ services:
     networks:
       carranker:
         ipv4_address: ${DB_HOST}
-  selenium:
-    image: selenium/standalone-chrome:3.141.59-20201119
-    container_name: carranker-selenium
-    networks:
-      carranker:
 
 networks:
   carranker:

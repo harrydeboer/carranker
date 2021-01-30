@@ -30,7 +30,6 @@ RUN a2enmod php${PHP_VERSION}
 
 RUN a2enmod headers proxy rewrite proxy_balancer proxy_http slotmem_shm ssl
 
-# Expose apache.
 EXPOSE 80
 EXPOSE 443
 EXPOSE 8181
@@ -43,17 +42,17 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
 
 RUN if [ "$APP_ENV" = "local" ] ; then apt-get install php${PHP_VERSION}-xdebug && phpenmod xdebug; fi
 
-# By default start up apache in the foreground, override with /bin/bash for interative.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
 
-# 5. composer
 COPY --from=composer:2.0.7 /usr/bin/composer /usr/bin/composer
 
 COPY . /var/www/html
-COPY ./config/apache2.conf /etc/apache2/apache2.conf
-COPY ./config/ports.conf /etc/apache2/ports.conf
-COPY ./config/000-default.${APP_ENV}.conf /etc/apache2/sites-available/000-default.conf
-COPY ./config/php-apache2.${APP_ENV}.ini /etc/php/${PHP_VERSION}/apache2/conf.d/php-apache2.ini
-COPY ./config/php-cli.${APP_ENV}.ini /etc/php/${PHP_VERSION}/cli/conf.d/php-cli.ini
+COPY ./config/web/apache2.conf /etc/apache2/apache2.conf
+COPY ./config/web/ports.conf /etc/apache2/ports.conf
+COPY ./config/web/000-default.${APP_ENV}.conf /etc/apache2/sites-available/000-default.conf
+COPY ./config/web/php-apache2.ini /etc/php/${PHP_VERSION}/apache2/conf.d/php-apache2.ini
+COPY ./config/web/php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php-cli.ini
+RUN if [ "$APP_ENV" = "local" ] ; then cp /var/www/html/config/web/php-cli.xdebug.ini /etc/php/${PHP_VERSION}/cli/conf.d/xdebug-cli.ini; fi
+RUN if [ "$APP_ENV" = "local" ] ; then cp /var/www/html/config/web/php-apache2.xdebug.ini /etc/php/${PHP_VERSION}/apache2/conf.d/xdebug-apache2.ini; fi
 
 RUN chown www-data:www-data -R /var/www/html/
