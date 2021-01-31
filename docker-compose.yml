@@ -56,11 +56,6 @@ services:
     networks:
       carranker:
         ipv4_address: 172.21.0.9
-  certbot:
-    image: certbot/certbot:v1.7.0
-    container_name: carranker-certbot
-    networks:
-      carranker:
   database:
     image: mysql:8.0
     ports:

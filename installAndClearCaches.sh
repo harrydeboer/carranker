@@ -1,7 +1,7 @@
 #!/bin/bash
 docker-compose build --no-cache
 docker-compose up -d
-docker cp ~/letsencrypt carranker:/etc/letsencrypt
+docker cp /etc/letsencrypt carranker:/etc/letsencrypt
 docker-compose up -d
 PREFIX="docker exec -t carranker"
 docker exec -t --user=www-data carranker composer install --no-dev --no-progress --prefer-dist
