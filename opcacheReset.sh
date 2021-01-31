@@ -4,7 +4,7 @@ PARENT_DIR="$(basename "$PARENT_PATH")"
 PUBLIC_DIR=${PARENT_PATH}/public/
 RANDOM_NAME=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 100).php
 echo "<?php opcache_reset(); echo 'OPcache reset!'?>" > "${PUBLIC_DIR}""${RANDOM_NAME}"
-sudo docker cp "${PUBLIC_DIR}""${RANDOM_NAME}" carranker:/var/www/html/public/"${RANDOM_NAME}"
+docker cp "${PUBLIC_DIR}""${RANDOM_NAME}" carranker:/var/www/html/public/"${RANDOM_NAME}"
 
 if [[ $PARENT_DIR = "accept.carranker.com" ]]; then
   RESULT=curl https://accept.carranker.com/"${RANDOM_NAME}"
