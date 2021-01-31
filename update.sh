@@ -4,7 +4,6 @@ if [[ $EUID -eq 0 ]]; then
   exit 1
 fi
 PREVIOUS=$(git rev-parse HEAD)
-sudo echo 'Password given'
 git pull origin master
 test "$PREVIOUS" == "$(git rev-parse HEAD)" && exit 1
 ./installAndClearCaches.sh
