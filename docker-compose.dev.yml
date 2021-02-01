@@ -7,12 +7,6 @@ services:
       - PHP_INI_XDEBUG__CLIENT_PORT=9003
       - XDEBUG_CONFIG=client_host=192.168.65.2
       - PHP_IDE_CONFIG=serverName=carranker
-  redis:
-    volumes:
-      - ./config/redis.conf:/usr/local/etc/redis/redis.conf
-  varnish:
-    volumes:
-      - ./config/default.vcl:/etc/varnish/default.vcl
   selenium:
     image: selenium/standalone-chrome:3.141.59-20201119
     container_name: carranker-selenium

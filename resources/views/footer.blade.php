@@ -22,16 +22,7 @@
      class="{{ $controller === 'homepage' ? 'lazy' : '' }} img-thumbnail col-md-12 d-none d-lg-block">
 <BR>
 <script src="{{ fileUrl('/js/app.min.js') }}"></script>
-@if (env('APP_ENV') === 'local')
-  <script src="{{ fileUrl('/js/lazyLoad.js') }}"></script>
-@else
-  <script src="{{ fileUrl('/js/lazyLoad.min.js') }}"></script>
-@endif
-@if (env('APP_ENV') === 'local')
-  <script src="{{ fileUrl('/js/web.js') }}"></script>
-  <script src="{{ fileUrl('/js/' . $controller . '.js') }}"></script>
-@else
-  <script src="{{ fileUrl('/js/web.min.js') }}"></script>
-  <script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
-@endif
+<script src="{{ fileUrl('/js/lazyLoad.min.js') }}"></script>
+<script src="{{ fileUrl('/js/web.min.js') }}"></script>
+<script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92295454-1"></script>

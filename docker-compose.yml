@@ -50,6 +50,8 @@ services:
     build:
       dockerfile: docker/varnish/Dockerfile
       context: .
+      args:
+        APP_DOMAIN: ${APP_DOMAIN}
     ports:
       - 8080:80
     container_name: carranker-varnish
