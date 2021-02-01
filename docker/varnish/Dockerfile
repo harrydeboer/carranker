@@ -1,7 +1,7 @@
 FROM varnish:6.5.1-1
 
-ARG APP_DOMAIN
+ARG APACHE_HOST
 
 COPY ./config/default.vcl /etc/varnish/
 
-RUN sed -i -r "s/APP_DOMAIN/${APP_DOMAIN}/g" /etc/varnish/default.vcl
+RUN sed -i -r "s/APACHE_HOST/${APACHE_HOST}/g" /etc/varnish/default.vcl

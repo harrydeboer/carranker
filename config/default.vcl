@@ -6,7 +6,7 @@ import directors;
 
 # Default backend definition. Set this to point to your content server.
 backend server1 { # Define one backend
-  .host = "APP_DOMAIN";    # IP or Hostname of backend
+  .host = "APACHE_HOST";    # IP or Hostname of backend
   .port = "8181";           # Port Apache or whatever is listening
   .max_connections = 300; # That's it
 

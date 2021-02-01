@@ -8,9 +8,11 @@ services:
       args:
         PHP_VERSION: 8.0
         APP_ENV: ${APP_ENV}
+        VARNISH_HOST: ${VARNISH_HOST}
     working_dir: /var/www/html
     networks:
       carranker:
+        ipv4_address: ${APACHE_HOST}
     container_name: carranker
     ports:
       - 80:80
@@ -51,13 +53,13 @@ services:
       dockerfile: docker/varnish/Dockerfile
       context: .
       args:
-        APP_DOMAIN: ${APP_DOMAIN}
+        APACHE_HOST: ${APACHE_HOST}
     ports:
       - 8080:80
     container_name: carranker-varnish
     networks:
       carranker:
-        ipv4_address: 172.21.0.9
+        ipv4_address: ${VARNISH_HOST}
   database:
     image: mysql:8.0
     ports:
@@ -81,4 +83,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: "172.21.0.0/24"
+        - subnet: ${SUBNET}
