@@ -1,6 +1,6 @@
 #!/bin/bash
 docker-compose build --no-cache
-docker-compose up -d
+docker-compose up -d --remove-orphans
 docker cp /etc/letsencrypt carranker:/etc/letsencrypt
 docker-compose up -d
 PREFIX="docker exec -t carranker"

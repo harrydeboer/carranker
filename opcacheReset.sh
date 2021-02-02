@@ -6,14 +6,16 @@ RANDOM_NAME=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 100).php
 echo "<?php opcache_reset(); echo 'OPcache reset!'?>" > "${PUBLIC_DIR}""${RANDOM_NAME}"
 docker cp "${PUBLIC_DIR}""${RANDOM_NAME}" carranker:/var/www/html/public/"${RANDOM_NAME}"
 
+sleep 1
+
 if [[ $PARENT_DIR = "accept.carranker.com" ]]; then
-  RESULT=curl https://accept.carranker.com/"${RANDOM_NAME}"
+  curl https://accept.carranker.com/"${RANDOM_NAME}"
 elif [[ $PARENT_DIR = "carranker.com" ]]; then
-  RESULT=curl https://carranker.com/"${RANDOM_NAME}"
+  curl https://carranker.com/"${RANDOM_NAME}"
 elif [[ $PARENT_DIR = "carranker" ]]; then
-  RESULT=curl http://carranker/"${RANDOM_NAME}"
+  curl http://carranker/"${RANDOM_NAME}"
 fi
 rm "${PUBLIC_DIR}""${RANDOM_NAME}"
 docker exec -it carranker rm /var/www/html/public/"${RANDOM_NAME}"
 
-echo "$RESULT"
+echo "OPcache has been reset!"
