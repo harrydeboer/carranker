@@ -33,6 +33,7 @@ class Contact extends Mailable
     {
         return $this
             ->to(env('MAIL_USERNAME'), env('APP_NAME'))
+            ->subject($this->formData['subject'])
             ->from(env('MAIL_POSTMASTER_USERNAME'), $this->formData['name'])
             ->replyTo($this->formData['email'], $this->formData['name'])
             ->view('mail.contact', ['userMessage' => $this->formData['message']]);
