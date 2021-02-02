@@ -39,6 +39,8 @@ services:
       - cluster.initial_master_nodes=carranker-elastic
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
     ulimits:
       memlock:
         soft: -1
@@ -67,8 +69,9 @@ services:
     container_name: carranker-db
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_DEVUSER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mysqldata:/var/lib/mysql
     entrypoint:
       sh -c "
       echo 'CREATE DATABASE IF NOT EXISTS ${DB_DATABASE}; CREATE DATABASE IF NOT EXISTS ${TEST_DATABASE};' > /docker-entrypoint-initdb.d/init.sql;
@@ -77,6 +80,12 @@ services:
     networks:
       carranker:
         ipv4_address: ${DB_HOST}
+
+volumes:
+  esdata:
+    driver: local
+  mysqldata:
+    driver: local
 
 networks:
   carranker:
