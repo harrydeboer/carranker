@@ -2,7 +2,6 @@
 docker-compose build --no-cache
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --remove-orphans
 docker cp /etc/letsencrypt carranker:/etc/letsencrypt
-docker-compose up -d
 PREFIX="docker exec -t carranker"
 docker exec -t --user=www-data carranker composer install --no-dev --no-progress --prefer-dist
 $PREFIX php artisan cache:clear
