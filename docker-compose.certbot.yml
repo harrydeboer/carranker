@@ -5,5 +5,8 @@ services:
   certbot:
     image: certbot/certbot:v1.12.0
     container_name: carranker-certbot
+    volumes:
+      - ~/letsencrypt/certs:/etc/letsencrypt
+      - /var/www/carranker.com/public:/data/letsencrypt
     networks:
       carranker:
