@@ -14,7 +14,6 @@ services:
       carranker:
         ipv4_address: ${APACHE_HOST}
     container_name: carranker
-    restart: always
     ports:
       - 80:80
       - 8181:8181
@@ -27,7 +26,6 @@ services:
       - ${REDIS_PORT}:${REDIS_PORT}
     container_name: carranker-redis
     command: redis-server /usr/local/etc/redis/redis.conf --requirepass ${REDIS_PASSWORD}
-    restart: always
     networks:
       carranker:
         ipv4_address: ${REDIS_HOST}
@@ -49,7 +47,6 @@ services:
         hard: -1
     ports:
       - ${ELASTIC_PORT}:${ELASTIC_PORT}
-    restart: always
     networks:
       carranker:
         ipv4_address: ${ELASTIC_HOST}
@@ -62,7 +59,6 @@ services:
     ports:
       - 8080:80
     container_name: carranker-varnish
-    restart: always
     networks:
       carranker:
         ipv4_address: ${VARNISH_HOST}
@@ -74,7 +70,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_PASSWORD: ${DB_PASSWORD}
-    restart: always
     volumes:
       - mysqldata:/var/lib/mysql
     entrypoint:

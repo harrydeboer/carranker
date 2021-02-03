@@ -1,0 +1,12 @@
+services:
+  web:
+    restart: always
+  elastic:
+    restart: always
+  redis:
+    restart: always
+  varnish:
+    restart: always
+  database:
+    restart: always
+

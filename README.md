@@ -9,7 +9,6 @@
 <li>Cp .env.example to .env file in base directory and fill in the blanks except APP_KEY. 
 Do not use passwords with "" around them. 
 REDIS_HOST and DB_HOST have to belong to the same subnet as the network in docker-compose.yml.</li>
-<li>On Windows: Execute the lines of the file config/wslIncreaseVm.txt in Powershell.</li>
 <li>Execute the command ’docker-compose build’</li>
 <li>Execute the command ’docker-compose up -d’</li>
 <li>Execute ’docker exec --user=www-data -it carranker composer install’ in base directory.</li>
@@ -34,12 +33,10 @@ roles, pages, menus, menus_pages and profanities.</li>
 <ol>
 <li>Follow the same steps as for install local except the test and file watcher steps. 
 Composer needs to be installed with options --no-dev --no-progress --prefer-dist.</li>
-<li>Execute command ‘git reset –-hard’ in base directory. </li>
 <li>Enable cronjob with crontab -e: 0 * * * * docker exec -t carranker php artisan get:fx-rate > /dev/null.</li>
 <li>Enable cronjob with crontab -e: */5 * * * * docker exec -t carranker php artisan process:queue > /dev/null.</li>
 <li>Enable cronjob with crontab -e: 0 12 * * * docker exec -t carranker php artisan send-mail:when-pending-reviews > /dev/null.</li>
-<li>Repeat all the steps for the acceptance site with allowance for certain ips only (and the server ip) in the main 
-apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
+<li>Repeat all the steps for the acceptance site with allowance for certain ips only (and the server ip) in the ./config/apache.conf file. Do not add a fx rate cronjob for acceptance.</li>
 <li>In production: install postfix, dovecot, opendkim, opendmarc, postsrsd and spamassassin.</li>
 <li>In production: add yourdevuser@carranker.com, info@carranker.com, noreply@carranker.com, postmaster@carranker.com and root@carranker.com 
 in. yourdevuser@carranker.com and info@carranker.com to carranker@gmail.com.</li>
