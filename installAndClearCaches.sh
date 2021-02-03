@@ -1,7 +1,7 @@
 #!/bin/bash
 docker-compose build --no-cache
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --remove-orphans
-docker cp /home/letsencrypt carranker:/etc/letsencrypt
+docker cp ~/letsencrypt carranker:/etc/letsencrypt
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --remove-orphans
 PREFIX="docker exec -t carranker"
 docker exec -t --user=www-data carranker composer install --no-dev --no-progress --prefer-dist
