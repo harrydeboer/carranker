@@ -53,7 +53,6 @@ COPY ./config/web/ports.conf /etc/apache2/ports.conf
 COPY ./config/web/000-default.${APP_ENV}.conf /etc/apache2/sites-available/000-default.conf
 COPY ./config/web/php-apache2.ini /etc/php/${PHP_VERSION}/apache2/conf.d/php-apache2.ini
 COPY ./config/web/php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php-cli.ini
-COPY ./config/letsencrypt/ /etc/letsencrypt/
 RUN if [ "$APP_ENV" = "local" ] ; then cp /var/www/html/config/web/php-cli.xdebug.ini /etc/php/${PHP_VERSION}/cli/conf.d/xdebug-cli.ini; fi
 RUN if [ "$APP_ENV" = "local" ] ; then cp /var/www/html/config/web/php-apache2.xdebug.ini /etc/php/${PHP_VERSION}/apache2/conf.d/xdebug-apache2.ini; fi
 RUN sed -i -r "s/VARNISH_HOST/${VARNISH_HOST}/g" /etc/apache2/sites-available/000-default.conf
