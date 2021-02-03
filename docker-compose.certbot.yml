@@ -2,3 +2,8 @@ services:
   web:
     volumes:
       - ./public/.well-known/acme-challenge:/var/www/html/public/.well-known/acme-challenge
+  certbot:
+    image: certbot/certbot:v1.12.0
+    container_name: carranker-certbot
+    networks:
+      carranker:
