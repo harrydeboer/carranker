@@ -6,6 +6,7 @@ namespace Tests\Feature\Repositories;
 
 use App\Models\Page;
 use App\Repositories\PageRepository;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\FeatureTestCase;
 
 class PageRepositoryTest extends FeatureTestCase
@@ -20,9 +21,18 @@ class PageRepositoryTest extends FeatureTestCase
 
     public function testFindByName()
     {
+        $this->assertNull($this->pageRepository->findByName('doesNotExist'));
+    }
+
+    public function testGetByName()
+    {
         $page = Page::factory()->create();
-        $pageFromDb = $this->pageRepository->findByName($page->getName());
+        $pageFromDb = $this->pageRepository->getByName($page->getName());
 
         $this->assertEquals($page->getId(), $pageFromDb->getId());
+
+        $this->expectException(NotFoundHttpException::class);
+
+        $this->pageRepository->getByName('doesNotExist');
     }
 }

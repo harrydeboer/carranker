@@ -41,4 +41,15 @@ class PageRepository implements IRepository
     {
         return $this->page->where('name', $name)->first();
     }
+
+    public function getByName(string $name): Page
+    {
+        $page = $this->page->where('name', $name)->first();
+
+        if (is_null($page)) {
+            abort(404, 'The requested page does not exist.');
+        }
+
+        return $page;
+    }
 }
