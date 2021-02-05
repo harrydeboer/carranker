@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 /**
  * Model stands for car model instead of Laravel model.
  */
-class Model extends BaseModel
+class Model extends BaseModel implements CarInterface
 {
     use ModelTrait;
     use Aspects;

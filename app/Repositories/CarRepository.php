@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Aspects;
-use App\Models\Model;
 use App\Models\Rating;
-use App\Models\Trim;
+use App\Models\CarInterface;
 
 /**
  * Both a Model and a Trim can update their rating. Their repositories extend this class.
  */
 abstract class CarRepository implements IRepository
 {
-    public function updateVotesAndRating(Model|Trim $car, array $rating, ?Rating $earlierRating): void
+    public function updateVotesAndRating(CarInterface $car, array $rating, ?Rating $earlierRating): void
     {
         $votes = $car->getVotes();
 

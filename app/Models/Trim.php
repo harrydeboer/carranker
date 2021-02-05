@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 /**
  * A trim is a type of car model (a specific generation/series).
  */
-class Trim extends BaseModel
+class Trim extends BaseModel implements CarInterface
 {
     use TrimTrait;
     use Aspects;
