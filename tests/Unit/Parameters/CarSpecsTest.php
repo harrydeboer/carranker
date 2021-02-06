@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Parameters;
 
 use App\Parameters\CarSpecs;
-use App\Models\Spec;
+use App\Models\MySQL\Spec;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 

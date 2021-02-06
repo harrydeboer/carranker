@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use App\Models\Model;
+use App\Models\MySQL\Model;
 use Tests\FeatureTestCase;
 
 class SitemapTest extends FeatureTestCase

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\Auth;
 
-use App\Models\Role;
-use App\Repositories\UserRepository;
+use App\Models\MySQL\Role;
+use App\Repositories\MySQL\UserRepository;
 use Tests\FeatureTestCase;
 
 class RegisterTest extends FeatureTestCase

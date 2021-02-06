@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\Auth;
 
-use App\Models\User;
+use App\Models\MySQL\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Password;
 use Tests\FeatureTestCase;

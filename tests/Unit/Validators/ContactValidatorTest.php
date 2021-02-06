@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Validators;
 
 use App\Validators\ContactValidator;
-use App\Repositories\ProfanityRepository;
+use App\Repositories\MySQL\ProfanityRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Elastic\MakeRepository;
-use App\Repositories\Elastic\ModelRepository;
-use App\Repositories\Elastic\TrimRepository;
+use App\Repositories\Elasticsearch\MakeRepository;
+use App\Repositories\Elasticsearch\ModelRepository;
+use App\Repositories\Elasticsearch\TrimRepository;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 

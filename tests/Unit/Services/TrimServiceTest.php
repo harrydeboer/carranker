@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Services;
 
-use App\Models\Trim;
+use App\Models\MySQL\Trim;
 use App\Services\TrimService;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

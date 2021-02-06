@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Mail\Contact;
-use App\Repositories\PageRepository;
-use App\Repositories\ProfanityRepository;
+use App\Repositories\MySQL\PageRepository;
+use App\Repositories\MySQL\ProfanityRepository;
 use App\Validators\ContactValidator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;

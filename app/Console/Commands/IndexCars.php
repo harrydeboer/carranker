@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\Elastic\MakeRepository;
-use App\Repositories\Elastic\ModelRepository;
-use App\Repositories\Elastic\TrimRepository;
+use App\Repositories\Elasticsearch\MakeRepository;
+use App\Repositories\Elasticsearch\ModelRepository;
+use App\Repositories\Elasticsearch\TrimRepository;
 use Illuminate\Console\Command;
 
 class IndexCars extends Command
@@ -30,9 +30,9 @@ class IndexCars extends Command
         private MakeRepository $makeRepository,
         private ModelRepository $modelRepository,
         private TrimRepository $trimRepository,
-        private \App\Repositories\MakeRepository $makeRepositoryEloquent,
-        private \App\Repositories\ModelRepository $modelRepositoryEloquent,
-        private \App\Repositories\TrimRepository $trimRepositoryEloquent,
+        private \App\Repositories\MySQL\MakeRepository $makeRepositoryEloquent,
+        private \App\Repositories\MySQL\ModelRepository $modelRepositoryEloquent,
+        private \App\Repositories\MySQL\TrimRepository $trimRepositoryEloquent,
     ) {
         parent::__construct();
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Repositories\PageRepository;
+use App\Repositories\MySQL\PageRepository;
 use SimpleXMLElement;
 
 class SitemapService

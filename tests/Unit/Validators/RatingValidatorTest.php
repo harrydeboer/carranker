@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Unit\Validators;
 
 use App\Validators\RatingValidator;
-use App\Models\Aspects;
-use App\Repositories\ProfanityRepository;
+use App\Models\MySQL\Aspects;
+use App\Repositories\MySQL\ProfanityRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 

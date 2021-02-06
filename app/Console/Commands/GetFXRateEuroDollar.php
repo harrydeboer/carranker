@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\FXRateRepository;
+use App\Repositories\MySQL\FXRateRepository;
 use Illuminate\Console\Command;
 use Exception;
 

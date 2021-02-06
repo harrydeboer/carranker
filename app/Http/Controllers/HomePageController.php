@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Parameters\CarSpecs;
-use App\Models\Aspects;
-use App\Repositories\PageRepository;
-use App\Repositories\RatingRepository;
-use App\Repositories\Elastic\TrimRepository;
+use App\Models\MySQL\Aspects;
+use App\Repositories\MySQL\PageRepository;
+use App\Repositories\MySQL\RatingRepository;
+use App\Repositories\Elasticsearch\TrimRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 

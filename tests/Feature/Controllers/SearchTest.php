@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use App\Models\Trim;
+use App\Models\MySQL\Trim;
 use Tests\FeatureTestCase;
 
 class SearchTest extends FeatureTestCase

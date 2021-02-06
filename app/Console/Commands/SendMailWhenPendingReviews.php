@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Mail\PendingReviews;
-use App\Repositories\RatingRepository;
+use App\Repositories\MySQL\RatingRepository;
 use Illuminate\Console\Command;
 use Illuminate\Mail\Mailer;
 

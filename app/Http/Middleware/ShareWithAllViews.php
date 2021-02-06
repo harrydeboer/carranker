@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Repositories\Elastic\MakeRepository;
-use App\Repositories\MenuRepository;
+use App\Repositories\Elasticsearch\MakeRepository;
+use App\Repositories\MySQL\MenuRepository;
 use Closure;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers;
 
 use Tests\FeatureTestCase;
-use App\Models\Page;
+use App\Models\MySQL\Page;
 
 class CMSPagesTest extends FeatureTestCase
 {

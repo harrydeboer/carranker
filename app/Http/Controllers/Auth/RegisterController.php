@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Repositories\PageRepository;
+use App\Repositories\MySQL\PageRepository;
 use App\Http\Controllers\Controller;
-use App\Repositories\RoleRepository;
-use App\Repositories\UserRepository;
-use App\Models\User;
+use App\Repositories\MySQL\RoleRepository;
+use App\Repositories\MySQL\UserRepository;
+use App\Models\MySQL\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Response;
 use Illuminate\Foundation\Auth\RegistersUsers;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Repositories\PageRepository;
+use App\Repositories\MySQL\PageRepository;
 use Illuminate\Http\Response;
 
 class CMSPageController extends Controller

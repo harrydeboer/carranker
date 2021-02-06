@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use App\Models\Aspects;
-use App\Models\FXRate;
-use App\Models\Trim;
-use App\Models\User;
-use App\Repositories\Elastic\TrimRepository;
+use App\Models\MySQL\Aspects;
+use App\Models\MySQL\FXRate;
+use App\Models\MySQL\Trim;
+use App\Models\MySQL\User;
+use App\Repositories\Elasticsearch\TrimRepository;
 use Tests\FeatureTestCase;
 
 class ModelPageTest extends FeatureTestCase

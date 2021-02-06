@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\Elastic\MakeRepository;
-use App\Repositories\Elastic\ModelRepository;
-use App\Repositories\Elastic\TrimRepository;
-use App\Repositories\ElasticJobRepository;
+use App\Repositories\Elasticsearch\MakeRepository;
+use App\Repositories\Elasticsearch\ModelRepository;
+use App\Repositories\Elasticsearch\TrimRepository;
+use App\Repositories\MySQL\ElasticJobRepository;
 use Illuminate\Console\Command;
 
 class ProcessQueue extends Command

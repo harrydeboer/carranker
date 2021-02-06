@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use App\Models\Make;
-use App\Repositories\Elastic\MakeRepository;
+use App\Models\MySQL\Make;
+use App\Repositories\Elasticsearch\MakeRepository;
 use Tests\FeatureTestCase;
 
 class MakePageTest extends FeatureTestCase

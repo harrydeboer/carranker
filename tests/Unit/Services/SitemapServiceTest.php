@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Services;
 
-use App\Repositories\PageRepository;
+use App\Repositories\MySQL\PageRepository;
 use App\Services\SitemapService;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

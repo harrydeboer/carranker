@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\Admin;
 
-use App\Models\MailUser;
-use App\Repositories\MailUserRepository;
+use App\Models\MySQL\MailUser;
+use App\Repositories\MySQL\MailUserRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use TypeError;
 

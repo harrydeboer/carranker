@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Aspects;
-use App\Repositories\ModelRepository;
-use App\Repositories\RatingRepository;
-use App\Repositories\TrimRepository;
-use App\Repositories\UserRepository;
+use App\Models\MySQL\Aspects;
+use App\Repositories\MySQL\ModelRepository;
+use App\Repositories\MySQL\RatingRepository;
+use App\Repositories\MySQL\TrimRepository;
+use App\Repositories\MySQL\UserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

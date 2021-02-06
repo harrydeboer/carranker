@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Browser;
 
-use App\Models\Aspects;
-use App\Models\User;
-use App\Repositories\Elastic\TrimRepository;
-use App\Repositories\RatingRepository;
-use App\Repositories\UserRepository;
+use App\Models\MySQL\Aspects;
+use App\Models\MySQL\User;
+use App\Repositories\Elasticsearch\TrimRepository;
+use App\Repositories\MySQL\RatingRepository;
+use App\Repositories\MySQL\UserRepository;
 use Illuminate\Contracts\Hashing\Hasher;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Elastic\MakeRepository;
+use App\Repositories\Elasticsearch\MakeRepository;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\View\Factory;
 

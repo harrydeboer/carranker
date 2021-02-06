@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\Admin;
 
-use App\Repositories\RatingRepository;
-use App\Models\Rating;
+use App\Repositories\MySQL\RatingRepository;
+use App\Models\MySQL\Rating;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ReviewTest extends LoginAdmin

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\Admin;
 
-use App\Models\Role;
-use App\Models\User;
-use App\Repositories\RoleRepository;
+use App\Models\MySQL\Role;
+use App\Models\MySQL\User;
+use App\Repositories\MySQL\RoleRepository;
 use Illuminate\Contracts\Hashing\Hasher;
 use Tests\FeatureTestCase;
 
