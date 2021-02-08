@@ -19,6 +19,7 @@ services:
       - 80:80
       - 8181:8181
       - 443:443
+      - 25:25
   redis:
     build:
       dockerfile: docker/redis/Dockerfile
