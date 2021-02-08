@@ -35,7 +35,6 @@ RUN a2enmod headers proxy rewrite proxy_balancer proxy_http slotmem_shm ssl
 EXPOSE 80
 EXPOSE 443
 EXPOSE 8181
-EXPOSE 25
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     php${PHP_VERSION}-sqlite php${PHP_VERSION}-xml php${PHP_VERSION}-bcmath php${PHP_VERSION}-curl php${PHP_VERSION}-gd \

@@ -17,9 +17,7 @@ services:
     container_name: carranker
     ports:
       - 80:80
-      - 8181:8181
       - 443:443
-      - 25:25
   redis:
     build:
       dockerfile: docker/redis/Dockerfile
@@ -51,8 +49,6 @@ services:
       memlock:
         soft: -1
         hard: -1
-    ports:
-      - ${ELASTICSEARCH_PORT}:${ELASTICSEARCH_PORT}
     networks:
       carranker:
         ipv4_address: ${ELASTICSEARCH_HOST}
@@ -62,8 +58,6 @@ services:
       context: .
       args:
         APACHE_HOST: ${APACHE_HOST}
-    ports:
-      - 8080:80
     container_name: carranker-varnish
     networks:
       carranker:
