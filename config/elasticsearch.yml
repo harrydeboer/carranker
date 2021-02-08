@@ -1,0 +1,2 @@
+cluster.name: "docker-cluster"
+network.host: ELASTICSEARCH_HOST

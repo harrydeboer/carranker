@@ -30,14 +30,18 @@ services:
     networks:
       carranker:
         ipv4_address: ${REDIS_HOST}
-  elastic:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
-    container_name: carranker-elastic
+  elasticsearch:
+    build:
+      dockerfile: docker/elasticsearch/Dockerfile
+      context: .
+      args:
+        ELASTICSEARCH_HOST: ${ELASTICSEARCH_HOST}
+    container_name: carranker-elasticsearch
     environment:
-      - node.name=carranker-elastic
+      - node.name=carranker-elasticsearch
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=
-      - cluster.initial_master_nodes=carranker-elastic
+      - cluster.initial_master_nodes=carranker-elasticsearch
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     volumes:
@@ -47,10 +51,10 @@ services:
         soft: -1
         hard: -1
     ports:
-      - ${ELASTIC_PORT}:${ELASTIC_PORT}
+      - ${ELASTICSEARCH_PORT}:${ELASTICSEARCH_PORT}
     networks:
       carranker:
-        ipv4_address: ${ELASTIC_HOST}
+        ipv4_address: ${ELASTICSEARCH_HOST}
   varnish:
     build:
       dockerfile: docker/varnish/Dockerfile

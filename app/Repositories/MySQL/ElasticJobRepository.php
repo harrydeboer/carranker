@@ -4,29 +4,29 @@ declare(strict_types=1);
 
 namespace App\Repositories\MySQL;
 
-use App\Models\MySQL\ElasticJob;
+use App\Models\MySQL\ElasticsearchJob;
 use Illuminate\Database\Eloquent\Collection;
 
 class ElasticJobRepository implements IRepository
 {
     public function __construct(
-        private ElasticJob $elasticJob,
+        private ElasticsearchJob $elasticJob,
     ) {
     }
 
     public function all(): Collection
     {
-        return ElasticJob::all();
+        return ElasticsearchJob::all();
     }
 
-    public function get(int $id): ElasticJob
+    public function get(int $id): ElasticsearchJob
     {
         return $this->elasticJob->findOrFail($id);
     }
 
-    public function create(array $createArray): ElasticJob
+    public function create(array $createArray): ElasticsearchJob
     {
-        $model = new ElasticJob($createArray);
+        $model = new ElasticsearchJob($createArray);
         $model->save();
 
         return $model;
@@ -34,7 +34,7 @@ class ElasticJobRepository implements IRepository
 
     public function delete(int $id): void
     {
-        ElasticJob::destroy($id);
+        ElasticsearchJob::destroy($id);
     }
 
     public function getAllMakesByAction(string $action): Collection
@@ -44,7 +44,7 @@ class ElasticJobRepository implements IRepository
         $makes = new Collection();
         foreach ($jobs as $job) {
             $makes->add($job->getMake());
-            ElasticJob::destroy($job->getId());
+            ElasticsearchJob::destroy($job->getId());
         }
 
         return $makes;
@@ -57,7 +57,7 @@ class ElasticJobRepository implements IRepository
         $models = new Collection();
         foreach ($jobs as $job) {
             $models->add($job->getModel());
-            ElasticJob::destroy($job->getId());
+            ElasticsearchJob::destroy($job->getId());
         }
 
         return $models;
@@ -70,7 +70,7 @@ class ElasticJobRepository implements IRepository
         $trims = new Collection();
         foreach ($jobs as $job) {
             $trims->add($job->getTrim());
-            ElasticJob::destroy($job->getId());
+            ElasticsearchJob::destroy($job->getId());
         }
 
         return $trims;

@@ -31,7 +31,7 @@ class Make extends BaseModel
 
         $hasSaved = parent::save($options);
 
-        $job = new ElasticJob(['make_id' => $this->getId(), 'action' => $action]);
+        $job = new ElasticsearchJob(['make_id' => $this->getId(), 'action' => $action]);
 
         $job->save();
 
@@ -40,7 +40,7 @@ class Make extends BaseModel
 
     public static function destroy($ids): int
     {
-        $job = new ElasticJob(['make_id' => $ids, 'action' => 'delete']);
+        $job = new ElasticsearchJob(['make_id' => $ids, 'action' => 'delete']);
 
         $job->save();
 

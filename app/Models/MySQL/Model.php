@@ -63,7 +63,7 @@ class Model extends BaseModel implements Car
 
         $hasSaved = parent::save($options);
 
-        $job = new ElasticJob(['model_id' => $this->getId(), 'action' => $action]);
+        $job = new ElasticsearchJob(['model_id' => $this->getId(), 'action' => $action]);
 
         $job->save();
 
@@ -72,7 +72,7 @@ class Model extends BaseModel implements Car
 
     public static function destroy($ids): int
     {
-        $job = new ElasticJob(['model_id' => $ids, 'action' => 'delete']);
+        $job = new ElasticsearchJob(['model_id' => $ids, 'action' => 'delete']);
 
         $job->save();
 

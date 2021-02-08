@@ -23,7 +23,7 @@ abstract class BaseModel
 
     public function __construct(array $attributes = [])
     {
-        self::$client = ElasticClient::getClient();
+        self::$client = ElasticsearchClient::getClient();
 
         foreach ($attributes as $key => $value) {
             $this->$key = $value;

@@ -7,7 +7,7 @@ namespace App\Models\Elasticsearch;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 
-class ElasticClient
+class ElasticsearchClient
 {
     private static Client $client;
 
@@ -15,7 +15,7 @@ class ElasticClient
     {
         if (!isset(self::$client) || is_null(self::$client)) {
             $hosts = [
-                env('ELASTIC_HOST') . ':' . env('ELASTIC_PORT')
+                env('ELASTICSEARCH_HOST') . ':' . env('ELASTICSEARCH_PORT')
             ];
             if ($hosts !== [':']) {
                 self::$client = ClientBuilder::create()->setHosts($hosts)->build();

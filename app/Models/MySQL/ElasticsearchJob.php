@@ -6,9 +6,9 @@ namespace App\Models\MySQL;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
-class ElasticJob extends BaseModel
+class ElasticsearchJob extends BaseModel
 {
-    protected $table = 'elastic_jobs';
+    protected $table = 'elasticsearch_jobs';
     public $timestamps = false;
     protected $fillable = ['make_id', 'model_id', 'trim_id', 'action'];
 

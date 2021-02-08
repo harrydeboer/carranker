@@ -83,7 +83,7 @@ class Trim extends BaseModel implements Car
 
         $hasSaved = parent::save($options);
 
-        $job = new ElasticJob(['trim_id' => $this->getId(), 'action' => $action]);
+        $job = new ElasticsearchJob(['trim_id' => $this->getId(), 'action' => $action]);
 
         $job->save();
 
@@ -92,7 +92,7 @@ class Trim extends BaseModel implements Car
 
     public static function destroy($ids): int
     {
-        $job = new ElasticJob(['trim_id' => $ids, 'action' => 'delete']);
+        $job = new ElasticsearchJob(['trim_id' => $ids, 'action' => 'delete']);
 
         $job->save();
 

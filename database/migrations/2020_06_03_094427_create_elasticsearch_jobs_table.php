@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateElasticJobsTable extends Migration
+class CreateElasticsearchJobsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateElasticJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('elastic_jobs', function (Blueprint $table) {
+        Schema::create('elasticsearch_jobs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('make_id')->unsigned()->nullable();
             $table->integer('model_id')->unsigned()->nullable();
@@ -31,6 +31,6 @@ class CreateElasticJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('elastic_jobs');
+        Schema::dropIfExists('elasticsearch_jobs');
     }
 }
