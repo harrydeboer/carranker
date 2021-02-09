@@ -23,18 +23,14 @@ services:
       dockerfile: docker/redis/Dockerfile
       context: .
     ports:
-      - ${REDIS_PORT}:${REDIS_PORT}
+      - 127.0.0.1:${REDIS_PORT}:${REDIS_PORT}
     container_name: carranker-redis
     command: redis-server /usr/local/etc/redis/redis.conf --requirepass ${REDIS_PASSWORD}
     networks:
       carranker:
         ipv4_address: ${REDIS_HOST}
   elasticsearch:
-    build:
-      dockerfile: docker/elasticsearch/Dockerfile
-      context: .
-      args:
-        ELASTICSEARCH_HOST: ${ELASTICSEARCH_HOST}
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
     container_name: carranker-elasticsearch
     environment:
       - node.name=carranker-elasticsearch
@@ -45,6 +41,8 @@ services:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     volumes:
       - esdata:/usr/share/elasticsearch/data
+    ports:
+      - 127.0.0.1:${ELASTICSEARCH_PORT}:${ELASTICSEARCH_PORT}
     ulimits:
       memlock:
         soft: -1
@@ -59,13 +57,15 @@ services:
       args:
         APACHE_HOST: ${APACHE_HOST}
     container_name: carranker-varnish
+    ports:
+      - 127.0.0.1:8080:80
     networks:
       carranker:
         ipv4_address: ${VARNISH_HOST}
   database:
     image: mysql:8.0
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - 127.0.0.1:${DB_PORT}:${DB_PORT}
     container_name: carranker-db
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
