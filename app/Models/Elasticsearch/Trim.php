@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Models\Elasticsearch;
 
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\TrimTrait;
 
 /**
  * A trim is a type of car model (a specific generation/series).
  */
-class Trim extends BaseModel
+class Trim extends AbstractModel
 {
     use TrimTrait;
-    use Aspects;
-    use AspectsProperties;
+    use AspectsTrait;
+    use AspectsPropertiesTrait;
 
     protected ?string $name;
     protected string $make_name;
@@ -70,7 +70,7 @@ class Trim extends BaseModel
     /**
      * @return Model
      */
-    public function getModel(): BaseModel
+    public function getModel(): AbstractModel
     {
         return $this->hasOne(Model::class, 'model_id');
     }

@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers;
 
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\FXRate;
 use App\Models\MySQL\Trim;
 use App\Models\MySQL\User;
-use App\Repositories\Elasticsearch\TrimRepository;
+use App\Repositories\Interfaces\TrimRepositoryInterface;
 use Tests\FeatureTestCase;
 
 class ModelPageTest extends FeatureTestCase
 {
-    private TrimRepository $trimRepository;
+    private TrimRepositoryInterface $trimRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->trimRepository = $this->app->make(TrimRepository::class);
+        $this->trimRepository = $this->app->make(TrimRepositoryInterface::class);
     }
 
     public function testModelPage()
@@ -59,7 +59,7 @@ class ModelPageTest extends FeatureTestCase
             'content' => null,
             're-captcha-token' => 'notUsedInTests',
         ];
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $postArrayFirst['star'][$aspect] = '10';
         }
 
@@ -71,14 +71,14 @@ class ModelPageTest extends FeatureTestCase
 
         $trimDBFirst = $this->trimRepository->get($trimEloquent->getId());
 
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $rating = ($trim->getAspect($aspect) * $trim->getVotes() + $postArrayFirst['star'][$aspect]) /
                 ($trim->getVotes() + 1);
             $this->assertEquals($rating, $trimDBFirst->getAspect($aspect));
         }
 
         $postArraySecond = $postArrayFirst;
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $postArraySecond['star'][$aspect] = '8';
         }
 
@@ -90,7 +90,7 @@ class ModelPageTest extends FeatureTestCase
 
         $trimDBSecond = $this->trimRepository->get($trimEloquent->getId());
 
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $rating = ($trimDBFirst->getAspect($aspect) * $trimDBFirst->getVotes() + $postArraySecond['star'][$aspect] -
                     $postArrayFirst['star'][$aspect]) / $trimDBFirst->getVotes();
             $this->assertEquals($rating, $trimDBSecond->getAspect($aspect));

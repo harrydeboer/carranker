@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\MySQL;
 
-use App\Models\Interfaces\Car;
+use App\Models\Interfaces\CarInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Exception;
@@ -14,10 +14,10 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 /**
  * A trim is a type of car model (a specific generation/series).
  */
-class Trim extends BaseModel implements Car
+class Trim extends AbstractModel implements CarInterface
 {
     use TrimTrait;
-    use Aspects;
+    use AspectsTrait;
     use Spec;
     use HasFactory;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\MySQL\FXRateRepository;
+use App\Repositories\Interfaces\FXRateRepositoryInterface;
 use Illuminate\Console\Command;
 use Exception;
 
@@ -25,7 +25,7 @@ class GetFXRateEuroDollar extends Command
     protected $description = 'Get FX Rate Euro/Dollar';
 
     public function __construct(
-        private FXRateRepository $fXRateRepository,
+        private FXRateRepositoryInterface $fXRateRepository,
     ) {
         parent::__construct();
     }

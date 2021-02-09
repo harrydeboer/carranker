@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\MySQL;
 
 use App\Models\MySQL\Role;
+use App\Repositories\Interfaces\RoleRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class RoleRepository implements IRepository
+class RoleRepository implements RoleRepositoryInterface
 {
     public function __construct(
         private Role $role,

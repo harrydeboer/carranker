@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\MySQL;
 
 use App\Models\MySQL\Page;
+use App\Repositories\Interfaces\PageRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class PageRepository implements IRepository
+class PageRepository implements PageRepositoryInterface
 {
     public function __construct(
         private Page $page,

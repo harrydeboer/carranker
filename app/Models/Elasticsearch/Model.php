@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Models\Elasticsearch;
 
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\ModelTrait;
 
 /**
  * Model stands for car model instead of Laravel model.
  */
-class Model extends BaseModel
+class Model extends AbstractModel
 {
     use ModelTrait;
-    use Aspects;
-    use AspectsProperties;
+    use AspectsTrait;
+    use AspectsPropertiesTrait;
 
     protected string $name;
     protected string $make_name;
@@ -33,7 +33,7 @@ class Model extends BaseModel
     /**
      * @return Make
      */
-    public function getMake(): BaseModel
+    public function getMake(): AbstractModel
     {
         return $this->hasOne(Make::class, 'make_id');
     }

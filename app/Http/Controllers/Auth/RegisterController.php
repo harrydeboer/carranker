@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Repositories\MySQL\PageRepository;
+use App\Repositories\Interfaces\PageRepositoryInterface;
+use App\Repositories\Interfaces\RoleRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Repositories\MySQL\RoleRepository;
-use App\Repositories\MySQL\UserRepository;
 use App\Models\MySQL\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Response;
@@ -34,9 +34,9 @@ class RegisterController extends Controller
 
     public function __construct(
         private Factory $validatorFactory,
-        private UserRepository $userRepository,
-        private PageRepository $pageRepository,
-        private RoleRepository $roleRepository,
+        private UserRepositoryInterface $userRepository,
+        private PageRepositoryInterface $pageRepository,
+        private RoleRepositoryInterface $roleRepository,
         private Hasher $hasher,
     ) {
         $this->middleware('guest');

@@ -6,17 +6,17 @@ namespace Tests\Feature\Repositories\MySQL;
 
 use App\Models\MySQL\User;
 use App\Models\MySQL\Rating;
-use App\Repositories\MySQL\UserRepository;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Tests\FeatureTestCase;
 
 class UserRepositoryTest extends FeatureTestCase
 {
-    private UserRepository $userRepository;
+    private UserRepositoryInterface $userRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->userRepository = $this->app->make(UserRepository::class);
+        $this->userRepository = $this->app->make(UserRepositoryInterface::class);
     }
 
     public function testGetByName()

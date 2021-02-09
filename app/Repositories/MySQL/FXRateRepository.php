@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\MySQL;
 
 use App\Models\MySQL\FXRate;
+use App\Repositories\Interfaces\FXRateRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class FXRateRepository implements IRepository
+class FXRateRepository implements FXRateRepositoryInterface
 {
     public function __construct(
         private FXRate $fXRate,

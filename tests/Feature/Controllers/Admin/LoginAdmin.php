@@ -6,7 +6,7 @@ namespace Tests\Feature\Controllers\Admin;
 
 use App\Models\MySQL\Role;
 use App\Models\MySQL\User;
-use App\Repositories\MySQL\RoleRepository;
+use App\Repositories\Interfaces\RoleRepositoryInterface;
 use Illuminate\Contracts\Hashing\Hasher;
 use Tests\FeatureTestCase;
 
@@ -17,7 +17,7 @@ class LoginAdmin extends FeatureTestCase
         parent::setUp();
 
         Role::factory()->create(['name' => 'admin']);
-        $roleRepository = app()->make(RoleRepository::class);
+        $roleRepository = app()->make(RoleRepositoryInterface::class);
         $role = $roleRepository->getByName('admin');
 
         $hasher = app()->make(Hasher::class);

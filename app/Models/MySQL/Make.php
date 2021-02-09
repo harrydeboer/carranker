@@ -7,7 +7,7 @@ namespace App\Models\MySQL;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Make extends BaseModel
+class Make extends AbstractModel
 {
     use HasFactory;
     use MakeTrait;

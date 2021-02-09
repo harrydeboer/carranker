@@ -8,12 +8,13 @@ use App\Models\MySQL\Rating;
 use App\Models\MySQL\Model as ModelEloquent;
 use App\Models\Elasticsearch\Model;
 use App\Models\MySQL\Trim;
+use App\Repositories\Interfaces\RatingRepositoryInterface;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator as LengthAwarePaginatorContract;
 
-class RatingRepository implements IRepository
+class RatingRepository implements RatingRepositoryInterface
 {
     public function __construct(
         private Rating $rating,

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Repositories\Elasticsearch\MakeRepository;
-use App\Repositories\MySQL\MenuRepository;
+use App\Repositories\Interfaces\MakeRepositoryInterface;
+use App\Repositories\Interfaces\MenuRepositoryInterface;
 use Closure;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -14,8 +14,8 @@ class ShareWithAllViews
 {
     public function __construct(
         private Factory $viewFactory,
-        private MakeRepository $makeRepository,
-        private MenuRepository $menuRepository,
+        private MakeRepositoryInterface $makeRepository,
+        private MenuRepositoryInterface $menuRepository,
     ) {
     }
 

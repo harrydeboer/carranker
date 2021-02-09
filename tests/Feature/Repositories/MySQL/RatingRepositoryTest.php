@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories\MySQL;
 
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\Trim;
 use App\Models\MySQL\User;
 use App\Models\MySQL\Rating;
-use App\Repositories\MySQL\RatingRepository;
-use App\Repositories\Elasticsearch\TrimRepository;
+use App\Repositories\Interfaces\RatingRepositoryInterface;
+use App\Repositories\Interfaces\TrimRepositoryInterface;
 use Tests\FeatureTestCase;
 
 class RatingRepositoryTest extends FeatureTestCase
 {
-    private RatingRepository $ratingRepository;
-    private TrimRepository $trimRepository;
+    private RatingRepositoryInterface $ratingRepository;
+    private TrimRepositoryInterface $trimRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->ratingRepository = $this->app->make(RatingRepository::class);
-        $this->trimRepository = $this->app->make(TrimRepository::class);
+        $this->ratingRepository = $this->app->make(RatingRepositoryInterface::class);
+        $this->trimRepository = $this->app->make(TrimRepositoryInterface::class);
     }
 
     public function testFindRecentReviews()
@@ -56,7 +56,7 @@ class RatingRepositoryTest extends FeatureTestCase
             'content' => 'dummy',
             're-captcha-token' => 'notUsedInTests',
         ];
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $formData['star'][$aspect] = '8';
         }
 
@@ -67,7 +67,7 @@ class RatingRepositoryTest extends FeatureTestCase
         $this->assertEquals($rating->getTrim()->getId(), $trim->getId());
         $this->assertEquals($rating->getUser()->getId(), $user->getId());
 
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $this->assertEquals($rating->getAspect($aspect), (int) $formData['star'][$aspect]);
         }
     }
@@ -81,13 +81,13 @@ class RatingRepositoryTest extends FeatureTestCase
             'content' => 'dummy',
             're-captcha-token' => 'notUsedInTests',
         ];
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $formData['star'][$aspect] = '8';
         }
 
         $rating = $this->ratingRepository->updateRating($rating, $formData, 1);
 
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $this->assertEquals((int) $formData['star'][$aspect], $rating->getAspect($aspect));
         }
         $this->assertEquals($formData['content'], $rating->getContent());

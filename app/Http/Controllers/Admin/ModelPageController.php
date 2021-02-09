@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use App\Repositories\MySQL\ModelRepository;
-use App\Repositories\MySQL\ProfanityRepository;
-use App\Repositories\MySQL\RatingRepository;
-use App\Repositories\MySQL\TrimRepository;
-use App\Repositories\MySQL\UserRepository;
+use App\Repositories\Interfaces\ModelRepositoryInterface;
+use App\Repositories\Interfaces\ProfanityRepositoryInterface;
+use App\Repositories\Interfaces\RatingRepositoryInterface;
+use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Validators\RatingValidator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,11 +16,11 @@ use Illuminate\Http\Response;
 class ModelPageController extends Controller
 {
     public function __construct(
-        private ModelRepository $modelRepository,
-        private TrimRepository $trimRepository,
-        private UserRepository $userRepository,
-        private RatingRepository $ratingRepository,
-        private ProfanityRepository $profanityRepository,
+        private ModelRepositoryInterface $modelRepository,
+        private TrimRepositoryInterface $trimRepository,
+        private UserRepositoryInterface $userRepository,
+        private RatingRepositoryInterface $ratingRepository,
+        private ProfanityRepositoryInterface $profanityRepository,
     ) {
     }
 

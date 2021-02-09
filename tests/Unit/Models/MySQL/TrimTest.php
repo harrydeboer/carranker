@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models\MySQL;
 
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\Trim;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -42,7 +42,7 @@ class TrimTest extends TestCase
             'acceleration' => $trim->getAcceleration(),
             'fuel_consumption' => $trim->getFuelConsumption(),
         ];
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $assertArray[$aspect] = $trim->getAspect($aspect);
         }
         $this->assertDatabaseHas('trims', $assertArray);

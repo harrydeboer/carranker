@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\Admin;
 
-use App\Repositories\MySQL\RatingRepository;
+use App\Repositories\Interfaces\RatingRepositoryInterface;
 use App\Models\MySQL\Rating;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ReviewTest extends LoginAdmin
 {
-    private RatingRepository $ratingRepository;
+    private RatingRepositoryInterface $ratingRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->ratingRepository = app()->make(RatingRepository::class);
+        $this->ratingRepository = app()->make(RatingRepositoryInterface::class);
     }
 
     public function testView()

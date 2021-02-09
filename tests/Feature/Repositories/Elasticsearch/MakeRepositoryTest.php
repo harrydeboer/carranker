@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories\Elasticsearch;
 
-use App\Repositories\Elasticsearch\MakeRepository;
-use App\Repositories\Elasticsearch\ModelRepository;
+use App\Repositories\Interfaces\MakeRepositoryInterface;
+use App\Repositories\Interfaces\ModelRepositoryInterface;
 use Tests\FeatureTestCase;
 use App\Models\Elasticsearch\Make;
 use App\Models\Elasticsearch\Model;
 
 class MakeRepositoryTest extends FeatureTestCase
 {
-    private MakeRepository $makeRepository;
+    private MakeRepositoryInterface $makeRepository;
     private Make $make;
     private Model $model;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->makeRepository = $this->app->make(MakeRepository::class);
-        $modelRepository = $this->app->make(ModelRepository::class);
+        $this->makeRepository = $this->app->make(MakeRepositoryInterface::class);
+        $modelRepository = $this->app->make(ModelRepositoryInterface::class);
         $modelEloquent = \App\Models\MySQL\Model::factory()->create();
         $this->artisan('process:queue');
         $this->model = $modelRepository->get($modelEloquent->getId());

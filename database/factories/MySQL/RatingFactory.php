@@ -6,7 +6,7 @@ namespace Database\Factories\MySQL;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\MySQL\Rating;
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\User;
 use App\Models\MySQL\Trim;
 
@@ -38,7 +38,7 @@ class RatingFactory extends Factory
             'pending' => 1,
         ];
 
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $array[$aspect] = $this->faker->randomNumber(1) + 1;
         }
 

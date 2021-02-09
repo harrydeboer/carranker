@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers\Auth;
 
 use App\Models\MySQL\Role;
-use App\Repositories\MySQL\UserRepository;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Tests\FeatureTestCase;
 
 class RegisterTest extends FeatureTestCase
 {
-    private UserRepository $userRepository;
+    private UserRepositoryInterface $userRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->userRepository = $this->app->make(UserRepository::class);
+        $this->userRepository = $this->app->make(UserRepositoryInterface::class);
     }
 
     public function testRegisterPage()

@@ -6,7 +6,7 @@ namespace App\Models\Elasticsearch;
 
 use App\Models\MySQL\MakeTrait;
 
-class Make extends BaseModel
+class Make extends AbstractModel
 {
     use MakeTrait;
 

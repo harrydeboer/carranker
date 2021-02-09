@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\Elasticsearch\MakeRepository;
-use App\Repositories\Elasticsearch\ModelRepository;
-use App\Repositories\Elasticsearch\TrimRepository;
+use App\Repositories\Interfaces\MakeRepositoryInterface;
+use App\Repositories\Interfaces\ModelRepositoryInterface;
+use App\Repositories\Interfaces\TrimRepositoryInterface;
 use Illuminate\Console\Command;
 
 class IndexCars extends Command
@@ -27,9 +27,9 @@ class IndexCars extends Command
     'When testing is true the test indices are deleted and created and no documents are indexed.';
 
     public function __construct(
-        private MakeRepository $makeRepository,
-        private ModelRepository $modelRepository,
-        private TrimRepository $trimRepository,
+        private MakeRepositoryInterface $makeRepository,
+        private ModelRepositoryInterface $modelRepository,
+        private TrimRepositoryInterface $trimRepository,
         private \App\Repositories\MySQL\MakeRepository $makeRepositoryEloquent,
         private \App\Repositories\MySQL\ModelRepository $modelRepositoryEloquent,
         private \App\Repositories\MySQL\TrimRepository $trimRepositoryEloquent,

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Elasticsearch;
 
-trait AspectsProperties
+trait AspectsPropertiesTrait
 {
     protected ?float $design;
     protected ?float $comfort;

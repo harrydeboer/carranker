@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Elasticsearch\MakeRepository;
+use App\Repositories\Interfaces\MakeRepositoryInterface;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\View\Factory;
 
@@ -12,7 +12,7 @@ class MakePageController extends Controller
 {
     public function __construct(
         private Factory $viewFactory,
-        private MakeRepository $makeRepository,
+        private MakeRepositoryInterface $makeRepository,
     ) {
     }
 

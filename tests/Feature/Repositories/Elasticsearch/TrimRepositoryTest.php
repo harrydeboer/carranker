@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace Tests\Feature\Repositories\Elasticsearch;
 
 use App\Parameters\CarSpecs;
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\Trim;
-use App\Repositories\Elasticsearch\TrimRepository;
+use App\Repositories\Interfaces\TrimRepositoryInterface;
 use Tests\FeatureTestCase;
 
 class TrimRepositoryTest extends FeatureTestCase
 {
-    private TrimRepository $trimRepository;
+    private TrimRepositoryInterface $trimRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->trimRepository = $this->app->make(TrimRepository::class);
+        $this->trimRepository = $this->app->make(TrimRepositoryInterface::class);
     }
 
     public function testFindSelectedGeneration()
@@ -56,7 +56,7 @@ class TrimRepositoryTest extends FeatureTestCase
         $formData = [];
 
         $aspects = [];
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $aspects[$aspect] = '1';
         }
         $formData['aspects'] = $aspects;

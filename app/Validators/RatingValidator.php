@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Validators;
 
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
 
@@ -29,7 +29,7 @@ class RatingValidator extends BaseValidator
             're-captcha-token' => 'string|required',
         ];
 
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $rules['star.' . $aspect] = 'integer|required|between:1,10';
         }
 

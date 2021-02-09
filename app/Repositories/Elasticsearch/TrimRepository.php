@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elasticsearch;
 
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use App\Models\Elasticsearch\Trim;
 use App\Parameters\CarSpecs;
+use App\Repositories\Interfaces\TrimRepositoryInterface;
 
-class TrimRepository extends BaseRepository
+class TrimRepository extends AbstractRepository implements TrimRepositoryInterface
 {
     public function __construct(
         protected Trim $model,
@@ -98,7 +99,7 @@ class TrimRepository extends BaseRepository
         $source = '(';
         $factorArray = [];
         $total = 0;
-        foreach (Aspects::getAspects() as $key => $aspect) {
+        foreach (AspectsTrait::getAspects() as $key => $aspect) {
             $source .= "doc['" . $aspect . "'] * factor" . $key . " + ";
             if ($data === []) {
                 $factorArray['factor' . $key] = 1;

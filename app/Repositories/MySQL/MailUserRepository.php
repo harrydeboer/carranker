@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Repositories\MySQL;
 
 use App\Models\MySQL\MailUser;
+use App\Repositories\Interfaces\MailUserRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator as LengthAwarePaginatorContract;
 
-class MailUserRepository implements IRepository
+class MailUserRepository implements MailUserRepositoryInterface
 {
     public function __construct(
         private MailUser $mailUser,

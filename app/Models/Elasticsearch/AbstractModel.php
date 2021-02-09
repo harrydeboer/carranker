@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Models\Elasticsearch;
 
 use Elasticsearch\Client;
-use App\Models\MySQL\BaseModel as EloquentBaseModel;
+use App\Models\MySQL\AbstractModel as EloquentBaseModel;
 use stdClass;
 
-abstract class BaseModel
+abstract class AbstractModel
 {
     protected static Client $client;
     protected static string $index;
@@ -205,7 +205,7 @@ abstract class BaseModel
         return $related::searchMany($params);
     }
 
-    public function hasOne($related, $localKey = null): BaseModel
+    public function hasOne($related, $localKey = null): AbstractModel
     {
         $params = [
             'index' => $related::getIndex(),

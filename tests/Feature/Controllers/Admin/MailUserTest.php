@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers\Admin;
 
 use App\Models\MySQL\MailUser;
-use App\Repositories\MySQL\MailUserRepository;
+use App\Repositories\Interfaces\MailUserRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use TypeError;
 
 class MailUserTest extends LoginAdmin
 {
-    private MailUserRepository $mailUserRepository;
+    private MailUserRepositoryInterface $mailUserRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->mailUserRepository = app()->make(MailUserRepository::class);
+        $this->mailUserRepository = app()->make(MailUserRepositoryInterface::class);
     }
 
     public function testView()

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Repositories\MySQL\PageRepository;
+use App\Repositories\Interfaces\PageRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Response;
@@ -28,7 +28,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     public function __construct(
-        private PageRepository $pageRepository,
+        private PageRepositoryInterface $pageRepository,
     ) {
     }
 

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Browser;
 
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\User;
-use App\Repositories\Elasticsearch\TrimRepository;
-use App\Repositories\MySQL\RatingRepository;
-use App\Repositories\MySQL\UserRepository;
+use App\Repositories\Interfaces\RatingRepositoryInterface;
+use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Contracts\Hashing\Hasher;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -23,9 +23,9 @@ class ModelPageTest extends DuskTestCase
     {
         $hasher = app()->make(Hasher::class);
 
-        $trimRepository = app()->make(TrimRepository::class);
-        $userRepository = app()->make(UserRepository::class);
-        $ratingRepository = app()->make(RatingRepository::class);
+        $trimRepository = app()->make(TrimRepositoryInterface::class);
+        $userRepository = app()->make(UserRepositoryInterface::class);
+        $ratingRepository = app()->make(RatingRepositoryInterface::class);
 
         $password = 'secret';
         $user = User::factory()->create([
@@ -49,7 +49,7 @@ class ModelPageTest extends DuskTestCase
 
             $browser->waitFor('#dialog');
 
-            foreach (Aspects::getAspects() as $aspect) {
+            foreach (AspectsTrait::getAspects() as $aspect) {
                 $browser->radio('star[' . $aspect . ']', '8');
             }
 

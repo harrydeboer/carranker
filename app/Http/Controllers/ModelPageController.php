@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Parameters\CarSpecs;
-use App\Models\MySQL\Aspects;
-use App\Repositories\MySQL\ProfanityRepository;
+use App\Models\MySQL\AspectsTrait;
+use App\Repositories\Interfaces\FXRateRepositoryInterface;
+use App\Repositories\Interfaces\MakeRepositoryInterface;
+use App\Repositories\Interfaces\ModelRepositoryInterface;
+use App\Repositories\Interfaces\ProfanityRepositoryInterface;
+use App\Repositories\Interfaces\RatingRepositoryInterface;
+use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Validators\RatingValidator;
-use App\Repositories\MySQL\FXRateRepository;
-use App\Repositories\Elasticsearch\MakeRepository;
-use App\Repositories\Elasticsearch\ModelRepository;
-use App\Repositories\MySQL\RatingRepository;
-use App\Repositories\Elasticsearch\TrimRepository;
-use App\Repositories\MySQL\UserRepository;
 use App\Services\TrimService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,13 +24,13 @@ class ModelPageController extends Controller
     private const NUM_REVIEWS_PER_MODEL_PAGE = 10;
 
     public function __construct(
-        private RatingRepository $ratingRepository,
-        private FXRateRepository $fXRateRepository,
-        private MakeRepository $makeRepository,
-        private UserRepository $userRepository,
-        private ProfanityRepository $profanityRepository,
-        private ModelRepository $modelRepository,
-        private TrimRepository $trimRepository,
+        private RatingRepositoryInterface $ratingRepository,
+        private FXRateRepositoryInterface $fXRateRepository,
+        private MakeRepositoryInterface $makeRepository,
+        private UserRepositoryInterface $userRepository,
+        private ProfanityRepositoryInterface $profanityRepository,
+        private ModelRepositoryInterface $modelRepository,
+        private TrimRepositoryInterface $trimRepository,
         private TrimService $trimService,
         private Factory $viewFactory,
     ) {
@@ -57,7 +57,7 @@ class ModelPageController extends Controller
 
         $viewData = [
             'title' => $makeName . ' ' . $modelName,
-            'aspects' => Aspects::getAspects(),
+            'aspects' => AspectsTrait::getAspects(),
             'specsChoice' => CarSpecs::specsChoice(),
             'specsRange' => CarSpecs::specsRange(),
             'model' => $model,

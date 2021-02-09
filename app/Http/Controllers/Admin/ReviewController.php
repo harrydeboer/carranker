@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\MySQL\Aspects;
-use App\Repositories\MySQL\ModelRepository;
-use App\Repositories\MySQL\RatingRepository;
-use App\Repositories\MySQL\TrimRepository;
-use App\Repositories\MySQL\UserRepository;
+use App\Models\MySQL\AspectsTrait;
+use App\Repositories\Interfaces\ModelRepositoryInterface;
+use App\Repositories\Interfaces\RatingRepositoryInterface;
+use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,10 +16,10 @@ use Illuminate\Http\Response;
 class ReviewController extends Controller
 {
     public function __construct(
-        private RatingRepository $ratingRepository,
-        private ModelRepository $modelRepository,
-        private TrimRepository $trimRepository,
-        private UserRepository $userRepository,
+        private RatingRepositoryInterface $ratingRepository,
+        private ModelRepositoryInterface $modelRepository,
+        private TrimRepositoryInterface $trimRepository,
+        private UserRepositoryInterface $userRepository,
     ) {
     }
 
@@ -60,7 +60,7 @@ class ReviewController extends Controller
         $rating = $this->ratingRepository->get($id);
 
         $ratingArray = [];
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $ratingArray[$aspect] = $rating->getAspect($aspect);
         }
 

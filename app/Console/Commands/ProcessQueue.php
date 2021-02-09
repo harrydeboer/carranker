@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\Elasticsearch\MakeRepository;
-use App\Repositories\Elasticsearch\ModelRepository;
-use App\Repositories\Elasticsearch\TrimRepository;
-use App\Repositories\MySQL\ElasticJobRepository;
+use App\Repositories\Interfaces\ElasticJobRepositoryInterface;
+use App\Repositories\Interfaces\MakeRepositoryInterface;
+use App\Repositories\Interfaces\ModelRepositoryInterface;
+use App\Repositories\Interfaces\TrimRepositoryInterface;
 use Illuminate\Console\Command;
 
 class ProcessQueue extends Command
@@ -27,10 +27,10 @@ class ProcessQueue extends Command
     protected $description = 'Process the elasticsearch jobs queue';
 
     public function __construct(
-        private ElasticJobRepository $elasticJobRepository,
-        private MakeRepository $makeRepository,
-        private ModelRepository $modelRepository,
-        private TrimRepository $trimRepository,
+        private ElasticJobRepositoryInterface $elasticJobRepository,
+        private MakeRepositoryInterface $makeRepository,
+        private ModelRepositoryInterface $modelRepository,
+        private TrimRepositoryInterface $trimRepository,
     ) {
         parent::__construct();
     }

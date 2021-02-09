@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Tests\Feature\Repositories\Elasticsearch;
 
 use App\Models\Elasticsearch\Model;
-use App\Repositories\Elasticsearch\ModelRepository;
+use App\Repositories\Interfaces\ModelRepositoryInterface;
 use Tests\FeatureTestCase;
 
 class ModelRepositoryTest extends FeatureTestCase
 {
-    private ModelRepository $modelRepository;
+    private ModelRepositoryInterface $modelRepository;
     private Model $model;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->modelRepository = $this->app->make(ModelRepository::class);
+        $this->modelRepository = $this->app->make(ModelRepositoryInterface::class);
         $modelEloquent = \App\Models\MySQL\Model::factory()->create();
         $this->artisan('process:queue');
         $this->model = $this->modelRepository->get($modelEloquent->getId());

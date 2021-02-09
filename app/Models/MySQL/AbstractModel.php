@@ -14,7 +14,7 @@ use Exception;
  * For testing: check if the model factory has only set attributes that are present in the fillable property.
  * @mixin Builder
  */
-abstract class BaseModel extends Model
+abstract class AbstractModel extends Model
 {
     public function getId(): int
     {

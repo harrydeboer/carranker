@@ -7,7 +7,7 @@ namespace App\Models\MySQL;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Page extends BaseModel
+class Page extends AbstractModel
 {
     use HasFactory;
     use ContentTrait;

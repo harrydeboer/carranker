@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models\MySQL;
 
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\Rating;
 use App\Models\MySQL\User;
 use App\Models\MySQL\Trim;
@@ -35,7 +35,7 @@ class RatingTest extends TestCase
             'pending' => $rating->getPending(),
             ];
 
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $assertArray[$aspect] = $rating->getAspect($aspect);
         }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories\MySQL;
 
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\Model;
 use App\Models\MySQL\Rating;
 use App\Models\MySQL\Trim;
@@ -40,7 +40,7 @@ class CarRepositoryTest extends FeatureTestCase
         $modelRatingBeforeUpdate = [];
         $newRating = [];
         $newRatingWithEarlier = [];
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $ratingArray[$aspect] = 8;
             $modelRatingBeforeUpdate[$aspect] = $this->model->getAspect($aspect);
             $newRating[$aspect] = ($modelRatingBeforeUpdate[$aspect] * $this->model->getVotes() + $ratingArray[$aspect])
@@ -52,13 +52,13 @@ class CarRepositoryTest extends FeatureTestCase
 
         $this->trimRepository->updateVotesAndRating($this->trim, $ratingArray, $rating);
         $trim = $this->trimRepository->get($this->trim->getId());
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $this->assertEquals((float) $trim->$aspect, $newRatingWithEarlier[$aspect]);
         }
 
         $this->modelRepository->updateVotesAndRating($this->model, $ratingArray, null);
         $model = $this->modelRepository->get($this->model->getId());
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $this->assertEquals((float) $model->$aspect, $newRating[$aspect]);
         }
     }

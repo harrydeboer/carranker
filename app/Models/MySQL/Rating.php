@@ -7,10 +7,10 @@ namespace App\Models\MySQL;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
-class Rating extends BaseModel
+class Rating extends AbstractModel
 {
     use HasFactory;
-    use Aspects;
+    use AspectsTrait;
     use ContentTrait;
 
     protected $table = 'ratings';

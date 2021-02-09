@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\Elasticsearch;
 
 use App\Models\Elasticsearch\Make;
+use App\Repositories\Interfaces\MakeRepositoryInterface;
 use stdClass;
 
-class MakeRepository extends BaseRepository
+class MakeRepository extends AbstractRepository implements MakeRepositoryInterface
 {
     public function __construct(
         protected Make $model,

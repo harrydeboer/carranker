@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Parameters\CarSpecs;
-use App\Models\MySQL\Aspects;
-use App\Repositories\MySQL\PageRepository;
-use App\Repositories\MySQL\RatingRepository;
-use App\Repositories\Elasticsearch\TrimRepository;
+use App\Models\MySQL\AspectsTrait;
+use App\Repositories\Interfaces\PageRepositoryInterface;
+use App\Repositories\Interfaces\RatingRepositoryInterface;
+use App\Repositories\Interfaces\TrimRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -21,9 +21,9 @@ class HomePageController extends Controller
     private const HOME_PAGE_NUM_REVIEWS = 3;
 
     public function __construct(
-        private RatingRepository $ratingRepository,
-        private TrimRepository $trimRepository,
-        private PageRepository $pageRepository,
+        private RatingRepositoryInterface $ratingRepository,
+        private TrimRepositoryInterface $trimRepository,
+        private PageRepositoryInterface $pageRepository,
     ) {
     }
 
@@ -38,7 +38,7 @@ class HomePageController extends Controller
             'numShowMoreLess' => self::NUM_SHOW_MORE_LESS,
             'specsChoice' => CarSpecs::specsChoice(),
             'specsRange' => CarSpecs::specsRange(),
-            'aspects' => Aspects::getAspects(),
+            'aspects' => AspectsTrait::getAspects(),
             'reviews' => $this->ratingRepository->findRecentReviews(self::HOME_PAGE_NUM_REVIEWS),
             'topTrims' => $topTrims,
             'minNumVotes' => $minNumVotes,

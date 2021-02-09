@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Mail\PendingReviews;
-use App\Repositories\MySQL\RatingRepository;
+use App\Repositories\Interfaces\RatingRepositoryInterface;
 use Illuminate\Console\Command;
 use Illuminate\Mail\Mailer;
 
@@ -28,7 +28,7 @@ class SendMailWhenPendingReviews extends Command
 
     public function __construct(
         private Mailer $mailer,
-        private RatingRepository $ratingRepository,
+        private RatingRepositoryInterface $ratingRepository,
     ) {
         parent::__construct();
     }

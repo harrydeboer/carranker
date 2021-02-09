@@ -6,7 +6,7 @@ namespace App\Models\MySQL;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class MailUser extends BaseModel
+class MailUser extends AbstractModel
 {
     use HasFactory;
 

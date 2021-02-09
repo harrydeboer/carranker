@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Unit\Models\Elasticsearch;
 
 use Tests\TestCase;
-use App\Models\MySQL\BaseModel as EloquentModel;
-use App\Models\Elasticsearch\BaseModel as ElasticModel;
+use App\Models\MySQL\AbstractModel as EloquentModel;
+use App\Models\Elasticsearch\AbstractModel as ElasticModel;
 use ReflectionClass;
 
 class BaseModel extends TestCase

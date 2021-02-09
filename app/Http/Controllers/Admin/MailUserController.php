@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use App\Repositories\MySQL\MailUserRepository;
+use App\Repositories\Interfaces\MailUserRepositoryInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,7 +13,7 @@ use Illuminate\Validation\Factory;
 class MailUserController extends Controller
 {
     public function __construct(
-        private MailUserRepository $mailUserRepository,
+        private MailUserRepositoryInterface $mailUserRepository,
         private Factory $validatorFactory,
     ) {
     }

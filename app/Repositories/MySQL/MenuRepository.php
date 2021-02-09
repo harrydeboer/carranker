@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Repositories\MySQL;
 
 use App\Models\MySQL\Menu;
+use App\Repositories\Interfaces\MenuRepositoryInterface;
+use App\Repositories\Interfaces\PageRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class MenuRepository implements IRepository
+class MenuRepository implements MenuRepositoryInterface
 {
     public function __construct(
-        private PageRepository $pageRepository,
+        private PageRepositoryInterface $pageRepository,
         private Menu $menu,
     ) {
     }

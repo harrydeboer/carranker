@@ -7,7 +7,7 @@ namespace App\Models\MySQL;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Role extends BaseModel
+class Role extends AbstractModel
 {
     use HasFactory;
 

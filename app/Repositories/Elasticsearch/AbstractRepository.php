@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elasticsearch;
 
-use App\Models\Elasticsearch\BaseModel;
+use App\Models\Elasticsearch\AbstractModel;
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class BaseRepository
+abstract class AbstractRepository
 {
-    abstract public function get(int $id): BaseModel;
+    abstract public function get(int $id): AbstractModel;
 
     public function findForSearch(string $searchString): array
     {
@@ -82,7 +82,7 @@ abstract class BaseRepository
             $params['body'][] = $this->model->propertiesToParams($model);
 
             if ($key % 1000 === 0 && $key !== 0) {
-                BaseModel::bulk($params);
+                AbstractModel::bulk($params);
                 $params = ['refresh' => 'wait_for'];
             }
         }
@@ -91,7 +91,7 @@ abstract class BaseRepository
          * Send the last batch if it exists.
          */
         if (!empty($params['body'])) {
-            BaseModel::bulk($params);
+            AbstractModel::bulk($params);
         }
     }
 
@@ -108,7 +108,7 @@ abstract class BaseRepository
             $params['body'][] = ['doc' => $this->model->propertiesToParams($model)];
 
             if ($key % 1000 === 0 && $key !== 0) {
-                BaseModel::bulk($params);
+                AbstractModel::bulk($params);
             }
         }
 
@@ -116,7 +116,7 @@ abstract class BaseRepository
          * Send the last batch if it exists.
          */
         if (!empty($params['body'])) {
-            BaseModel::bulk($params);
+            AbstractModel::bulk($params);
         }
     }
 
@@ -131,7 +131,7 @@ abstract class BaseRepository
             ];
 
             if ($key % 1000 === 0 && $key !== 0) {
-                BaseModel::bulk($params);
+                AbstractModel::bulk($params);
             }
         }
 
@@ -139,7 +139,7 @@ abstract class BaseRepository
          * Send the last batch if it exists.
          */
         if (!empty($params['body']) && count($models) > 0) {
-            BaseModel::bulk($params);
+            AbstractModel::bulk($params);
         }
     }
 }

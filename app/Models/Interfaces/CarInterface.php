@@ -7,7 +7,7 @@ namespace App\Models\Interfaces;
 /**
  * A car model and a car trim can both be rated and must have these methods.
  */
-interface Car
+interface CarInterface
 {
     public function getVotes(): int;
 

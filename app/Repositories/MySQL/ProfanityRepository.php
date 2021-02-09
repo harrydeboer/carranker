@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\MySQL;
 
 use App\Models\MySQL\Profanity;
+use App\Repositories\Interfaces\ProfanityRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class ProfanityRepository implements IRepository
+class ProfanityRepository implements ProfanityRepositoryInterface
 {
     public function __construct(
         private Profanity $profanity,

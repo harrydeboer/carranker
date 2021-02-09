@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\MySQL;
 
-use App\Models\Interfaces\Car;
+use App\Models\Interfaces\CarInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Exception;
@@ -13,10 +13,10 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 /**
  * Model stands for car model instead of Laravel model.
  */
-class Model extends BaseModel implements Car
+class Model extends AbstractModel implements CarInterface
 {
     use ModelTrait;
-    use Aspects;
+    use AspectsTrait;
     use HasFactory;
 
     protected $table = 'models';

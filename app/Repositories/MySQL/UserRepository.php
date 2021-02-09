@@ -6,9 +6,10 @@ namespace App\Repositories\MySQL;
 
 use App\Models\MySQL\User;
 use App\Models\MySQL\Rating;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class UserRepository implements IRepository
+class UserRepository implements UserRepositoryInterface
 {
     public function __construct(
         private User $user,

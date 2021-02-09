@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\MySQL;
 
 use App\Models\MySQL\Make;
+use App\Repositories\Interfaces\MakeRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class MakeRepository implements IRepository
+class MakeRepository implements MakeRepositoryInterface
 {
     public function __construct(
         private Make $make,

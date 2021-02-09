@@ -6,7 +6,7 @@ namespace Database\Factories\MySQL;
 
 use App\Models\MySQL\Model;
 use App\Models\MySQL\Make;
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ModelFactory extends Factory
@@ -37,7 +37,7 @@ class ModelFactory extends Factory
             'votes' => $this->faker->randomNumber(2) + 1,
         ];
 
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $array[$aspect] = $this->faker->randomNumber(1) + 1;
         }
 

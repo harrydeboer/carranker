@@ -6,7 +6,7 @@ namespace App\Models\MySQL;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class FXRate extends BaseModel
+class FXRate extends AbstractModel
 {
     use HasFactory;
 

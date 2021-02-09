@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Repositories\MySQL\PageRepository;
+use App\Repositories\Interfaces\PageRepositoryInterface;
 use SimpleXMLElement;
 
 class SitemapService
 {
     public function __construct(
-        private PageRepository $pageRepository,
+        private PageRepositoryInterface $pageRepository,
     ) {
     }
 

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Repositories\MySQL\PageRepository;
+use App\Repositories\Interfaces\PageRepositoryInterface;
 use Illuminate\Http\Response;
 
 class CMSPageController extends Controller
 {
     public function __construct(
-        private PageRepository $pageRepository,
+        private PageRepositoryInterface $pageRepository,
     ) {
     }
 

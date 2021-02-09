@@ -6,7 +6,7 @@ namespace App\Models\MySQL;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
-class ElasticsearchJob extends BaseModel
+class ElasticsearchJob extends AbstractModel
 {
     protected $table = 'elasticsearch_jobs';
     public $timestamps = false;

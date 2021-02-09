@@ -7,7 +7,7 @@ namespace App\Models\MySQL;
 /**
  * Rating, Model and Trim all have the same aspects. An aspect is a kind of rating a car can have.
  */
-trait Aspects
+trait AspectsTrait
 {
     protected static array $aspects = ['design', 'comfort', 'reliability', 'costs', 'performance'];
 

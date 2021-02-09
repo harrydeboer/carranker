@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Tests\Feature\Repositories\MySQL;
 
 use App\Models\MySQL\Page;
-use App\Repositories\MySQL\PageRepository;
+use App\Repositories\Interfaces\PageRepositoryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\FeatureTestCase;
 
 class PageRepositoryTest extends FeatureTestCase
 {
-    private PageRepository $pageRepository;
+    private PageRepositoryInterface $pageRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->pageRepository = $this->app->make(PageRepository::class);
+        $this->pageRepository = $this->app->make(PageRepositoryInterface::class);
     }
 
     public function testFindByName()

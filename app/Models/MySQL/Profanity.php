@@ -6,7 +6,7 @@ namespace App\Models\MySQL;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Profanity extends BaseModel
+class Profanity extends AbstractModel
 {
     use HasFactory;
 

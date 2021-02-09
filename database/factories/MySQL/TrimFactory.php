@@ -6,7 +6,7 @@ namespace Database\Factories\MySQL;
 
 use App\Models\MySQL\Trim;
 use App\Models\MySQL\Model;
-use App\Models\MySQL\Aspects;
+use App\Models\MySQL\AspectsTrait;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Parameters\CarSpecs;
 
@@ -56,7 +56,7 @@ class TrimFactory extends Factory
             'fuel_consumption' => $this->faker->randomFloat(2, 0, 100),
         ];
 
-        foreach (Aspects::getAspects() as $aspect) {
+        foreach (AspectsTrait::getAspects() as $aspect) {
             $array[$aspect] = $this->faker->randomNumber(1) + 1;
         }
 

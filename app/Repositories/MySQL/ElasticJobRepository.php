@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\MySQL;
 
 use App\Models\MySQL\ElasticsearchJob;
+use App\Repositories\Interfaces\ElasticJobRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class ElasticJobRepository implements IRepository
+class ElasticJobRepository implements ElasticJobRepositoryInterface
 {
     public function __construct(
         private ElasticsearchJob $elasticJob,
@@ -76,7 +77,7 @@ class ElasticJobRepository implements IRepository
         return $trims;
     }
 
-    public function truncate()
+    public function truncate(): void
     {
         $this->elasticJob->truncate();
     }

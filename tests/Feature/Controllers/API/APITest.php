@@ -6,7 +6,7 @@ namespace Tests\Feature\Controllers\API;
 
 use App\Models\Elasticsearch\Trim;
 use App\Models\MySQL\User;
-use App\Repositories\Elasticsearch\TrimRepository;
+use App\Repositories\Interfaces\TrimRepositoryInterface;
 use Illuminate\Contracts\Hashing\Hasher;
 use Laravel\Passport\Passport;
 use Tests\FeatureTestCase;
@@ -25,7 +25,7 @@ class APITest extends FeatureTestCase
 
         $trimEloquent = \App\Models\MySQL\Trim::factory()->create();
         $this->artisan('index:cars')->execute();
-        $trimRepository = $this->app->make(TrimRepository::class);
+        $trimRepository = $this->app->make(TrimRepositoryInterface::class);
         $this->trim = $trimRepository->get($trimEloquent->getId());
     }
 

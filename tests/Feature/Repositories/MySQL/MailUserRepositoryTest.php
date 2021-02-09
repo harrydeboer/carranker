@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Tests\Feature\Repositories\MySQL;
 
 use App\Models\MySQL\MailUser;
-use App\Repositories\MySQL\MailUserRepository;
+use App\Repositories\Interfaces\MailUserRepositoryInterface;
 use Tests\FeatureTestCase;
 
 class MailUserRepositoryTest extends FeatureTestCase
 {
-    private MailUserRepository $mailUserRepository;
+    private MailUserRepositoryInterface $mailUserRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->mailUserRepository = $this->app->make(MailUserRepository::class);
+        $this->mailUserRepository = $this->app->make(MailUserRepositoryInterface::class);
     }
 
     public function testFindAll()
