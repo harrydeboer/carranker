@@ -8,17 +8,17 @@ use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\FXRate;
 use App\Models\MySQL\Trim;
 use App\Models\MySQL\User;
-use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\TrimReadRepositoryInterface;
 use Tests\FeatureTestCase;
 
 class ModelPageTest extends FeatureTestCase
 {
-    private TrimRepositoryInterface $trimRepository;
+    private TrimReadRepositoryInterface $trimRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->trimRepository = $this->app->make(TrimRepositoryInterface::class);
+        $this->trimRepository = $this->app->make(TrimReadRepositoryInterface::class);
     }
 
     public function testModelPage()

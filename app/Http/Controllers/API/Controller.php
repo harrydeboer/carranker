@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\API;
 
-use App\Repositories\Interfaces\MakeRepositoryInterface;
-use App\Repositories\Interfaces\ModelRepositoryInterface;
-use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\MakeReadRepositoryInterface;
+use App\Repositories\Interfaces\ModelReadRepositoryInterface;
+use App\Repositories\Interfaces\TrimReadRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use App\Services\SitemapService;
@@ -18,9 +18,9 @@ use Illuminate\Http\Response;
 class Controller extends BaseController
 {
     public function __construct(
-        private MakeRepositoryInterface $makeRepository,
-        private ModelRepositoryInterface $modelRepository,
-        private TrimRepositoryInterface $trimRepository,
+        private MakeReadRepositoryInterface $makeRepository,
+        private ModelReadRepositoryInterface $modelRepository,
+        private TrimReadRepositoryInterface $trimRepository,
         private SitemapService $sitemapService,
     ) {
     }

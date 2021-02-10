@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Interfaces\MakeRepositoryInterface;
-use App\Repositories\Interfaces\ModelRepositoryInterface;
-use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\MakeReadRepositoryInterface;
+use App\Repositories\Interfaces\ModelReadRepositoryInterface;
+use App\Repositories\Interfaces\TrimReadRepositoryInterface;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends Controller
 {
     public function __construct(
-        private MakeRepositoryInterface $makeRepository,
-        private ModelRepositoryInterface $modelRepository,
-        private TrimRepositoryInterface $trimRepository,
+        private MakeReadRepositoryInterface $makeRepository,
+        private ModelReadRepositoryInterface $modelRepository,
+        private TrimReadRepositoryInterface $trimRepository,
     ) {
     }
 

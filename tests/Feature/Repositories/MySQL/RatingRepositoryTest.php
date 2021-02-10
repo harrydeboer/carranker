@@ -9,19 +9,19 @@ use App\Models\MySQL\Trim;
 use App\Models\MySQL\User;
 use App\Models\MySQL\Rating;
 use App\Repositories\Interfaces\RatingRepositoryInterface;
-use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\TrimReadRepositoryInterface;
 use Tests\FeatureTestCase;
 
 class RatingRepositoryTest extends FeatureTestCase
 {
     private RatingRepositoryInterface $ratingRepository;
-    private TrimRepositoryInterface $trimRepository;
+    private TrimReadRepositoryInterface $trimRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->ratingRepository = $this->app->make(RatingRepositoryInterface::class);
-        $this->trimRepository = $this->app->make(TrimRepositoryInterface::class);
+        $this->trimRepository = $this->app->make(TrimReadRepositoryInterface::class);
     }
 
     public function testFindRecentReviews()

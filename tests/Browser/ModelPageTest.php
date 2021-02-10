@@ -7,7 +7,7 @@ namespace Tests\Browser;
 use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\User;
 use App\Repositories\Interfaces\RatingRepositoryInterface;
-use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\TrimReadRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Contracts\Hashing\Hasher;
 use Laravel\Dusk\Browser;
@@ -23,7 +23,7 @@ class ModelPageTest extends DuskTestCase
     {
         $hasher = app()->make(Hasher::class);
 
-        $trimRepository = app()->make(TrimRepositoryInterface::class);
+        $trimRepository = app()->make(TrimReadRepositoryInterface::class);
         $userRepository = app()->make(UserRepositoryInterface::class);
         $ratingRepository = app()->make(RatingRepositoryInterface::class);
 

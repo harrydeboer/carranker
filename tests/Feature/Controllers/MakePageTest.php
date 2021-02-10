@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers;
 
 use App\Models\MySQL\Make;
-use App\Repositories\Interfaces\MakeRepositoryInterface;
+use App\Repositories\Interfaces\MakeReadRepositoryInterface;
 use Tests\FeatureTestCase;
 
 class MakePageTest extends FeatureTestCase
 {
-    private MakeRepositoryInterface $makeRepository;
+    private MakeReadRepositoryInterface $makeRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->makeRepository = $this->app->make(MakeRepositoryInterface::class);
+        $this->makeRepository = $this->app->make(MakeReadRepositoryInterface::class);
     }
 
     public function testMakePage()

@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\MySQL\AspectsTrait;
-use App\Repositories\Interfaces\ModelRepositoryInterface;
+use App\Repositories\Interfaces\ModelWriteRepositoryInterface;
 use App\Repositories\Interfaces\RatingRepositoryInterface;
-use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\TrimWriteRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,8 +18,8 @@ class ReviewController extends Controller
 {
     public function __construct(
         private RatingRepositoryInterface $ratingRepository,
-        private ModelRepositoryInterface $modelRepository,
-        private TrimRepositoryInterface $trimRepository,
+        private ModelWriteRepositoryInterface $modelRepository,
+        private TrimWriteRepositoryInterface $trimRepository,
         private UserRepositoryInterface $userRepository,
     ) {
     }

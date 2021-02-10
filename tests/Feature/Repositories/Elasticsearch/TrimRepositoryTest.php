@@ -7,17 +7,17 @@ namespace Tests\Feature\Repositories\Elasticsearch;
 use App\Parameters\CarSpecs;
 use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\Trim;
-use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\TrimReadRepositoryInterface;
 use Tests\FeatureTestCase;
 
 class TrimRepositoryTest extends FeatureTestCase
 {
-    private TrimRepositoryInterface $trimRepository;
+    private TrimReadRepositoryInterface $trimRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->trimRepository = $this->app->make(TrimRepositoryInterface::class);
+        $this->trimRepository = $this->app->make(TrimReadRepositoryInterface::class);
     }
 
     public function testFindSelectedGeneration()

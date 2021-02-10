@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 abstract class AbstractRepository
 {
-    abstract public function get(int $id): AbstractModel;
-
     public function findForSearch(string $searchString): array
     {
         $words = explode(' ', $searchString);
@@ -58,17 +56,17 @@ abstract class AbstractRepository
         }
     }
 
-    public function indexExists(): bool
+    protected function indexExists(): bool
     {
         return $this->model->indexExists($this->model->getIndex());
     }
 
-    public function getMappings(): array
+    protected function getMappings(): array
     {
         return $this->model->indexGetMapping(['index' => $this->model->getIndex()]);
     }
 
-    public function addAllToIndex(Collection $models): void
+    public function createAll(Collection $models): void
     {
         $params = ['refresh' => 'wait_for'];
         foreach ($models as $key => $model) {
@@ -95,7 +93,7 @@ abstract class AbstractRepository
         }
     }
 
-    public function updateAllInIndex(Collection $models): void
+    public function updateAll(Collection $models): void
     {
         foreach ($models as $key => $model) {
             $params['body'][] = [
@@ -120,7 +118,7 @@ abstract class AbstractRepository
         }
     }
 
-    public function deleteAllFromIndex(Collection|array $models): void
+    public function deleteAll(Collection|array $models): void
     {
         foreach ($models as $key => $model) {
             $params['body'][] = [

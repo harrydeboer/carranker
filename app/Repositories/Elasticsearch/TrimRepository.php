@@ -7,9 +7,9 @@ namespace App\Repositories\Elasticsearch;
 use App\Models\MySQL\AspectsTrait;
 use App\Models\Elasticsearch\Trim;
 use App\Parameters\CarSpecs;
-use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\TrimReadRepositoryInterface;
 
-class TrimRepository extends AbstractRepository implements TrimRepositoryInterface
+class TrimRepository extends AbstractRepository implements TrimReadRepositoryInterface
 {
     public function __construct(
         protected Trim $model,

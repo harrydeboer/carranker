@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\MySQL;
 
 use App\Models\MySQL\Model;
-use App\Repositories\Interfaces\ModelRepositoryInterface;
+use App\Repositories\Interfaces\ModelWriteRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class ModelRepository extends AbstractCarRepository implements ModelRepositoryInterface
+class ModelRepository extends AbstractCarRepository implements ModelWriteRepositoryInterface
 {
     public function __construct(
         private Model $model,

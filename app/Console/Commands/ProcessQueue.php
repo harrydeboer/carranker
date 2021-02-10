@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\Interfaces\ElasticJobRepositoryInterface;
-use App\Repositories\Interfaces\MakeRepositoryInterface;
-use App\Repositories\Interfaces\ModelRepositoryInterface;
-use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\ElasticsearchJobRepositoryInterface;
+use App\Repositories\Interfaces\MakeReadRepositoryInterface;
+use App\Repositories\Interfaces\ModelReadRepositoryInterface;
+use App\Repositories\Interfaces\TrimReadRepositoryInterface;
 use Illuminate\Console\Command;
 
 class ProcessQueue extends Command
@@ -27,10 +27,10 @@ class ProcessQueue extends Command
     protected $description = 'Process the elasticsearch jobs queue';
 
     public function __construct(
-        private ElasticJobRepositoryInterface $elasticJobRepository,
-        private MakeRepositoryInterface $makeRepository,
-        private ModelRepositoryInterface $modelRepository,
-        private TrimRepositoryInterface $trimRepository,
+        private ElasticsearchJobRepositoryInterface $elasticJobRepository,
+        private MakeReadRepositoryInterface $makeRepository,
+        private ModelReadRepositoryInterface $modelRepository,
+        private TrimReadRepositoryInterface $trimRepository,
     ) {
         parent::__construct();
     }
@@ -50,25 +50,25 @@ class ProcessQueue extends Command
             $makesUpdate = $this->elasticJobRepository->getAllMakesByAction('update');
             $makesDelete = $this->elasticJobRepository->getAllMakesByAction('delete');
 
-            $this->makeRepository->addAllToIndex($makesCreate);
-            $this->makeRepository->updateAllInIndex($makesUpdate);
-            $this->makeRepository->deleteAllFromIndex($makesDelete);
+            $this->makeRepository->createAll($makesCreate);
+            $this->makeRepository->updateAll($makesUpdate);
+            $this->makeRepository->deleteAll($makesDelete);
 
             $modelsCreate = $this->elasticJobRepository->getAllModelsByAction('create');
             $modelsUpdate = $this->elasticJobRepository->getAllModelsByAction('update');
             $modelsDelete = $this->elasticJobRepository->getAllModelsByAction('delete');
 
-            $this->modelRepository->addAllToIndex($modelsCreate);
-            $this->modelRepository->updateAllInIndex($modelsUpdate);
-            $this->modelRepository->deleteAllFromIndex($modelsDelete);
+            $this->modelRepository->createAll($modelsCreate);
+            $this->modelRepository->updateAll($modelsUpdate);
+            $this->modelRepository->deleteAll($modelsDelete);
 
             $trimsCreate = $this->elasticJobRepository->getAllTrimsByAction('create');
             $trimsUpdate = $this->elasticJobRepository->getAllTrimsByAction('update');
             $trimsDelete = $this->elasticJobRepository->getAllTrimsByAction('delete');
 
-            $this->trimRepository->addAllToIndex($trimsCreate);
-            $this->trimRepository->updateAllInIndex($trimsUpdate);
-            $this->trimRepository->deleteAllFromIndex($trimsDelete);
+            $this->trimRepository->createAll($trimsCreate);
+            $this->trimRepository->updateAll($trimsUpdate);
+            $this->trimRepository->deleteAll($trimsDelete);
         }
 
         $this->info('Queue processed!');

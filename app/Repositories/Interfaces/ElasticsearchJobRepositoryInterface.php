@@ -6,7 +6,7 @@ namespace App\Repositories\Interfaces;
 
 use Illuminate\Database\Eloquent\Collection;
 
-interface ElasticJobRepositoryInterface
+interface ElasticsearchJobRepositoryInterface
 {
     public function getAllMakesByAction(string $action): Collection;
 

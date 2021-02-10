@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\Interfaces\MakeRepositoryInterface;
-use App\Repositories\Interfaces\ModelRepositoryInterface;
-use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\MakeReadRepositoryInterface;
+use App\Repositories\Interfaces\MakeWriteRepositoryInterface;
+use App\Repositories\Interfaces\ModelReadRepositoryInterface;
+use App\Repositories\Interfaces\ModelWriteRepositoryInterface;
+use App\Repositories\Interfaces\TrimReadRepositoryInterface;
+use App\Repositories\Interfaces\TrimWriteRepositoryInterface;
 use Illuminate\Console\Command;
 
 class IndexCars extends Command
@@ -27,12 +30,12 @@ class IndexCars extends Command
     'When testing is true the test indices are deleted and created and no documents are indexed.';
 
     public function __construct(
-        private MakeRepositoryInterface $makeRepository,
-        private ModelRepositoryInterface $modelRepository,
-        private TrimRepositoryInterface $trimRepository,
-        private \App\Repositories\MySQL\MakeRepository $makeRepositoryEloquent,
-        private \App\Repositories\MySQL\ModelRepository $modelRepositoryEloquent,
-        private \App\Repositories\MySQL\TrimRepository $trimRepositoryEloquent,
+        private MakeReadRepositoryInterface $makeRepository,
+        private ModelReadRepositoryInterface $modelRepository,
+        private TrimReadRepositoryInterface $trimRepository,
+        private MakeWriteRepositoryInterface $makeRepositoryEloquent,
+        private ModelWriteRepositoryInterface $modelRepositoryEloquent,
+        private TrimWriteRepositoryInterface $trimRepositoryEloquent,
     ) {
         parent::__construct();
     }
@@ -55,9 +58,9 @@ class IndexCars extends Command
         $this->trimRepository->createIndex($prefixTest);
 
         if (!$testing) {
-            $this->makeRepository->addAllToIndex($this->makeRepositoryEloquent->all());
-            $this->modelRepository->addAllToIndex($this->modelRepositoryEloquent->all());
-            $this->trimRepository->addAllToIndex($this->trimRepositoryEloquent->all());
+            $this->makeRepository->createAll($this->makeRepositoryEloquent->all());
+            $this->modelRepository->createAll($this->modelRepositoryEloquent->all());
+            $this->trimRepository->createAll($this->trimRepositoryEloquent->all());
 
             $this->info('Cars indexed!');
         } else {

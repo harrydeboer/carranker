@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\MySQL;
 
 use App\Models\MySQL\ElasticsearchJob;
-use App\Repositories\Interfaces\ElasticJobRepositoryInterface;
+use App\Repositories\Interfaces\ElasticsearchJobRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class ElasticJobRepository implements ElasticJobRepositoryInterface
+class ElasticsearchJobRepository implements ElasticsearchJobRepositoryInterface
 {
     public function __construct(
         private ElasticsearchJob $elasticJob,

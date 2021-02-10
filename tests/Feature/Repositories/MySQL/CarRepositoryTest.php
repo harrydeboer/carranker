@@ -8,22 +8,22 @@ use App\Models\MySQL\AspectsTrait;
 use App\Models\MySQL\Model;
 use App\Models\MySQL\Rating;
 use App\Models\MySQL\Trim;
-use App\Repositories\MySQL\ModelRepository;
-use App\Repositories\MySQL\TrimRepository;
+use App\Repositories\Interfaces\ModelWriteRepositoryInterface;
+use App\Repositories\Interfaces\TrimWriteRepositoryInterface;
 use Tests\FeatureTestCase;
 
 class CarRepositoryTest extends FeatureTestCase
 {
-    private ModelRepository $modelRepository;
-    private TrimRepository $trimRepository;
+    private ModelWriteRepositoryInterface $modelRepository;
+    private TrimWriteRepositoryInterface $trimRepository;
     private $trim;
     private $model;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->modelRepository = $this->app->make(ModelRepository::class);
-        $this->trimRepository = $this->app->make(TrimRepository::class);
+        $this->modelRepository = $this->app->make(ModelWriteRepositoryInterface::class);
+        $this->trimRepository = $this->app->make(TrimWriteRepositoryInterface::class);
         $this->model = Model::factory()->create();
         $this->trim = Trim::factory()->create([
                                                   'model_id' => $this->model->getId(),

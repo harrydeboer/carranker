@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\Elasticsearch;
 
 use App\Models\Elasticsearch\Model;
-use App\Repositories\Interfaces\ModelRepositoryInterface;
+use App\Repositories\Interfaces\ModelReadRepositoryInterface;
 use stdClass;
 
-class ModelRepository extends AbstractRepository implements ModelRepositoryInterface
+class ModelRepository extends AbstractRepository implements ModelReadRepositoryInterface
 {
     public function __construct(
         protected Model $model,

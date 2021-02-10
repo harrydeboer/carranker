@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Repositories\Interfaces\MakeRepositoryInterface;
+use App\Repositories\Interfaces\MakeReadRepositoryInterface;
 use App\Repositories\Interfaces\MenuRepositoryInterface;
 use Closure;
 use Illuminate\Contracts\View\Factory;
@@ -14,7 +14,7 @@ class ShareWithAllViews
 {
     public function __construct(
         private Factory $viewFactory,
-        private MakeRepositoryInterface $makeRepository,
+        private MakeReadRepositoryInterface $makeRepository,
         private MenuRepositoryInterface $menuRepository,
     ) {
     }

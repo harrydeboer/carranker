@@ -8,7 +8,7 @@ use App\Parameters\CarSpecs;
 use App\Models\MySQL\AspectsTrait;
 use App\Repositories\Interfaces\PageRepositoryInterface;
 use App\Repositories\Interfaces\RatingRepositoryInterface;
-use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\TrimReadRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -22,7 +22,7 @@ class HomePageController extends Controller
 
     public function __construct(
         private RatingRepositoryInterface $ratingRepository,
-        private TrimRepositoryInterface $trimRepository,
+        private TrimReadRepositoryInterface $trimRepository,
         private PageRepositoryInterface $pageRepository,
     ) {
     }

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\MySQL;
 
 use App\Models\MySQL\Trim;
-use App\Repositories\Interfaces\TrimRepositoryInterface;
+use App\Repositories\Interfaces\TrimWriteRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class TrimRepository extends AbstractCarRepository implements TrimRepositoryInterface
+class TrimRepository extends AbstractCarRepository implements TrimWriteRepositoryInterface
 {
     public function __construct(
         private Trim $trim,
