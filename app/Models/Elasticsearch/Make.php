@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Elasticsearch;
 
-use App\Models\MySQL\MakeTrait;
+use App\Models\Traits\MakeTrait;
 
 class Make extends AbstractModel
 {
@@ -22,5 +22,10 @@ class Make extends AbstractModel
     public function getModels(): array
     {
         return $this->hasMany(Model::class, 'make_id');
+    }
+
+    public function getWikiCarMake(): string
+    {
+        return $this->wiki_car_make ?? str_replace(' ', '_', $this->getName());
     }
 }

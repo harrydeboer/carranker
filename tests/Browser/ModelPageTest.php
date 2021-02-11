@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Browser;
 
-use App\Models\MySQL\AspectsTrait;
+use App\Models\Traits\AspectsTrait;
 use App\Models\MySQL\User;
 use App\Repositories\Interfaces\RatingRepositoryInterface;
 use App\Repositories\Interfaces\TrimReadRepositoryInterface;

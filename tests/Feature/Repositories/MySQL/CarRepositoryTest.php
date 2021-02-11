@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Repositories\MySQL;
 
-use App\Models\MySQL\AspectsTrait;
+use App\Models\Traits\AspectsTrait;
 use App\Models\MySQL\Model;
 use App\Models\MySQL\Rating;
 use App\Models\MySQL\Trim;

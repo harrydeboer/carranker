@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repositories\MySQL;
 
-use App\Models\MySQL\AspectsTrait;
+use App\Models\Traits\AspectsTrait;
 use App\Models\MySQL\Rating;
-use App\Models\Interfaces\CarInterface;
+use App\Models\MySQL\CarInterface;
 
 /**
  * Both a Model and a Trim can update their rating. Their repositories extend this class.

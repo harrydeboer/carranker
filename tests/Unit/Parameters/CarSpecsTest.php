@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests\Unit\Parameters;
 
 use App\Parameters\CarSpecs;
-use App\Models\MySQL\Spec;
+use App\Models\Traits\SpecTrait;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class CarSpecsTest extends TestCase
 {
-    use Spec;
+    use SpecTrait;
     use DatabaseMigrations;
 
     public function testSpecsChoice()

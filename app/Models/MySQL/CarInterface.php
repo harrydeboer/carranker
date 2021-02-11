@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models\Interfaces;
+namespace App\Models\MySQL;
 
 /**
  * A car model and a car trim can both be rated and must have these methods.

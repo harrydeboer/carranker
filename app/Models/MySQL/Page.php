@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\MySQL;
 
+use App\Models\Traits\ContentTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 

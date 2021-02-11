@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Validators;
 
-use App\Models\MySQL\AspectsTrait;
+use App\Models\Traits\AspectsTrait;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
 

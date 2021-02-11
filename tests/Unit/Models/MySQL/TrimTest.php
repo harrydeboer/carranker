@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models\MySQL;
 
-use App\Models\MySQL\AspectsTrait;
+use App\Models\Traits\AspectsTrait;
 use App\Models\MySQL\Trim;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

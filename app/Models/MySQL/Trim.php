@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models\MySQL;
 
-use App\Models\Interfaces\CarInterface;
+use App\Models\Traits\AspectsTrait;
+use App\Models\Traits\SpecTrait;
+use App\Models\Traits\TrimTrait;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Exception;
@@ -18,7 +20,7 @@ class Trim extends AbstractModel implements CarInterface
 {
     use TrimTrait;
     use AspectsTrait;
-    use Spec;
+    use SpecTrait;
     use HasFactory;
 
     protected $table = 'trims';

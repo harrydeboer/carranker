@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models\Elasticsearch;
 
-use App\Models\MySQL\AspectsTrait;
-use App\Models\MySQL\ModelTrait;
+use App\Models\Traits\AspectsTrait;
+use App\Models\Traits\ModelTrait;
 
 /**
  * Model stands for car model instead of Laravel model.
@@ -41,5 +41,14 @@ class Model extends AbstractModel
     public function getTrims(): array
     {
         return $this->hasMany(Trim::class,'model_id');
+    }
+
+    public function getWikiCarModel(): string
+    {
+        if (empty($this->wiki_car_model)) {
+            return str_replace(' ', '_', $this->getMakeName() . '_' . $this->getName());
+        }
+
+        return str_replace(' ', '_', $this->getMakeName()) . '_' . $this->wiki_car_model;
     }
 }

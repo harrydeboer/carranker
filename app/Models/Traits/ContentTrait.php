@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models\MySQL;
+namespace App\Models\Traits;
 
 /**
  * When a model has a content field the content must be encoded to the database and decoded from the database.

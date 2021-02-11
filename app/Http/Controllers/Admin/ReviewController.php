@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\MySQL\AspectsTrait;
+use App\Models\Traits\AspectsTrait;
 use App\Repositories\Interfaces\ModelWriteRepositoryInterface;
 use App\Repositories\Interfaces\RatingRepositoryInterface;
 use App\Repositories\Interfaces\TrimWriteRepositoryInterface;

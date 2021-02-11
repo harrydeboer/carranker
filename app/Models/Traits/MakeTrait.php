@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models\MySQL;
+namespace App\Models\Traits;
 
 /**
  * This trait is used in the Eloquent Make and Elastic Make.
@@ -16,9 +16,9 @@ trait MakeTrait
         return $this->name;
     }
 
-    public function getWikiCarMake(): string
+    public function getWikiCarMake(): ?string
     {
-        return $this->wiki_car_make ?? str_replace(' ', '_', $this->getName());
+        return $this->wiki_car_make;
     }
 
     /**

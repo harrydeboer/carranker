@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Elasticsearch;
 
-use App\Models\MySQL\AspectsTrait;
+use App\Models\Traits\AspectsTrait;
 use App\Models\Elasticsearch\Trim;
 use App\Parameters\CarSpecs;
 use App\Repositories\Interfaces\TrimReadRepositoryInterface;

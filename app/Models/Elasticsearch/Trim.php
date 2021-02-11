@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models\Elasticsearch;
 
-use App\Models\MySQL\AspectsTrait;
-use App\Models\MySQL\TrimTrait;
+use App\Models\Traits\AspectsTrait;
+use App\Models\Traits\TrimTrait;
 
 /**
  * A trim is a type of car model (a specific generation/series).

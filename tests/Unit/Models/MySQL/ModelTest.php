@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models\MySQL;
 
-use App\Models\MySQL\AspectsTrait;
+use App\Models\Traits\AspectsTrait;
 use App\Models\MySQL\Model;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -25,6 +25,7 @@ class ModelTest extends TestCase
             'content' => $model->getContent(),
             'price' =>  $model->getPrice(1),
             'votes' => $model->getVotes(),
+            'wiki_car_model' => $model->getWikiCarModel(),
         ];
 
         foreach (AspectsTrait::getAspects() as $aspect) {

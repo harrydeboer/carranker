@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models\MySQL;
+namespace App\Models\Traits;
 
 /**
  * This trait is used in the Eloquent Model and Elastic Model.
@@ -65,13 +65,9 @@ trait ModelTrait
             ]);
     }
 
-    public function getWikiCarModel(): string
+    public function getWikiCarModel(): ?string
     {
-        if (empty($this->wiki_car_model)) {
-            return str_replace(' ', '_', $this->getMakeName() . '_' . $this->getName());
-        }
-
-        return str_replace(' ', '_', $this->getMakeName()) . '_' . $this->wiki_car_model;
+        return $this->wiki_car_model;
     }
 
     public function setVotes(int $votes): void

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models\MySQL;
+namespace App\Models\Traits;
 
 /**
  * Rating, Model and Trim all have the same aspects. An aspect is a kind of rating a car can have.

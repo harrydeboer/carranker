@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models\MySQL;
+namespace App\Models\Traits;
 
 /**
  * This trait is used in the Eloquent Trim and Elastic Trim.

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models\MySQL;
 
-use App\Models\Interfaces\CarInterface;
+use App\Models\Traits\AspectsTrait;
+use App\Models\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Exception;

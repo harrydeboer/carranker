@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Parameters\CarSpecs;
-use App\Models\MySQL\AspectsTrait;
+use App\Models\Traits\AspectsTrait;
 use App\Repositories\Interfaces\FXRateRepositoryInterface;
 use App\Repositories\Interfaces\MakeReadRepositoryInterface;
 use App\Repositories\Interfaces\ModelReadRepositoryInterface;

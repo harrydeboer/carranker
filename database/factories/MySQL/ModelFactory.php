@@ -6,7 +6,7 @@ namespace Database\Factories\MySQL;
 
 use App\Models\MySQL\Model;
 use App\Models\MySQL\Make;
-use App\Models\MySQL\AspectsTrait;
+use App\Models\Traits\AspectsTrait;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ModelFactory extends Factory

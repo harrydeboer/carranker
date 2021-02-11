@@ -6,7 +6,7 @@ namespace Database\Factories\MySQL;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\MySQL\Rating;
-use App\Models\MySQL\AspectsTrait;
+use App\Models\Traits\AspectsTrait;
 use App\Models\MySQL\User;
 use App\Models\MySQL\Trim;
 
