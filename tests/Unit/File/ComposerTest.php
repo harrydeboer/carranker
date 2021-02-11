@@ -6,6 +6,7 @@ namespace Tests\Unit\File;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
+use Symfony\Component\Yaml\Yaml;
 
 class ComposerTest extends TestCase
 {
@@ -16,6 +17,13 @@ class ComposerTest extends TestCase
         $string = file_get_contents(base_path() . '/composer.json');
         $jsonObject = json_decode($string);
         $requirements = $jsonObject->require;
+
+        /**
+         * The file composer.json must have the same elasticsearch version as docker-compose.yml.
+         */
+        $yamlArray = Yaml::parse(file_get_contents(base_path() . '/docker-compose.yml'));
+        $imageArray = explode(':', $yamlArray['services']['elasticsearch']['image']);
+        $this->assertEquals($requirements->{'elasticsearch/elasticsearch'}, $imageArray[1]);
 
         $extensions = get_loaded_extensions();
         foreach ($extensions as $extension) {

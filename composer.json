@@ -54,7 +54,7 @@
         "ext-zip": "*",
         "ext-zlib": "*",
         "doctrine/dbal": "3.0.0",
-        "elasticsearch/elasticsearch": "7.x-dev",
+        "elasticsearch/elasticsearch": "7.11.0",
         "fideloper/proxy": "4.4.1",
         "fruitcake/laravel-cors": "2.0.3",
         "guzzlehttp/guzzle": "7.2.0",
@@ -65,6 +65,7 @@
     },
     "require-dev": {
         "facade/ignition": "2.5.3",
+        "symfony/yaml": "5.2.3",
         "fakerphp/faker": "1.13.0",
         "mockery/mockery": "1.4.2",
         "nunomaduro/collision": "5.1.0",
