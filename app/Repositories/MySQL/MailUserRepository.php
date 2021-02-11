@@ -35,6 +35,11 @@ class MailUserRepository implements MailUserRepositoryInterface
         return $model;
     }
 
+    public function update(MailUser $mailUser): void
+    {
+        $mailUser->save();
+    }
+
     public function delete(int $id): void
     {
         MailUser::destroy($id);

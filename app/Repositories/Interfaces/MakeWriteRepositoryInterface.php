@@ -15,5 +15,7 @@ interface MakeWriteRepositoryInterface
 
     public function create(array $createArray): Make;
 
+    public function update(Make $make): void;
+
     public function delete(int $id): void;
 }

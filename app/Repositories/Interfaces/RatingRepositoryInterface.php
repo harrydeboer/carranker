@@ -23,6 +23,8 @@ interface RatingRepositoryInterface
 
     public function delete(int $id): void;
 
+    public function update(Rating $rating): void;
+
     public function approve(int $id): void;
 
     /**

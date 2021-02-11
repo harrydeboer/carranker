@@ -33,6 +33,11 @@ class ProfanityRepository implements ProfanityRepositoryInterface
         return $model;
     }
 
+    public function update(Profanity $profanity): void
+    {
+        $profanity->save();
+    }
+
     public function delete(int $id): void
     {
         Profanity::destroy($id);

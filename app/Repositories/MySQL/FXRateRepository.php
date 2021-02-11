@@ -33,6 +33,11 @@ class FXRateRepository implements FXRateRepositoryInterface
         return $model;
     }
 
+    public function update(FXRate $fXRate): void
+    {
+        $fXRate->save();
+    }
+
     public function delete(int $id): void
     {
         FXRate::destroy($id);

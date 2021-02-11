@@ -16,6 +16,4 @@ interface CarInterface
     public function getAspect(string $aspect): ?float;
 
     public function setAspect(string $aspectName, float $aspect): void;
-
-    public function save(array $options = []);
 }

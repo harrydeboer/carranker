@@ -17,6 +17,8 @@ interface MailUserRepositoryInterface
 
     public function create(array $createArray): MailUser;
 
+    public function update(MailUser $mailUser): void;
+
     public function delete(int $id): void;
 
     /**

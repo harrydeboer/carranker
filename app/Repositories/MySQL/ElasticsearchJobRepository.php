@@ -33,6 +33,11 @@ class ElasticsearchJobRepository implements ElasticsearchJobRepositoryInterface
         return $model;
     }
 
+    public function update(ElasticsearchJob $elasticsearchJob): void
+    {
+        $elasticsearchJob->save();
+    }
+
     public function delete(int $id): void
     {
         ElasticsearchJob::destroy($id);

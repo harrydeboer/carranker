@@ -33,6 +33,11 @@ abstract class AbstractCarRepository
             $car->setAspect($aspect, $ratingModel);
         }
 
+        $this->update($car);
+    }
+
+    public function update(CarInterface $car): void
+    {
         $car->save();
     }
 }

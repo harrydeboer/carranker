@@ -35,6 +35,11 @@ class MenuRepository implements MenuRepositoryInterface
         return $model;
     }
 
+    public function update(Menu $menu): void
+    {
+        $menu->save();
+    }
+
     public function delete(int $id): void
     {
         Menu::destroy($id);

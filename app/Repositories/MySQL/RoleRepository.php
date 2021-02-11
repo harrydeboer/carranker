@@ -33,6 +33,11 @@ class RoleRepository implements RoleRepositoryInterface
         return $model;
     }
 
+    public function update(Role $role): void
+    {
+        $role->save();
+    }
+
     public function delete(int $id): void
     {
         Role::destroy($id);

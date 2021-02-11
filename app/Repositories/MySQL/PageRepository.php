@@ -33,6 +33,11 @@ class PageRepository implements PageRepositoryInterface
         return $model;
     }
 
+    public function update(Page $page): void
+    {
+        $page->save();
+    }
+
     public function delete(int $id): void
     {
         Page::destroy($id);

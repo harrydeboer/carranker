@@ -33,6 +33,11 @@ class MakeRepository implements MakeWriteRepositoryInterface
         return $model;
     }
 
+    public function update(Make $make): void
+    {
+        $make->save();
+    }
+
     public function delete(int $id): void
     {
         Make::destroy($id);

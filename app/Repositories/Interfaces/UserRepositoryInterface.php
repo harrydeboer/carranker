@@ -10,6 +10,16 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface UserRepositoryInterface
 {
+    public function all(): Collection;
+
+    public function get(int $id): User;
+
+    public function create(array $createArray): User;
+
+    public function update(User $user): void;
+
+    public function delete(int $id): void;
+
     public function getByName(string $username): ?User;
 
     public function getByEmail(string $email): ?User;

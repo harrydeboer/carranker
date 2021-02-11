@@ -10,4 +10,6 @@ use App\Models\MySQL\Rating;
 interface CarWriteInterface
 {
     public function updateVotesAndRating(CarInterface $car, array $rating, ?Rating $earlierRating): void;
+
+    public function update(CarInterface $car): void;
 }
