@@ -25,5 +25,5 @@ done
 $PREFIX php artisan process:queue --truncate
 ./opcacheReset.sh
 docker-compose restart varnish
-
 echo "Varnish cache cleared!"
+docker system prune -f
