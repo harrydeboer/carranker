@@ -10,11 +10,19 @@ $PREFIX php artisan route:clear
 $PREFIX php artisan config:clear
 $PREFIX php artisan view:clear
 ./opcacheReset.sh
-$PREFIX php artisan migrate --force --no-interaction
+while ! $PREFIX php artisan migrate --force --no-interaction
+do
+  echo "Try again"
+  sleep 1
+done
 $PREFIX php artisan get:fx-rate
 $PREFIX php artisan flush:redis-dbs
+while ! $PREFIX php artisan index:cars
+do
+  echo "Try again"
+  sleep 1
+done
 $PREFIX php artisan process:queue --truncate
-$PREFIX php artisan index:cars
 ./opcacheReset.sh
 docker-compose restart varnish
 
