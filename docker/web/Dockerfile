@@ -9,6 +9,7 @@ RUN apt-get update
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:ondrej/php
+RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:ondrej/apache2
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
     git \
@@ -18,7 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
     sudo \
     unzip \
     libzip-dev \
-    apache2 \
+    apache2=2.4.46-2+ubuntu20.04.1+deb.sury.org+1 \
     php${PHP_VERSION} \
     php${PHP_VERSION}-mysql \
     libxml2 \

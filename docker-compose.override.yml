@@ -8,7 +8,7 @@ services:
       - XDEBUG_CONFIG=client_host=192.168.65.2
       - PHP_IDE_CONFIG=serverName=carranker
   selenium:
-    image: selenium/standalone-chrome:3.141.59-20201119
+    image: selenium/standalone-chrome:3.141.59-20210128
     container_name: carranker-selenium
     networks:
       carranker:
