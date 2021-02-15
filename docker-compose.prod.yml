@@ -1,7 +1,5 @@
 services:
   web:
-    volumes:
-      - ./public/.well-known/acme-challenge:/var/www/html/public/.well-known/acme-challenge
     restart: always
   elasticsearch:
     restart: always
