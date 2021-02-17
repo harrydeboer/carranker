@@ -27,7 +27,6 @@
         "resolve-url-loader": "3.1.2",
         "sass": "1.30.0",
         "sass-loader": "8.0.2",
-        "uglify-js": "3.12.3",
         "vue-template-compiler": "2.6.12"
     }
 }
