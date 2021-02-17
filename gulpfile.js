@@ -1,10 +1,18 @@
-const gulp = require('gulp');
-const babel = require('gulp-babel');
+var gulp =require('gulp');
+var babel =require('gulp-babel');
+var uglify = require('gulp-uglify');
 
-gulp.task('default', () =>
-    gulp.src('public/src/*.js')
-        .pipe(babel({
-          presets: ['@babel/env']
-        }))
-        .pipe(gulp.dest('public/js'))
-);
+function scripts() {
+  return (
+      gulp.src('public/src/*.js')
+          .pipe(babel({
+            presets: ['@babel/env']
+          }))
+          .pipe(uglify())
+          .pipe(gulp.dest('public/js'))
+  );
+}
+
+gulp.task('watch', () => {
+  gulp.watch('public/src/*.js', scripts);
+});
