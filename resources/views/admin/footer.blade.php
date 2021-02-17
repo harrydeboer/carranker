@@ -20,8 +20,4 @@
   </div>
 </div>
 <script src="{{ fileUrl('/js/app.min.js') }}"></script>
-@if (env('APP_ENV') === 'local')
-  <script src="{{ fileUrl('/js/' . $controller . '.js') }}"></script>
-@else
-  <script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
-@endif
+<script src="{{ fileUrl('/js/' . $controller . '.js') }}"></script>

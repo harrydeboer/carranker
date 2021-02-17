@@ -21,8 +21,8 @@
      alt="No 1 2 3"
      class="{{ $controller === 'homepage' ? 'lazy' : '' }} img-thumbnail col-md-12 d-none d-lg-block">
 <BR>
-<script src="{{ fileUrl('/js/app.min.js') }}"></script>
-<script src="{{ fileUrl('/js/lazyLoad.min.js') }}"></script>
-<script src="{{ fileUrl('/js/web.min.js') }}"></script>
-<script src="{{ fileUrl('/js/' . $controller . '.min.js') }}"></script>
+<script src="{{ fileUrl('/js/app.js') }}"></script>
+<script src="{{ fileUrl('/js/lazyLoad.js') }}"></script>
+<script src="{{ fileUrl('/js/web.js') }}"></script>
+<script src="{{ fileUrl('/js/' . $controller . '.js') }}"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92295454-1"></script>
