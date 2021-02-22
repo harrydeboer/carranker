@@ -12,7 +12,7 @@ use App\Models\MySQL\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Response;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Validation\Factory;
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Hashing\Hasher;
 
 class RegisterController extends Controller

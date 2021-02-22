@@ -6,6 +6,7 @@ namespace App\Http\Controllers\API;
 
 use App\Repositories\Interfaces\MakeReadRepositoryInterface;
 use App\Repositories\Interfaces\ModelReadRepositoryInterface;
+use App\Repositories\Interfaces\PageRepositoryInterface;
 use App\Repositories\Interfaces\TrimReadRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
@@ -21,7 +22,7 @@ class Controller extends BaseController
         private MakeReadRepositoryInterface $makeRepository,
         private ModelReadRepositoryInterface $modelRepository,
         private TrimReadRepositoryInterface $trimRepository,
-        private SitemapService $sitemapService,
+        private PageRepositoryInterface $pageRepository,
     ) {
     }
 
@@ -56,7 +57,8 @@ class Controller extends BaseController
 
     public function makeSitemap(): Response
     {
-        $sitemap = $this->sitemapService->makeSitemap(
+        $sitemapService = new SitemapService($this->pageRepository);
+        $sitemap = $sitemapService->makeSitemap(
             $this->makeRepository->getMakeNames(),
             $this->modelRepository->getModelNames(),
         );

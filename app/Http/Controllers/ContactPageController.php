@@ -10,9 +10,9 @@ use App\Repositories\Interfaces\ProfanityRepositoryInterface;
 use App\Validators\ContactValidator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
-use Illuminate\Mail\Mailer;
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Http\Request;
-use Illuminate\Log\LogManager;
+use Psr\Log\LoggerInterface;
 use Swift_SwiftException;
 
 class ContactPageController extends Controller
@@ -21,7 +21,7 @@ class ContactPageController extends Controller
         private Mailer $mailer,
         private ProfanityRepositoryInterface $profanityRepository,
         private PageRepositoryInterface $pageRepository,
-        private LogManager $logManager,
+        private LoggerInterface $logManager,
     ) {
     }
 

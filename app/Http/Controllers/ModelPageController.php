@@ -35,7 +35,6 @@ class ModelPageController extends Controller
         private TrimReadRepositoryInterface $trimRepository,
         private ModelWriteRepositoryInterface $modelWriteRepository,
         private TrimWriteRepositoryInterface $trimWriteRepository,
-        private TrimService $trimService,
         private Factory $viewFactory,
     ) {
     }
@@ -59,6 +58,8 @@ class ModelPageController extends Controller
             $reviews->onEachSide(1)->links()->toHtml(),
         );
 
+        $trimService = new TrimService();
+
         $viewData = [
             'title' => $makeName . ' ' . $modelName,
             'aspects' => AspectsTrait::getAspects(),
@@ -70,7 +71,7 @@ class ModelPageController extends Controller
             'isLoggedIn' => !is_null($user),
             'isVerified' => $user?->hasVerifiedEmail(),
             'profanities' => $this->profanityRepository->getProfanityNames(),
-            'generationsSeriesTrims' => $this->trimService->getGenerationsSeriesTrims($trims),
+            'generationsSeriesTrims' => $trimService->getGenerationsSeriesTrims($trims),
             'selectedGeneration' => $this->trimRepository->findSelectedGeneration((int) $trimId),
             'reviews' => $reviews,
             'reCAPTCHAKey' => env('RE_CAPTCHA_KEY'),
