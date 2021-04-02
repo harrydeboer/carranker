@@ -58,3 +58,6 @@ RUN sed -i -r "s/VARNISH_HOST/${VARNISH_HOST}/g" /etc/apache2/sites-available/00
 RUN sed -i -r "s/APACHE_HOST/${APACHE_HOST}/g" /etc/apache2/apache2.conf
 
 RUN chown www-data:www-data -R /var/www/html/
+
+RUN mkdir /var/www/.cache
+RUN chown www-data:www-data -R /var/www/.cache
