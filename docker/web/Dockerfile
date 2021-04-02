@@ -19,7 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
     sudo \
     unzip \
     libzip-dev \
-    apache2=2.4.46-2+ubuntu20.04.1+deb.sury.org+1 \
+    apache2 \
     php${PHP_VERSION} \
     php${PHP_VERSION}-mysql \
     libxml2 \
