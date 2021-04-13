@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Validator;
 
-abstract class BaseValidator extends Validator
+abstract class AbstractValidator extends Validator
 {
     public function __construct(
         array $data,

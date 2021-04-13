@@ -8,7 +8,7 @@ use App\Models\Traits\AspectsTrait;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
 
-class RatingValidator extends BaseValidator
+class RatingValidator extends AbstractValidator
 {
     public const MAX_NUMBER_CHARACTERS_REVIEW = 1000;
 

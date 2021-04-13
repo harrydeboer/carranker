@@ -7,7 +7,7 @@ namespace App\Validators;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
 
-class ContactValidator extends BaseValidator
+class ContactValidator extends AbstractValidator
 {
     public function __construct(
         array $data,
