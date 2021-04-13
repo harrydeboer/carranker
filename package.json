@@ -21,7 +21,7 @@
         "gulp-sass": "^4.1.0",
         "gulp-uglify": "3.0.2",
         "jquery": "3.5.1",
-        "laravel-mix": "5.0.9",
+        "laravel-mix": "6.0.16",
         "lodash": "4.17.20",
         "popper.js": "1.16.1",
         "resolve-url-loader": "3.1.2",
