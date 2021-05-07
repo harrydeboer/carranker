@@ -44,7 +44,7 @@ class ContactPageController extends Controller
 
     public function sendMail(Request $request): RedirectResponse
     {
-        $validator = new ContactValidator($request->all(), $this->profanityRepository->all());
+        $validator = new ContactValidator($request->all());
         $formData = $validator->validate();
 
         try {

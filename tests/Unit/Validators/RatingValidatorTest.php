@@ -34,7 +34,7 @@ class RatingValidatorTest extends TestCase
             $formData['star'][$aspect] = '8';
         }
 
-        $validator = new RatingValidator($formData, $this->profanitiesRepository->all());
+        $validator = new RatingValidator($formData);
 
         $this->assertIsArray($validator->validate());
     }

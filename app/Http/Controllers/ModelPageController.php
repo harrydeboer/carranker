@@ -89,7 +89,7 @@ class ModelPageController extends Controller
 
     public function rateCar(Request $request): Response
     {
-        $validator = new RatingValidator($request->all(), $this->profanityRepository->all());
+        $validator = new RatingValidator($request->all());
 
         $formData = $validator->validate();
 

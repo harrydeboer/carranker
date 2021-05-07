@@ -4,28 +4,33 @@ declare(strict_types=1);
 
 namespace App\Validators;
 
-use Illuminate\Database\Eloquent\Collection;
+use App\Repositories\Interfaces\ProfanityRepositoryInterface;
 use Illuminate\Validation\ValidationException;
 
 class ContactValidator extends AbstractValidator
 {
+    private ProfanityRepositoryInterface $profanityRepository;
+
     public function __construct(
         array $data,
-        private Collection $profanities,
         array $messages = [],
         array $customAttributes = [],
     ) {
         parent::__construct($data, $messages, $customAttributes);
+
+        $this->profanityRepository = app()->make(ProfanityRepositoryInterface::class);
     }
 
     public function validate(): array
     {
         $data = parent::validate();
 
+        $profanities = $this->profanityRepository->all();
+
         if (
-            $this->profanitiesCheck($data['subject'], $this->profanities)
-            && $this->profanitiesCheck($data['name'], $this->profanities)
-            && $this->profanitiesCheck($data['message'], $this->profanities)
+            $this->profanitiesCheck($data['subject'], $profanities)
+            && $this->profanitiesCheck($data['name'], $profanities)
+            && $this->profanitiesCheck($data['message'], $profanities)
         ) {
 
             return $data;
