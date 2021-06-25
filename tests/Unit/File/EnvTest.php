@@ -27,7 +27,7 @@ class EnvTest extends TestCase
         	if ($envNames[$key] === "") {
         		$this->assertTrue($name === "");
 	        } elseif ($name === "") {
-		        $this->assertTrue($envNames[$key] === "");
+		        $this->assertTrue(trim($envNames[$key]) === "");
 	        }else {
 		        $this->assertTrue(
 		            str_starts_with($envNames[$key], $name),
